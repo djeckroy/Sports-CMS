@@ -400,7 +400,7 @@ function addMoreRows()
  * They are described in line. 
  */
 $( function() {
-    uploadEventChangeStates();	//gets states based on country
+    uploadEventChangeStates($("#country-id"),$("#state-name"));	//gets states based on country
     setupMatchAutoComplete();	//gets players based on state
     
     //set the max event date to today
@@ -421,17 +421,16 @@ $( function() {
  */
  
  //event listener for change of country
-$("#country-id").change(uploadEventChangeStates);
-$("#player-country-id").change(uploadEventChangeStates);
+$("#country-id").change(function(){
+    uploadEventChangeStates($("#country-id"),$("#state-name"));
+    });
  
-function uploadEventChangeStates()
+function uploadEventChangeStates(countryCombo, stateCombo)
 {
-    var country = $("#country-id").val();
-  var playerCountry = $("#player-country-id").val();
+    var country = countryCombo.val();
     
     //clear the options
-    $("#state-name").empty();
-  $("#player-state-ID").empty();
+    stateCombo.empty();
     
     //run ajax
     $.ajax
@@ -448,15 +447,10 @@ function uploadEventChangeStates()
             //add a new option to state-name for each returned state.
             $.each(jsonData, function(index, value)
             {
-                $("#state-name").append($("<option>",{
+                stateCombo.append($("<option>",{
                     value: value["state_id"],
                     text: value["name"]
-                }));
-              $("#player-state-ID").append($("<option>",{
-                    value: value["state_id"],
-                    text: value["name"]
-                }));
-              
+                }));              
             });
         }
     });
@@ -626,4 +620,14 @@ function hideAddPlayerModal()
 {
   document.querySelector(".player-advanced-search-border").style.display = "none";
 }
+
+//sets up state/country listener
+$("#player-country-id").change(function(){
+    uploadEventChangeStates($("#player-country-id"),$("#player-state-ID"));
+    });
+
+//on page load
+$( function() {
+    uploadEventChangeStates($("#player-country-id"),$("#player-state-ID"));	//gets states based on country
+});
 
