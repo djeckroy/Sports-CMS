@@ -252,7 +252,9 @@ function showUploadMatchRows()
 
         var insertCell2 = document.createElement("button");
         insertCell2.innerHTML = "Search";
+        insertCell2.setAttribute('type','button');
         insertCell2.setAttribute('class','search-button');
+        insertCell2.setAttribute('onclick', 'showAddPlayerModal()');
         cell2.appendChild(insertCell2);
 
         var insertCell3 = document.createElement("input");
@@ -274,6 +276,8 @@ function showUploadMatchRows()
         var insertCell4 = document.createElement("button");
         insertCell4.innerHTML = "Search";
         insertCell4.setAttribute('class','search-button');
+       insertCell4.setAttribute('type','button');
+      insertCell4.setAttribute('onclick', 'showAddPlayerModal()');
         cell4.appendChild(insertCell4);
 
         var insertCell5 = document.createElement("button");
@@ -321,6 +325,7 @@ function addMoreRows()
         var cell4  = row.insertCell(3);
         var cell5  =  row.insertCell(4);
        
+       
       
         var insertCell1 = document.createElement("input");
         insertCell1.setAttribute('type','text');
@@ -341,6 +346,9 @@ function addMoreRows()
         var insertCell2 = document.createElement("button");
         insertCell2.innerHTML = "Search";
         insertCell2.setAttribute('class','search-button');
+        insertCell2.setAttribute('type','button');
+        insertCell2.setAttribute('onclick', 'showAddPlayerModal()');
+ 
         cell2.appendChild(insertCell2);
 
         var insertCell3 = document.createElement("input");
@@ -358,10 +366,14 @@ function addMoreRows()
         hiddenInput2.setAttribute('type','hidden');
         hiddenInput2.setAttribute('name','loser-id[]');
         cell3.appendChild(hiddenInput2);
+ 
 
         var insertCell4 = document.createElement("button");
         insertCell4.innerHTML = "Search";
         insertCell4.setAttribute('class','search-button');
+        insertCell4.setAttribute('type','button');
+        insertCell4.setAttribute('onclick', 'showAddPlayerModal()');
+  
         cell4.appendChild(insertCell4);
 
         var insertCell5 = document.createElement("button");
@@ -371,10 +383,14 @@ function addMoreRows()
         cell5.appendChild(insertCell5);
       insertCell5.onclick = function() {deleteRow(this);
 	};
+ 
 	
 	setupMatchAutoComplete();
   setupMatchErrorChecking();
+  
+
 }
+ 
 
 
 
@@ -406,13 +422,16 @@ $( function() {
  
  //event listener for change of country
 $("#country-id").change(uploadEventChangeStates);
+$("#player-country-id").change(uploadEventChangeStates);
  
 function uploadEventChangeStates()
 {
     var country = $("#country-id").val();
+  var playerCountry = $("#player-country-id").val();
     
     //clear the options
     $("#state-name").empty();
+  $("#player-state-ID").empty();
     
     //run ajax
     $.ajax
@@ -433,6 +452,11 @@ function uploadEventChangeStates()
                     value: value["state_id"],
                     text: value["name"]
                 }));
+              $("#player-state-ID").append($("<option>",{
+                    value: value["state_id"],
+                    text: value["name"]
+                }));
+              
             });
         }
     });
@@ -585,3 +609,21 @@ $("#event-upload-form").submit(function(){
   return rtn;
   
 });
+
+/**
+ * -------------------------------------------------------------*
+ * 		Begin Add Player Section								*
+ * 																*
+ * -------------------------------------------------------------*
+ */
+
+function showAddPlayerModal()
+{
+	document.querySelector(".player-advanced-search-border").style.display = "flex";
+  
+}
+function hideAddPlayerModal()
+{
+  document.querySelector(".player-advanced-search-border").style.display = "none";
+}
+

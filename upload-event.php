@@ -4,6 +4,7 @@
   include("./includes/header.php");
   include("./includes/navigation.php");
 
+
   if(!$account->isLoggedIn())
   {
   	redirect("./index.php");
@@ -13,6 +14,7 @@
 <article class ="event-details-border" >
   
   <form class= "event-upload-form" autocomplete="off" action=".\process-event.php" method="post">
+   
   <h1 class="event-details-header">Event Details</h1>
  
   <div class="event-form" action="">
@@ -32,7 +34,7 @@
       <!-- <input class="event-field-input" type="text" name="state-name" placeholder="State"><br/><br/> -->
       
       <select class="event-type" name="state-name" id="state-name">
-
+      
       </select>
       
       <br /><br />
@@ -66,6 +68,7 @@
   <button class = "match-number-input" id = "match-submit"  name="match-number-submission" value="Add Matches" onclick="showUploadMatchRows(); return false;">Add Matches</button><br/>
     
     
+    
       <table id="match-input-table"></table>
       <button class="add-button"  name="add-button" id="add-button"  onclick="addMoreRows(); return false;" > Add Match </button>
    
@@ -76,10 +79,13 @@
   <input class= "match-submit" id="match-final-submit" type="submit"  name="event-page-submission" value="Submit"><br/>
 
   </form>
+ 
+
 </article>
 
 
 <?php
+include("./includes/add-player.php");
   include("./includes/footer.php");
 ?>
     

@@ -265,6 +265,26 @@ class ContentManager
 		
 		$result = $this->database->query($query,[$tournamentDate,$loserNewMean,$loserNewSD,$loserID,$sportID]);
 	}
+  
+  public function addPlayer($givenName, $familyName, $dateOfBirth, $gender, $email, $countryID, $stateID)
+  {
+    $filteredGivenName = trim($givenName);
+    $filteredFamilyName = trim($familyName);
+    $filteredEmail = trim($email);
+    
+    
+    $filteredGivenName = ucfirst($filteredGivenName);
+    $filteredFamilyName = ucfirst($filteredFamilyName);
+    $filteredEmail = strtolower($filteredEmail);
+    
+    $dateOfBirth = $dateOfBirth;
+    $gender = $gender;
+    $countryID = $countryID;
+    $stateID = $stateID;
+    
+    $query = "INSERT INTO player (given_name, family_name, gender, date_of_birth , email, country_id, state_id ) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $result = $this->database->query($query, [$filteredGivenName, $filteredFamilyName, $filteredEmail, $dateOfBirth, $gender, $countryID, $stateID ]);
+  }
 }
 	
 ?>
