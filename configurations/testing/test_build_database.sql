@@ -140,7 +140,13 @@ CREATE TABLE IF NOT EXISTS `membership` (
   FOREIGN KEY (`player_id`) REFERENCES player(player_id)
 );
 
-
+CREATE TABLE IF NOT EXISTS `director_of` (
+  `account_id` INT NOT NULL,
+  `club_id` INT NOT NULL,
+  PRIMARY KEY (`account_id`, `club_id`),
+  FOREIGN KEY (`account_id`) REFERENCES account(account_id),
+  FOREIGN KEY (`club_id`) REFERENCES club(club_id)
+);
 
 
 insert into `country`(name) VALUES ('Australia');
