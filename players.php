@@ -91,9 +91,6 @@
             </tr>
         </tbody>
     </table>
-
-<script src="./javascript/nouislider.min.js"></script> 
-
 </article>
 
 <?php
