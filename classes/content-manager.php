@@ -266,24 +266,24 @@ class ContentManager
 		$result = $this->database->query($query,[$tournamentDate,$loserNewMean,$loserNewSD,$loserID,$sportID]);
 	}
   
-  public function addPlayer($givenName, $familyName, $dateOfBirth, $gender, $email, $countryID, $stateID)
+  public function addPlayer($givenName, $familyName,$gender,$dateOfBirth, $email, $countryID, $stateID)
   {
-    $filteredGivenName = trim($givenName);
-    $filteredFamilyName = trim($familyName);
-    $filteredEmail = trim($email);
     
+  
+    $filteredGivenName = ucfirst(trim($givenName));
+    $filteredFamilyName = ucfirst(trim($familyName));
     
-    $filteredGivenName = ucfirst($filteredGivenName);
-    $filteredFamilyName = ucfirst($filteredFamilyName);
-    $filteredEmail = strtolower($filteredEmail);
+   $gender = $gender;
     
-    $dateOfBirth = $dateOfBirth;
-    $gender = $gender;
+    $formattedDateOfBirth = date_format(date_create($dateOfBirth),'Y-m-d');
+    
+    $filteredEmail = strtolower(trim($email));
     $countryID = $countryID;
     $stateID = $stateID;
     
-    $query = "INSERT INTO player (given_name, family_name, gender, date_of_birth , email, country_id, state_id ) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    $result = $this->database->query($query, [$filteredGivenName, $filteredFamilyName, $filteredEmail, $dateOfBirth, $gender, $countryID, $stateID ]);
+    
+    $query = "INSERT INTO player (given_name, family_name, gender, date_of_birth, email, country_id, state_id ) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $result = $this->database->query($query, [$filteredGivenName, $filteredFamilyName, $gender, $formattedDateOfBirth,$filteredEmail,  $countryID, $stateID ]);
   }
 }
 	

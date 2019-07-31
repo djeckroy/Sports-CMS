@@ -85,6 +85,7 @@
 
 
 <?php
+include("./includes/advancedPlayerSearch.php");
 include("./includes/add-player.php");
   include("./includes/footer.php");
 ?>

@@ -1,7 +1,7 @@
 <?php
     require("./includes/initialize.php");
 
-    if(isset($_POST["create-account"]))
+   if(isset($_POST["create-account"]))
     {
         $success = $account->register($_POST["given-name"], $_POST["family-name"], $_POST["organisation-name"], $_POST["email"], $_POST["password"]);
     }
@@ -30,6 +30,10 @@
             $_SESSION['reset-email'] = $_GET['email'];
         }
     }
+if(isset($_POST["add-player-button"]))
+{
+   $contentManager->addPlayer($_POST["given-name"],$_POST["family-name"],$_POST["player-gender"], $_POST["player-birth-date"], $_POST["player-email"],$_POST["player-country-name"], $_POST["player-state-name"]);
+}
 ?>
 
 <!DOCTYPE html>

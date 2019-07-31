@@ -232,6 +232,7 @@ function showUploadMatchRows()
         var cell3  = row.insertCell(2);
         var cell4  = row.insertCell(3);
         var cell5  =  row.insertCell(4);
+         var cell6 = row.insertCell(5);
        
       
       var insertCell1 = document.createElement("input");
@@ -287,6 +288,13 @@ function showUploadMatchRows()
         cell5.appendChild(insertCell5);
       insertCell5.onclick = function() {deleteRow(this);
 	};
+      
+      var insertCell6 = document.createElement("button");
+      insertCell6.innerHTML = "A search";
+      insertCell6.setAttribute('class','advanced-search');
+      insertCell6.setAttribute('type','button');
+      insertCell6.setAttribute('onclick', 'showAdvancedSearchModal()');
+      cell6.appendChild(insertCell6);
 	
 	setupMatchAutoComplete();
   setupMatchErrorChecking();
@@ -324,6 +332,7 @@ function addMoreRows()
         var cell3  = row.insertCell(2);
         var cell4  = row.insertCell(3);
         var cell5  =  row.insertCell(4);
+        var cell6 = row.insertCell(5);
        
        
       
@@ -383,6 +392,13 @@ function addMoreRows()
         cell5.appendChild(insertCell5);
       insertCell5.onclick = function() {deleteRow(this);
 	};
+        var insertCell6 = document.createElement("button");
+        insertCell6.innerHTML = " A Search";
+        insertCell6.setAttribute('class','advanced-search');
+        insertCell6.setAttribute('type','button');
+        insertCell6.setAttribute('onclick', 'showAdvancedSearchModal()');
+  
+        cell6.appendChild(insertCell6);
  
 	
 	setupMatchAutoComplete();
@@ -613,12 +629,12 @@ $("#event-upload-form").submit(function(){
 
 function showAddPlayerModal()
 {
-	document.querySelector(".player-advanced-search-border").style.display = "flex";
+	document.querySelector(".add-player-border").style.display = "flex";
   
 }
 function hideAddPlayerModal()
 {
-  document.querySelector(".player-advanced-search-border").style.display = "none";
+  document.querySelector(".add-player-border").style.display = "none";
 }
 
 //sets up state/country listener
@@ -631,3 +647,17 @@ $( function() {
     uploadEventChangeStates($("#player-country-id"),$("#player-state-ID"));	//gets states based on country
 });
 
+/**
+ * -------------------------------------------------------------*
+ * 		Begin Advanced Player Section								*
+ * 																*
+ * -------------------------------------------------------------*
+ */
+function showAdvancedSearchModal()
+{
+  document.querySelector(".player-advanced-search-border").style.display = "flex";
+}
+function hideAdvancedSearchModal()
+{
+  document.querySelector(".player-advanced-search-border").style.display = "none";
+}
