@@ -6,91 +6,69 @@
 ?>
 
 <article>
-    <div class="boxed">
-        <h2>Search players</h2>
-        <div class="vl"></div>
-        <div class="container">
-            <input type="text" id="fname" name="firstname" placeholder="Full Name">
-        </div>
-        <div class="sports">
-            <select id="sports" name="sports">
-                            <option value="Sports">Country</option>
-                            <option value="Tennis">Australia</option>
-                            <option value="Squash">New Zealand </option>
-                            <option value="Badminton">America</option>
-                        </select>
-        </div>
-        <div class="Region">
-            <select id="region" name="region">
-                            <option value="Region">state</option>
-                            <option value="Tasmania">Tasmania</option>
-                            <option value="Melbourne">Melbourne</option>
-                            <option value="Sydney">Sydney</option>
-                        </select>
-        </div>
-        <div class="Club">
-            <input type="text" placeholder="Club" name="search">
-            <button type="submit"><i class="fa fa-search"></i></button>
-        </div>
-        <div class="age">
-            <h1>Players Age:</h1>
-        </div>
-        <div class="container1">
-            <input type="text" id="fname" name="firstname" placeholder="Last Competitor">
-        </div>
-        <div class="tab">
-            <h3>Recently:</h3>
-            <button class="tablinks">7 Days</button>
-            <button class="tablinks">30 Days</button>
-            <button class="tablinks">180 Days</button>
-        </div>
 
-        <div class="tab2">
-            <button class="tablink" id="clean" onclick=""><i class="fa fa-trash"></i> Clean</button>
-        </div>
-        <div class="tab3">
-            <button class="tablink" id="clean" onclick="">Search</button>
-        </div>
-        <div id="slider"></div>
+    <div class="player-search-filter-container">  
+        <form action="process-player-list.php" method="post">
+            <input type="text" name="player-name" class="" placeholder="Enter Player Name">
+
+            <input type="text" name="player-age" class="" placeholder="Age">
+
+            <input type="text" name="recent-match" class="" placeholder="Most Recent Match" onfocus="(this.type='date')" onblur="(this.type='text')">
+
+            <input type="text" name="club-name" class="" placeholder="Enter Club Name">
+
+            <select name="country-name" class="" placeholder="Select Country">
+                <option>Select Country</option>
+                <option>Australia</option>
+            </select>
+
+            <select name="state-name" class="" placeholder="Select State">
+                <option>Select State</option>
+                <option>Tasmania</option>
+                <option>Western Australia</option>
+            </select>
+
+            <input type="text" name="recent-competitor" class="" placeholder="Most Recent Competitor">
+
+            <button type="submit" name="submit-search-filter" class="">Search</button>
+        </form>
     </div>
 
+    <div class="player-search-result-container">
+        <table class="player-search-result-table">
+            <?php
+                if(isset($_SESSION["player"]) && $_SESSION["player"] != NULL)
+                {
+                    $playerDetails = $_SESSION["player"];
 
-    <table class="paleBlueRows">
-        <thead>
-            <tr>
-                <th>Ranking</th>
-                <th>Player Name</th>
-                <th>Club</th>
-                <th>Region</th>
-                <th>Last Played</th>
-                <th>Last competitor</th>
-                <th>Age</th>
-          
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>YUSUF</td>
-                <td>Club Name</td>
-                <td>VIC,AU</td>
-                <td>20 July 2018</td>
-                <td>Adib</td>
-                <td>20</td>
-                
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>YUSUF</td>
-                <td>Club Name</td>
-                <td>VIC,AU</td>
-                <td>20 July 2018</td>
-                <td>Adib</td>
-                <td>20</td>
-                
-            </tr>
-        </tbody>
-    </table>
+                    echo "<tr class='player-search-result-table-headers'>
+                            <th>Player</th>
+                            <th>Age</th>
+                            <th>Recent Match</th>
+                            <th>Club</th>
+                            <th>Region</th>
+                          </tr>";
+                    
+                    for($i = 0; $i < count($playerDetails); $i++)
+                    {
+                        echo "<tr>";
+                        echo "<td><a href='profile.php?profile-id=".$playerDetails[$i][0]."'>".$playerDetails[$i][1]."</a></td>";
+                        echo "<td>".$playerDetails[$i][2]."</td>";
+                        echo "<td>".$playerDetails[$i][3]."</td>";
+                        echo "<td>".$playerDetails[$i][4]."</td>";
+                        echo "<td>".$playerDetails[$i][5].", ".$playerDetails[$i][6]."</td>";
+                        echo "</tr>";
+                    }                   
+                }
+                else
+                { 
+                    echo "No player by the given search exists.";
+                }
+
+                /*unset($_SESSION["player"]);*/
+            ?>
+        </table>
+
 </article>
 
 <?php

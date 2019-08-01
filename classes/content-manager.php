@@ -335,6 +335,43 @@ class ContentManager
 		
 		$result = $this->database->query($query,[$tournamentDate,$loserNewMean,$loserNewSD,$loserID,$sportID]);
 	}
+
+	public function playerSearchFilter($playerName, $playerAge, $recentMatch, $clubName, $countryName, $stateName)
+	{
+		/*
+		
+		TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) = ? AND
+
+		DATE_FORMAT(player.last_played, '%Y-%m-%d') AS recent_match
+		DATE_FORMAT(player.last_played, '%Y-%m-%d') = ?
+		*/
+
+		$query = "SELECT 
+						player.player_id, 
+						CONCAT_WS(' ', player.given_name, player.family_name) AS player_name, 
+						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) AS player_age,
+						DATE_FORMAT(player.last_played, '%Y-%m-%d') AS recent_match,
+						club.name AS club_name, 
+						country.name AS country_name, 
+						state.name AS state_name 
+					FROM 
+						player INNER JOIN 
+						membership ON player.player_id = membership.player_id INNER JOIN 
+						club ON membership.club_id = club.club_id INNER JOIN 
+						country ON player.country_id = country.country_id INNER JOIN 
+						state ON player.state_id = state.state_id 
+					WHERE 
+						CONCAT_WS(' ', player.given_name, player.family_name) LIKE ? AND 
+						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) LIKE ? AND 
+						player.last_played LIKE ? AND 
+						club.name LIKE ? AND 
+						country.name LIKE ? AND 
+						state.name LIKE ?";
+	
+		$result = $this->database->query($query, [$playerName, $playerAge, $recentMatch, $clubName, $countryName, $stateName]);
+
+		return $result;
+	}
 	
 	/**
 	 * Retrieves cookie that stores bookmarked players, retrieves their details from the database
