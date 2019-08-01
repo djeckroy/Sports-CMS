@@ -35,6 +35,15 @@ class ContentManager
 
 		return $result;
 	}
+	
+	public function getPlayerSports($player_id)
+	{
+		$query = "SELECT DISTINCT rating.sport_id, sport.name FROM rating INNER JOIN sport ON rating.sport_id = sport.sport_id WHERE player_id = ? ";
+		
+		$result = $this->database->query($query, [$player_id]);
+
+		return $result;
+	}
 
 	public function getPlayerRating($playerId, $sportID)
 	{
@@ -42,6 +51,67 @@ class ContentManager
 		$result = $this->database->query($query, [$playerId, $sportID])->fetch();
 		
 		return $result;
+	}
+	
+	public function getPlayersRecentEvents($playerId, $sportID, $limitOffset = 0, $limitCount = 5)
+	{
+		$query = 	"SELECT * FROM
+					( SELECT
+					event.event_id, event.name as event_name, event.start_date AS event_date, MAX(game_result.game_result_id) AS lastGameResultID
+					FROM event
+					JOIN game ON event.event_id = game.event_id
+					JOIN game_result ON game.game_id = game_result.game_id
+					WHERE
+					game_result.player_id = ?
+					AND
+					event.sport_id = ? 
+					GROUP BY event.event_id
+					ORDER BY lastGameResultID DESC
+					) AS playerEvents,
+					( SELECT
+					 game_result.game_result_id AS gameResult,
+					CASE
+							WHEN game_result.won = 'Y' THEN
+								game.mean_before_winning
+							WHEN game_result.won = 'N' THEN
+								game.mean_before_losing
+							END
+						AS meanBefore,
+						CASE
+							WHEN game_result.won = 'Y' THEN
+								game.mean_after_winning
+							WHEN game_result.won = 'N' THEN
+								game.mean_before_losing
+							END
+						AS meanAfter,
+						CASE
+							WHEN game_result.won = 'Y' THEN
+								game.standard_deviation_before_winning
+							WHEN game_result.won = 'N' THEN
+								game.standard_deviation_before_losing
+							END
+						AS SDBefore,
+						CASE
+							WHEN game_result.won = 'Y' THEN
+								game.standard_deviation_after_winning
+							WHEN game_result.won = 'N' THEN
+								game.standard_deviation_after_losing
+							END
+						AS SDAfter
+					 FROM game_result 
+					 JOIN game ON game_result.game_id = game.game_id
+					 ) AS playerRatings
+					 WHERE playerRatings.gameResult = playerEvents.lastGameResultID
+					LIMIT ?,?";
+		
+		$this->database->fixLimitProblem(false);
+		
+		$result = $this->database->query($query, [$playerId, $sportID, $limitOffset, $limitCount]);
+		
+		$this->database->fixLimitProblem(true);
+		
+		return $result;
+
 	}
 
 	public function getAllCountries()

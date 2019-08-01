@@ -5,31 +5,47 @@
   include("./includes/navigation.php");
 
   //Testing purposes, this will get dynamically sent eventually.
-  $_SESSION["profile-id"] = 1;
-
-  if(isset($_SESSION["profile-id"])) //this will be $_POST later
+  //$_GET["profile-id"] = 1;
+	
+	
+  $continue = true;
+  
+  if(isset($_GET["profile-id"])) 
   {
-      $playerId = $_SESSION["profile-id"];
-      $playerInfo = $contentManager->getSpecificPlayerInformation($playerId);
-      $playerClub = $contentManager->getPlayerClub($playerId);
-      $playerRating = $contentManager->getPlayerRating($playerId, 1);
+	  $playerId = $_GET["profile-id"];
+	  if ($contentManager->playerExists($playerId))
+	  {
+		  $playerInfo = $contentManager->getSpecificPlayerInformation($playerId);
+		  $playerClub = $contentManager->getPlayerClub($playerId);
+		  $playerRating = $contentManager->getPlayerRating($playerId, 1);
 
-      $userDob = new DateTime($playerInfo["date_of_birth"]);
-      $today = new Datetime(date("Y-m-d"));
-      $age = $today->diff($userDob)->y;
+		  $userDob = new DateTime($playerInfo["date_of_birth"]);
+		  $today = new Datetime(date("Y-m-d"));
+		  $age = $today->diff($userDob)->y;
+	  }
+	  else
+	  {
+		$continue = false;  
+	  }
   }
+  else
+  {
+	  $continue = false;
+  }
+  
+  if (!$continue)
+  {
+	  //profile-id not set or not correct format
+	  ?>
+	  <a href="./index.php">Unexpected Error. Click Here To Return Home</a>
+	  <?php
+	  include("./includes/footer.php");
+	  die();
+  }
+  
 ?>
 
 <article>
-
-  <script type="text/javascript">
-		  //moved to scripts.js
-      /*
-      $(document).ready(function(){
-			  enlargeImageWhenHovered();
-		  });
-		  */
-  </script>
 
   <div class="favourite-icon-border" id="favourite-button">
       <a class="favourite-icon-link" href="#">
@@ -39,9 +55,35 @@
 
   <div class="player-details-border">
 
-    <h1>Player Details</h1>
+    <h1>
+		<?php 
+			echo $playerInfo["given_name"] . " " . $playerInfo["family_name"];
+		?> 
+    </h1>
+    
+    <h2 class="profile-sport-name" id="profile-sport">
+		
+    </h2>
 
     <ul class="player-bio-list">
+		
+		
+		
+		<li id="player-bio-row">
+      	<span id="player-bio-row-heading"><b>Select Sport</b></span>
+      	<span id="player-bio-row-value">
+      		<select class="select-sport-menu" id="profile-select-sport">
+      			<?php
+            $sports = $contentManager->getPlayerSports($playerId);
+
+            while ($sport = $sports->fetch())
+            {
+                echo "<option value=\"".$sport["sport_id"]."\">".$sport["name"]."</option>";
+            }
+        ?>
+      		</select>
+      	</span>
+      </li>
       <li id="player-bio-row">
       	<span id="player-bio-row-heading"><b>First Name</b></span>
       	<span id="player-bio-row-value"> <?php echo $playerInfo["given_name"]; ?> </span>
@@ -70,21 +112,7 @@
       	<span id="player-bio-row-heading"><b>Club</b></span>
       	<span id="player-bio-row-value"> <?php echo $playerClub["name"]; ?> </span>
       </li>
-      <li id="player-bio-row">
-      	<span id="player-bio-row-heading"><b>Sport</b></span>
-      	<span id="player-bio-row-value">
-      		<select class="select-sport-menu">
-      			<?php
-            $sports = $contentManager->getAllSports();
-
-            while ($sport = $sports->fetch())
-            {
-                echo "<option value=\"".$sport["sport_id"]."\">".$sport["name"]."</option>";
-            }
-        ?>
-      		</select>
-      	</span>
-      </li>
+      
     </ul>
 
     <div class="rating-border">
@@ -99,8 +127,9 @@
       </div>
 	     
 	  <div class="sd-border"> 
-	    <div id="side-colour-sd">&nbsp</div>	    	
+	    <div id="side-colour-sd">&nbsp</div>
 		  <p id="sd-value">
+			  &plusmn;
 		  <?php
 			echo (int)$playerRating['standard_deviation'];
 		  ?>
@@ -116,39 +145,23 @@
 
     <h1>Player History</h1>
 
-    <h2>Badminton</h2>
+    <h2 class="profile-sport-name"></h2>
 
     <table class="player-history-table" border="0">
-      <tr id="odd-row">
-        <th>Event</th>
-        <th>Initial Rating</th>
-        <th>Point Change</th>
-        <th>Final Rating</th>
-      </tr>
-      <tr id="even-row">
-        <td>A League</td>
-        <td>1043</td>
-        <td>+3</td>
-        <td>1046</td>
-      </tr>
-      <tr id="odd-row">
-        <td>A League</td>
-        <td>1046</td>
-        <td>-10</td>
-        <td>1036</td>
-      </tr>
-      <tr id="even-row">
-        <td>A League</td>
-        <td>1036</td>
-        <td>+5</td>
-        <td>1041</td>
-      </tr>
+		  <tr class="odd-row">
+			<th>Event</th>
+			<th>Initial Rating</th>
+			<th>Point Change</th>
+			<th>Final Rating</th>
+		  </tr>
+		  
+		  <tbody id="player-history-table-body">
+		  </tbody>
     </table>
 
-    <div id="player-history-view-more">
-      <span>View More</span>
-      <a href="#"><img alt="arrow-icon"></a>
-    </div>
+    <p id="player-history-view-more">
+      View More
+    </p>
 
   </div>
 

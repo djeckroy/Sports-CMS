@@ -509,6 +509,12 @@ article /* Never change this (Except height to 100% once content is added to pag
     color: var(--secondary-color-dark);
     margin-bottom: 20px;
   }
+  
+  .player-details-border h2
+  {
+    color: var(--tertiary-color-dark);
+    margin-bottom: 20px;
+  }
 
   .player-bio-list
   {
@@ -627,12 +633,12 @@ article /* Never change this (Except height to 100% once content is added to pag
     padding: 20px 80px;
   }
 
-  #odd-row
+  .odd-row
   {
     background-color: lightgrey;
   }
 
-  #even-row
+  .even-row
   {
     background-color: var(--content-background-color);
   }
