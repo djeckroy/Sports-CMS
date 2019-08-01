@@ -20,6 +20,11 @@ class Database
 			echo "Database connection failed. Contact the server administrator";
 		}
 	}
+	
+	public function fixLimitProblem($set)
+	{
+		$this->connection->setAttribute( PDO::ATTR_EMULATE_PREPARES , $set);
+	}
 
 	public function query($query, $parameters = NULL)
 	{

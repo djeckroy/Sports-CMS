@@ -624,7 +624,7 @@ $("#event-upload-form").submit(function(){
  function createBookmark()
  {
     //initial values
-	 var getVariableName = 'id';
+	 var getVariableName = 'profile-id';
 	 var cookieName = 'bookmarked_players';
 	 
      //get the player id from url
@@ -662,3 +662,139 @@ $("#favourite-button").click(createBookmark);
  $(document).ready(function(){
 			  enlargeImageWhenHovered();
 		  });
+ 
+ /**
+  *------------------------------------------------*
+  *Begin profile section
+  *
+  *------------------------------------------------*
+  */
+
+//global values required
+var getVariableName = 'profile-id';
+ var eventHistoryRowCount = 0;
+
+//update profile page to show different sprot
+function updateProfileSport(){
+	 
+     //get the player id from url
+	 var params = (new URL(document.location)).searchParams;
+	 var playerID = params.get(getVariableName);
+     
+     //get sport ID
+     newSportID = $("#profile-select-sport").val();
+     newSportName = $("#profile-select-sport option:selected").text();
+     
+     $(".profile-sport-name").html(newSportName);
+     $("#mean-value").html("Loading");
+     $("#sd-value").html("Loading");
+
+     //run ajax to update sd and mean
+    $.ajax
+    ({
+        url: "./ajax.php",
+        type: "POST",
+        dataType: "text",
+        data:
+        {
+            playerID: playerID,
+            sportID: newSportID,
+            ajaxMethod: "get-player-rating"
+        },
+        success: function(data) 
+        {
+            
+            //parse the returned data
+            var jsonData = JSON.parse(data);
+            
+            $("#mean-value").html(jsonData.mean);
+            $("#sd-value").html("&plusmn; " + jsonData.sd);
+        }
+    });
+    
+    addEventHistory(true);
+}
+ 
+ //listener for change of sport on profile page
+ $("#profile-select-sport").change(updateProfileSport);
+
+ function addEventHistory(changeSport)
+ {
+
+    //get the player id from url
+	 var params = (new URL(document.location)).searchParams;
+	 var playerID = params.get(getVariableName);
+     
+     //get sport ID
+     sportID = $("#profile-select-sport").val();
+    
+    if (changeSport)
+    {
+        //set count to zero and reset the table
+        eventHistoryRowCount = 0;
+        $("#player-history-table-body").html(""); //possibly this should report loading
+    }
+    
+    //run ajax to recent event histories
+    $.ajax
+    ({
+        url: "./ajax.php",
+        type: "POST",
+        dataType: "text",
+        data:
+        {
+            playerID: playerID,
+            sportID: sportID,
+            limitOffset: eventHistoryRowCount,
+            ajaxMethod: "player-event-history"
+        },
+        success: function(data) 
+        {
+            
+            //parse the returned data
+            var jsonData = JSON.parse(data);
+            
+            var currentHTML = $("#player-history-table-body").html();
+            
+            for (var i=0; i<jsonData.length; i++)
+            {
+                var event = jsonData[i][0];
+                                
+                if ((eventHistoryRowCount % 2) == 0)
+                {
+                    // 'even' row
+                    currentHTML = currentHTML + "<tr class='even-row'>";
+                }
+                else
+                {
+                    currentHTML = currentHTML + "<tr class='odd-row'>";
+                }
+                
+                currentHTML = currentHTML + "<td>" + event.event_name + "</td>";
+                currentHTML = currentHTML + "<td>" + event.meanBefore + " &plusmn;" + event.SDBefore + "</td>";
+                
+                var pointChange = event.meanAfter - event.meanBefore;
+                
+                currentHTML = currentHTML + "<td>" + (pointChange<0?"":"+") + pointChange + "</td>";
+                currentHTML = currentHTML + "<td>" + event.meanAfter + " &plusmn;" + event.SDAfter + "</td>";
+                
+                currentHTML = currentHTML + "</td>";
+                
+                
+                eventHistoryRowCount++;
+            }
+            
+            $("#player-history-table-body").html(currentHTML);
+        }
+    });
+    
+ }
+ 
+ $( function(){
+    $(".profile-sport-name").html($("#profile-select-sport option:selected").text());
+    addEventHistory(true);
+ });
+ 
+ $("#player-history-view-more").click(function(){
+        addEventHistory(false);
+ });
