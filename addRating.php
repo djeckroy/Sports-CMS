@@ -1,4 +1,10 @@
-<? php require("./header.php"); ?>
+<?php require("./includes/header.php"); ?>
+
+<?php
+$result = $contentManager->getNewPlayers([4,5,6],2);	//players 4,5 or 6 sport 2
+var_dump($result->fetchAll());
+?>
+
 <div class = "add-rating-background">
   <div class = "add-rating-content">
     <div class = "add-rating-fields">
@@ -6,7 +12,7 @@
       <?php
       $lastPlayed = 1;
       $players = $contentManager->getNewPlayers();
-      while($player = $players->fetch(PDO::FETCH_ASSOC))
+     while($player = $players->fetch(PDO::FETCH_ASSOC))
       {
         ?>
       <tr>

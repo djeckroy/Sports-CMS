@@ -306,10 +306,29 @@ class ContentManager
     $result = $this->database->query($query,[$clubID, $playerResult['player']]);
   }
   
-  public function getNewPlayers()
+  /**
+   * takes arry or player ids and a sport id.
+   * Returns result that contains player id and name of players from list
+   * who have never had a rating set for the given sport
+   */
+  public function getNewPlayers($playerIDs, $sportID)
   {
-    $query = "SELECT given_name, family_name FROM player WHERE last_played = ?";
-      $result = $this->database->query($query, [null]);
+	$in = str_repeat('?,', count($playerIDs) - 1) . '?';
+	
+    $query = "SELECT DISTINCT player.player_id, player.given_name, player.family_name
+				FROM player
+				JOIN rating ON rating.player_id = player.player_id
+				WHERE 
+				player.player_id in (" . $in .
+				") 
+				GROUP BY player.player_id
+				HAVING SUM(
+					CASE WHEN rating.sport_id = ?
+					THEN 1
+					ELSE 0
+					END
+					) = 0";
+      $result = $this->database->query($query, array_merge($playerIDs, [$sportID]));
     return $result;
   }
 }
