@@ -322,7 +322,7 @@ class ContentManager
 				player.player_id in (" . $in . ") 
 				GROUP BY player.player_id
 				HAVING SUM(
-					CASE WHEN rating.sport_id = 2
+					CASE WHEN rating.sport_id = ?
 					THEN 1
 					ELSE 0
 					END
