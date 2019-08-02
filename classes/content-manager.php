@@ -265,8 +265,15 @@ class ContentManager
 		
 		$result = $this->database->query($query,[$tournamentDate,$loserNewMean,$loserNewSD,$loserID,$sportID]);
 	}
+  public function getAllClubs()
+  {
+    $query = "SELECT * from club";
+    $result = $this->database->query($query, null);
+    
+    return $result;
+  }
   
-  public function addPlayer($givenName, $familyName,$gender,$dateOfBirth, $email, $countryID, $stateID)
+  public function addPlayer($givenName, $familyName,$gender,$dateOfBirth, $email, $clubID)
   {
     
   
@@ -278,12 +285,32 @@ class ContentManager
     $formattedDateOfBirth = date_format(date_create($dateOfBirth),'Y-m-d');
     
     $filteredEmail = strtolower(trim($email));
-    $countryID = $countryID;
-    $stateID = $stateID;
+    
+    $query1 = "SELECT  country_id FROM club WHERE club_id = ?";
+    $result1 = $this->database->query($query1, [$clubID])->fetch();
+    
+    $query2 = "SELECT  state_id FROM club WHERE club_id = ?";
+    $result2 = $this->database->query($query2, [$clubID])->fetch();
     
     
-    $query = "INSERT INTO player (given_name, family_name, gender, date_of_birth, email, country_id, state_id ) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    $result = $this->database->query($query, [$filteredGivenName, $filteredFamilyName, $gender, $formattedDateOfBirth,$filteredEmail,  $countryID, $stateID ]);
+    $query = "INSERT INTO player (given_name, family_name, gender, date_of_birth, email, country_id, state_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $result = $this->database->query($query, [$filteredGivenName, $filteredFamilyName, $gender, $formattedDateOfBirth, $filteredEmail, $result1["country_id"], $result2["state_id"]]);
+    
+    $query = "select MAX(player_id) as player from player";
+    $playerResult = $this->database->query($query,[])->fetch();
+    
+    
+  
+    
+    $query = "INSERT INTO membership (club_id, player_id) VALUES (?,?)";
+    $result = $this->database->query($query,[$clubID, $playerResult['player']]);
+  }
+  
+  public function getNewPlayers()
+  {
+    $query = "SELECT given_name, family_name FROM player WHERE last_played = ?";
+      $result = $this->database->query($query, [null]);
+    return $result;
   }
 }
 	

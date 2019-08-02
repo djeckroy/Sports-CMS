@@ -1242,10 +1242,11 @@ article /* Never change this (Except height to 100% once content is added to pag
     align-items: center;
     display:none;
   }
-  #player-given-name, #player-family-name,  #player-email, .player-state, .player-gender, #player-birth-date
+  #player-given-name, #player-family-name,  #player-email, .player-club, .player-gender, #player-birth-date
   {
     height: 40px;
     padding-left: 5px;
+    width: 200px;
   }
 
 
@@ -1258,13 +1259,9 @@ article /* Never change this (Except height to 100% once content is added to pag
   }
 
 
-  .player-gender, .player-country, .player-state, .player-sport
-  {
-    width:160px;
-    height: 40px;
-  }
+  
 
-   #player-family-name,.player-country,#player-birth-date
+   #player-family-name,.player-club,#player-birth-date
   {
     margin-left: 20px;
   }

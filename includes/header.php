@@ -32,7 +32,7 @@
     }
 if(isset($_POST["add-player-button"]))
 {
-   $contentManager->addPlayer($_POST["given-name"],$_POST["family-name"],$_POST["player-gender"], $_POST["player-birth-date"], $_POST["player-email"],$_POST["player-country-name"], $_POST["player-state-name"]);
+   $contentManager->addPlayer($_POST["given-name"],$_POST["family-name"],$_POST["player-gender"], $_POST["player-birth-date"], $_POST["player-email"], $_POST["player-club-name"]);
 }
 ?>
 

@@ -31,8 +31,8 @@
           
         <div class ="add-player-content">
            <select class="player-gender" name="player-gender">
-              <option value="M">M</option>
-              <option value="F">F</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
             
           </select>
         <input name="player-birth-date" id="player-birth-date" placeholder="DOB" required type="text"onfocus="(this.type='date')" onblur="(this.type='text')">
@@ -43,25 +43,17 @@
           <div class ="add-player-content">
             <input type="email" id="player-email" name="player-email" placeholder="Email" pattern="{7,75}" required title="Email must not exceed 75 characters"> 
             
-             <select class="player-country" name="player-country-name" id="player-country-id">
-             <?php
-                $countries = $contentManager->getAllCountries();
-                while ($country = $countries->fetch())
-                {
-                    echo "<option value=\"".$country["country_id"]."\">".$country["name"]."</option>";
-                }
-              ?>
+             <select class="player-club" name="player-club-name" id="player-club-ID">
+              <?php
+               $clubs = $contentManager->getAllClubs();
+               while($club = $clubs->fetch())
+               {
+                 echo"<option value=\"".$club["club_id"]."\">".$club["name"]."</option>";
+               }
+               ?>
             </select>
           </div>
-          <div class="add-player-content">
-         
-            <select class="player-state" name="player-state-name" id="player-state-ID">
-            </select>
-            </div>
-          <div class = "add-player-content">
-
           
-          </div>
           <br/>
 
           <button type="submit" name="add-player-button" id="add-player-button" onclick="">Add Player</button>

@@ -13,7 +13,7 @@
 
 <article class ="event-details-border" >
   
-  <form class= "event-upload-form" autocomplete="off" action=".\process-event.php" method="post">
+  <form class= "event-upload-form" autocomplete="off" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
    
   <h1 class="event-details-header">Event Details</h1>
  
@@ -76,7 +76,7 @@
 
       
     
-  <input class= "match-submit" id="match-final-submit" type="submit"  name="event-page-submission" value="Submit"><br/>
+  <input class= "match-submit" id="match-final-submit" type="submit" onclick = "addRating()" name="event-page-submission" value="Submit"><br/>
 
   </form>
  
@@ -88,6 +88,7 @@
 include("./includes/advancedPlayerSearch.php");
 include("./includes/add-player.php");
   include("./includes/footer.php");
+include("./includes/addRating.php");
 ?>
     
       
