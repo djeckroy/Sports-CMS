@@ -315,15 +315,14 @@ class ContentManager
   {
 	$in = str_repeat('?,', count($playerIDs) - 1) . '?';
 	
-    $query = "SELECT DISTINCT player.player_id, player.given_name, player.family_name
+    $query = "SELECT player.player_id, player.given_name, player.family_name
 				FROM player
-				JOIN rating ON rating.player_id = player.player_id
+				LEFT JOIN rating ON rating.player_id = player.player_id
 				WHERE 
-				player.player_id in (" . $in .
-				") 
+				player.player_id in (" . $in . ") 
 				GROUP BY player.player_id
 				HAVING SUM(
-					CASE WHEN rating.sport_id = ?
+					CASE WHEN rating.sport_id = 2
 					THEN 1
 					ELSE 0
 					END
