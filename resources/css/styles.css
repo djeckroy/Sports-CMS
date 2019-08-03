@@ -750,7 +750,7 @@ article /* Never change this (Except height to 100% once content is added to pag
   #account-players-information
   {
     height: 75%;
-    padding: 20px;
+    padding: 20px 0 20px 0;
   }
 
   #account-container-clubs
@@ -867,6 +867,21 @@ article /* Never change this (Except height to 100% once content is added to pag
     width: 20%;
   }
 
+  .account-row-email
+  {
+    width: 30%;
+  }
+
+  .account-row-rating
+  {
+    width: 10%;
+  }
+
+  .account-row-gender
+  {
+    width: 5%;
+  }
+
   .pagination-buttons
   {
     height: 20%;
@@ -885,6 +900,19 @@ article /* Never change this (Except height to 100% once content is added to pag
   }
 
   .recent-events-link:hover
+  {
+    background-color: #ccc;
+  }
+
+  .club-players-link
+  {
+    cursor: pointer;
+    padding: 8px 8px 8px 8px;
+    border: 1px solid #ccc;
+    font-size: var(--font-small);
+  }
+
+  .club-players-link:hover
   {
     background-color: #ccc;
   }

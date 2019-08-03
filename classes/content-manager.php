@@ -230,7 +230,7 @@ class ContentManager
 	}
 
 
-	public function getEventsAttendedByClub($clubID, $start, $amount)
+	public function getEventsAttendedByClub($clubID, $start, $amount, $searchTerm)
 	{
 		$query = "SELECT
 					event.name AS event_name, event.type, event.start_date, country.name AS country_name, state.name AS state_name 
@@ -244,15 +244,17 @@ class ContentManager
 				  	state on event.state_id = state.state_id 
 				  WHERE 
 				  	plays_at.club_id = ?
+				  AND
+				  	event.name LIKE ?
 				  ORDER BY
 				  	event.start_date
 				  DESC LIMIT " . $start . ", " . $amount;
 
-		$result = $this->database->query($query, [$clubID]);
+		$result = $this->database->query($query, [$clubID, "$searchTerm%"]);
 		return $result;
 	}
 
-	public function getTotalNumberOfAttendedEvents($clubID)
+	public function getTotalNumberOfAttendedEvents($clubID, $searchTerm)
 	{
 		$query = "SELECT
 					event.name AS event_name, event.type, event.start_date, country.name AS country_name, state.name AS state_name 
@@ -265,13 +267,64 @@ class ContentManager
 				  INNER JOIN 
 				  	state on event.state_id = state.state_id 
 				  WHERE 
-				  	plays_at.club_id = ?";
+				  	plays_at.club_id = ?
+				  AND
+				  	event.name LIKE ?";
 
-		$result = $this->database->query($query, [$clubID]);
+		$result = $this->database->query($query, [$clubID, "$searchTerm%"]);
+		return $result->rowCount();
+	}
+
+	public function getPlayersByClub($clubID, $start, $amount, $searchTerm)
+	{
+		$query = "SELECT
+					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.email, player.gender, player.date_of_birth, rating.mean
+				  FROM 
+				  	player 
+				  INNER JOIN 
+				  	membership on membership.player_id = player.player_id 
+				  INNER JOIN 
+				  	rating on rating.player_id = player.player_id
+				  INNER JOIN 
+				    club on club.sport_id = rating.sport_id
+				  WHERE 
+				  	membership.club_id = ?
+				  AND
+				  	player.given_name LIKE ?
+				  OR
+				  	player.family_name LIKE ? 
+				  ORDER BY
+				  	player_name
+				  ASC LIMIT " . $start . ", " . $amount;		  	
+
+		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
+		return $result;
+	}
+
+	public function getNumPlayersByClub($clubID, $searchTerm)
+	{
+		$query = "SELECT
+					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.email, player.gender, player.date_of_birth, rating.mean
+				  FROM 
+				  	player 
+				  INNER JOIN 
+				  	membership on membership.player_id = player.player_id 
+				  INNER JOIN 
+				  	rating on rating.player_id = player.player_id
+				  INNER JOIN 
+				    club on club.sport_id = rating.sport_id
+				  WHERE 
+				  	membership.club_id = ?
+				  AND
+				  	player.given_name LIKE ?
+				  OR
+				  	player.family_name LIKE ?"; 	
+
+		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
 		return $result->rowCount();
 	}
 	
-	/**
+	/*
 	 * After running maple script this function updates the ratings for 
 	 * winners and losers of each match in a tournament.
 	 * 

@@ -35,18 +35,7 @@
 				<input type="image" src="./resources/images/search-icon.png" class="account-search-buttons" id="account-search-players-button"/>
 			</div>
 		</div>
-		<div id="account-players-information">
-			<table class="account-tables" id="club-players-table">
-				<tr>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Gender</th>
-					<th>Date of Birth</th>
-					<th>Rating</th>				
-				</tr>
-			</table>
-		</div>
-		<div class="pagination-buttons">			
+		<div id="account-players-information">		
 		</div>
 	</div>
 </div>
