@@ -30,13 +30,13 @@
 
     <div class="footer-bottom-content">
       <hr/>
-      <small>&copy; <?php echo date('Y'); ?> Name. All Rights Reserved.</small>
+      <small>&copy; <?php echo date('Y'); ?> Peterman Ratings. All Rights Reserved.</small>
     </div>
 
   </div>
 </footer>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="./javascript/jquery-ui.min.js"></script>
 <script src="./javascript/js-cookie.js"></script>
 <script src="./javascript/scripts.js"></script>

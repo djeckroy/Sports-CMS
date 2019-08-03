@@ -148,6 +148,11 @@ class Account
 		$result = $this->database->query($query, [$state, $email]);		
 	}
 
+	public function getAccountID()
+	{
+		return $this->accountId;
+	}
+
 	public function getAllInactiveAccounts()
 	{
 		$query = "SELECT * FROM account WHERE active = ?";
@@ -229,6 +234,22 @@ class Account
 	}
 
 
+	public function getRegisteredClubID()
+	{
+		$query = "SELECT club.club_id FROM club INNER JOIN director_of ON director_of.club_id = club.club_id WHERE director_of.account_id = ?";
+		$result = $this->database->query($query, [$this->accountId])->fetch();
+
+		return $result["club_id"];
+	}
+
+
+	public function getRegisteredClubName()
+	{
+		$query = "SELECT name FROM club INNER JOIN director_of ON director_of.club_id = club.club_id WHERE director_of.account_id = ?";
+		$result = $this->database->query($query, [$this->accountId])->fetch();
+
+		return $result["name"];
+	}
 }
 
 ?>

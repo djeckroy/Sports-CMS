@@ -2,11 +2,29 @@ var slideIndex = 0;
 
 window.onload = function()
 { 
+    retrieveRecentEventsForClub(1);
     document.getElementById("input-confirm-password").onchange = passwordMatches;
     document.getElementById("input-email").onchange = isEmailTaken;
     document.getElementById("player-tab").click();
     rotateSlideshow();
     document.getElementById("reset-input-confirm-password").onchange = resetPasswordMatches;
+}
+
+function retrieveRecentEventsForClub(page)
+{
+    var eventID = eventID;
+
+    $.ajax
+    ({
+        url: "./account-pagination.php",
+        type: "POST",
+        dataType: "text",
+        data: {page: page, eventID: eventID},
+        success: function(data) 
+        {
+            $("recent-events-table").html(data);
+        }
+    });
 }
 
 function passwordMatches()

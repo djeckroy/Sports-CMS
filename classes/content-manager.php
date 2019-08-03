@@ -228,6 +228,48 @@ class ContentManager
 
 		return $isValid;
 	}
+
+
+	public function getEventsAttendedByClub($clubID, $start, $amount)
+	{
+		$query = "SELECT
+					event.name AS event_name, event.type, event.start_date, country.name AS country_name, state.name AS state_name 
+				  FROM 
+				  	event 
+				  INNER JOIN 
+				  	plays_at on event.event_id = plays_at.event_id 
+				  INNER JOIN 
+				  	country on event.country_id = country.country_id 
+				  INNER JOIN 
+				  	state on event.state_id = state.state_id 
+				  WHERE 
+				  	plays_at.club_id = ?
+				  ORDER BY
+				  	event.start_date
+				  DESC LIMIT " . $start . ", " . $amount;
+
+		$result = $this->database->query($query, [$clubID]);
+		return $result;
+	}
+
+	public function getTotalNumberOfAttendedEvents($clubID)
+	{
+		$query = "SELECT
+					event.name AS event_name, event.type, event.start_date, country.name AS country_name, state.name AS state_name 
+				  FROM 
+				  	event 
+				  INNER JOIN 
+				  	plays_at on event.event_id = plays_at.event_id 
+				  INNER JOIN 
+				  	country on event.country_id = country.country_id 
+				  INNER JOIN 
+				  	state on event.state_id = state.state_id 
+				  WHERE 
+				  	plays_at.club_id = ?";
+
+		$result = $this->database->query($query, [$clubID]);
+		return $result->rowCount();
+	}
 	
 	/**
 	 * After running maple script this function updates the ratings for 
