@@ -11,9 +11,11 @@
         <form action="process-player-list.php" method="post">
             <input type="text" name="player-name" class="" placeholder="Enter Player Name">
 
-            <input type="text" name="player-age" class="" placeholder="Age">
+            <input type="text" name="player-age-min" class="" placeholder="Age">
+            <span>-</span>
+            <input type="text" name="player-age-max" class="" placeholder="Age">
 
-            <input type="text" name="recent-match" class="" placeholder="Most Recent Match" onfocus="(this.type='date')" onblur="(this.type='text')">
+            <input type="text" name="last-played" class="" placeholder="Most Recent Match" onfocus="(this.type='date')" onblur="(this.type='text')">
 
             <input type="text" name="club-name" class="" placeholder="Enter Club Name">
 
@@ -40,13 +42,15 @@
                 if(isset($_SESSION["player"]) && $_SESSION["player"] != NULL)
                 {
                     $playerDetails = $_SESSION["player"];
+                    $competitor = $_SESSION["competitor"];
 
                     echo "<tr class='player-search-result-table-headers'>
                             <th>Player</th>
                             <th>Age</th>
-                            <th>Recent Match</th>
+                            <th>Last Played</th>
                             <th>Club</th>
                             <th>Region</th>
+                            <th>Recent Competitor</th>
                           </tr>";
                     
                     for($i = 0; $i < count($playerDetails); $i++)
@@ -57,6 +61,7 @@
                         echo "<td>".$playerDetails[$i][3]."</td>";
                         echo "<td>".$playerDetails[$i][4]."</td>";
                         echo "<td>".$playerDetails[$i][5].", ".$playerDetails[$i][6]."</td>";
+                        echo "<td>".$competitor[$i]."</td>";
                         echo "</tr>";
                     }                   
                 }

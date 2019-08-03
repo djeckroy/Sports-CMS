@@ -30,7 +30,7 @@ class ContentManager
 
 	public function getPlayerClub($player_id)
 	{
-		$query = "select club.name FROM club INNER JOIN membership on membership.club_id = club.club_id WHERE player_id = ? ";
+		$query = "SELECT club.name FROM club INNER JOIN membership on membership.club_id = club.club_id WHERE player_id = ?";
 		$result = $this->database->query($query, [$player_id])->fetch();
 
 		return $result;
@@ -336,39 +336,54 @@ class ContentManager
 		$result = $this->database->query($query,[$tournamentDate,$loserNewMean,$loserNewSD,$loserID,$sportID]);
 	}
 
-	public function playerSearchFilter($playerName, $playerAge, $recentMatch, $clubName, $countryName, $stateName)
+	public function playerSearchFilter($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName)
 	{
-		/*
-		
-		TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) = ? AND
-
-		DATE_FORMAT(player.last_played, '%Y-%m-%d') AS recent_match
-		DATE_FORMAT(player.last_played, '%Y-%m-%d') = ?
-		*/
-
-		$query = "SELECT 
+		$query = "SELECT
 						player.player_id, 
 						CONCAT_WS(' ', player.given_name, player.family_name) AS player_name, 
 						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) AS player_age,
-						DATE_FORMAT(player.last_played, '%Y-%m-%d') AS recent_match,
+						DATE_FORMAT(player.last_played, '%Y-%m-%d') AS last_played,
 						club.name AS club_name, 
 						country.name AS country_name, 
-						state.name AS state_name 
+						state.name AS state_name,
+						MAX(game_result.game_id) AS player_most_recent_game_id
 					FROM 
 						player INNER JOIN 
 						membership ON player.player_id = membership.player_id INNER JOIN 
 						club ON membership.club_id = club.club_id INNER JOIN 
 						country ON player.country_id = country.country_id INNER JOIN 
-						state ON player.state_id = state.state_id 
+						state ON player.state_id = state.state_id INNER JOIN
+						game_result ON player.player_id = game_result.game_id
 					WHERE 
 						CONCAT_WS(' ', player.given_name, player.family_name) LIKE ? AND 
-						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) LIKE ? AND 
-						player.last_played LIKE ? AND 
+						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) BETWEEN ? AND ? AND
+						player.last_played LIKE ? AND  
 						club.name LIKE ? AND 
 						country.name LIKE ? AND 
 						state.name LIKE ?";
-	
-		$result = $this->database->query($query, [$playerName, $playerAge, $recentMatch, $clubName, $countryName, $stateName]);
+
+		$result = $this->database->query($query, [$playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName]);
+
+		return $result;
+	}
+
+	public function getRecentCompetitor($recentCompetitor, $playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName)
+	{
+		$playerSearchFilterResult = $this->playerSearchFilter($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName);
+
+		$searchedPlayer = $playerSearchFilterResult->fetch(PDO::FETCH_ASSOC);
+
+		$query = "SELECT 
+						CONCAT_WS(' ', player.given_name, player.family_name) AS competitor_player_name,
+						MAX(game_result.game_id) AS competitor_most_recent_game_id
+					FROM
+						player INNER JOIN
+						game_result ON player.player_id = game_result.game_id
+					WHERE
+						game_result.game_id = ".$searchedPlayer["player_most_recent_game_id"]." OR
+						CONCAT_WS(' ', player.given_name, player.family_name) LIKE ?";
+
+		$result = $this->database->query($query, [$recentCompetitor]);
 
 		return $result;
 	}
