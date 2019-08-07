@@ -468,8 +468,101 @@ article /* Never change this (Except height to 100% once content is added to pag
 
   /* Players Page */
 
+  .player-search-filter-container
+  {
+    height: 20%;
+    background-color: var(--primary-color-light);
+    text-align: center;
+  }
 
-  /*YUSUF HERE */
+  #player-search-filter-title
+  {
+    
+  }
+
+  .player-search-filter-container input
+  {
+    width: 25%;
+    height: 30px;
+    background-color: var(--form-input-background);
+    border: 1px solid var(--form-input-border);
+  }
+
+  .player-search-filter-container select
+  {
+    width: 25%;
+    height: 30px;
+    background-color: var(--form-input-background);
+    border: 1px solid var(--form-input-border);
+  }
+
+  .top-row-filter-inputs *
+  {
+    margin-right: 40px;
+  }
+
+  .middle-row-filter-inputs *
+  {
+    margin-right: 40px;
+  }
+
+  .bottom-row-filter-inputs *
+  {
+    margin-right: 40px;
+  }
+
+  .top-row-filter-inputs
+  {
+    margin-top: 20px;
+    display: inline-block;
+    width: 80%;
+  }
+
+  .middle-row-filter-inputs
+  {
+    margin-top: 20px;
+    display: inline-block;
+    width: 80%;
+  }
+
+  .bottom-row-filter-inputs
+  {
+    margin-top: 20px;
+    display: inline-block;
+    width: 80%;
+    position: relative;
+  }
+
+  #player-age-filter-min
+  {
+    width: 12%;
+    position: absolute;
+    left: 43.5px;
+  }
+
+  #player-age-filter-max
+  {
+    width: 12%;
+    position: absolute;
+    left: 156px;
+  }
+
+  #player-age-filter-dash
+  {
+    position: absolute;
+    left: 148.44px;
+  }
+
+  .submit-search-filter
+  {
+    width: 10%;
+    height: 30px;
+    border-style: none;
+    background-color: var(--secondary-color-dark);
+    color: var(--text-light);
+    float: right;
+    transform: translateX(-44px);
+  }
 
 
   /* Profile Page */

@@ -7,32 +7,42 @@
 
 <article>
 
-    <div class="player-search-filter-container">  
+    <div class="player-search-filter-container">
+        <h1 id="player-search-filter-title">Search for a Player</h1>
+        <hr/>  
         <form action="process-player-list.php" method="post">
-            <input type="text" name="player-name" class="" placeholder="Enter Player Name">
 
-            <input type="text" name="player-age-min" class="" placeholder="Age">
-            <span>-</span>
-            <input type="text" name="player-age-max" class="" placeholder="Age">
+            <div class="top-row-filter-inputs">
+                <input type="text" name="player-name" class="player-name-filter" placeholder="Enter Player Name">
 
-            <input type="text" name="last-played" class="" placeholder="Most Recent Match" onfocus="(this.type='date')" onblur="(this.type='text')">
+                <input type="text" name="last-played" class="player-recent-match-filter" placeholder="Last Played" onfocus="(this.type='date')" onblur="(this.type='text')">
 
-            <input type="text" name="club-name" class="" placeholder="Enter Club Name">
+                <select name="country-name" class="player-country-filter">
+                    <option selected disabled hidden>Select Country</option>
+                    <option>Australia</option>
+                </select>
+            </div>
 
-            <select name="country-name" class="" placeholder="Select Country">
-                <option>Select Country</option>
-                <option>Australia</option>
-            </select>
+            <div class="middle-row-filter-inputs">
+                <input type="text" name="club-name" class="player-club-filter" placeholder="Enter Club Name">
 
-            <select name="state-name" class="" placeholder="Select State">
-                <option>Select State</option>
-                <option>Tasmania</option>
-                <option>Western Australia</option>
-            </select>
+                <input type="text" name="recent-competitor" class="recent-competitor-filter" placeholder="Last Competitor">
 
-            <input type="text" name="recent-competitor" class="" placeholder="Most Recent Competitor">
+                <select name="state-name" class="player-state-filter">
+                    <option selected disabled hidden>Select State</option>
+                    <option>Tasmania</option>
+                    <option>Western Australia</option>
+                </select>
+            </div> 
 
-            <button type="submit" name="submit-search-filter" class="">Search</button>
+            <div class="bottom-row-filter-inputs">
+                <input type="text" name="player-age-min" id="player-age-filter-min" placeholder="Age">
+                <span id="player-age-filter-dash">-</span>
+                <input type="text" name="player-age-max" id="player-age-filter-max" placeholder="Age">           
+
+                <button type="submit" name="submit-search-filter" class="submit-search-filter">Search</button>
+            </div>
+
         </form>
     </div>
 
