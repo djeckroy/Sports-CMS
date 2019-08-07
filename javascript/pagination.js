@@ -1,6 +1,7 @@
 
 window.onload = retrieveRecentEventsForClub(1, "");
 window.onload = retrieveClubPlayers(1, "");
+window.onload = retrieveTournamentDirectors(1, "");
 
 
 /* RECENT CLUB EVENTS */
@@ -89,5 +90,49 @@ $("#club-players-searchbar").keyup(function(event)
     if (event.keyCode === 13) 
     {
         $("#account-search-players-button").click();
+    }
+});
+
+
+/* TOURNAMENT DIRECTORS */
+
+
+function retrieveTournamentDirectors(page, searchTerm)
+{
+    var directorID = 0;
+
+    $.ajax
+    ({
+        url: "./account-pagination.php",
+        type: "POST",
+        data: {page: page, directorID: directorID, searchTerm: searchTerm},
+        success: function(data) 
+        {
+            $("#account-directors-information").html(data);
+        }
+    });
+}
+
+$(document).on('click', '.tournament-directors-link', function()
+{
+    var page = $(this).attr("id");
+    var searchValue = $("#directors-searchbar").val();
+
+    {
+        retrieveTournamentDirectors(page, searchValue);
+    }
+});
+
+$(document).on('click', '#account-search-directors-button', function()
+{
+    var searchValue = $("#directors-searchbar").val();
+    retrieveTournamentDirectors(1, searchValue);
+});
+
+$("#directors-searchbar").keyup(function(event) 
+{
+    if (event.keyCode === 13) 
+    {
+        $("#account-search-directors-button").click();
     }
 });

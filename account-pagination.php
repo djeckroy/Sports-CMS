@@ -121,9 +121,7 @@
 		}
 
 
-		$tableOutput .= "<span class='recent-events-link' id=' " . $totalPages . "'>>></span>";
-
-		$tableOutput .= "</div>";
+		$tableOutput .= "<span class='recent-events-link' id=' " . $totalPages . "'>>></span></div>";
 	}	
 	elseif(isset($_POST["playersID"]))
 	{
@@ -225,9 +223,109 @@
 		}
 
 
-		$tableOutput .= "<span class='club-players-link' id=' " . $totalPages . "'>>></span>";
+		$tableOutput .= "<span class='club-players-link' id=' " . $totalPages . "'>>></span>
+						<button type='button' id='account-add-player-button'>Add Player</button> </div>";
 
-		$tableOutput .= "</div>";
+	}
+	elseif(isset($_POST["directorID"]))
+	{
+		$resultsPerPage = 4;
+		$clubID = $account->getRegisteredClubID();
+		$resultsPageToStartFrom = ($currentPage - 1) * $resultsPerPage;
+		$searchTerm = "";
+		
+		if(isset($_POST["searchTerm"]))
+		{
+			$searchTerm = $_POST["searchTerm"];
+		}
+
+		$directorResults = $contentManager->getClubDirectors($clubID, $resultsPageToStartFrom, $resultsPerPage, $searchTerm);
+
+		$tableOutput .= "
+			<table id='directors-table'>
+			<tr>
+				<th class='account-row-name'>Name</th>
+				<th class='account-row-email'>Email</th>
+				<th class='account-row-email'>Organisation</th>			
+			</tr>";
+
+		while($row = $directorResults->fetch())
+		{
+			$tableOutput .= "
+				<tr>
+					<td> " . $row['account_name'] . "</td>
+					<td> " . $row['email'] . "</td>
+					<td> " . $row['organisation'] . "</td>
+				</tr>";
+		}
+
+		$tableOutput .= "
+			</table>
+			<div class='pagination-buttons'>";
+
+		$totalDirectors = $contentManager->getNumClubDirectors($clubID, $searchTerm);
+		$totalPages = ceil($totalDirectors / $resultsPerPage);
+
+		if($totalPages < 1)
+		{
+			$tableOutput .= "<span class='tournament-directors-link' id='0'><<</span>";
+		}
+		else
+		{
+			$tableOutput .= "<span class='tournament-directors-link' id='1'><<</span>";
+		}
+
+		$pageThreshold = $currentPage + 2;
+
+		if($currentPage == 1)
+		{
+			for($i = $currentPage; $i <= $pageThreshold AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='tournament-directors-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		elseif($currentPage == 2)
+		{
+			for($i = ($currentPage - 1); $i <= ($pageThreshold - 1) AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='tournament-directors-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		else
+		{
+			if($currentPage == $totalPages)
+			{
+				for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='tournament-directors-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+			elseif($currentPage == $totalPages - 1)
+			{
+				for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='tournament-directors-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+			elseif($currentPage == $totalPages - 2)
+			{
+				for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='tournament-directors-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+			else
+			{
+				for($i = ($currentPage - 2); $i <= ($pageThreshold - 2) AND $i < $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='tournament-directors-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+		}
+
+
+		$tableOutput .= "<span class='tournament-directors-link' id=' " . $totalPages . "'>>></span>
+						<button type='button' id='account-add-director-button'>Add Director</button> </div>";
 	}
 	else
 	{

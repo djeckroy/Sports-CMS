@@ -45,7 +45,7 @@
 		<div id="clubs-header" class="account-page-header">
 			<h2>Club Information</h2>
 			<div class="account-searchbar-container">
-				<input type="text" name="club-directors-searchbar" class="account-input-fields" id="club-players-searchbar" placeholder="Search Club Directors.."/> 
+				<input type="text" name="directors-searchbar" class="account-input-fields" id="directors-searchbar" placeholder="Search Club Directors.."/> 
 				<input type="image" src="./resources/images/search-icon.png" class="account-search-buttons" id="account-search-directors-button"/>
 			</div>
 		</div>
@@ -68,19 +68,22 @@
 					<p>Tasmania</p>
 				</div>
 			</div>
-		</div>
-		<div class="pagination-buttons">
-					
+			<div id="account-club-directors-header">
+				<p>Tournament Directors</p>
+			</div>	
+			<div id="account-directors-information">
+			</div>
 		</div>
 	</div>
 </div>
 
-<div id="account-container-personal"> 
-	<div id="personal-header" class="account-page-header">
-		<h2>Personal Information</h2>
-	</div>
-	<div id="account-personal-information">
-			
+<div id="account-container-personal">
+	<div id="account-personal-section">
+		<div id="personal-header" class="account-page-header">
+			<h2>Personal Information</h2>
+		</div>
+		<div id="account-personal-information">		
+		</div>
 	</div>
 </div>
    

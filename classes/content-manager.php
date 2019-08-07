@@ -323,6 +323,47 @@ class ContentManager
 		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
 		return $result->rowCount();
 	}
+
+	public function getClubDirectors($clubID, $start, $amount, $searchTerm)
+	{
+		$query = "SELECT
+					DISTINCT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email, account.organisation
+				  FROM 
+				  	account
+				  INNER JOIN 
+				  	director_of on director_of.account_id = account.account_id
+				  WHERE 
+				  	director_of.club_id = ?
+				  AND
+				  	account.given_name LIKE ?
+				  OR
+				  	account.family_name LIKE ? 
+				  ORDER BY
+				  	account_name
+				  ASC LIMIT " . $start . ", " . $amount;		  	
+
+		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
+		return $result;
+	}
+
+	public function getNumClubDirectors($clubID, $searchTerm)
+	{
+		$query = "SELECT
+					DISTINCT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email, account.organisation
+				  FROM 
+				  	account
+				  INNER JOIN 
+				  	director_of on director_of.account_id = account.account_id
+				  WHERE 
+				  	director_of.club_id = ?
+				  AND
+				  	account.given_name LIKE ?
+				  OR
+				  	account.family_name LIKE ?";
+		  	
+		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
+		return $result->rowCount();
+	}
 	
 	/*
 	 * After running maple script this function updates the ratings for 
