@@ -337,14 +337,8 @@ class ContentManager
     $query = "SELECT player_id, sport_id from rating where rating.player_id = ? and rating.sport_id = ?";
       $result = $this->database->query($query,[$playerID, $sportID]);
     
-    if ($result->rowCount >= 1)
-    {
-      return true;
-    }
-    else
-    {
-      return false;
-    }
+    return ($result->rowCount() > 0);
+   
   }
 }
 	

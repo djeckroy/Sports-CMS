@@ -515,16 +515,12 @@ function setupMatchAutoComplete()
             //fill this with the id. 
             //name cell will be automatically filled in 
             
-               $(this).next().val(ui.item.id);
-          var playerID = $(ui.item.id);
-          alert(playerID);
-          
-            
+            $(this).next().val(ui.item.id);
+            var playerID = ui.item.id;
+            setInitialRating(playerID);
             
             //when an item is selected it is assumed that no error exists, remove the error class
             $(this).removeClass("upload-page-error-on-submit");
-          setInitialRating(playerID);
-          
           /**/
           
           
@@ -539,7 +535,7 @@ function setupMatchAutoComplete()
 function setInitialRating(playerID)
 {
          
-          var sportID = $("#sport-type").val();
+          var sportID = $("#sports-type").val();
           $.ajax({
             url: "./initial-rating-Manager.php",
             type: 'POST',
@@ -552,10 +548,9 @@ function setInitialRating(playerID)
             {
               if(data != true)
                 {
-                 showInitialRatingModal();
-                }
-              
-              
+                    alert("FALSE");
+                    showInitialRatingModal();
+                }              
             }
             
           });

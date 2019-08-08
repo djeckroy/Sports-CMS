@@ -236,7 +236,7 @@ insert into `rating` (mean, standard_deviation, last_calculated, sport_id, playe
 
 
 insert into `player` (given_name, family_name, gender, date_of_birth, email, last_played, receive_emails, country_id, state_id)
-  VALUES ('Christopher', 'Jenkins', 'M', NOW(), 'Christopher.Jenkins@testonly.com', NOW(), 'Y', '1', '1');
+  VALUES ('Meow', 'Grant', 'M', NOW(), 'Meow.Grant@test.com', NOW(), 'Y', '1', '1');
 insert into `rating` (mean, standard_deviation, last_calculated, sport_id, player_id, team_id) VALUES (2500, 173, NOW(), 1, 12, null);
 insert into `rating` (mean, standard_deviation, last_calculated, sport_id, player_id, team_id) VALUES (2500, 173, NOW(), 2, 12, null);
 insert into `rating` (mean, standard_deviation, last_calculated, sport_id, player_id, team_id) VALUES (2500, 173, NOW(), 3, 12, null);
