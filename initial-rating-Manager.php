@@ -1,17 +1,19 @@
 <?php
+
+require("./includes/initialize.php");
+
 $playerID = $_POST["playerID"];
 $sportID = $_POST["sportID"];
 
-$result = true;//$contentManager->initialRatingExists($playerID, $sportID);
+$ratingExists = $contentManager->initialRatingExists($playerID, $sportID);
 
-if($result == true)
+if($ratingExists == "true")
 {
-  echo true;
+	echo "true";
 }
 else
 {
-  echo false;
+  echo "false";
 }
-
 
 ?>

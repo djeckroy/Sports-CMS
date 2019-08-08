@@ -545,10 +545,9 @@ function setInitialRating(playerID)
               sportID: sportID
             },
             success: function(data)
-            {
-              if(data != true)
+            {                
+                if(data == "false")
                 {
-                    alert("FALSE");
                     showInitialRatingModal();
                 }              
             }

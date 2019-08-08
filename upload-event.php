@@ -41,7 +41,7 @@
     </div>
   
     <div class="event-details-row">
-       <select class="sport-type" name="sport-type" id =" sports-type">
+       <select class="sport-type" name="sport-type" id ="sports-type">
          <?php
             $sports = $contentManager->getAllSports();
 

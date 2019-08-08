@@ -334,11 +334,17 @@ class ContentManager
   
   public function initialRatingExists($playerID, $sportID)
   {
-    $query = "SELECT player_id, sport_id from rating where rating.player_id = ? and rating.sport_id = ?";
+    $query = "SELECT rating.player_id, rating.sport_id from rating where rating.player_id = ? and rating.sport_id = ?";
       $result = $this->database->query($query,[$playerID, $sportID]);
     
-    return ($result->rowCount() > 0);
-   
+    if($result->rowCount() > 0)
+    {
+    	return "true";
+    }
+    else
+    {
+    	return "false";
+    }  
   }
 }
 	
