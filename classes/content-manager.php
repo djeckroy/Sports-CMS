@@ -71,6 +71,16 @@ class ContentManager
 		return $result;
 	}
 
+
+	public function getAllClubs()
+	{
+		$query = "SELECT club.club_id, club.name FROM club";
+		$result = $this->database->query($query, null);
+		
+		return $result;
+	}
+
+
 	public function createEvent($name, $countryID, $stateID, $sportType, $eventType, $date)
 	{
 		$formatedDate = date_format(date_create($date), 'Y-m-d');
@@ -323,7 +333,7 @@ class ContentManager
 	public function getClubDirectors($clubID, $start, $amount, $searchTerm)
 	{
 		$query = "SELECT
-					DISTINCT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email, account.organisation
+					DISTINCT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
 				  FROM 
 				  	account
 				  INNER JOIN 
@@ -345,7 +355,7 @@ class ContentManager
 	public function getNumClubDirectors($clubID, $searchTerm)
 	{
 		$query = "SELECT
-					DISTINCT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email, account.organisation
+					DISTINCT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
 				  FROM 
 				  	account
 				  INNER JOIN 
@@ -359,6 +369,15 @@ class ContentManager
 		  	
 		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
 		return $result->rowCount();
+	}
+
+	public function removeTournamentDirector($account_id)
+	{
+
+		$query = "DELETE FROM director_of WHERE director_of.account_id = ?";
+		$result = $this->database->query($query, [$account_id]);
+
+		return $result;
 	}
 	
 	/*

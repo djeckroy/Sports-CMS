@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `rating` (
   `rating_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `mean` DOUBLE NOT NULL,
   `standard_deviation` DOUBLE NOT NULL,
-  `last_calculated` DATETIME NOT NULL,
+  `last_calculated` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `sport_id` INT NOT NULL,
   `player_id` INT DEFAULT NULL,
   `team_id` INT DEFAULT NULL,
