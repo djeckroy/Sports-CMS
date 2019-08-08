@@ -10,7 +10,7 @@
     }
 ?>
 
-<article>
+<article id="account-page-article">
    
 <div id="account-container-events">
 	<div id="account-event-section">
@@ -22,6 +22,8 @@
 			</div>
 		</div>
 		<div id="account-event-information">
+		</div>
+		<div id="account-edit-event-submission">
 		</div>
 	</div>
 </div>
@@ -44,6 +46,25 @@
 	<div id="account-club-section">
 		<div id="clubs-header" class="account-page-header">
 			<h2>Club Information</h2>
+			<?php
+				$tableOutput = "";
+
+				if($account->getAccessLevel() < 2)
+				{
+					$tableOutput .= "<select name='Club' id='admin-change-club'>
+									<option disabled selected value> Select a Club </option>";
+					
+					$clubs = $contentManager->getAllClubs();
+
+					while ($club = $clubs->fetch())
+					{
+						$tableOutput .= "<option value=\"".$club["club_id"]."\">".$club["name"]."</option>";
+					}
+
+					$tableOutput .= "</select>";
+					echo $tableOutput;
+				}
+			?>
 			<div class="account-searchbar-container">
 				<input type="text" name="directors-searchbar" class="account-input-fields" id="directors-searchbar" placeholder="Search Club Directors.."/> 
 				<input type="image" src="./resources/images/search-icon.png" class="account-search-buttons" id="account-search-directors-button"/>
@@ -72,6 +93,8 @@
 				<p>Tournament Directors</p>
 			</div>	
 			<div id="account-directors-information">
+			</div>
+			<div id="account-remove-director-submission">
 			</div>
 		</div>
 	</div>

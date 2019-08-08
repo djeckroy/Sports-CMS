@@ -1,7 +1,7 @@
 
 window.onload = retrieveRecentEventsForClub(1, "");
 window.onload = retrieveClubPlayers(1, "");
-window.onload = retrieveTournamentDirectors(1, "");
+window.onload = retrieveTournamentDirectors(1, "", "");
 
 
 /* RECENT CLUB EVENTS */
@@ -57,7 +57,22 @@ $(document).on('click', '.account-table-events-button', function(event)
 
 function sendEditEventID(eventID)
 {
-    
+    var form;
+    var inputElement;
+
+    form = document.createElement('form');
+    form.action = './upload-event.php';
+    form.method = 'post';
+    form.name = 'editEventForm';
+
+    inputElement = document.createElement('input');
+    inputElement.type = 'hidden';
+    inputElement.name = 'editEventID';
+    inputElement.value = 2;
+
+    form.appendChild(inputElement);
+    document.getElementById('account-edit-event-submission').appendChild(form);
+    form.submit();
 }
 
 
@@ -109,7 +124,7 @@ $("#club-players-searchbar").keyup(function(event)
 /* TOURNAMENT DIRECTORS */
 
 
-function retrieveTournamentDirectors(page, searchTerm)
+function retrieveTournamentDirectors(page, searchTerm, clubID)
 {
     var directorID = 0;
 
@@ -117,7 +132,7 @@ function retrieveTournamentDirectors(page, searchTerm)
     ({
         url: "./account-pagination.php",
         type: "POST",
-        data: {page: page, directorID: directorID, searchTerm: searchTerm},
+        data: {page: page, directorID: directorID, searchTerm: searchTerm, clubID: clubID},
         success: function(data) 
         {
             $("#account-directors-information").html(data);
@@ -129,16 +144,30 @@ $(document).on('click', '.tournament-directors-link', function()
 {
     var page = $(this).attr("id");
     var searchValue = $("#directors-searchbar").val();
+    var clubID = "";
 
+    if($("#admin-change-club").length > 0)
     {
-        retrieveTournamentDirectors(page, searchValue);
+        clubID = $("#admin-change-club").find(":selected").val();
+    }
+
+    if(page > 0)
+    {
+        retrieveTournamentDirectors(page, searchValue, clubID);
     }
 });
 
 $(document).on('click', '#account-search-directors-button', function()
 {
     var searchValue = $("#directors-searchbar").val();
-    retrieveTournamentDirectors(1, searchValue);
+    var clubID = "";
+
+    if($("#admin-change-club").length > 0)
+    {
+        clubID = $("#admin-change-club").find(":selected").val();
+    }
+
+    retrieveTournamentDirectors(1, searchValue, clubID);
 });
 
 $("#directors-searchbar").keyup(function(event) 
@@ -148,3 +177,45 @@ $("#directors-searchbar").keyup(function(event)
         $("#account-search-directors-button").click();
     }
 });
+
+$(document).on('click', '.account-table-directors-button', function(event)
+{
+    var accountID = $(this).closest('tr').find('.account-table-id').text();
+    var clubID = "";
+
+    if($("#admin-change-club").length > 0)
+    {
+        clubID = $("#admin-change-club").find(":selected").val();
+    }
+
+    removeDirectorFromClub(accountID, clubID);
+
+});
+
+function removeDirectorFromClub(accountID)
+{
+   $.ajax
+    ({
+        url: "./remove-director.php",
+        type: "POST",
+        data: {accountID: accountID},
+        success: function(data) 
+        {
+            $("#account-search-directors-button").click();
+        }
+    });
+}
+
+$(document).on('change', '#admin-change-club', function()
+{
+    var searchValue = $("#directors-searchbar").val();
+    var clubID = $("#admin-change-club").find(":selected").val();
+    retrieveTournamentDirectors(1, searchValue, clubID);
+});
+
+
+
+
+
+
+
