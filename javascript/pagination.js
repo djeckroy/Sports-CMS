@@ -48,6 +48,12 @@ $("#event-searchbar").keyup(function(event)
     }
 });
 
+$('.account-table-events-button').on('click', function(event)
+{
+    var eventID = $(this).closest('tr').find('.account-table-id').text();
+    alert("Event ID: " + eventID);
+});
+
 
 /* CLUB PLAYERS */
 

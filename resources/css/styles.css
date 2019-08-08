@@ -914,6 +914,7 @@ article /* Never change this (Except height to 100% once content is added to pag
   #directors-table tr
   {
     max-height: 53px;
+    height: 53px;
   }
 
   #account-add-director-button
@@ -1011,6 +1012,32 @@ article /* Never change this (Except height to 100% once content is added to pag
     width: 5%;
   }
 
+  .account-row-id
+  {
+    width: 0%;
+    display: none;
+  }
+
+  .account-table-id
+  {
+    width: 0%;
+    display: none;
+  }
+
+  .account-table-events-button
+  {
+    background: var(--primary-color-dark);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    width: 80px;
+    text-decoration: none;
+    margin: 0;
+    height: 20px;
+
+    cursor: pointer;
+  }
+
   .pagination-buttons
   {
     position: relative;
@@ -1027,6 +1054,7 @@ article /* Never change this (Except height to 100% once content is added to pag
     padding: 8px 8px 8px 8px;
     border: 1px solid #ccc;
     font-size: var(--font-small);
+    color: var(--primary-color-dark);
   }
 
   .recent-events-link:hover
@@ -1040,6 +1068,7 @@ article /* Never change this (Except height to 100% once content is added to pag
     padding: 8px 8px 8px 8px;
     border: 1px solid #ccc;
     font-size: var(--font-small);
+    color: var(--tertiary-color);
   }
 
   .club-players-link:hover
@@ -1053,6 +1082,7 @@ article /* Never change this (Except height to 100% once content is added to pag
     padding: 8px 8px 8px 8px;
     border: 1px solid #ccc;
     font-size: var(--font-small);
+    color: var(--secondary-color);
   }
 
   .tournament-directors-link:hover

@@ -37,22 +37,26 @@
 		$tableOutput .= "
 			<table class='account-tables'>
 			<tr>
+				<th class='account-row-id'>ID</th>
 				<th class='account-row-name'>Name</th>
 				<th class='account-row-match-type'>Type</th>
 				<th class='account-row-date'>Date</th>
 				<th class='account-row-country'>Country</th>
-				<th class='account-row-state'>State</th>				
+				<th class='account-row-date'></th>				
 			</tr>";
+
+			/*<th class='account-row-date'></th>	*/
 
 		while($row = $results->fetch())
 		{
 			$tableOutput .= "
 				<tr>
+					<td class='account-table-id'> " . $row['event_id'] . "</td>
 					<td> " . $row['event_name'] . "</td>
 					<td> " . $row['type'] . "</td>
 					<td> " . $row['start_date'] . "</td>
 					<td> " . $row['country_name'] . "</td>
-					<td> " . $row['state_name'] . "</td>
+					<td> <button class='account-table-events-button'>Edit Event</button> </td>
 				</tr>";
 		}
 

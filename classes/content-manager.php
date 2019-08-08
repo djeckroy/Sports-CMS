@@ -233,15 +233,13 @@ class ContentManager
 	public function getEventsAttendedByClub($clubID, $start, $amount, $searchTerm)
 	{
 		$query = "SELECT
-					event.name AS event_name, event.type, event.start_date, country.name AS country_name, state.name AS state_name 
+					event.name AS event_name, event.event_id, event.type, event.start_date, country.name AS country_name
 				  FROM 
 				  	event 
 				  INNER JOIN 
 				  	plays_at on event.event_id = plays_at.event_id 
 				  INNER JOIN 
 				  	country on event.country_id = country.country_id 
-				  INNER JOIN 
-				  	state on event.state_id = state.state_id 
 				  WHERE 
 				  	plays_at.club_id = ?
 				  AND
@@ -257,15 +255,13 @@ class ContentManager
 	public function getTotalNumberOfAttendedEvents($clubID, $searchTerm)
 	{
 		$query = "SELECT
-					event.name AS event_name, event.type, event.start_date, country.name AS country_name, state.name AS state_name 
+					event.name AS event_name, event.event_id, event.type, event.start_date, country.name AS country_name
 				  FROM 
 				  	event 
 				  INNER JOIN 
 				  	plays_at on event.event_id = plays_at.event_id 
 				  INNER JOIN 
 				  	country on event.country_id = country.country_id 
-				  INNER JOIN 
-				  	state on event.state_id = state.state_id 
 				  WHERE 
 				  	plays_at.club_id = ?
 				  AND
