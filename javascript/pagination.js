@@ -48,11 +48,17 @@ $("#event-searchbar").keyup(function(event)
     }
 });
 
-$('.account-table-events-button').on('click', function(event)
+$(document).on('click', '.account-table-events-button', function(event)
 {
     var eventID = $(this).closest('tr').find('.account-table-id').text();
-    alert("Event ID: " + eventID);
+    sendEditEventID(eventID);
+
 });
+
+function sendEditEventID(eventID)
+{
+    
+}
 
 
 /* CLUB PLAYERS */
