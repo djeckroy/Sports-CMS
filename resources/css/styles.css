@@ -1375,6 +1375,15 @@ player-advanced-search-border
     padding: 20px;
     position: relative;
 }
+/* Initial rating */
+ .initial-rating-border
+{
+  display: none;
+  justify-content:center;
+  align-items: center; 
+}
+
+
   /* Footer */
 
 

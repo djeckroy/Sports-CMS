@@ -514,14 +514,53 @@ function setupMatchAutoComplete()
             //the next elemtent in line will be the hidden cell to contain id
             //fill this with the id. 
             //name cell will be automatically filled in 
-            $(this).next().val(ui.item.id);
+            
+               $(this).next().val(ui.item.id);
+          var playerID = $(ui.item.id);
+          alert(playerID);
+          
+            
             
             //when an item is selected it is assumed that no error exists, remove the error class
             $(this).removeClass("upload-page-error-on-submit");
+          setInitialRating(playerID);
+          
+          /**/
+          
+          
+          
         }
+      
+      
     });
+  
 
 }
+function setInitialRating(playerID)
+{
+         
+          var sportID = $("#sport-type").val();
+          $.ajax({
+            url: "./initial-rating-Manager.php",
+            type: 'POST',
+            datatype: "text",
+            data :{
+              playerID: playerID, 
+              sportID: sportID
+            },
+            success: function(data)
+            {
+              if(data != true)
+                {
+                 showInitialRatingModal();
+                }
+              
+              
+            }
+            
+          });
+}
+
 
 /**
  * Sets hidden id field for winners/losers to "" on a user key press,
@@ -662,4 +701,19 @@ function showAdvancedSearchModal()
 function hideAdvancedSearchModal()
 {
   document.querySelector(".player-advanced-search-border").style.display = "none";
+}
+/**
+ * -------------------------------------------------------------*
+ * 		Begin Initial Rating Section								*
+ * 																*
+ * -------------------------------------------------------------*
+ */
+function showInitialRatingModal()
+{
+  document.querySelector(".initial-rating-border").style.display="flex";
+}
+
+function hideInitialRatingModal()
+{
+  document.querySelector(".initial-rating-border").style.display="none";
 }

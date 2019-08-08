@@ -311,7 +311,7 @@ class ContentManager
    * Returns result that contains player id and name of players from list
    * who have never had a rating set for the given sport
    */
-  public function getNewPlayers($playerIDs, $sportID)
+  /*public function getNewPlayers($playerIDs, $sportID)
   {
 	$in = str_repeat('?,', count($playerIDs) - 1) . '?';
 	
@@ -329,6 +329,22 @@ class ContentManager
 					) = 0";
       $result = $this->database->query($query, array_merge($playerIDs, [$sportID]));
     return $result;
+  }*/
+  
+  
+  public function initialRatingExists($playerID, $sportID)
+  {
+    $query = "SELECT player_id, sport_id from rating where rating.player_id = ? and rating.sport_id = ?";
+      $result = $this->database->query($query,[$playerID, $sportID]);
+    
+    if ($result->rowCount >= 1)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 }
 	

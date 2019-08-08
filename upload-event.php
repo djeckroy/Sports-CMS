@@ -41,7 +41,7 @@
     </div>
   
     <div class="event-details-row">
-       <select class="sport-type" name="sport-type">
+       <select class="sport-type" name="sport-type" id =" sports-type">
          <?php
             $sports = $contentManager->getAllSports();
 
@@ -87,8 +87,9 @@
 <?php
 include("./includes/advancedPlayerSearch.php");
 include("./includes/add-player.php");
-  include("./includes/footer.php");
-include("./includes/addRating.php");
+include("./includes/footer.php");
+include("./includes/initialRating.php")
+
 ?>
     
       
