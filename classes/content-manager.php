@@ -346,6 +346,13 @@ class ContentManager
     	return "false";
     }  
   }
+  
+  public function insertInitialRating($mean, $sd, $playerID, $sportID)
+  {
+    $query = "INSERT INTO rating(mean, standard_deviation, player_id, sport_id, last_calculated) VALUES(?, ?, ?, ?, ?)";
+    $result = $this->database->query($query, [$mean, $sd, $playerID, $sportID, '2019-08-09 02:54:18']);
+    
+  }
 }
-	
-?>
+
+?> 
