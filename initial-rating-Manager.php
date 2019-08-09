@@ -1,13 +1,13 @@
 <?php
-require("./includes/initialize.php");
 
+require("./includes/initialize.php");
 if(isset($_POST["setRating"]))
 {
   $playerID = $_POST["playerID"];
   $sportID = $_POST["sportID"];
-  
+
   $ratingExists = $contentManager->initialRatingExists($playerID, $sportID);
- 
+
   if($ratingExists == "true")
   {
       echo "true";
@@ -18,8 +18,7 @@ if(isset($_POST["setRating"]))
   }
 }
 
-
-if((isset($_POST["meanID"]) && isset($_POST["sdID"])))
+if((isset($_POST["meanID"]) && (isset($_POST["sdID"]))))
 {
   $playerID = $_POST["playerID"];
   $sportID = $_POST["sportID"];
@@ -29,4 +28,5 @@ if((isset($_POST["meanID"]) && isset($_POST["sdID"])))
   $result = $contentManager->insertInitialRating($mean, $sd, $playerID, $sportID);
   
 }
+
 ?>

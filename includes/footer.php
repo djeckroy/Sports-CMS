@@ -39,4 +39,6 @@
 <script src="./javascript/jquery-ui.min.js"></script>
 <script src="./javascript/scripts.js"></script>
 
+</body>
+</html>
 

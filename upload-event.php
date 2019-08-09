@@ -85,11 +85,11 @@
 
 
 <?php
-
 include("./includes/advancedPlayerSearch.php");
-include("./includes/footer.php");
 include("./includes/add-player.php");
 include("./includes/initialRating.php");
+include("./includes/footer.php");
+
 
 ?>
     

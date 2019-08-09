@@ -519,19 +519,24 @@ function setupMatchAutoComplete()
             var playerID = ui.item.id;
             setInitialRating(playerID);
             
-            
             //when an item is selected it is assumed that no error exists, remove the error class
             $(this).removeClass("upload-page-error-on-submit");
-         }
-      });
+          
+          
+          
+          
+        }
+      
+      
+    });
   
 
 }
 function setInitialRating(playerID)
 {
-         var setRating = 1;
-         //var sportID = $("#sports-type").find(":selected").val();
-          var sportID = $("#sports-type").val();
+          var setRating = 1;
+         var sportID = $("#sports-type").find(":selected").val();
+          //var sportID = $("#sports-type").val();
           $.ajax({
             url: "./initial-rating-Manager.php",
             type: 'POST',
@@ -542,16 +547,14 @@ function setInitialRating(playerID)
               setRating: setRating
             },
             success: function(data)
-            {  
-              alert(data);
-              if(data == "false")
-                  {  
-                    showInitialRatingModal();
-                  } 
-              }
+            {                
+                if(data == "false")
+                {
+                    showInitialRatingModal(playerID, sportID);
+                }              
+            }
+            
           });
-  
-  
 }
 
 
@@ -690,7 +693,6 @@ $( function() {
 function showAdvancedSearchModal()
 {
   document.querySelector(".player-advanced-search-border").style.display = "flex";
-  
 }
 function hideAdvancedSearchModal()
 {
@@ -698,30 +700,28 @@ function hideAdvancedSearchModal()
 }
 /**
  * -------------------------------------------------------------*
- * 		Begin Initial Rating Section						    *
+ * 		Begin Initial Rating Section								*
  * 																*
  * -------------------------------------------------------------*
  */
-
-function showInitialRatingModal()
+function showInitialRatingModal(playerID, sportID)
 {
-  
-  document.querySelector(".initial-rating-border").style.display = "flex";
-  
+  document.querySelector(".initial-rating-border").style.display="flex";
+  document.getElementById("hidden-player-ID").val(playerID);
+  document.getElementById("hidden-sport-ID").val(sportID);
 }
 
 function hideInitialRatingModal()
 {
-  document.querySelector(".initial-rating-border").style.display = "none";
+  document.querySelector(".initial-rating-border").style.display="none";
 }
-
 function addRating()
 { 
-  //var playerID = document.getElementById("hidden-player-ID").val();
+  var playerID = document.getElementById("hidden-player-ID").val();
   
   var meanID = $("#initial-mean-ID").val();
   var sdID = $("#initial-sd-ID").val();
-  //var sportID = document.getElementById("hidden-sport-ID").val();
+  var sportID = document.getElementById("hidden-sport-ID").val();
   $.ajax({
             url: "./initial-rating-Manager.php",
             type: 'POST',
@@ -734,10 +734,10 @@ function addRating()
               },
             success: function(data)
             {                
-                       
+              hideInitialRatingModal();          
             }
             
           });
-     hideInitialRatingModal();  
+      
  
 }

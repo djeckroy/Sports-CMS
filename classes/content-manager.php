@@ -26,6 +26,7 @@ class ContentManager
 
 		return $result;
 	}
+  
 
 
 	public function getPlayerClub($player_id)
@@ -346,13 +347,14 @@ class ContentManager
     	return "false";
     }  
   }
-  
-  public function insertInitialRating($mean, $sd, $playerID, $sportID)
+    public function insertInitialRating($mean, $sd, $playerID, $sportID)
   {
+      echo $mean;
+      echo $sd;
     $query = "INSERT INTO rating(mean, standard_deviation, player_id, sport_id, last_calculated) VALUES(?, ?, ?, ?, ?)";
     $result = $this->database->query($query, [$mean, $sd, $playerID, $sportID, '2019-08-09 02:54:18']);
     
   }
 }
-
-?> 
+	
+?>
