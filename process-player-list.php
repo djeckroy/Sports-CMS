@@ -2,44 +2,128 @@
 
 require("./includes/initialize.php");
 
-$playerName = "%{$_POST['player-name']}%";
-$playerAgeMin = $_POST['player-age-min'];
-$playerAgeMax = $_POST['player-age-max'];
-$lastPlayed = "%{$_POST['last-played']}%";
-$clubName = "%{$_POST['club-name']}%";
-$countryName = "%{$_POST['country-name']}%";
-$stateName = "%{$_POST['state-name']}%";
-$recentCompetitor = "%{$_POST["recent-competitor"]}%";
+$playerName = $_POST['playerName'];
+$playerAgeMin = $_POST['playerAgeMin'];
+$playerAgeMax = $_POST['playerAgeMax'];
+$lastPlayed = $_POST['lastPlayed'];
+$clubName = $_POST['clubName'];
+$countryName = $_POST['countryName'];
+$stateName = $_POST['stateName'];
 
-if(isset($_POST["submit-search-filter"]))
+$resultsPerPage = 15;
+$currentPage = "";
+$tableOutput = "";
+
+if(isset($_POST["page"]))
 {
-	$searchFilter = $contentManager->playerSearchFilter($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName);
-
-	$getRecentCompetitor = $contentManager->getRecentCompetitor($recentCompetitor, $playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName);
-
-	$player = array();
-	$competitor = array();	
-
-	while($row = $searchFilter->fetch(PDO::FETCH_ASSOC))
-	{   
-		array_push($player, [$row["player_id"], 
-							 $row["player_name"], 
-							 $row["player_age"], 
-							 $row["last_played"], 
-							 $row["club_name"], 
-							 $row["country_name"], 
-							 $row["state_name"]]); 	
-	}
-
-	while($row = $getRecentCompetitor->fetch(PDO::FETCH_ASSOC))
-	{   
-		array_push($competitor, $row["competitor_player_name"]); 	
-	}
-
-	$_SESSION["player"] = $player;
-	$_SESSION["competitor"] = $competitor;
+	$currentPage = $_POST["page"];
+}
+else
+{
+	$currentPage = 1;
 }
 
-redirect("players.php");
+if(isset($_POST["submitSearchFilter"]))
+{
+	$resultsPageToStartFrom = ($currentPage - 1) * $resultsPerPage;
+	
+	$searchFilter = $contentManager->playerSearchFilter($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName, $resultsPageToStartFrom, $resultsPerPage);
 
-?>
+	$totalPlayersResult = $contentManager->playerSearchFilterRowCount($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName);
+
+	$tableOutput .= "
+	  <table class='player-search-result-table'>
+	    <tr>
+	      <th>Player</th>
+	      <th>Age</th>
+	      <th>Last Played</th>
+	      <th>Club</th>
+	      <th>Region</th>
+	    </tr>";
+
+	while($row = $searchFilter->fetch())
+	{
+		$tableOutput .= "
+			<tr>
+             <td><a id='player-name-link' href='profile.php?profile-id=".$row["player_id"]."'>".$row["player_name"]."</a></td>
+             <td>".$row["player_age"]."</td>
+             <td>".$row["last_played"]."</td>
+             <td>".$row["club_name"]."</td>
+             <td>".$row["country_name"].", ".$row["state_name"]."</td>
+           </tr>";	
+	}
+
+	$tableOutput .= "
+        </table> 
+    <div class='pagination-buttons'>";
+
+    $totalPages = ceil($totalPlayersResult / $resultsPerPage);
+
+    if($totalPages < 1)
+    {
+        $tableOutput .= "<span class='player-search-link' id='0'><<</span>";
+    }
+    else
+    {
+        $tableOutput .= "<span class='player-search-link' id='1'><<</span>";
+    }
+
+    $pageThreshold = $currentPage + 14;
+
+    if($currentPage == 1)
+    {
+        for($i = $currentPage; $i <= $pageThreshold AND $i <= $totalPages; $i++)
+        {
+            $tableOutput .= "<span class='player-search-link' id='" . $i . "'>" . $i . " </span>";
+        }
+    }
+    elseif($currentPage == 2)
+    {
+        for($i = ($currentPage - 1); $i <= ($pageThreshold - 1) AND $i <= $totalPages; $i++)
+        {
+            $tableOutput .= "<span class='player-search-link' id='" . $i . "'>" . $i . " </span>";
+        }
+    }
+    else
+    {
+        if($currentPage == $totalPages)
+        {
+            for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+            {
+                $tableOutput .= "<span class='player-search-link' id='" . $i . "'>" . $i . " </span>";
+            }
+        }
+        elseif($currentPage == $totalPages - 1)
+        {
+            for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+            {
+                $tableOutput .= "<span class='player-search-link' id='" . $i . "'>" . $i . " </span>";
+            }
+        }
+        elseif($currentPage == $totalPages - 2)
+        {
+            for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+            {
+                $tableOutput .= "<span class='player-search-link' id='" . $i . "'>" . $i . " </span>";
+            }
+        }
+        else
+        {
+            for($i = ($currentPage - 2); $i <= ($pageThreshold - 2) AND $i < $totalPages; $i++)
+            {
+                $tableOutput .= "<span class='player-search-link' id='" . $i . "'>" . $i . " </span>";
+            }
+        }
+    }
+
+
+    $tableOutput .= "<span class='player-search-link' id=' " . $totalPages . "'>>></span></div>";                 
+}
+else
+{ 
+    echo "No player by the given search exists.";
+}
+
+echo $tableOutput;
+
+?>               

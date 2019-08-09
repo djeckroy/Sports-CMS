@@ -336,24 +336,53 @@ class ContentManager
 		$result = $this->database->query($query,[$tournamentDate,$loserNewMean,$loserNewSD,$loserID,$sportID]);
 	}
 
-	public function playerSearchFilter($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName)
+	public function playerSearchFilter($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName, $start, $amount)
 	{
 		$query = "SELECT
 						player.player_id, 
 						CONCAT_WS(' ', player.given_name, player.family_name) AS player_name, 
 						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) AS player_age,
-						DATE_FORMAT(player.last_played, '%Y-%m-%d') AS last_played,
+						DATE_FORMAT(player.last_played, '%d %M %Y') AS last_played,
 						club.name AS club_name, 
 						country.name AS country_name, 
-						state.name AS state_name,
-						MAX(game_result.game_id) AS player_most_recent_game_id
+						state.name AS state_name
 					FROM 
 						player INNER JOIN 
-						membership ON player.player_id = membership.player_id INNER JOIN 
-						club ON membership.club_id = club.club_id INNER JOIN 
-						country ON player.country_id = country.country_id INNER JOIN 
-						state ON player.state_id = state.state_id INNER JOIN
-						game_result ON player.player_id = game_result.game_id
+						membership ON membership.player_id = player.player_id INNER JOIN 
+						club ON club.club_id = membership.club_id INNER JOIN 
+						country ON country.country_id = player.country_id INNER JOIN 
+						state ON state.state_id = player.state_id
+					WHERE 
+						CONCAT_WS(' ', player.given_name, player.family_name) LIKE ? AND 
+						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) BETWEEN ? AND ? AND
+						player.last_played LIKE ? AND  
+						club.name LIKE ? AND 
+						country.name LIKE ? AND 
+						state.name LIKE ?
+						ORDER BY CONCAT_WS(' ', player.given_name, player.family_name) 
+						LIMIT " . $start . ", " . $amount;
+
+		$result = $this->database->query($query, ["$playerName%", "$playerAgeMin%", "$playerAgeMax%", "$lastPlayed%", "$clubName%", "$countryName%", "$stateName%"]);
+
+		return $result;
+	}
+
+	public function playerSearchFilterRowCount($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName)
+	{
+		$query = "SELECT
+						player.player_id, 
+						CONCAT_WS(' ', player.given_name, player.family_name) AS player_name, 
+						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) AS player_age,
+						DATE_FORMAT(player.last_played, '%d %M %Y') AS last_played,
+						club.name AS club_name, 
+						country.name AS country_name, 
+						state.name AS state_name
+					FROM 
+						player INNER JOIN 
+						membership ON membership.player_id = player.player_id INNER JOIN 
+						club ON club.club_id = membership.club_id INNER JOIN 
+						country ON country.country_id = player.country_id INNER JOIN 
+						state ON state.state_id = player.state_id
 					WHERE 
 						CONCAT_WS(' ', player.given_name, player.family_name) LIKE ? AND 
 						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) BETWEEN ? AND ? AND
@@ -364,12 +393,12 @@ class ContentManager
 
 		$result = $this->database->query($query, [$playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName]);
 
-		return $result;
+		return $result->rowCount();
 	}
 
-	public function getRecentCompetitor($recentCompetitor, $playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName)
+	/*public function getRecentCompetitor($recentCompetitor, $playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName, $start, $amount)
 	{
-		$playerSearchFilterResult = $this->playerSearchFilter($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName);
+		$playerSearchFilterResult = $this->playerSearchFilter($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName, $start, $amount);
 
 		$searchedPlayer = $playerSearchFilterResult->fetch(PDO::FETCH_ASSOC);
 
@@ -386,7 +415,7 @@ class ContentManager
 		$result = $this->database->query($query, [$recentCompetitor]);
 
 		return $result;
-	}
+	}*/
 	
 	/**
 	 * Retrieves cookie that stores bookmarked players, retrieves their details from the database

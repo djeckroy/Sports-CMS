@@ -471,13 +471,20 @@ article /* Never change this (Except height to 100% once content is added to pag
   .player-search-filter-container
   {
     height: 20%;
-    background-color: var(--primary-color-light);
-    text-align: center;
+    background-color: var(--primary-color-dark);
   }
 
   #player-search-filter-title
   {
-    
+    color: lightblue;
+  }
+
+  #player-search-filter-line
+  {
+    border-bottom: 1px solid #fff; 
+    padding-bottom: 3px;
+    width: 82.3%;
+    display: inline-block;
   }
 
   .player-search-filter-container input
@@ -513,48 +520,60 @@ article /* Never change this (Except height to 100% once content is added to pag
 
   .top-row-filter-inputs
   {
-    margin-top: 20px;
+    margin: 20px 0px 0px 10%;
     display: inline-block;
     width: 80%;
+    text-align: center;
   }
 
   .middle-row-filter-inputs
   {
-    margin-top: 20px;
+    margin: 10px 0px 0px 10%;
     display: inline-block;
     width: 80%;
+    text-align: center;
   }
 
   .bottom-row-filter-inputs
   {
-    margin-top: 20px;
+    margin: 10px 0px 0px 10%;
     display: inline-block;
     width: 80%;
-    position: relative;
+    text-align: center;
   }
 
-  #player-age-filter-min
+  #player-name-filter
   {
-    width: 12%;
-    position: absolute;
-    left: 43.5px;
+    transform: translateX(42px);
   }
 
-  #player-age-filter-max
+  #player-age-min-filter
   {
     width: 12%;
-    position: absolute;
-    left: 156px;
+    transform: translateX(42px);
+    text-align: center;
+  }
+
+  #player-age-max-filter
+  {
+    width: 12%;
+    transform: translateX(-42px);
+    text-align: center;
   }
 
   #player-age-filter-dash
   {
-    position: absolute;
-    left: 148.44px;
+    color: #fff;
   }
 
-  .submit-search-filter
+  #player-country-filter
   {
+    transform: translateX(-42px);
+  }
+
+  #submit-search-filter
+  {
+    cursor: pointer;
     width: 10%;
     height: 30px;
     border-style: none;
@@ -562,6 +581,60 @@ article /* Never change this (Except height to 100% once content is added to pag
     color: var(--text-light);
     float: right;
     transform: translateX(-44px);
+  }
+
+  .player-search-result-table
+  {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin-top: 50px;
+  }
+
+  .player-search-result-table th
+  {
+    border-bottom: 1px solid #ccc;
+    padding: 0px 85px;
+    color: var(--primary-color-dark);
+    text-align: center;
+  }
+
+  .player-search-result-table td
+  {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    padding: 10px 0px;
+    text-align: center;
+    background-color: 
+  }
+
+  #player-name-link
+  {
+    text-decoration: none;
+    color: blue;
+  }
+
+  .pagination-buttons /* should not have to be defined twice? */
+  {
+    position: relative;
+    height: 20%;
+    width: 100%;
+    border-top: 2px solid var(--text-medium);
+    text-align: center;
+    padding: 25px 0px 0px 0px; 
+  }
+
+  .player-search-link
+  {
+    cursor: pointer;
+    padding: 8px 8px 8px 8px;
+    border: 1px solid #ccc;
+    font-size: var(--font-small);
+    color: var(--primary-color-dark);
+  }
+
+  .player-search-link:hover
+  {
+    background-color: #ccc;
   }
 
 

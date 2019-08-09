@@ -44,8 +44,6 @@
 
   <link rel="stylesheet" href="./resources/css/styles.css">
   
-  <link rel="stylesheet" href="./resources/css/jquery-ui.min.css">
-  
   <link rel="icon" href="./resources/images/favicon.ico">
 
   <title> <?php echo $title; ?> </title>
