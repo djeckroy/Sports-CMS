@@ -16,6 +16,25 @@
 	<div id="account-event-section">
 		<div id="event-header" class="account-page-header">
 			<h2>Recent Club Events</h2>
+			<?php
+				$tableOutput = "";
+
+				if($account->getAccessLevel() < 2)
+				{
+					$tableOutput .= "<select name='Club' id='admin-change-club-events'>
+									<option disabled selected value> Select a Club </option>";
+					
+					$clubs = $contentManager->getAllClubs();
+
+					while ($club = $clubs->fetch())
+					{
+						$tableOutput .= "<option value=\"".$club["club_id"]."\">".$club["name"]."</option>";
+					}
+
+					$tableOutput .= "</select>";
+					echo $tableOutput;
+				}
+			?>
 			<div class="account-searchbar-container">
 				<input type="text" name="recent-events-searchbar" class="account-input-fields" id="event-searchbar" placeholder="Search Recent Club Events.."/> 
 				<input type="image" src="./resources/images/search-icon.png" class="account-search-buttons" id="account-search-event-button"/>
@@ -32,6 +51,25 @@
 	<div id="account-players-section">
 		<div id="players-header" class="account-page-header">
 			<h2>Club Members</h2>
+			<?php
+				$tableOutput = "";
+
+				if($account->getAccessLevel() < 2)
+				{
+					$tableOutput .= "<select name='Club' id='admin-change-club-members'>
+									<option disabled selected value> Select a Club </option>";
+					
+					$clubs = $contentManager->getAllClubs();
+
+					while ($club = $clubs->fetch())
+					{
+						$tableOutput .= "<option value=\"".$club["club_id"]."\">".$club["name"]."</option>";
+					}
+
+					$tableOutput .= "</select>";
+					echo $tableOutput;
+				}
+			?>
 			<div class="account-searchbar-container">
 				<input type="text" name="club-players-searchbar" class="account-input-fields" id="club-players-searchbar" placeholder="Search Club Players.."/> 
 				<input type="image" src="./resources/images/search-icon.png" class="account-search-buttons" id="account-search-players-button"/>

@@ -242,7 +242,7 @@ class ContentManager
 
 	public function getEventsAttendedByClub($clubID, $start, $amount, $searchTerm)
 	{
-		$query = "SELECT
+		$query = "SELECT DISTINCT
 					event.name AS event_name, event.event_id, event.type, event.start_date, country.name AS country_name
 				  FROM 
 				  	event 
@@ -252,19 +252,17 @@ class ContentManager
 				  	country on event.country_id = country.country_id 
 				  WHERE 
 				  	plays_at.club_id = ?
-				  AND
-				  	event.name LIKE ?
 				  ORDER BY
 				  	event.start_date
 				  DESC LIMIT " . $start . ", " . $amount;
 
-		$result = $this->database->query($query, [$clubID, "$searchTerm%"]);
+		$result = $this->database->query($query, [$clubID/*, '%$searchTerm%'*/]);
 		return $result;
 	}
 
 	public function getTotalNumberOfAttendedEvents($clubID, $searchTerm)
 	{
-		$query = "SELECT
+		$query = "SELECT DISTINCT
 					event.name AS event_name, event.event_id, event.type, event.start_date, country.name AS country_name
 				  FROM 
 				  	event 
@@ -273,11 +271,9 @@ class ContentManager
 				  INNER JOIN 
 				  	country on event.country_id = country.country_id 
 				  WHERE 
-				  	plays_at.club_id = ?
-				  AND
-				  	event.name LIKE ?";
+				  	plays_at.club_id = ?";
 
-		$result = $this->database->query($query, [$clubID, "$searchTerm%"]);
+		$result = $this->database->query($query, [$clubID/*, '%$searchTerm%'*/]);
 		return $result->rowCount();
 	}
 
@@ -295,15 +291,11 @@ class ContentManager
 				    club on club.sport_id = rating.sport_id
 				  WHERE 
 				  	membership.club_id = ?
-				  AND
-				  	player.given_name LIKE ?
-				  OR
-				  	player.family_name LIKE ? 
 				  ORDER BY
 				  	player_name
 				  ASC LIMIT " . $start . ", " . $amount;		  	
 
-		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
+		$result = $this->database->query($query, [$clubID/*, "$searchTerm%", "$searchTerm%"*/]);
 		return $result;
 	}
 
@@ -320,13 +312,9 @@ class ContentManager
 				  INNER JOIN 
 				    club on club.sport_id = rating.sport_id
 				  WHERE 
-				  	membership.club_id = ?
-				  AND
-				  	player.given_name LIKE ?
-				  OR
-				  	player.family_name LIKE ?"; 	
+				  	membership.club_id = ?";	
 
-		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
+		$result = $this->database->query($query, [$clubID/*, "%$searchTerm%"*/]);
 		return $result->rowCount();
 	}
 
@@ -341,14 +329,12 @@ class ContentManager
 				  WHERE 
 				  	director_of.club_id = ?
 				  AND
-				  	account.given_name LIKE ?
-				  OR
-				  	account.family_name LIKE ? 
+				  	account.given_name LIKE ? 
 				  ORDER BY
 				  	account_name
 				  ASC LIMIT " . $start . ", " . $amount;		  	
 
-		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
+		$result = $this->database->query($query, [$clubID, "$searchTerm%"]);
 		return $result;
 	}
 
@@ -363,11 +349,9 @@ class ContentManager
 				  WHERE 
 				  	director_of.club_id = ?
 				  AND
-				  	account.given_name LIKE ?
-				  OR
-				  	account.family_name LIKE ?";
+				  	account.given_name LIKE ?";
 		  	
-		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
+		$result = $this->database->query($query, [$clubID, "$searchTerm%"]);
 		return $result->rowCount();
 	}
 

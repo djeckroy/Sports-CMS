@@ -1,13 +1,13 @@
 
-window.onload = retrieveRecentEventsForClub(1, "");
-window.onload = retrieveClubPlayers(1, "");
+window.onload = retrieveRecentEventsForClub(1, "", "");
+window.onload = retrieveClubPlayers(1, "", "");
 window.onload = retrieveTournamentDirectors(1, "", "");
 
 
 /* RECENT CLUB EVENTS */
 
 
-function retrieveRecentEventsForClub(page, searchTerm)
+function retrieveRecentEventsForClub(page, searchTerm, clubID)
 {
 	var eventID = 0;
 
@@ -15,7 +15,7 @@ function retrieveRecentEventsForClub(page, searchTerm)
 	({
 		url: "./account-pagination.php",
         type: "POST",
-        data: {page: page, eventID: eventID, searchTerm: searchTerm},
+        data: {page: page, eventID: eventID, searchTerm: searchTerm, clubID: clubID},
         success: function(data) 
         {
             $("#account-event-information").html(data);
@@ -27,17 +27,30 @@ $(document).on('click', '.recent-events-link', function()
 {
     var page = $(this).attr("id");
     var searchValue = $("#event-searchbar").val();
+    var clubID = "";
+
+    if($("#admin-change-club-events").length > 0)
+    {
+        var clubID = $("#admin-change-club-events").find(":selected").val();
+    }
 
     if(page > 0)
     {
-        retrieveRecentEventsForClub(page, searchValue);
+        retrieveRecentEventsForClub(page, searchValue, clubID);
     }
 });
 
 $(document).on('click', '#account-search-event-button', function()
 {
     var searchValue = $("#event-searchbar").val();
-    retrieveRecentEventsForClub(1, searchValue);
+    var clubID = "";
+
+    if($("#admin-change-club-events").length > 0)
+    {
+        var clubID = $("#admin-change-club-events").find(":selected").val();
+    }
+
+    retrieveRecentEventsForClub(1, searchValue, clubID);
 });
 
 $("#event-searchbar").keyup(function(event) 
@@ -75,11 +88,18 @@ function sendEditEventID(eventID)
     form.submit();
 }
 
+$(document).on('change', '#admin-change-club-events', function()
+{
+    var searchValue = $("#club-search-event-searchbar").val();
+    var clubID = $("#admin-change-club-events").find(":selected").val();
+    retrieveRecentEventsForClub(1, searchValue, clubID);
+});
+
 
 /* CLUB PLAYERS */
 
 
-function retrieveClubPlayers(page, searchTerm)
+function retrieveClubPlayers(page, searchTerm, clubID)
 {
     var playersID = 0;
 
@@ -87,7 +107,7 @@ function retrieveClubPlayers(page, searchTerm)
     ({
         url: "./account-pagination.php",
         type: "POST",
-        data: {page: page, playersID: playersID, searchTerm: searchTerm},
+        data: {page: page, playersID: playersID, searchTerm: searchTerm, clubID: clubID},
         success: function(data) 
         {
             $("#account-players-information").html(data);
@@ -99,17 +119,30 @@ $(document).on('click', '.club-players-link', function()
 {
     var page = $(this).attr("id");
     var searchValue = $("#club-players-searchbar").val();
+    var clubID = "";
+
+    if($("#admin-change-club-members").length > 0)
+    {
+        var clubID = $("#admin-change-club-members").find(":selected").val();
+    }
 
     if(page > 0)
     {
-        retrieveClubPlayers(page, searchValue);
+        retrieveClubPlayers(page, searchValue, clubID);
     }
 });
 
 $(document).on('click', '#account-search-players-button', function()
 {
     var searchValue = $("#club-players-searchbar").val();
-    retrieveClubPlayers(1, searchValue);
+    var clubID = "";
+
+    if($("#admin-change-club-members").length > 0)
+    {
+        var clubID = $("#admin-change-club-members").find(":selected").val();
+    }
+
+    retrieveClubPlayers(1, searchValue, clubID);
 });
 
 $("#club-players-searchbar").keyup(function(event) 
@@ -118,6 +151,19 @@ $("#club-players-searchbar").keyup(function(event)
     {
         $("#account-search-players-button").click();
     }
+});
+
+$(document).on('change', '#admin-change-club-members', function()
+{
+    var searchValue = $("#club-players-searchbar").val();
+    var clubID = "";
+
+    if($("#admin-change-club-members").length > 0)
+    {
+        var clubID = $("#admin-change-club-members").find(":selected").val();
+    }
+
+    retrieveClubPlayers(1, searchValue, clubID);
 });
 
 
@@ -181,15 +227,7 @@ $("#directors-searchbar").keyup(function(event)
 $(document).on('click', '.account-table-directors-button', function(event)
 {
     var accountID = $(this).closest('tr').find('.account-table-id').text();
-    var clubID = "";
-
-    if($("#admin-change-club").length > 0)
-    {
-        clubID = $("#admin-change-club").find(":selected").val();
-    }
-
-    removeDirectorFromClub(accountID, clubID);
-
+    removeDirectorFromClub(accountID);
 });
 
 function removeDirectorFromClub(accountID)

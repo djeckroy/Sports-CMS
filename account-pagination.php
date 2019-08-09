@@ -14,7 +14,6 @@
 	if(isset($_POST["page"]))
 	{
 		$currentPage = $_POST["page"];
-
 	}
 	else
 	{
@@ -23,9 +22,18 @@
 
 	if(isset($_POST["eventID"]))
 	{
-		$clubID = $account->getRegisteredClubID();
+		$clubID = "";
 		$resultsPageToStartFrom = ($currentPage - 1) * $resultsPerPage;
 		$searchTerm = "";
+
+		if($_POST["clubID"] == "")
+		{
+			$clubID = $account->getRegisteredClubID();
+		}
+		else
+		{
+			$clubID = $_POST["clubID"];
+		}
 
 		if(isset($_POST["searchTerm"]))
 		{
@@ -33,6 +41,7 @@
 		}
 
 		$results = $contentManager->getEventsAttendedByClub($clubID, $resultsPageToStartFrom, $resultsPerPage, $searchTerm);
+		//echo var_dump($results);
 
 		$tableOutput .= "
 			<table class='account-tables'>
@@ -60,6 +69,7 @@
 
 		$tableOutput .= "
 			</table>
+			<div class='pagination-buttons-container'>
 			<div class='pagination-buttons'>";
 
 		$totalAttendedEvents = $contentManager->getTotalNumberOfAttendedEvents($clubID, $searchTerm);
@@ -123,13 +133,22 @@
 		}
 
 
-		$tableOutput .= "<span class='recent-events-link' id=' " . $totalPages . "'>>></span></div>";
+		$tableOutput .= "<span class='recent-events-link' id=' " . $totalPages . "'>>></span></div></div>";
 	}	
 	elseif(isset($_POST["playersID"]))
 	{
-		$clubID = $account->getRegisteredClubID();
+		$clubID = "";
 		$resultsPageToStartFrom = ($currentPage - 1) * $resultsPerPage;
 		$searchTerm = "";
+
+		if($_POST["clubID"] == "")
+		{
+			$clubID = $account->getRegisteredClubID();
+		}
+		else
+		{
+			$clubID = $_POST["clubID"];
+		}
 		
 		if(isset($_POST["searchTerm"]))
 		{
@@ -162,6 +181,7 @@
 
 		$tableOutput .= "
 			</table>
+			<div class='pagination-buttons-container'>
 			<div class='pagination-buttons'>";
 
 		$totalClubMembers = $contentManager->getNumPlayersByClub($clubID, $searchTerm);
@@ -226,7 +246,7 @@
 
 
 		$tableOutput .= "<span class='club-players-link' id=' " . $totalPages . "'>>></span>
-						<button type='button' id='account-add-player-button'>Add Player</button> </div>";
+						<button type='button' id='account-add-player-button'>Add Player</button> </div></div>";
 
 	}
 	elseif(isset($_POST["directorID"]))
@@ -234,7 +254,7 @@
 		$resultsPerPage = 4;
 		$clubID = "";
 
-		if($_POST['clubID'] == "")
+		if($_POST["clubID"] == "")
 		{
 			$clubID = $account->getRegisteredClubID();
 		}
@@ -261,7 +281,7 @@
 
 		$tableOutput .= "
 			<table id='directors-table'>
-			<tr>
+			<tr class='account-table-headers'>
 				<th class='account-row-id'>ID</th>
 				<th class='account-row-name'>Name</th>
 				<th class='account-row-email'>Email</th>
@@ -281,6 +301,7 @@
 
 		$tableOutput .= "
 			</table>
+			<div class='pagination-buttons-container'>
 			<div class='pagination-buttons'>";
 
 		$totalDirectors = $contentManager->getNumClubDirectors($clubID, $searchTerm);
@@ -345,7 +366,7 @@
 
 
 		$tableOutput .= "<span class='tournament-directors-link' id=' " . $totalPages . "'>>></span>
-						<button type='button' id='account-add-director-button'>Add Director</button> </div>";
+						<button type='button' id='account-add-director-button'>Add Director</button> </div></div>";
 	}
 	else
 	{

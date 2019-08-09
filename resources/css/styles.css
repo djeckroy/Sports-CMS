@@ -708,13 +708,38 @@ article /* Never change this (Except height to 100% once content is added to pag
     display: none;
   }
 
+  #admin-change-club-events
+  {
+    position: absolute;
+    left: 255px;
+    top: 25px;
+    color: var(--text-dark);
+    width:250px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: var(--font-small);
+  }
+
+  #admin-change-club-members
+  {
+    position: absolute;
+    left: 210px;
+    top: 25px;
+    color: var(--text-dark);
+    width:250px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: var(--font-small);
+  }
+
   #admin-change-club
   {
     position: absolute;
     left: 230px;
+    top: 25px;
     color: var(--text-dark);
     width:250px;
-    height: 40px;
+    height: 30px;
     border-radius: 5px;
     font-size: var(--font-small);
   }
@@ -785,7 +810,7 @@ article /* Never change this (Except height to 100% once content is added to pag
     text-decoration: none;
     width: 150px;
     cursor: pointer;
-    bottom: 16px;
+    bottom: -10px;
     right: 10px;
   }
 
@@ -922,7 +947,7 @@ article /* Never change this (Except height to 100% once content is added to pag
 
   #directors-table
   {
-    height: 257px;
+    height: auto;
     width: 1080px;
     text-align: center;
     color: var(--text-dark);
@@ -978,11 +1003,13 @@ article /* Never change this (Except height to 100% once content is added to pag
 
   .account-tables
   {
-    height: 363px;
+    height: auto;
     width: 1080px;
     text-align: center;
     color: var(--text-dark);
     table-layout: fixed;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .account-tables th
@@ -991,6 +1018,8 @@ article /* Never change this (Except height to 100% once content is added to pag
     font-weight: bold;
     height: 29px;
     max-height: 29px;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .account-tables td
@@ -1008,11 +1037,13 @@ article /* Never change this (Except height to 100% once content is added to pag
   .account-tables tr
   {
     max-height: 53px;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .account-row-name
   {
-    width: 35%;
+    width: 32%;
   }
 
   .account-row-match-type
@@ -1037,7 +1068,7 @@ article /* Never change this (Except height to 100% once content is added to pag
 
   .account-row-email
   {
-    width: 30%;
+    width: 28%;
   }
 
   .account-row-rating
@@ -1047,7 +1078,7 @@ article /* Never change this (Except height to 100% once content is added to pag
 
   .account-row-gender
   {
-    width: 5%;
+    width: 10%;
   }
 
   .account-row-id
@@ -1062,6 +1093,12 @@ article /* Never change this (Except height to 100% once content is added to pag
     display: none;
   }
 
+  .account-table-headers
+  {
+    height: 29px;
+    max-height: 29px;
+  }
+
   .account-table-events-button
   {
     background: var(--primary-color-dark);
@@ -1074,6 +1111,13 @@ article /* Never change this (Except height to 100% once content is added to pag
     height: 26px;
 
     cursor: pointer;
+  }
+
+  .pagination-buttons-container
+  {
+    width: 100%;
+    position: absolute;
+    bottom: 25px;
   }
 
   .pagination-buttons
