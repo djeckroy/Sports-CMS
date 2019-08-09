@@ -147,6 +147,26 @@
 		</div>
 	</div>
 </div>
+
+<?php
+	if($account->getAccessLevel() < 2)
+	{
+		echo '<div id="account-container-administration">
+	<div id="account-administration-section">
+		<div id="administration-header" class="account-page-header">
+			<h2>Administration</h2>
+			<div class="account-searchbar-container">
+				<input type="text" name="account-administration-searchbar" class="account-input-fields" id="administration-searchbar" placeholder="Search Administrators.."/> 
+				<input type="image" src="./resources/images/search-icon.png" class="account-search-buttons" id="account-search-administrators-button"/>
+			</div>
+		</div>
+		<div id="account-administrator-information">
+		</div>
+		<div id="account-remove-administrators-submission">
+		</div>
+	</div>';
+	}
+?>
    
 </article>
 

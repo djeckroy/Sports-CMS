@@ -363,6 +363,35 @@ class ContentManager
 
 		return $result;
 	}
+
+	public function getAdministrators($start, $amount, $searchTerm)
+	{
+		$query = "SELECT
+					DISTINCT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  FROM 
+				  	account
+				  WHERE 
+				  	account.access_level = 1
+				  ORDER BY
+				  	account_name
+				  ASC LIMIT " . $start . ", " . $amount; 	
+
+		$result = $this->database->query($query, null);
+		return $result;
+	}
+
+	public function getNumAdministrators($searchTerm)
+	{
+		$query = "SELECT
+					DISTINCT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  FROM 
+				  	account
+				  WHERE 
+				  	account.access_level = 1";	  	
+
+		$result = $this->database->query($query, null);
+		return $result->rowCount();
+	}
 	
 	/*
 	 * After running maple script this function updates the ratings for 

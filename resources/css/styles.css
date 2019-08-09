@@ -659,7 +659,7 @@ article /* Never change this (Except height to 100% once content is added to pag
     height: 542px;
     display: inline-flex;
     position: relative;
-    margin: 0px 0px 30px 0px;
+    margin: 30px 0px 30px 0px;
   }
 
   #account-event-section
@@ -810,8 +810,8 @@ article /* Never change this (Except height to 100% once content is added to pag
     text-decoration: none;
     width: 150px;
     cursor: pointer;
-    bottom: -10px;
-    right: 10px;
+    bottom: 5px;
+    right: 15px;
   }
 
   #account-add-player-button:hover
@@ -870,17 +870,13 @@ article /* Never change this (Except height to 100% once content is added to pag
 
   .club-field p
   {
-    margin: 0px 0px 0px 10px;
+    margin: 0px 10px 0px 0px;
   }
 
   #account-club-directors-header
   {
     height: 50px;
     border-bottom: 2px solid var(--text-medium);
-  }
-
-  #account-club-directors-header
-  {
     font-size: var(--font-medium);
     font-weight: bold;
     padding: 10px 0px 10px 0px;
@@ -888,7 +884,7 @@ article /* Never change this (Except height to 100% once content is added to pag
 
   #account-club-directors-header p
   {
-    margin: 0px 0px 0px 30px;
+    margin: 0px 0px 0px 20px;
   }
 
   #account-container-personal
@@ -917,6 +913,11 @@ article /* Never change this (Except height to 100% once content is added to pag
     margin: 0;
     height: 26px;
     cursor: pointer;
+  }
+
+  .account-table-directors-button:hover
+  {
+    background: var(--secondary-color-dark);
   }
 
   #personal-header
@@ -956,6 +957,7 @@ article /* Never change this (Except height to 100% once content is added to pag
 
   #directors-table th
   {
+    padding: 0px 0px 0px 20px;
     font-size: var(--font-table-headers);
     font-weight: bold;
     height: 29px;
@@ -964,7 +966,7 @@ article /* Never change this (Except height to 100% once content is added to pag
 
   #directors-table td
   {
-    padding: 14px 0 14px 0;
+    padding: 14px 0 14px 20px;
     font-size: var(--font-medium);
     color: var(--text-table-data);
     white-space: nowrap;
@@ -992,13 +994,83 @@ article /* Never change this (Except height to 100% once content is added to pag
     text-decoration: none;
     width: 150px;
     cursor: pointer;
-    bottom: -10px;
-    right: 10px;
+    bottom: 5px;
+    right: 15px;
   }
 
   #account-add-director-button:hover
   {
     background: var(--secondary-color-dark);
+  }
+
+  #account-container-administration
+  {
+    width: 100%;
+    height: 530px;
+    display: inline-flex;
+    position: relative;
+    margin: 0px 0px 30px 0px;
+    background-color: var(--text-light);
+  }
+
+  #account-administration-section
+  {
+    height: 100%;
+    width: 100%;
+    background-color: var(--text-light);
+    float: right;
+  }
+
+  #administration-header
+  {
+    background-color: var(--tertiary-color);
+    width: 100%;
+  }
+
+  #account-administrator-information
+  {
+    width: 100%
+    height: 75%;
+    padding: 20px 0px 20px 0px;
+  }
+
+  #account-add-administrator-button
+  {
+    position: absolute;
+    background: var(--tertiary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 0px 20px 0px 0px;
+    padding: 6px 10px 6px 10px;
+    text-decoration: none;
+    width: 200px;
+    cursor: pointer;
+    bottom: 5px;
+    right: 35px;
+  }
+
+  #account-add-administrator-button:hover
+  {
+    background: var(--tertiary-color-dark);
+  }
+
+  .account-table-administrators-button
+  {
+    background: var(--tertiary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-small);
+    width: 80px;
+    text-decoration: none;
+    margin: 0;
+    height: 26px;
+    cursor: pointer;
+  }
+
+  .account-table-administrators-button:hover
+  {
+    background-color: var(--tertiary-color-dark);
   }
 
   .account-tables
@@ -1020,15 +1092,15 @@ article /* Never change this (Except height to 100% once content is added to pag
     max-height: 29px;
     overflow: hidden;
     white-space: nowrap;
+    padding-left: 20px;
   }
 
   .account-tables td
   {
-    padding: 14px 0 14px 0;
+    padding: 14px 0 14px 20px;
     font-size: var(--font-medium);
     color: var(--text-table-data);
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
     height: 53px;
     max-height: 53px;
@@ -1041,9 +1113,20 @@ article /* Never change this (Except height to 100% once content is added to pag
     white-space: nowrap;
   }
 
+  .account-table-data-name
+  {
+    text-align: justify;
+  }
+
+  .account-table-data-email
+  {
+    text-align: justify;
+  }
+
   .account-row-name
   {
-    width: 32%;
+    width: 30%;
+    text-align: left;
   }
 
   .account-row-match-type
@@ -1068,7 +1151,8 @@ article /* Never change this (Except height to 100% once content is added to pag
 
   .account-row-email
   {
-    width: 28%;
+    width: 30%;
+    text-align: left
   }
 
   .account-row-rating
@@ -1109,29 +1193,37 @@ article /* Never change this (Except height to 100% once content is added to pag
     text-decoration: none;
     margin: 0;
     height: 26px;
-
     cursor: pointer;
+  }
+
+  .account-table-events-button:hover
+  {
+    background: var(--primary-color-light);
   }
 
   .pagination-buttons-container
   {
+    height: 70px;
     width: 100%;
     position: absolute;
-    bottom: 25px;
+    bottom: 0px;
   }
 
   .pagination-buttons
   {
     position: relative;
-    height: 20%;
+    height: 60px;
     width: 100%;
     border-top: 2px solid var(--text-medium);
     text-align: center;
-    padding: 25px 0px 0px 0px; 
+    padding: 15px 0px 0px 0px; 
+    margin: 0px;
   }
 
   .recent-events-link
   {
+    display: inline-block;
+    width: 37px;
     cursor: pointer;
     padding: 8px 8px 8px 8px;
     border: 1px solid #ccc;
@@ -1144,8 +1236,17 @@ article /* Never change this (Except height to 100% once content is added to pag
     background-color: #ccc;
   }
 
+  .recent-events-link-selected
+  {
+    background-color: var(--primary-color-dark);
+    color: var(--text-light);
+  }
+
   .club-players-link
   {
+    margin: 0px;
+    display: inline-block;
+    width: 37px;
     cursor: pointer;
     padding: 8px 8px 8px 8px;
     border: 1px solid #ccc;
@@ -1158,8 +1259,17 @@ article /* Never change this (Except height to 100% once content is added to pag
     background-color: #ccc;
   }
 
+  .club-players-link-selected
+  {
+    background-color: var(--tertiary-color);
+    color: var(--text-light);
+  }
+
   .tournament-directors-link
   {
+    margin: 0px;
+    display: inline-block;
+    width: 37px;
     cursor: pointer;
     padding: 8px 8px 8px 8px;
     border: 1px solid #ccc;
@@ -1168,6 +1278,28 @@ article /* Never change this (Except height to 100% once content is added to pag
   }
 
   .tournament-directors-link:hover
+  {
+    background-color: #ccc;
+  }
+
+  .tournament-directors-link-selected
+  {
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+  }
+
+  .administrators-link
+  {
+    display: inline-block;
+    width: 37px;
+    cursor: pointer;
+    padding: 8px 8px 8px 8px;
+    border: 1px solid #ccc;
+    font-size: var(--font-small);
+    color: var(--tertiary-color);
+  }
+
+  .administrators-link:hover
   {
     background-color: #ccc;
   }

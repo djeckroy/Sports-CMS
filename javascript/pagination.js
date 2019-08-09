@@ -2,6 +2,7 @@
 window.onload = retrieveRecentEventsForClub(1, "", "");
 window.onload = retrieveClubPlayers(1, "", "");
 window.onload = retrieveTournamentDirectors(1, "", "");
+window.onload = retrieveAdministrators(1, "");
 
 
 /* RECENT CLUB EVENTS */
@@ -252,8 +253,67 @@ $(document).on('change', '#admin-change-club', function()
 });
 
 
+/* ADMINISTRATORS */
 
 
+function retrieveAdministrators(page, searchTerm)
+{
+    var administrationID = 0;
 
+    $.ajax
+    ({
+        url: "./account-pagination.php",
+        type: "POST",
+        data: {page: page, administrationID: administrationID, searchTerm: searchTerm},
+        success: function(data) 
+        {
+            $("#account-administrator-information").html(data);
+        }
+    });
+}
 
+$(document).on('click', '.administrators-link', function()
+{
+    var page = $(this).attr("id");
+    var searchValue = $("#directors-searchbar").val();
+
+    if(page > 0)
+    {
+        retrieveAdministrators(page, searchValue);
+    }
+});
+
+$(document).on('click', '#account-search-administrators-button', function()
+{
+    var searchValue = $("#administrators-searchbar").val();
+    retrieveAdministrators(1, searchValue);
+});
+
+$("#administrators-searchbar").keyup(function(event) 
+{
+    if (event.keyCode === 13) 
+    {
+        $("#account-search-administrators-button").click();
+    }
+});
+
+$(document).on('click', '.account-table-administrators-button', function(event)
+{
+    var accountID = $(this).closest('tr').find('.account-table-id').text();
+    demoteAdministrator(accountID);
+});
+
+function demoteAdministrator(accountID)
+{
+   $.ajax
+    ({
+        url: "./demote-administrator.php",
+        type: "POST",
+        data: {accountID: accountID},
+        success: function(data) 
+        {
+            $("#account-search-administrators-button").click();
+        }
+    });
+}
 
