@@ -1047,7 +1047,7 @@ article /* Never change this (Except height to 100% once content is added to pag
     width: 200px;
     cursor: pointer;
     bottom: 5px;
-    right: 35px;
+    right: 15px;
   }
 
   #account-add-administrator-button:hover
