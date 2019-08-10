@@ -516,8 +516,6 @@ function setupMatchAutoComplete()
             //name cell will be automatically filled in 
             
             $(this).next().val(ui.item.id);
-            var playerID = ui.item.id;
-            setInitialRating(playerID);
             
             //when an item is selected it is assumed that no error exists, remove the error class
             $(this).removeClass("upload-page-error-on-submit");
@@ -535,8 +533,8 @@ function setupMatchAutoComplete()
 function setInitialRating(playerID)
 {
           var setRating = 1;
-         var sportID = $("#sports-type").find(":selected").val();
-          //var sportID = $("#sports-type").val();
+          var sportID = $("#sports-type").find(":selected").val();
+
           $.ajax({
             url: "./initial-rating-Manager.php",
             type: 'POST',
@@ -572,9 +570,13 @@ function setupMatchErrorChecking(){
     $(this).next().val("");
   });
   
-  $( ".winner-loser-field").change(function(e){
-	 //a field has been changed. Clear any validity message that has been set for all fields. they will be retested once submit is pressed
-	 $( ".winner-loser-field").each(function (){
+  $( ".winner-loser-field").change(function(e)
+  {
+        var playerID = $(this).next().val(); 
+        setInitialRating(playerID);
+
+	 $( ".winner-loser-field").each(function ()
+     {
 		this.setCustomValidity('');
 	 });
   });
@@ -707,33 +709,36 @@ function hideAdvancedSearchModal()
 function showInitialRatingModal(playerID, sportID)
 {
   document.querySelector(".initial-rating-border").style.display="flex";
-  document.getElementById("hidden-player-ID").val(playerID);
-  document.getElementById("hidden-sport-ID").val(sportID);
+  $("#hidden-sport-ID").val(sportID);
+  $("#hidden-player-ID").val(playerID);
 }
 
 function hideInitialRatingModal()
 {
   document.querySelector(".initial-rating-border").style.display="none";
+  $("#hidden-sport-ID").val("");
+  $("#hidden-player-ID").val("");
 }
+
 function addRating()
 { 
-  var playerID = document.getElementById("hidden-player-ID").val();
-  
+  var playerID = $("#hidden-player-ID").val();
+  var sportID = $("#hidden-sport-ID").val();
   var meanID = $("#initial-mean-ID").val();
   var sdID = $("#initial-sd-ID").val();
-  var sportID = document.getElementById("hidden-sport-ID").val();
+
   $.ajax({
             url: "./initial-rating-Manager.php",
             type: 'POST',
             datatype: "text",
             data :{
               meanID: meanID, 
-              sdID: sdID
-              
-              
+              sdID: sdID,
+              playerID: playerID,
+              sportID: sportID
               },
             success: function(data)
-            {                
+            {           
               hideInitialRatingModal();          
             }
             

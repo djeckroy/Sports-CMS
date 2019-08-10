@@ -26,7 +26,6 @@ if((isset($_POST["meanID"]) && (isset($_POST["sdID"]))))
   $sd = $_POST["sdID"];
   
   $result = $contentManager->insertInitialRating($mean, $sd, $playerID, $sportID);
-  
 }
 
 ?>
