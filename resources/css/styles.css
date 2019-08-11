@@ -409,7 +409,7 @@ article
 
   #player-page-article
   {
-    min-height: 940px;
+    min-height: 954px;
   }
 
   .search-input 
@@ -475,11 +475,7 @@ article
 
 
   /* Players Page */
-
-  #player-search-page-min-height
-  {
-    min-height: 954px;
-  }
+  
 
   .player-search-filter-container
   {
