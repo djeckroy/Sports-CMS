@@ -24,6 +24,7 @@
 
   --text-light: white;
   --text-medium: #eaeaea;
+  --text-table-data: #5e5e5e;
   --text-dark: #242A36;
 
   --form-background: white;
@@ -38,6 +39,8 @@
 
   --font-small: 16px;
   --font-medium: 20px;
+  --font-table-headers: 22px;
+  --font-small-large: 30px;
   --font-large: 40px;
   --font-extra-large: 60px;
 }
@@ -49,7 +52,7 @@ body
 
 article /* Never change this (Except height to 100% once content is added to pages) */
 {
-  height: 1000px;
+  height: 100%;
   max-height: 5000px;
   max-width: 1080px;
   margin: 0 auto;
@@ -406,7 +409,7 @@ article /* Never change this (Except height to 100% once content is added to pag
 
   .search-input 
   {
-    height: 40px;
+    height: 50px;
     width: 70%;
     font-size: var(--font-small);
     padding: 0px 10px 0px 10px;
@@ -817,8 +820,662 @@ article /* Never change this (Except height to 100% once content is added to pag
 
   /* Account Page */
 
+  #account-page-article
+  {
+    background-color: var(--body-color);
+  }
 
-  /* GRANT */
+  #account-container-events
+  {
+    width: 100%;
+    height: 542px;
+    display: inline-flex;
+    position: relative;
+    margin: 30px 0px 30px 0px;
+  }
+
+  #account-event-section
+  {
+    height: 100%;
+    width: 100%;
+    background-color: var(--text-light);
+    float: right;
+  }
+
+  .account-page-header
+  {
+    display: inline-block;
+    height: 75px;
+    width: 100%;
+    padding: 20px;
+    color: var(--text-medium);
+  }
+
+  #event-header
+  {
+    background-color: var(--primary-color-dark);
+  }
+
+  .account-page-header h2
+  {
+    display: inline-flex;
+  }
+
+  .account-searchbar-container
+  {
+    position: relative;
+    height: 30px;
+    width: 360px;
+    float: right;
+  }
+
+  #account-event-information
+  {
+    height: 75%;
+    padding: 20px 0 20px 0;
+  }
+
+  #account-edit-event-submission
+  {
+    display: none;
+  }
+
+  #admin-change-club-events
+  {
+    position: absolute;
+    left: 255px;
+    top: 25px;
+    color: var(--text-dark);
+    width:250px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: var(--font-small);
+  }
+
+  #admin-change-club-members
+  {
+    position: absolute;
+    left: 210px;
+    top: 25px;
+    color: var(--text-dark);
+    width:250px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: var(--font-small);
+  }
+
+  #admin-change-club
+  {
+    position: absolute;
+    left: 230px;
+    top: 25px;
+    color: var(--text-dark);
+    width:250px;
+    height: 30px;
+    border-radius: 5px;
+    font-size: var(--font-small);
+  }
+
+  .account-search-buttons
+  {
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    cursor: pointer;
+    z-index: 2;
+    right: 14px;
+    top: 6px;
+    outline: none;
+  }
+
+  .account-input-fields
+  {
+    position: relative;
+    height: 30px;
+    width: 350px;
+    font-size: var(--font-small);
+    padding: 0px 30px 0px 10px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+    border-radius: 4px;
+    top: 4px;
+  }
+
+  #account-container-players
+  {
+    width: 100%;
+    height: 530px;
+    display: inline-flex;
+    position: relative;
+    margin: 0px 0px 30px 0px;
+  }
+
+  #account-players-section
+  {
+    height: 100%;
+    width: 100%;
+    background-color: var(--text-light);
+    float: right;
+  }
+
+  #players-header
+  {
+    background-color: var(--tertiary-color);
+  }
+
+  #account-players-information
+  {
+    height: 75%;
+    padding: 20px 0 20px 0;
+  }
+
+  #account-add-player-button
+  {
+    position: absolute;
+    background: var(--tertiary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 0px 20px 0px 0px;
+    padding: 6px 10px 6px 10px;
+    text-decoration: none;
+    width: 150px;
+    cursor: pointer;
+    bottom: 5px;
+    right: 15px;
+  }
+
+  #account-add-player-button:hover
+  {
+    background: var(--tertiary-color-dark);
+  }
+
+  #account-container-clubs
+  {
+    width: 100%;
+    height: 542px;
+    display: inline-flex;
+    position: relative;
+    margin: 0px 0px 30px 0px;
+  }
+
+  #account-club-section
+  {
+    height: 100%;
+    width: 100%;
+    background-color: var(--text-light);
+    float: right;
+  }
+
+  #clubs-header
+  {
+    background-color: var(--secondary-color);
+  }
+
+  #account-club-information
+  {
+    height: 75%;
+  }
+
+  #account-club-details
+  {
+    height: 60px;
+    width: 100%;
+    display: inline-flex;
+    border-bottom: 2px solid var(--text-medium);
+  }
+
+  .club-detail-headers
+  {
+    font-weight: bold;
+    font-size: var(--font-medium);
+  }
+
+  .club-field
+  {
+    display: inline-flex;
+    font-size: var(--font-medium);
+    margin: 15px 60px 15px 20px;
+    height: 50px;
+  }
+
+  .club-field p
+  {
+    margin: 0px 10px 0px 0px;
+  }
+
+  #account-club-directors-header
+  {
+    height: 50px;
+    border-bottom: 2px solid var(--text-medium);
+    font-size: var(--font-medium);
+    font-weight: bold;
+    padding: 10px 0px 10px 0px;
+  }
+
+  #account-club-directors-header p
+  {
+    margin: 0px 0px 0px 20px;
+  }
+
+  #account-container-personal
+  {
+    width: 100%;
+    height: 530px;
+    display: inline-flex;
+    position: relative;
+    margin: 0px 0px 30px 0px;
+    background-color: var(--text-light);
+  }
+
+  #account-remove-director-submission
+  {
+    display: none;
+  }
+
+  .account-table-directors-button
+  {
+    background: var(--secondary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-small);
+    width: 80px;
+    text-decoration: none;
+    margin: 0;
+    height: 26px;
+    cursor: pointer;
+  }
+
+  .account-table-directors-button:hover
+  {
+    background: var(--secondary-color-dark);
+  }
+
+  #personal-header
+  {
+    background-color: var(--primary-color-dark);
+    width: 100%;
+  }
+
+  #account-personal-information
+  {
+    width: 100%
+    height: 75%;
+    padding: 20px;
+  }
+
+  #account-personal-section
+  {
+    height: 100%;
+    width: 100%;
+    background-color: var(--text-light);
+    float: right;
+  }
+
+  #account-directors-information
+  {
+    margin: 0px 0px 15px 0px;
+  }
+
+  #directors-table
+  {
+    height: auto;
+    width: 1080px;
+    text-align: center;
+    color: var(--text-dark);
+    table-layout: fixed;
+  }
+
+  #directors-table th
+  {
+    padding: 0px 0px 0px 20px;
+    font-size: var(--font-table-headers);
+    font-weight: bold;
+    height: 29px;
+    max-height: 29px;
+  }
+
+  #directors-table td
+  {
+    padding: 14px 0 14px 20px;
+    font-size: var(--font-medium);
+    color: var(--text-table-data);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 53px;
+    max-height: 53px;
+  }
+
+  #directors-table tr
+  {
+    max-height: 53px;
+    height: 53px;
+  }
+
+  #account-add-director-button
+  {
+    position: absolute;
+    background: var(--secondary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 0px 20px 0px 0px;
+    padding: 6px 10px 6px 10px;
+    text-decoration: none;
+    width: 150px;
+    cursor: pointer;
+    bottom: 5px;
+    right: 15px;
+  }
+
+  #account-add-director-button:hover
+  {
+    background: var(--secondary-color-dark);
+  }
+
+  #account-container-administration
+  {
+    width: 100%;
+    height: 530px;
+    display: inline-flex;
+    position: relative;
+    margin: 0px 0px 30px 0px;
+    background-color: var(--text-light);
+  }
+
+  #account-administration-section
+  {
+    height: 100%;
+    width: 100%;
+    background-color: var(--text-light);
+    float: right;
+  }
+
+  #administration-header
+  {
+    background-color: var(--tertiary-color);
+    width: 100%;
+  }
+
+  #account-administrator-information
+  {
+    width: 100%
+    height: 75%;
+    padding: 20px 0px 20px 0px;
+  }
+
+  #account-add-administrator-button
+  {
+    position: absolute;
+    background: var(--tertiary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 0px 20px 0px 0px;
+    padding: 6px 10px 6px 10px;
+    text-decoration: none;
+    width: 200px;
+    cursor: pointer;
+    bottom: 5px;
+    right: 15px;
+  }
+
+  #account-add-administrator-button:hover
+  {
+    background: var(--tertiary-color-dark);
+  }
+
+  .account-table-administrators-button
+  {
+    background: var(--tertiary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-small);
+    width: 80px;
+    text-decoration: none;
+    margin: 0;
+    height: 26px;
+    cursor: pointer;
+  }
+
+  .account-table-administrators-button:hover
+  {
+    background-color: var(--tertiary-color-dark);
+  }
+
+  .account-tables
+  {
+    height: auto;
+    width: 1080px;
+    text-align: center;
+    color: var(--text-dark);
+    table-layout: fixed;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .account-tables th
+  {
+    font-size: var(--font-table-headers);
+    font-weight: bold;
+    height: 29px;
+    max-height: 29px;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-left: 20px;
+  }
+
+  .account-tables td
+  {
+    padding: 14px 0 14px 20px;
+    font-size: var(--font-medium);
+    color: var(--text-table-data);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 53px;
+    max-height: 53px;
+  }
+
+  .account-tables tr
+  {
+    max-height: 53px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .account-table-data-name
+  {
+    text-align: justify;
+  }
+
+  .account-table-data-email
+  {
+    text-align: justify;
+  }
+
+  .account-row-name
+  {
+    width: 30%;
+    text-align: left;
+  }
+
+  .account-row-match-type
+  {
+    width: 10%;
+  }
+
+  .account-row-date
+  {
+    width: 15%;
+  }
+
+  .account-row-country
+  {
+    width: 20%;
+  }
+
+  .account-row-state
+  {
+    width: 20%;
+  }
+
+  .account-row-email
+  {
+    width: 30%;
+    text-align: left
+  }
+
+  .account-row-rating
+  {
+    width: 10%;
+  }
+
+  .account-row-gender
+  {
+    width: 10%;
+  }
+
+  .account-row-id
+  {
+    width: 0%;
+    display: none;
+  }
+
+  .account-table-id
+  {
+    width: 0%;
+    display: none;
+  }
+
+  .account-table-headers
+  {
+    height: 29px;
+    max-height: 29px;
+  }
+
+  .account-table-events-button
+  {
+    background: var(--primary-color-dark);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-small);
+    width: 80px;
+    text-decoration: none;
+    margin: 0;
+    height: 26px;
+    cursor: pointer;
+  }
+
+  .account-table-events-button:hover
+  {
+    background: var(--primary-color-light);
+  }
+
+  .pagination-buttons-container
+  {
+    height: 70px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+  }
+
+  .pagination-buttons
+  {
+    position: relative;
+    height: 60px;
+    width: 100%;
+    border-top: 2px solid var(--text-medium);
+    text-align: center;
+    padding: 15px 0px 0px 0px; 
+    margin: 0px;
+  }
+
+  .recent-events-link
+  {
+    display: inline-block;
+    width: 37px;
+    cursor: pointer;
+    padding: 8px 8px 8px 8px;
+    border: 1px solid #ccc;
+    font-size: var(--font-small);
+    color: var(--primary-color-dark);
+  }
+
+  .recent-events-link:hover
+  {
+    background-color: #ccc;
+  }
+
+  .recent-events-link-selected
+  {
+    background-color: var(--primary-color-dark);
+    color: var(--text-light);
+  }
+
+  .club-players-link
+  {
+    margin: 0px;
+    display: inline-block;
+    width: 37px;
+    cursor: pointer;
+    padding: 8px 8px 8px 8px;
+    border: 1px solid #ccc;
+    font-size: var(--font-small);
+    color: var(--tertiary-color);
+  }
+
+  .club-players-link:hover
+  {
+    background-color: #ccc;
+  }
+
+  .club-players-link-selected
+  {
+    background-color: var(--tertiary-color);
+    color: var(--text-light);
+  }
+
+  .tournament-directors-link
+  {
+    margin: 0px;
+    display: inline-block;
+    width: 37px;
+    cursor: pointer;
+    padding: 8px 8px 8px 8px;
+    border: 1px solid #ccc;
+    font-size: var(--font-small);
+    color: var(--secondary-color);
+  }
+
+  .tournament-directors-link:hover
+  {
+    background-color: #ccc;
+  }
+
+  .tournament-directors-link-selected
+  {
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+  }
+
+  .administrators-link
+  {
+    display: inline-block;
+    width: 37px;
+    cursor: pointer;
+    padding: 8px 8px 8px 8px;
+    border: 1px solid #ccc;
+    font-size: var(--font-small);
+    color: var(--tertiary-color);
+  }
+
+  .administrators-link:hover
+  {
+    background-color: #ccc;
+  }
+
 
 
   /* Register Modal */

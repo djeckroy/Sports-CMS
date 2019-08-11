@@ -141,6 +141,16 @@ class ContentManager
 		return $result;
 	}
 
+
+	public function getAllClubs()
+	{
+		$query = "SELECT club.club_id, club.name FROM club";
+		$result = $this->database->query($query, null);
+		
+		return $result;
+	}
+
+
 	public function createEvent($name, $countryID, $stateID, $sportType, $eventType, $date)
 	{
 		$formatedDate = date_format(date_create($date), 'Y-m-d');
@@ -298,8 +308,214 @@ class ContentManager
 
 		return $isValid;
 	}
+
+
+	public function getEventsAttendedByClub($clubID, $start, $amount, $searchTerm)
+	{
+		$query = "SELECT DISTINCT
+					event.name AS event_name, event.event_id, event.type, event.start_date, country.name AS country_name
+				  FROM 
+				  	event 
+				  INNER JOIN 
+				  	plays_at on event.event_id = plays_at.event_id 
+				  INNER JOIN 
+				  	country on event.country_id = country.country_id 
+				  WHERE 
+				  	plays_at.club_id = ?
+				  AND
+				  	event.name
+				  LIKE
+				  	?
+				  ORDER BY
+				  	event.start_date
+				  DESC LIMIT " . $start . ", " . $amount;
+
+		$result = $this->database->query($query, [$clubID, "$searchTerm%"]);
+		return $result;
+	}
+
+	public function getTotalNumberOfAttendedEvents($clubID, $searchTerm)
+	{
+		$query = "SELECT DISTINCT
+					event.name AS event_name, event.event_id, event.type, event.start_date, country.name AS country_name
+				  FROM 
+				  	event 
+				  INNER JOIN 
+				  	plays_at on event.event_id = plays_at.event_id 
+				  INNER JOIN 
+				  	country on event.country_id = country.country_id 
+				  WHERE 
+				  	plays_at.club_id = ?
+				  AND
+				  	event.name
+				  LIKE
+				  	?";
+
+		$result = $this->database->query($query, [$clubID, "$searchTerm%"]);
+		return $result->rowCount();
+	}
+
+	public function getPlayersByClub($clubID, $start, $amount, $searchTerm)
+	{
+		$query = "SELECT
+					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.email, player.gender, player.date_of_birth, rating.mean
+				  FROM 
+				  	player 
+				  INNER JOIN 
+				  	membership on membership.player_id = player.player_id 
+				  INNER JOIN 
+				  	rating on rating.player_id = player.player_id
+				  INNER JOIN 
+				    club on club.sport_id = rating.sport_id
+				  WHERE 
+				  	membership.club_id = ?
+				  AND
+				  	(player.given_name
+				  LIKE 
+				  	?
+				  OR
+				  	player.family_name
+				  LIKE
+				  	?)
+				  ORDER BY
+				  	player_name
+				  ASC LIMIT " . $start . ", " . $amount;		  	
+
+		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
+		return $result;
+	}
+
+	public function getNumPlayersByClub($clubID, $searchTerm)
+	{
+		$query = "SELECT
+					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.email, player.gender, player.date_of_birth, rating.mean
+				  FROM 
+				  	player 
+				  INNER JOIN 
+				  	membership on membership.player_id = player.player_id 
+				  INNER JOIN 
+				  	rating on rating.player_id = player.player_id
+				  INNER JOIN 
+				    club on club.sport_id = rating.sport_id
+				  WHERE 
+				  	membership.club_id = ?
+				  AND
+				  	(player.given_name
+				  LIKE
+				  	?
+				  OR
+				  	player.family_name
+				  LIKE
+				  	?)";	
+
+		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
+		return $result->rowCount();
+	}
+
+	public function getClubDirectors($clubID, $start, $amount, $searchTerm)
+	{
+		$query = "SELECT
+					DISTINCT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  FROM 
+				  	account
+				  INNER JOIN 
+				  	director_of on director_of.account_id = account.account_id
+				  WHERE 
+				  	director_of.club_id = ?
+				  AND
+				  	(account.given_name
+				  LIKE 
+				  	?
+				  OR
+				  	account.family_name
+				  LIKE
+				  	?)
+				  ORDER BY
+				  	account_name
+				  ASC LIMIT " . $start . ", " . $amount;		  	
+
+		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
+		return $result;
+	}
+
+	public function getNumClubDirectors($clubID, $searchTerm)
+	{
+		$query = "SELECT
+					DISTINCT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  FROM 
+				  	account
+				  INNER JOIN 
+				  	director_of on director_of.account_id = account.account_id
+				  WHERE 
+				  	director_of.club_id = ?
+				  AND
+				  	(account.given_name
+				  LIKE 
+				  	?
+				  OR
+				  	account.family_name
+				  LIKE
+				  	?)";
+		  	
+		$result = $this->database->query($query, [$clubID, "$searchTerm%", "$searchTerm%"]);
+		return $result->rowCount();
+	}
+
+	public function removeTournamentDirector($account_id)
+	{
+
+		$query = "DELETE FROM director_of WHERE director_of.account_id = ?";
+		$result = $this->database->query($query, [$account_id]);
+
+		return $result;
+	}
+
+	public function getAdministrators($start, $amount, $searchTerm)
+	{
+		$query = "SELECT
+					DISTINCT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  FROM 
+				  	account
+				  WHERE 
+				  	account.access_level = 1
+				  AND
+				  	(account.given_name
+				  LIKE 
+				  	?
+				  OR
+				  	account.family_name
+				  LIKE
+				  	?)
+				  ORDER BY
+				  	account_name
+				  ASC LIMIT " . $start . ", " . $amount; 	
+
+		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%"]);
+		return $result;
+	}
+
+	public function getNumAdministrators($searchTerm)
+	{
+		$query = "SELECT
+					DISTINCT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  FROM 
+				  	account
+				  WHERE 
+				  	account.access_level = 1
+				  AND
+				  	(account.given_name
+				  LIKE 
+				  	?
+				  OR
+				  	account.family_name
+				  LIKE
+				  	?)";	  	
+
+		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%"]);
+		return $result->rowCount();
+	}
 	
-	/**
+	/*
 	 * After running maple script this function updates the ratings for 
 	 * winners and losers of each match in a tournament.
 	 * 

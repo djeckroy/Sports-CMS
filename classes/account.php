@@ -71,7 +71,6 @@ class Account
 		else
 		{
 			$_SESSION['login-incorrect'] = "loginIncorrect";
-			//header("Location: ".$_SERVER['PHP_SELF']);
 		}
 	}
 
@@ -126,10 +125,10 @@ class Account
 	}
 
 
-	public function setAccessLevel($email, $access)
+	public function setAccessLevel($accountID, $access_level)
 	{
-		$query = "UPDATE account SET access_level = ? WHERE email = ?";
-		$result = $this->database->query($query, [$access_level, $email]);	
+		$query = "UPDATE account SET access_level = ? WHERE account_id = ?";
+		$result = $this->database->query($query, [$access_level, $accountID]);	
 	}
 
 
@@ -146,6 +145,11 @@ class Account
 	{
 		$query = "UPDATE account SET active = ? WHERE email = ?";
 		$result = $this->database->query($query, [$state, $email]);		
+	}
+
+	public function getAccountID()
+	{
+		return $this->accountId;
 	}
 
 	public function getAllInactiveAccounts()
@@ -229,6 +233,22 @@ class Account
 	}
 
 
+	public function getRegisteredClubID()
+	{
+		$query = "SELECT club.club_id FROM club INNER JOIN director_of ON director_of.club_id = club.club_id WHERE director_of.account_id = ?";
+		$result = $this->database->query($query, [$this->accountId])->fetch();
+
+		return $result["club_id"];
+	}
+
+
+	public function getRegisteredClubName()
+	{
+		$query = "SELECT name FROM club INNER JOIN director_of ON director_of.club_id = club.club_id WHERE director_of.account_id = ?";
+		$result = $this->database->query($query, [$this->accountId])->fetch();
+
+		return $result["name"];
+	}
 }
 
 ?>
