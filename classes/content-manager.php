@@ -26,6 +26,7 @@ class ContentManager
 
 		return $result;
 	}
+  
 
 
 	public function getPlayerClub($player_id)
@@ -612,7 +613,7 @@ class ContentManager
 		return $result->rowCount();
 	}
 
-	/*public function getRecentCompetitor($recentCompetitor, $playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName, $start, $amount)
+	public function getRecentCompetitor($recentCompetitor, $playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName, $start, $amount)
 	{
 		$playerSearchFilterResult = $this->playerSearchFilter($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName, $start, $amount);
 
@@ -631,7 +632,7 @@ class ContentManager
 		$result = $this->database->query($query, [$recentCompetitor]);
 
 		return $result;
-	}*/
+	}
 	
 	/**
 	 * Retrieves cookie that stores bookmarked players, retrieves their details from the database
@@ -650,6 +651,72 @@ class ContentManager
 		
 		return $bookmarkedPlayers;
 	}
+
+  public function getAllClubs()
+  {
+    $query = "SELECT * from club";
+    $result = $this->database->query($query, null);
+    
+    return $result;
+  }
+  
+  public function addPlayer($givenName, $familyName,$gender,$dateOfBirth, $email, $clubID)
+  {
+    
+  
+    $filteredGivenName = ucfirst(trim($givenName));
+    $filteredFamilyName = ucfirst(trim($familyName));
+    
+   $gender = $gender;
+    
+    $formattedDateOfBirth = date_format(date_create($dateOfBirth),'Y-m-d');
+    
+    $filteredEmail = strtolower(trim($email));
+    
+    $query1 = "SELECT  country_id FROM club WHERE club_id = ?";
+    $result1 = $this->database->query($query1, [$clubID])->fetch();
+    
+    $query2 = "SELECT  state_id FROM club WHERE club_id = ?";
+    $result2 = $this->database->query($query2, [$clubID])->fetch();
+    
+    
+    $query = "INSERT INTO player (given_name, family_name, gender, date_of_birth, email, country_id, state_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $result = $this->database->query($query, [$filteredGivenName, $filteredFamilyName, $gender, $formattedDateOfBirth, $filteredEmail, $result1["country_id"], $result2["state_id"]]);
+    
+    $query = "select MAX(player_id) as player from player";
+    $playerResult = $this->database->query($query,[])->fetch();
+    
+    
+  
+    
+    $query = "INSERT INTO membership (club_id, player_id) VALUES (?,?)";
+    $result = $this->database->query($query,[$clubID, $playerResult['player']]);
+  }
+  
+  
+  
+  
+  public function initialRatingExists($playerID, $sportID)
+  {
+    $query = "SELECT rating.player_id, rating.sport_id from rating where rating.player_id = ? and rating.sport_id = ?";
+      $result = $this->database->query($query,[$playerID, $sportID]);
+    
+    if($result->rowCount() > 0)
+    {
+    	return "true";
+    }
+    else
+    {
+    	return "false";
+    }  
+  }
+    public function insertInitialRating($mean, $sd, $playerID, $sportID)
+  {
+    $query = "INSERT INTO rating(mean, standard_deviation, player_id, sport_id) VALUES(?, ?, ?, ?)";
+    $result = $this->database->query($query, [$mean, $sd, $playerID, $sportID]);
+    
+  }
+
 }
 	
 ?>

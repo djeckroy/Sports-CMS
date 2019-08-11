@@ -1,7 +1,7 @@
 <?php
     require("./includes/initialize.php");
 
-    if(isset($_POST["create-account"]))
+   if(isset($_POST["create-account"]))
     {
         $success = $account->register($_POST["given-name"], $_POST["family-name"], $_POST["organisation-name"], $_POST["email"], $_POST["password"]);
     }
@@ -30,6 +30,7 @@
             $_SESSION['reset-email'] = $_GET['email'];
         }
     }
+
 ?>
 
 <!DOCTYPE html>

@@ -4,6 +4,7 @@
   include("./includes/header.php");
   include("./includes/navigation.php");
 
+
   if(!$account->isLoggedIn())
   {
   	redirect("./index.php");
@@ -12,7 +13,8 @@
 
 <article class ="event-details-border" >
   
-  <form class= "event-upload-form" autocomplete="off" action=".\process-event.php" method="post">
+  <form class= "event-upload-form" autocomplete="off" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
+   
   <h1 class="event-details-header">Event Details</h1>
  
   <div class="event-form" action="">
@@ -32,14 +34,14 @@
       <!-- <input class="event-field-input" type="text" name="state-name" placeholder="State"><br/><br/> -->
       
       <select class="event-type" name="state-name" id="state-name">
-
+      
       </select>
       
       <br /><br />
     </div>
   
     <div class="event-details-row">
-       <select class="sport-type" name="sport-type">
+       <select class="sport-type" name="sport-type" id ="sports-type">
          <?php
             $sports = $contentManager->getAllSports();
 
@@ -66,6 +68,7 @@
   <button class = "match-number-input" id = "match-submit"  name="match-number-submission" value="Add Matches" onclick="showUploadMatchRows(); return false;">Add Matches</button><br/>
     
     
+    
       <table id="match-input-table"></table>
       <button class="add-button"  name="add-button" id="add-button"  onclick="addMoreRows(); return false;" > Add Match </button>
    
@@ -73,14 +76,21 @@
 
       
     
-  <input class= "match-submit" id="match-final-submit" type="submit"  name="event-page-submission" value="Submit"><br/>
+  <input class= "match-submit" id="match-final-submit" type="submit" onclick = "addRating()" name="event-page-submission" value="Submit"><br/>
 
   </form>
+ 
+
 </article>
 
 
 <?php
-  include("./includes/footer.php");
+include("./includes/advancedPlayerSearch.php");
+include("./includes/add-player.php");
+include("./includes/initialRating.php");
+include("./includes/footer.php");
+
+
 ?>
     
       

@@ -258,11 +258,14 @@ function showUploadMatchRows()
         var table = document.getElementById("match-input-table");
       
           var row = table.insertRow(0);
+      
+      
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3  = row.insertCell(2);
         var cell4  = row.insertCell(3);
         var cell5  =  row.insertCell(4);
+         var cell6 = row.insertCell(5);
        
       
       var insertCell1 = document.createElement("input");
@@ -283,7 +286,9 @@ function showUploadMatchRows()
 
         var insertCell2 = document.createElement("button");
         insertCell2.innerHTML = "Search";
+        insertCell2.setAttribute('type','button');
         insertCell2.setAttribute('class','search-button');
+        insertCell2.setAttribute('onclick', 'showAddPlayerModal()');
         cell2.appendChild(insertCell2);
 
         var insertCell3 = document.createElement("input");
@@ -305,6 +310,8 @@ function showUploadMatchRows()
         var insertCell4 = document.createElement("button");
         insertCell4.innerHTML = "Search";
         insertCell4.setAttribute('class','search-button');
+       insertCell4.setAttribute('type','button');
+      insertCell4.setAttribute('onclick', 'showAddPlayerModal()');
         cell4.appendChild(insertCell4);
 
         var insertCell5 = document.createElement("button");
@@ -314,6 +321,13 @@ function showUploadMatchRows()
         cell5.appendChild(insertCell5);
       insertCell5.onclick = function() {deleteRow(this);
 	};
+      
+      var insertCell6 = document.createElement("button");
+      insertCell6.innerHTML = "A search";
+      insertCell6.setAttribute('class','advanced-search');
+      insertCell6.setAttribute('type','button');
+      insertCell6.setAttribute('onclick', 'showAdvancedSearchModal()');
+      cell6.appendChild(insertCell6);
 	
 	setupMatchAutoComplete();
   setupMatchErrorChecking();
@@ -351,6 +365,8 @@ function addMoreRows()
         var cell3  = row.insertCell(2);
         var cell4  = row.insertCell(3);
         var cell5  =  row.insertCell(4);
+        var cell6 = row.insertCell(5);
+       
        
       
         var insertCell1 = document.createElement("input");
@@ -372,6 +388,9 @@ function addMoreRows()
         var insertCell2 = document.createElement("button");
         insertCell2.innerHTML = "Search";
         insertCell2.setAttribute('class','search-button');
+        insertCell2.setAttribute('type','button');
+        insertCell2.setAttribute('onclick', 'showAddPlayerModal()');
+ 
         cell2.appendChild(insertCell2);
 
         var insertCell3 = document.createElement("input");
@@ -389,10 +408,14 @@ function addMoreRows()
         hiddenInput2.setAttribute('type','hidden');
         hiddenInput2.setAttribute('name','loser-id[]');
         cell3.appendChild(hiddenInput2);
+ 
 
         var insertCell4 = document.createElement("button");
         insertCell4.innerHTML = "Search";
         insertCell4.setAttribute('class','search-button');
+        insertCell4.setAttribute('type','button');
+        insertCell4.setAttribute('onclick', 'showAddPlayerModal()');
+  
         cell4.appendChild(insertCell4);
 
         var insertCell5 = document.createElement("button");
@@ -402,10 +425,21 @@ function addMoreRows()
         cell5.appendChild(insertCell5);
       insertCell5.onclick = function() {deleteRow(this);
 	};
+        var insertCell6 = document.createElement("button");
+        insertCell6.innerHTML = " A Search";
+        insertCell6.setAttribute('class','advanced-search');
+        insertCell6.setAttribute('type','button');
+        insertCell6.setAttribute('onclick', 'showAdvancedSearchModal()');
+  
+        cell6.appendChild(insertCell6);
+ 
 	
 	setupMatchAutoComplete();
   setupMatchErrorChecking();
+  
+
 }
+ 
 
 
 
@@ -415,7 +449,7 @@ function addMoreRows()
  * They are described in line. 
  */
 $( function() {
-    uploadEventChangeStates();	//gets states based on country
+    uploadEventChangeStates($("#country-id"),$("#state-name"));	//gets states based on country
     setupMatchAutoComplete();	//gets players based on state
     
     //set the max event date to today
@@ -436,14 +470,16 @@ $( function() {
  */
  
  //event listener for change of country
-$("#country-id").change(uploadEventChangeStates);
+$("#country-id").change(function(){
+    uploadEventChangeStates($("#country-id"),$("#state-name"));
+    });
  
-function uploadEventChangeStates()
+function uploadEventChangeStates(countryCombo, stateCombo)
 {
-    var country = $("#country-id").val();
+    var country = countryCombo.val();
     
     //clear the options
-    $("#state-name").empty();
+    stateCombo.empty();
     
     //run ajax
     $.ajax
@@ -460,10 +496,10 @@ function uploadEventChangeStates()
             //add a new option to state-name for each returned state.
             $.each(jsonData, function(index, value)
             {
-                $("#state-name").append($("<option>",{
+                stateCombo.append($("<option>",{
                     value: value["state_id"],
                     text: value["name"]
-                }));
+                }));              
             });
         }
     });
@@ -509,14 +545,47 @@ function setupMatchAutoComplete()
             //the next elemtent in line will be the hidden cell to contain id
             //fill this with the id. 
             //name cell will be automatically filled in 
+            
             $(this).next().val(ui.item.id);
             
             //when an item is selected it is assumed that no error exists, remove the error class
             $(this).removeClass("upload-page-error-on-submit");
+          
+          
+          
+          
         }
+      
+      
     });
+  
 
 }
+function setInitialRating(playerID)
+{
+          var setRating = 1;
+          var sportID = $("#sports-type").find(":selected").val();
+
+          $.ajax({
+            url: "./initial-rating-Manager.php",
+            type: 'POST',
+            datatype: "text",
+            data :{
+              playerID: playerID, 
+              sportID: sportID,
+              setRating: setRating
+            },
+            success: function(data)
+            {                
+                if(data == "false")
+                {
+                    showInitialRatingModal(playerID, sportID);
+                }              
+            }
+            
+          });
+}
+
 
 /**
  * Sets hidden id field for winners/losers to "" on a user key press,
@@ -532,9 +601,13 @@ function setupMatchErrorChecking(){
     $(this).next().val("");
   });
   
-  $( ".winner-loser-field").change(function(e){
-	 //a field has been changed. Clear any validity message that has been set for all fields. they will be retested once submit is pressed
-	 $( ".winner-loser-field").each(function (){
+  $( ".winner-loser-field").change(function(e)
+  {
+        var playerID = $(this).next().val(); 
+        setInitialRating(playerID);
+
+	 $( ".winner-loser-field").each(function ()
+     {
 		this.setCustomValidity('');
 	 });
   });
@@ -816,3 +889,145 @@ function updateProfileSport(){
  $("#player-history-view-more").click(function(){
         addEventHistory(false);
  });
+/*
+ * -------------------------------------------------------------*
+ * 		Begin Add Player Section								*
+ * 																*
+ * -------------------------------------------------------------*
+ */
+
+function showAddPlayerModal()
+{
+	document.querySelector(".add-player-border").style.display = "flex";
+  
+}
+function hideAddPlayerModal()
+{
+  document.querySelector(".add-player-border").style.display = "none";
+}
+function addPlayer()
+{
+  //$('#add-player-button').click(function (){
+    var playerGivenName = $("#player-given-name").val();
+    var playerFamilyName = $("#player-family-name").val();
+    var playerGenderID = $("#player-gender-ID").val();
+    var playerBirthDate = $("#player-birth-date").val();
+    var playerEmail = $("#player-email").val();
+    var playerClubID = $("#player-club-ID").val();
+    
+    $.ajax({
+      url: "./add-player-manager.php",
+      type:'post',
+      datatype: "text",
+      data :{
+        playerGivenName: playerGivenName,
+        playerFamilyName: playerFamilyName,
+        playerGenderID: playerGenderID,
+        playerBirthDate: playerBirthDate,
+        playerEmail: playerEmail,
+        playerClubID: playerClubID
+      },
+      success: function(data)
+      {
+        hideAddPlayerModal();
+       
+      }
+      
+    });
+        
+  //});
+}
+
+//sets up state/country listener
+$("#player-country-id").change(function(){
+    uploadEventChangeStates($("#player-country-id"),$("#player-state-ID"));
+    });
+
+//on page load
+$( function() {
+    uploadEventChangeStates($("#player-country-id"),$("#player-state-ID"));	//gets states based on country
+});
+
+/**
+ * -------------------------------------------------------------*
+ * 		Begin Advanced Player Section								*
+ * 																*
+ * -------------------------------------------------------------*
+ */
+function showAdvancedSearchModal()
+{
+  document.querySelector(".player-advanced-search-border").style.display = "flex";
+}
+function hideAdvancedSearchModal()
+{
+  document.querySelector(".player-advanced-search-border").style.display = "none";
+}
+/**
+ * -------------------------------------------------------------*
+ * 		Begin Initial Rating Section								*
+ * 																*
+ * -------------------------------------------------------------*
+ */
+
+function prefillTextbox()
+{
+    $("#player-initial-rating").change(function(){
+  if ($(this).val() == 250)
+  {
+    $("#initial-mean-ID").val('250');
+    $("#initial-sd-ID").val('100');
+  }
+  else if ($(this).val() == 500)
+  {
+    $("#initial-mean-ID").val('500');
+    $("#initial-sd-ID").val('150');
+  }
+  else
+  {
+    $("#initial-mean-ID").val('1000');
+    $("#initial-sd-ID").val('250');
+  }
+    });
+}
+                                       
+function showInitialRatingModal(playerID, sportID)
+{
+  document.querySelector(".initial-rating-border").style.display="flex";
+  $("#hidden-sport-ID").val(sportID);
+  $("#hidden-player-ID").val(playerID);
+}
+
+function hideInitialRatingModal()
+{
+  document.querySelector(".initial-rating-border").style.display="none";
+  $("#hidden-sport-ID").val("");
+  $("#hidden-player-ID").val("");
+}
+
+function addRating()
+{ 
+  var playerID = $("#hidden-player-ID").val();
+  var sportID = $("#hidden-sport-ID").val();
+  var meanID = $("#initial-mean-ID").val();
+  var sdID = $("#initial-sd-ID").val();
+
+  $.ajax({
+            url: "./initial-rating-Manager.php",
+            type: 'POST',
+            datatype: "text",
+            data :{
+              meanID: meanID, 
+              sdID: sdID,
+              playerID: playerID,
+              sportID: sportID
+              },
+            success: function(data)
+            {           
+              hideInitialRatingModal();          
+            }
+            
+          });
+      
+ 
+}
+
