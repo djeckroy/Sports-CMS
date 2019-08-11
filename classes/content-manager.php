@@ -652,13 +652,6 @@ class ContentManager
 		return $bookmarkedPlayers;
 	}
 
-  public function getAllClubs()
-  {
-    $query = "SELECT * from club";
-    $result = $this->database->query($query, null);
-    
-    return $result;
-  }
   
   public function addPlayer($givenName, $familyName,$gender,$dateOfBirth, $email, $clubID)
   {
