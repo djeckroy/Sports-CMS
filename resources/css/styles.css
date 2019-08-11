@@ -476,6 +476,11 @@ article
 
   /* Players Page */
 
+  #player-search-page-min-height
+  {
+    min-height: 954px;
+  }
+
   .player-search-filter-container
   {
     height: 20%;
@@ -501,6 +506,7 @@ article
     height: 30px;
     background-color: var(--form-input-background);
     border: 1px solid var(--form-input-border);
+    text-align: center;
   }
 
   .player-search-filter-container select
@@ -559,14 +565,12 @@ article
   {
     width: 12%;
     transform: translateX(42px);
-    text-align: center;
   }
 
   #player-age-max-filter
   {
     width: 12%;
     transform: translateX(-42px);
-    text-align: center;
   }
 
   #player-age-filter-dash
