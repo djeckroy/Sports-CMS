@@ -22,7 +22,7 @@
           <input type="submit" id= "add-player-file" name="add-player-file" value="Add File"/>
         </form>
 
-        <form method= "post" action = "<?php echo htmlentities($_SERVER['PHP_SELF']); ?>">
+        <form method= "post">
 
         <div class= "add-player-content">
           <input type="text" id="player-given-name" name="given-name" placeholder="Given Name" pattern="[a-zA-Z\s]{1,45}" required title="Given name must be within 1-45 characters">
@@ -30,7 +30,7 @@
         </div>
           
         <div class ="add-player-content">
-           <select class="player-gender" name="player-gender">
+           <select class="player-gender" name="player-gender" id = "player-gender-ID">
               <option value="M">Male</option>
               <option value="F">Female</option>
             
@@ -56,7 +56,7 @@
           
           <br/>
 
-          <button type="submit" name="add-player-button" id="add-player-button" onclick="">Add Player</button>
+          <button type="button" name="add-player-button" id="add-player-button" onclick="addPlayer()">Add Player</button>
         </form>
 
         </div>

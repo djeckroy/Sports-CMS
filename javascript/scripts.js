@@ -675,6 +675,38 @@ function hideAddPlayerModal()
 {
   document.querySelector(".add-player-border").style.display = "none";
 }
+function addPlayer()
+{
+  //$('#add-player-button').click(function (){
+    var playerGivenName = $("#player-given-name").val();
+    var playerFamilyName = $("#player-family-name").val();
+    var playerGenderID = $("#player-gender-ID").val();
+    var playerBirthDate = $("#player-birth-date").val();
+    var playerEmail = $("#player-email").val();
+    var playerClubID = $("#player-club-ID").val();
+    
+    $.ajax({
+      url: "./add-player-manager.php",
+      type:'post',
+      datatype: "text",
+      data :{
+        playerGivenName: playerGivenName,
+        playerFamilyName: playerFamilyName,
+        playerGenderID: playerGenderID,
+        playerBirthDate: playerBirthDate,
+        playerEmail: playerEmail,
+        playerClubID: playerClubID
+      },
+      success: function(data)
+      {
+        hideAddPlayerModal();
+       
+      }
+      
+    });
+        
+  //});
+}
 
 //sets up state/country listener
 $("#player-country-id").change(function(){
@@ -706,6 +738,28 @@ function hideAdvancedSearchModal()
  * 																*
  * -------------------------------------------------------------*
  */
+
+function prefillTextbox()
+{
+    $("#player-initial-rating").change(function(){
+  if ($(this).val() == 250)
+  {
+    $("#initial-mean-ID").val('250');
+    $("#initial-sd-ID").val('100');
+  }
+  else if ($(this).val() == 500)
+  {
+    $("#initial-mean-ID").val('500');
+    $("#initial-sd-ID").val('150');
+  }
+  else
+  {
+    $("#initial-mean-ID").val('1000');
+    $("#initial-sd-ID").val('250');
+  }
+    });
+}
+                                       
 function showInitialRatingModal(playerID, sportID)
 {
   document.querySelector(".initial-rating-border").style.display="flex";

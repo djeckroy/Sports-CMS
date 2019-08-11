@@ -10,16 +10,16 @@
      <form method = "post"> 
         <div class="initial-rating-content">
 
-          <select class = "player-initial-rating" name ="player-initial-rating" id="player-initial-rating">
-          <option value = "200"> Beginner</option>
+          <select class = "player-initial-rating" name ="player-initial-rating" id="player-initial-rating" onclick="prefillTextbox()">
+          <option value = "250"> Beginner</option>
           <option value = "500"> Intermediate</option>
           <option value = "1000"> Advanced</option>
           </select> 
         
           <input type = "hidden" id = "hidden-sport-ID"/> 
            <input type= "hidden" id = "hidden-player-ID"/> 
-        <input type= "text" id = "initial-mean-ID" name="initial-mean-name" placeholder = "Initial Rating "/>+/-
-        <input type= "text" id = "initial-sd-ID" name="initial-sd-name" placeholder = "Standard deviation"/><br/>
+        <input type= "text" id = "initial-mean-ID" name="initial-mean-name" placeholder = "Initial Rating " value = "250"/>+/-
+        <input type= "text" id = "initial-sd-ID" name="initial-sd-name" placeholder = "Standard deviation" value = "100"/><br/>
           </div>
         <button type = "button" name = "initial-rating-button" id="initial-rating-button-ID" onclick = "addRating()">Add Rating</button>
         
