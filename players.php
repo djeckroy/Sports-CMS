@@ -5,7 +5,7 @@
     include("./includes/navigation.php");
 ?>
 
-<article>
+<article id="player-search-page-min-height">
 
     <div class="player-search-filter-container">
 
