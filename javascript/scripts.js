@@ -330,10 +330,7 @@ function showUploadMatchRows()
       cell6.appendChild(insertCell6);
 	
 	setupMatchAutoComplete();
-  setupMatchErrorChecking();
-      
-      
-     
+  setupMatchErrorChecking();    
 }
    /*var addButton = document.createElement("BUTTON");
   
@@ -347,6 +344,7 @@ function showUploadMatchRows()
   document. getElementById("match-final-submit").style.display = "block";
   }
 }
+
 function deleteRow(selectedRow)
 {
   var findRow= selectedRow.parentNode.parentNode.rowIndex;
@@ -549,41 +547,34 @@ function setupMatchAutoComplete()
             $(this).next().val(ui.item.id);
             
             //when an item is selected it is assumed that no error exists, remove the error class
-            $(this).removeClass("upload-page-error-on-submit");
-          
-          
-          
-          
+            $(this).removeClass("upload-page-error-on-submit"); 
         }
-      
-      
     });
-  
-
 }
+
 function setInitialRating(playerID)
 {
-          var setRating = 1;
-          var sportID = $("#sports-type").find(":selected").val();
+      var setRating = 1;
+      var sportID = $("#sports-type").find(":selected").val();
 
-          $.ajax({
-            url: "./initial-rating-Manager.php",
-            type: 'POST',
-            datatype: "text",
-            data :{
-              playerID: playerID, 
-              sportID: sportID,
-              setRating: setRating
-            },
-            success: function(data)
-            {                
-                if(data == "false")
-                {
-                    showInitialRatingModal(playerID, sportID);
-                }              
-            }
-            
-          });
+      $.ajax({
+        url: "./initial-rating-Manager.php",
+        type: 'POST',
+        datatype: "text",
+        data :{
+          playerID: playerID, 
+          sportID: sportID,
+          setRating: setRating
+        },
+        success: function(data)
+        {                
+            if(data == "false")
+            {
+                showInitialRatingModal(playerID, sportID);
+            }              
+        }
+        
+      });
 }
 
 
@@ -763,11 +754,10 @@ $("#favourite-button").click(createBookmark);
 
 //global values required
 var getVariableName = 'profile-id';
- var eventHistoryRowCount = 0;
+var eventHistoryRowCount = 0;
 
-//update profile page to show different sprot
-function updateProfileSport(){
-	 
+function updateProfileSport()
+{ 
      //get the player id from url
 	 var params = (new URL(document.location)).searchParams;
 	 var playerID = params.get(getVariableName);
@@ -1027,7 +1017,5 @@ function addRating()
             }
             
           });
-      
- 
 }
 

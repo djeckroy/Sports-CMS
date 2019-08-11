@@ -407,6 +407,11 @@ article
     text-align: center;
   }
 
+  #player-page-article
+  {
+    min-height: 940px;
+  }
+
   .search-input 
   {
     height: 50px;
