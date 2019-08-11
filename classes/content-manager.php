@@ -673,7 +673,7 @@ class ContentManager
     $result2 = $this->database->query($query2, [$clubID])->fetch();
     
     
-    $query = "INSERT INTO player (given_name, family_name, gender, date_of_birth, email, country_id, state_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO player (given_name, family_name, gender, date_of_birth, email, country_id, state_id, last_played) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
     $result = $this->database->query($query, [$filteredGivenName, $filteredFamilyName, $gender, $formattedDateOfBirth, $filteredEmail, $result1["country_id"], $result2["state_id"]]);
     
     $query = "select MAX(player_id) as player from player";
