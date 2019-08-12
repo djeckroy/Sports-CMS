@@ -34,19 +34,78 @@ require("./includes/initialize.php");
 			$eventName = preg_replace('/[^A-Za-z0-9\-]/', '', $eventName);
 			$eventID = $contentManager->createEvent($eventName, $countryID, $stateID, $sportID, $eventType, $eventDate);
 			
-			$mapleFileManager = new MapleFileManager($eventID, $_POST['event-date']);
-		
-			//create new game and game_result in the database for each match
-			for ($i = 0; $i < count($_POST['winner-id']); $i++)
+			$mapleFileManager = new MapleFileManager($eventID, $_POST['event-date'], $eventType);
+			
+			if (!strcmp($eventType, "Single"))
 			{
-				$winnerStats = $contentManager->getPlayerCurrentStats($_POST['winner-id'][$i]);
-				$loserStats = $contentManager->getPlayerCurrentStats($_POST['loser-id'][$i]);
+				//singles
 				
-				//create new game in db and get the id
-				$gameID = $contentManager->newGame($_POST['winner-id'][$i],$winnerStats['mean'],$winnerStats['standard_deviation'],$_POST['loser-id'][$i],$loserStats['mean'],$loserStats['standard_deviation'],$eventID);
+				//create new game and game_result in the database for each match
+				for ($i = 0; $i < count($_POST['winner-id']); $i++)
+				{
+					$winnerStats = $contentManager->getPlayerCurrentStats($_POST['winner-id'][$i]);
+					$loserStats = $contentManager->getPlayerCurrentStats($_POST['loser-id'][$i]);
+					
+					//create new game in db and get the id
+					$gameID = $contentManager->newGame($_POST['winner-id'][$i],$winnerStats['mean'],$winnerStats['standard_deviation'],$_POST['loser-id'][$i],$loserStats['mean'],$loserStats['standard_deviation'],$eventID, true);
+					
+					//add the game to the maple manager
+					$mapleFileManager->addMatchData($_POST['winner-id'][$i],$winnerStats['mean'],$winnerStats['standard_deviation'],$winnerStats['last_played'],$_POST['loser-id'][$i],$loserStats['mean'],$loserStats['standard_deviation'],$loserStats['last_played'],$gameID);
+				}
+			}
+			else
+			{
+				//doubles
 				
-				//add the game to the maple manager
-				$mapleFileManager->addMatchData($_POST['winner-id'][$i],$winnerStats['mean'],$winnerStats['standard_deviation'],$winnerStats['last_played'],$_POST['loser-id'][$i],$loserStats['mean'],$loserStats['standard_deviation'],$loserStats['last_played'],$gameID);
+				for ($i = 0; $i < count($_POST['winner-id']); $i++)
+				{
+					if (($i % 2) == 0)
+					{
+						//first player of teams
+						$winnerPlayer1 = $_POST['winner-id'][$i];
+						$loserPlayer1 = $_POST['loser-id'][$i];
+					}
+					else
+					{
+						//second player in teams
+						$winnerPlayer2 = $_POST['winner-id'][$i];
+						$loserPlayer2 = $_POST['loser-id'][$i];
+						
+						//for each team check they exist or create them
+						if ($contentManager->teamExists($winnerPlayer1,$winnerPlayer2))
+						{
+							//team exists
+							$winnerTeam = $contentManager->getTeamID($winnerPlayer1, $winnerPlayer2);
+						}
+						else
+						{
+							//team does not exist
+							$winnerTeam = $contentManager->createTeam($winnerPlayer1,$winnerPlayer2);
+						}
+						
+						if ($contentManager->teamExists($loserPlayer1,$loserPlayer2))
+						{
+							//team exists
+							$loserTeam = $contentManager->getTeamID($loserPlayer1, $loserPlayer2);
+						}
+						else
+						{
+							//team does not exist
+							$loserTeam = $contentManager->createTeam($loserPlayer1,$loserPlayer2);
+						}
+						
+						//get rating for teams for given sport. (note that this helper function will create the rating if needed)
+						$winnerStats = $contentManager->getTeamRating($winnerTeam,$sportID);
+						$loserStats = $contentManager->getTeamRating($loserTeam,$sportID);
+						
+						//add match to db and maple file manager
+						//create new game in db and get the id
+						$gameID = $contentManager->newGame($winnerTeam,$winnerStats['mean'],$winnerStats['standard_deviation'],$loserTeam,$loserStats['mean'],$loserStats['standard_deviation'],$eventID, false);
+						$mapleFileManager->addMatchData($winnerTeam,$winnerStats['mean'],$winnerStats['standard_deviation'],$winnerStats['last_played'],$loserTeam,$loserStats['mean'],$loserStats['standard_deviation'],$loserStats['last_played'],$gameID);
+						
+					}
+					
+				}
 			}
 			
 			$mapleFileManager->write();

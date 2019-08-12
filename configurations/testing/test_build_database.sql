@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `player` (
   `gender` VARCHAR(1) NOT NULL CHECK (gender in ('M', 'F')),
   `date_of_birth` DATE NOT NULL,
   `email` VARCHAR(75) NOT NULL UNIQUE,
-  `last_played` DATETIME,
+  `last_played` DATETIME NOT NULL,
   `receive_emails` VARCHAR(1) NOT NULL DEFAULT 'Y'  CHECK (receive_emails IN ('Y', 'N')),
   `country_id` INT NOT NULL,
   `state_id` INT NOT NULL,
@@ -42,11 +42,9 @@ CREATE TABLE IF NOT EXISTS `club` (
   `name` VARCHAR(90) NOT NULL UNIQUE,
   `country_id` INT NOT NULL,
   `state_id` INT NOT NULL,
-  `sport_id` INT NOT NULL,
   PRIMARY KEY (`club_id`),
   FOREIGN KEY (`country_id`) REFERENCES country(country_id),
-  FOREIGN KEY (`state_id`) REFERENCES state(state_id),
-  FOREIGN KEY (`sport_id`) REFERENCES sport(sport_id)
+  FOREIGN KEY (`state_id`) REFERENCES state(state_id)
 );
 
 CREATE TABLE IF NOT EXISTS `event` (
@@ -84,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `rating` (
   `rating_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `mean` DOUBLE NOT NULL,
   `standard_deviation` DOUBLE NOT NULL,
-  `last_calculated` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `last_calculated` DATETIME NOT NULL,
   `sport_id` INT NOT NULL,
   `player_id` INT DEFAULT NULL,
   `team_id` INT DEFAULT NULL,
@@ -112,10 +110,12 @@ CREATE TABLE IF NOT EXISTS `game` (
 CREATE TABLE IF NOT EXISTS `game_result` (
   `game_result_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
   `won` VARCHAR(1) NOT NULL CHECK (won IN ('Y', 'N')),
-  `player_id` INT NOT NULL,
+  `player_id` INT,
+  `team_id` INT,
   `game_id` INT NOT NULL,
   PRIMARY KEY (`game_result_id`),
   FOREIGN KEY (`player_id`) REFERENCES player(player_id),
+  FOREIGN KEY (`team_id`) REFERENCES team(team_id),
   FOREIGN KEY (`game_id`) REFERENCES game(game_id)
 );
 
@@ -142,13 +142,7 @@ CREATE TABLE IF NOT EXISTS `membership` (
   FOREIGN KEY (`player_id`) REFERENCES player(player_id)
 );
 
-CREATE TABLE IF NOT EXISTS `director_of` (
-  `account_id` INT NOT NULL,
-  `club_id` INT NOT NULL,
-  PRIMARY KEY (`account_id`, `club_id`),
-  FOREIGN KEY (`account_id`) REFERENCES account(account_id),
-  FOREIGN KEY (`club_id`) REFERENCES club(club_id)
-);
+
 
 
 insert into `country`(name) VALUES ('Australia');
@@ -163,8 +157,8 @@ insert into `sport` (name) VALUES ('Badminton');
 insert into `sport` (name) VALUES ('Squash');
 insert into `sport` (name) VALUES ('Table Tennis');
 
-insert into `club` (name, country_id, state_id, sport_id) VALUES ('Launceston Badminton Club', 1, 1, 1);
-insert into `club` (name, country_id, state_Id, sport_id) VALUES ('Otago Squash Club', 2, 4, 2);
+insert into `club` (name, country_id, state_id) VALUES ('Launceston Badminton Club', 1, 1);
+insert into `club` (name, country_id, state_Id) VALUES ('Otago Squash Club', 2, 4);
 
 insert into `player` (given_name, family_name, gender, date_of_birth, email, last_played, receive_emails, country_id, state_id)
   VALUES ('John', 'Smith', 'M', '1993-03-17', 'Sean.Allen@testonly.com', NOW(), 'Y', '1', '1');

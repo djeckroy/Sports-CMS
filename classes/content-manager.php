@@ -166,7 +166,7 @@ class ContentManager
 		return $id;
 	}
 	
-	public function newGame($winnerID, $winnerMean, $winnerSD, $loserID, $loserMean, $loserSD, $eventID)
+	public function newGame($winnerID, $winnerMean, $winnerSD, $loserID, $loserMean, $loserSD, $eventID, $singles)
 	{
 		//create game
 		$query = "INSERT INTO `game` (`game_id`, `mean_before_winning`, `mean_after_winning`, `standard_deviation_before_winning`, `standard_deviation_after_winning`, `mean_before_losing`, `mean_after_losing`, `standard_deviation_before_losing`, `standard_deviation_after_losing`, `event_id`) VALUES (NULL, ?, NULL, ?, NULL, ?, NULL, ?, NULL, ?)";
@@ -179,7 +179,14 @@ class ContentManager
 		$gameID = $idQuery->fetchColumn();
 		
 		//create game result for both winner and loser
-		$query = "INSERT INTO `game_result` (`game_result_id`, `won`, `player_id`, `game_id`) VALUES (NULL, ?, ?, ?)";
+		if ($singles)
+		{
+			$query = "INSERT INTO `game_result` (`game_result_id`, `won`, `player_id`, `game_id`) VALUES (NULL, ?, ?, ?)";
+		}
+		else
+		{
+			$query = "INSERT INTO `game_result` (`game_result_id`, `won`, `team_id`, `game_id`) VALUES (NULL, ?, ?, ?)";
+		}
 		$result = $this->database->query($query,['Y', $winnerID, $gameID]);
 		$result = $this->database->query($query,['N', $loserID, $gameID]);
 		
@@ -242,6 +249,92 @@ class ContentManager
 		$result = $this->database->query($query, [$playerID]);
 
 		return ($result->rowCount() > 0);
+	}
+	
+		
+	public function teamExists($playerID1, $playerID2)
+	{
+		$query = "SELECT team.team_id FROM team 
+					WHERE
+					( team.player_one_id = ? OR team.player_two_id = ?)
+					AND
+					( team.player_one_id = ? OR team.player_two_id = ?)";
+		$result = $this->database->query($query, [$playerID1,$playerID1,$playerID2,$playerID2]);
+
+		return ($result->rowCount() > 0);
+	}
+	
+	public function getTeamID($playerID1, $playerID2)
+	{
+		$query = "SELECT team.team_id FROM team 
+					WHERE
+					( team.player_one_id = ? OR team.player_two_id = ?)
+					AND
+					( team.player_one_id = ? OR team.player_two_id = ?)";
+		$result = $this->database->query($query, [$playerID1,$playerID1,$playerID2,$playerID2])->fetch();
+
+		return ($result['team_id']);
+	}
+	
+	public function createTeam($playerID1, $playerID2)
+	{
+		$query = "INSERT INTO `team` (`team_id`, `player_one_id`, `player_two_id`) VALUES (NULL, ?, ?);";
+		$result = $this->database->query($query, [$playerID1, $playerID2]);
+		
+		//get team id
+		$idQuery = $this->database->query("SELECT LAST_INSERT_ID()", null);
+		$id = $idQuery->fetchColumn();
+
+		return $id;
+	}
+	
+	
+	//returns team rating for a given sport.
+	//if they have never played a given sport a rating is created
+	//based on clients requirements
+	public function getTeamRating($teamID, $sportID)
+	{
+		$selectQuery = "SELECT rating.*, LEAST(player1.last_played, player2.last_played) AS last_played
+						FROM rating 
+						JOIN team ON team.team_id = rating.team_id
+						JOIN player player1 ON player1.player_id = team.player_one_id
+						JOIN player player2 ON player2.player_id = team.player_two_id
+						WHERE rating.team_id = ? AND rating.sport_id = ?";
+		$result = $this->database->query($selectQuery, [$teamID, $sportID]);
+		
+		if ($result->rowCount() == 0)
+		{
+			//never played the sport need to create a rating.
+			//By definition rating is defined as 
+			//rating = (player_a + player_b) / 2
+			//SD = ((player_a + player_b) / 2) + 50
+			
+			$players = $this->getTeamPlayers($teamID);
+			
+			$player1Rating = $this->getPlayerRating($players['player_one_id'],$sportID);
+			$player2Rating = $this->getPlayerRating($players['player_two_id'],$sportID);
+			
+			$teamMean = ($player1Rating['mean'] + $player2Rating['mean']) / 2;
+			$teamSD = (($player1Rating['mean'] + $player2Rating['mean']) / 2) + 50;
+			
+			
+			$query = "INSERT INTO `rating` (`rating_id`, `mean`, `standard_deviation`, `last_calculated`, `sport_id`, `player_id`, `team_id`) VALUES (NULL, ?, ?, NOW(), ?, NULL, ?)";
+			$insertResult = $this->database->query($query, [$teamMean, $teamSD, $sportID, $teamID]);
+			
+			$result = $this->database->query($selectQuery, [$teamID, $sportID]);
+		}
+		
+		return $result->fetch();
+	}
+	
+	public function getTeamPlayers($teamID)
+	{
+		$query = "SELECT * FROM team 
+					WHERE
+					team.team_id = ?";
+		$result = $this->database->query($query, [$teamID])->fetch();
+		
+		return $result;
 	}
 
 
