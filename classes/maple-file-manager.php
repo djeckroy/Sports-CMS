@@ -30,8 +30,9 @@ class MapleFileManager
 	
 	public $tournamentID;
 	public $tournamentDate;	//in appropriate stirng format
+	public $tournamentType;
 	
-	public function __construct($eventID, $eventDate)
+	public function __construct($eventID, $eventDate, $tournamentType)
 	{
 		$this->matchStrings = array();
 		$this->playerStrings = array();
@@ -39,6 +40,7 @@ class MapleFileManager
 		
 		$this->tournamentID = $eventID;
 		$this->tournamentDate = date_format(date_create($eventDate), 'j/n/Y');
+		$this->tournamentType = $tournamentType;
 	}
 
 	public function addMatchData($winnerID, $winnerMean, $winnerSD, $winnerLastPlayed, $loserID, $loserMean, $loserSD, $loserLastPlayed, $matchID)
@@ -102,9 +104,19 @@ class MapleFileManager
 	{
 		$working_dir = getcwd();
 		chdir($this->mapleDirectory);
-
-		#exec("echo \"php tournamentProcess.php " . $this->tournamentID . "\"" . " | at now + 2 minutes");
-		exec("php tournamentProcess.php " . $this->tournamentID);
+		
+		if (!strcmp($this->tournamentType, "Single"))
+		{
+			//singles
+			#exec("echo \"php tournamentProcess.php " . $this->tournamentID . "\"" . " | at now + 2 minutes");
+			exec("php tournamentProcess.php " . $this->tournamentID);
+		}
+		else
+		{
+			//doubles
+			#exec("echo \"php tournamentProcessDoubles.php " . $this->tournamentID . "\"" . " | at now + 2 minutes");
+			exec("php tournamentProcessDouble.php " . $this->tournamentID);
+		}
 
 		chdir($working_dir);
 	}
