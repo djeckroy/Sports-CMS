@@ -404,9 +404,6 @@ $(document).on('click', '.account-edit-players-button', function()
 {
     var playerID = $(this).closest('tr').find('.account-table-id').text();
     showEditPlayersModal(playerID);
-
-    alert($("#edit-player-state").val());
-    //uploadEventChangeStates($("#edit-player-country"),$("#edit-player-state"));
 });
 
 $(document).on('click', '#edit-player-button', function()
@@ -680,6 +677,9 @@ $("#create-club-select-country").on('change', function(){
     uploadEventChangeStates($("#create-club-select-country"),$("#create-club-select-state"));
 });
 
+$(document).on('change', '#edit-player-country', function(){
+	uploadEventChangeStates($("#edit-player-country"),$("#edit-player-state"));
+});
 
 
 

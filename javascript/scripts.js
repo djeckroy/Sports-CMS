@@ -168,6 +168,7 @@ function showEditPlayersModal(playerID)
         success: function(data) 
         {
             $(".edit-player-modal-field-wrapper").html(data);
+            uploadEventChangeStates($("#edit-player-country"),$("#edit-player-state"));
         }
     });
 }
@@ -662,7 +663,7 @@ $( function() {
  * 
  * Triggers by change in country-id and on page load
  */
- 
+
 
  //event listener for change of country
 $("#country-id").change(function(){
@@ -672,7 +673,7 @@ $("#country-id").change(function(){
 function uploadEventChangeStates(countryCombo, stateCombo)
 {
     var country = countryCombo.val();
-    
+
     //clear the options
     stateCombo.empty();
     

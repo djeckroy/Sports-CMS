@@ -82,7 +82,7 @@ switch($_POST['ajaxMethod'])
         	<input type="email" value="' . $playerDetails["email"] . '" id="edit-player-email" name="email" placeholder="Email" pattern="{7,75}" required title="Email must not exceed 75 characters"> 
 
         	<div class="register-input-group-double">
-        	<select name="select-country" id="edit-player-country">';
+        	<select id="edit-player-country" name="select-country">';
                 $countries = $contentManager->getAllCountries();
 
                 while ($country = $countries->fetch())
@@ -98,7 +98,7 @@ switch($_POST['ajaxMethod'])
                 }
         	
         	$editPlayerModal .= '
-        		</select><select name="state-name" id="edit-player-state"></select></div>
+        		</select><select id="edit-player-state" name="state-name"></select></div>
         		<button type="button" name="edit-player" id="edit-player-button">Confirm</button>';
 
         	echo $editPlayerModal;
