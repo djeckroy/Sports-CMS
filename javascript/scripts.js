@@ -121,6 +121,62 @@ function hideResetModal()
     document.querySelector(".reset-modal-background").style.display = "none";
 }
 
+function showAdministratorModal()
+{
+    document.querySelector(".administrator-modal-background").style.display = "flex";
+    hideDropdownMenu();
+}
+
+function hideAdministratorModal()
+{
+    document.querySelector(".administrator-modal-background").style.display = "none";
+}
+
+function showCreateClubModal()
+{
+    document.querySelector(".create-club-modal-background").style.display = "flex";
+    hideDropdownMenu();
+}
+
+function hideCreateClubModal()
+{
+    document.querySelector(".create-club-modal-background").style.display = "none";
+}
+
+function showDirectorModal()
+{
+    document.querySelector(".director-modal-background").style.display = "flex";
+    hideDropdownMenu();
+}
+
+function hideDirectorModal()
+{
+    document.querySelector(".director-modal-background").style.display = "none";
+}
+
+function showEditPlayersModal(playerID)
+{
+    document.querySelector(".edit-player-modal-background").style.display = "flex";
+    hideDropdownMenu();
+    $("#hidden-edit-player-id").val(playerID);
+
+    $.ajax
+    ({
+        url: "./ajax.php",
+        type: "POST",
+        data: {ajaxMethod: "editPlayerModal", playerID: playerID},
+        success: function(data) 
+        {
+            $(".edit-player-modal-field-wrapper").html(data);
+        }
+    });
+}
+
+function hideEditPlayersModal()
+{
+    document.querySelector(".edit-player-modal-background").style.display = "none";
+}
+
 function showDropdownMenu()
 {
     document.querySelector(".dropdown-menu").style.display = "inline-block";
@@ -607,6 +663,7 @@ $( function() {
  * Triggers by change in country-id and on page load
  */
  
+
  //event listener for change of country
 $("#country-id").change(function(){
     uploadEventChangeStates($("#country-id"),$("#state-name"));

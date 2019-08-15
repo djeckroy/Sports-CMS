@@ -21,13 +21,17 @@ class ContentManager
 
 	public function getSpecificPlayerInformation($player_id)
 	{
-		$query = "SELECT player.given_name, player.family_name, player.gender, player.date_of_birth, country.name as country_name, state.name as state_name FROM((player INNER JOIN country ON player.country_id = country.country_id) INNER JOIN state ON player.state_id = state.state_id) WHERE player_id = ?;";
+		$query = "SELECT player.given_name, player.family_name, player.gender, player.email, player.date_of_birth, country.name as country_name, state.name as state_name FROM((player INNER JOIN country ON player.country_id = country.country_id) INNER JOIN state ON player.state_id = state.state_id) WHERE player_id = ?;";
 		$result = $this->database->query($query, [$player_id])->fetch();
 
 		return $result;
 	}
   
-
+	public function editPlayer($playerID, $givenName, $familyName, $gender, $dob, $email, $country, $state)
+	{
+		$query = "UPDATE player set player.given_name = ?, player.family_name = ?, player.gender = ?, player.date_of_birth = ?, player.email = ?, player.country_id = ?, player.state_id = ? WHERE player.player_id = ?";
+		$result = $this->database->query($query, [$givenName, $familyName, $gender, $dob, $email, $country, $state, $playerID]);
+	}
 
 	public function getPlayerClub($player_id)
 	{
@@ -452,7 +456,7 @@ class ContentManager
 	public function getPlayersByClub($clubID, $start, $amount, $searchTerm)
 	{
 		$query = "SELECT
-					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.email, player.gender, player.date_of_birth, rating.mean
+					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.gender, player.date_of_birth, rating.mean
 				  FROM 
 				  	player 
 				  INNER JOIN 
@@ -606,6 +610,25 @@ class ContentManager
 				  	?)";	  	
 
 		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%"]);
+		return $result->rowCount();
+	}
+
+	public function getInactiveAccounts($start, $amount, $searchTerm)
+	{
+		$query = "SELECT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  from account where active = 'N' AND (account.given_name LIKE ? OR account.family_name LIKE ? OR account.email LIKE ?)
+				  ORDER BY account.date_created ASC LIMIT " . $start . ", " . $amount;		 	
+
+		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%", "$searchTerm%"]);
+		return $result;
+	}
+
+	public function getNumInactiveAccounts($searchTerm)
+	{
+		$query = "SELECT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  from account where active = 'N' AND (account.given_name LIKE ? OR account.family_name LIKE ? OR account.email LIKE ?)";		 	
+
+		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%", "$searchTerm%"]);
 		return $result->rowCount();
 	}
 	
