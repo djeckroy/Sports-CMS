@@ -291,6 +291,7 @@ function showUploadMatchRows()
 
         var newlabel = document.createElement("Label");
         newlabel.setAttribute('class', 'ad-search');
+		newlabel.setAttribute('onclick', 'showAdvancedSearchModal()');
         var str = "Advanced search";
         var result = str.link("#");
         newlabel.innerHTML = "</br>" + result + "<br/>";
@@ -316,6 +317,7 @@ function showUploadMatchRows()
 
 			var newlabel11 = document.createElement("Label");
 			newlabel11.setAttribute('class', 'ad-search');
+			newlabel11.setAttribute('onclick', 'showAdvancedSearchModal()');
 			var str11 = "Advanced search";
 			var result11 = str11.link("#");
 			newlabel11.innerHTML = "</br>" + result11;
@@ -324,6 +326,7 @@ function showUploadMatchRows()
 		
         var newlabel2 = document.createElement("Label");
         newlabel2.setAttribute('class', 'find-help');
+		newlabel2.setAttribute('onclick', 'showAddPlayerModal()');
         var str3 = "Can't find a player? Add them "
         var str2 = "here";
         var result2 = str2.link("#");
@@ -356,6 +359,7 @@ function showUploadMatchRows()
 
         var newlabel1 = document.createElement("Label");
         newlabel1.setAttribute('class', 'ad-search1');
+		newlabel1.setAttribute('onclick', 'showAdvancedSearchModal()');
         var str1 = "Advanced search";
         var result1 = str1.link("#");
         newlabel1.innerHTML = "<br/>" + result1 + "<br/>";
@@ -382,6 +386,7 @@ function showUploadMatchRows()
 
 			var newlabel33 = document.createElement("Label");
 			newlabel33.setAttribute('class', 'ad-search');
+			newlabel33.setAttribute('onclick', 'showAdvancedSearchModal()');
 			var str33 = "Advanced search";
 			var result33 = str33.link("#");
 			newlabel33.innerHTML = "</br>" + result33;21
@@ -432,7 +437,8 @@ function addMoreRows() {
 		
 		dbl=1;
 	}
-    var table = document.getElementById("match-input-table");
+    for (var insertCycle = 0; insertCycle < matchRows; insertCycle++) {
+        var table = document.getElementById("match-input-table");
 
 
         var row = table.insertRow(0);
@@ -467,6 +473,7 @@ function addMoreRows() {
 
         var newlabel = document.createElement("Label");
         newlabel.setAttribute('class', 'ad-search');
+		newlabel.setAttribute('onclick', 'showAdvancedSearchModal()');
         var str = "Advanced search";
         var result = str.link("#");
         newlabel.innerHTML = "</br>" + result + "<br/>";
@@ -492,6 +499,7 @@ function addMoreRows() {
 
 			var newlabel11 = document.createElement("Label");
 			newlabel11.setAttribute('class', 'ad-search');
+			newlabel11.setAttribute('onclick', 'showAdvancedSearchModal()');
 			var str11 = "Advanced search";
 			var result11 = str11.link("#");
 			newlabel11.innerHTML = "</br>" + result11;
@@ -500,6 +508,7 @@ function addMoreRows() {
 		
         var newlabel2 = document.createElement("Label");
         newlabel2.setAttribute('class', 'find-help');
+		newlabel2.setAttribute('onclick', 'showAddPlayerModal()');
         var str3 = "Can't find a player? Add them "
         var str2 = "here";
         var result2 = str2.link("#");
@@ -532,6 +541,7 @@ function addMoreRows() {
 
         var newlabel1 = document.createElement("Label");
         newlabel1.setAttribute('class', 'ad-search1');
+		newlabel1.setAttribute('onclick', 'showAdvancedSearchModal()');
         var str1 = "Advanced search";
         var result1 = str1.link("#");
         newlabel1.innerHTML = "<br/>" + result1 + "<br/>";
@@ -558,6 +568,7 @@ function addMoreRows() {
 
 			var newlabel33 = document.createElement("Label");
 			newlabel33.setAttribute('class', 'ad-search');
+			newlabel33.setAttribute('onclick', 'showAdvancedSearchModal()');
 			var str33 = "Advanced search";
 			var result33 = str33.link("#");
 			newlabel33.innerHTML = "</br>" + result33;21
@@ -576,10 +587,65 @@ function addMoreRows() {
 
         setupMatchAutoComplete();
         setupMatchErrorChecking();
+
+    }
 }
+ // show add player modal
  
+ function showAddPlayerModal()
+{
+	document.querySelector(".add-player-border").style.display = "flex";
+  
+}
+function hideAddPlayerModal()
+{
+  document.querySelector(".add-player-border").style.display = "none";
+}
 
 
+function addPlayer()
+{
+  //$('#add-player-button').click(function (){
+    var playerGivenName = $("#player-given-name").val();
+    var playerFamilyName = $("#player-family-name").val();
+    var playerGenderID = $("#player-gender-ID").val();
+    var playerBirthDate = $("#player-birth-date").val();
+    var playerEmail = $("#player-email").val();
+    var playerClubID = $("#player-club-ID").val();
+    
+    $.ajax({
+      url: "./add-player-manager.php",
+      type:'post',
+      datatype: "text",
+      data :{
+        playerGivenName: playerGivenName,
+        playerFamilyName: playerFamilyName,
+        playerGenderID: playerGenderID,
+        playerBirthDate: playerBirthDate,
+        playerEmail: playerEmail,
+        playerClubID: playerClubID
+      },
+      success: function(data)
+      {
+        hideAddPlayerModal();
+       
+      }
+      
+    });
+        
+  //});
+}
+
+//show advance search player modal-background
+
+function showAdvancedSearchModal()
+{
+  document.querySelector(".player-advanced-search-border").style.display = "flex";
+}
+function hideAdvancedSearchModal()
+{
+  document.querySelector(".player-advanced-search-border").style.display = "none";
+}
 
 /**
  * on page load funcion.

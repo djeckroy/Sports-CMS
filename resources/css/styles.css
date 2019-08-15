@@ -1481,6 +1481,50 @@ article
     background-color: #ccc;
   }
 
+/*   Advanced player search
+player-advanced-search-border
+*/
+ .player-advanced-search-border
+{
+    width:100%;
+    height:100%;
+    position: absolute;
+    margin: 0px 0px 0px 0px;
+    top:0;
+    display:flex;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.advanced-search-content
+{
+    width: 400px;
+    height: 200px;
+    background-color: var(--form-background);
+    border-radius: 5px;
+}
+.advanced-player-exit-button
+{
+  position:absolute;
+  top:0;
+  right: 20px;
+  font-size: var(--font-large);
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: var(--text-light); 
+}
+.player-advanced-search-wrapper
+{
+  
+  height: 40%;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 5px 5px 0px 0px;
+    padding: 20px;
+    position: relative;
+}
 
 
   /* Register Modal */
