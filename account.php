@@ -90,6 +90,7 @@
 							$clubInformation = $account->getClubDetails($clubID);
 
 							echo '
+							<p id="account-hidden-club-id">' . $clubID . '</p>
 							<div id="club-name" class="club-field">
 								<p class="club-detail-headers">Name: </p>
 								<p id="club-name-value">' . $clubInformation["name"] . '</p>
@@ -114,7 +115,8 @@
 							      	<button type='button' id='account-create-club-button' onclick='showCreateClubModal()'>Create Club</button>
 							      </div>";
 						}
-					}	
+					}
+					
 				?>
 			</div>
 			<div id="account-club-directors-header">

@@ -661,6 +661,248 @@
 
 		$tableOutput .= "<span class='admin-requests-link' id=' " . $totalPages . "'>>></span></div></div>";
 	}
+	elseif(isset($_POST["administratorModal"]))
+	{
+		$resultsPerPage = 5;
+		$resultsPageToStartFrom = ($currentPage - 1) * $resultsPerPage;
+		$searchTerm = "";
+		
+		if(isset($_POST["searchTerm"]))
+		{
+			$searchTerm = $_POST["searchTerm"];
+		}
+
+		$administratorResults = $contentManager->getPotentialAdministrators($resultsPageToStartFrom, $resultsPerPage, $searchTerm);
+
+		$tableOutput .= "
+			<table class='account-modal-tables'>
+			<tr>
+				<th class='account-row-id'>ID</th>
+				<th class='account-modal-row-name'>Name</th>
+				<th class='account-modal--row-email'>Email</th>
+				<th class='account-row-date'></th>			
+			</tr>";
+
+		while($row = $administratorResults->fetch())
+		{
+			$tableOutput .= "
+				<tr>
+					<td class='account-table-id'> " . $row['account_id'] . "</td>
+					<td class='account-modal-table-data-name'> " . $row['account_name'] . "</td>
+					<td class='account-modal-table-data-email'> " . $row['email'] . "</td>
+					<td class='account-modal-data-buttons'> <button class='account-promote-administrator-button'>Promote</button> </td>
+				</tr>";
+		}
+
+		$tableOutput .= "
+			</table>
+			<div class='modal-pagination-buttons-container'>
+			<div class='modal-pagination-buttons'>";
+
+		$totalPotentialAdministrators = $contentManager->getNumPotentialAdministrators($searchTerm);
+		$totalPages = ceil($totalPotentialAdministrators / $resultsPerPage);
+
+		if($totalPages == 0)
+		{
+			$totalPages = 1;
+		}
+
+		if($totalPages < 1)
+		{
+			$tableOutput .= "<span class='promote-administrator-link' id='0'><<</span>";
+		}
+		else
+		{
+			$tableOutput .= "<span class='promote-administrator-link' id='1'><<</span>";
+		}
+
+		$pageThreshold = $currentPage + 4;
+
+		if($currentPage == 1)
+		{
+			for($i = $currentPage; $i <= $pageThreshold AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='promote-administrator-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		elseif($currentPage == 2)
+		{
+			for($i = ($currentPage - 1); $i <= ($pageThreshold - 1) AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='promote-administrator-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		elseif($currentPage == 3)
+		{
+			for($i = ($currentPage - 2); $i <= ($pageThreshold - 1) AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='promote-administrator-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		elseif($currentPage == 4)
+		{
+			for($i = ($currentPage - 3); $i <= ($pageThreshold - 1) AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='promote-administrator-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		else
+		{
+			if($currentPage == $totalPages)
+			{
+				for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='promote-administrator-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+			elseif($currentPage == $totalPages - 1)
+			{
+				for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='promote-administrator-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+			elseif($currentPage == $totalPages - 2)
+			{
+				for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='promote-administrator-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+			else
+			{
+				for($i = ($currentPage - 2); $i <= ($pageThreshold - 2) AND $i < $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='promote-administrator-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+		}
+
+
+		$tableOutput .= "<span class='promote-administrator-link' id=' " . $totalPages . "'>>></span></div></div>";
+
+	}
+	elseif(isset($_POST["directorModal"]))
+	{
+		$resultsPerPage = 5;
+		$resultsPageToStartFrom = ($currentPage - 1) * $resultsPerPage;
+		$searchTerm = "";
+		
+		if(isset($_POST["searchTerm"]))
+		{
+			$searchTerm = $_POST["searchTerm"];
+		}
+
+		$directorResults = $contentManager->getPotentialDirectors($resultsPageToStartFrom, $resultsPerPage, $searchTerm);
+
+		$tableOutput .= "
+			<table class='account-modal-tables'>
+			<tr>
+				<th class='account-row-id'>ID</th>
+				<th class='account-modal-row-name'>Name</th>
+				<th class='account-modal--row-email'>Email</th>
+				<th class='account-row-date'></th>			
+			</tr>";
+
+		while($row = $directorResults->fetch())
+		{
+			$tableOutput .= "
+				<tr>
+					<td class='account-table-id'> " . $row['account_id'] . "</td>
+					<td class='account-modal-table-data-name'> " . $row['account_name'] . "</td>
+					<td class='account-modal-table-data-email'> " . $row['email'] . "</td>
+					<td class='account-modal-data-buttons'> <button class='account-promote-director-button'>Promote</button> </td>
+				</tr>";
+		}
+
+		$tableOutput .= "
+			</table>
+			<div class='modal-pagination-buttons-container'>
+			<div class='modal-pagination-buttons'>";
+
+		$totalPotentialDirectors = $contentManager->getNumPotentialDirectors($searchTerm);
+		$totalPages = ceil($totalPotentialDirectors / $resultsPerPage);
+
+		if($totalPages == 0)
+		{
+			$totalPages = 1;
+		}
+
+		if($totalPages < 1)
+		{
+			$tableOutput .= "<span class='promote-director-link' id='0'><<</span>";
+		}
+		else
+		{
+			$tableOutput .= "<span class='promote-director-link' id='1'><<</span>";
+		}
+
+		$pageThreshold = $currentPage + 4;
+
+		if($currentPage == 1)
+		{
+			for($i = $currentPage; $i <= $pageThreshold AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='promote-director-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		elseif($currentPage == 2)
+		{
+			for($i = ($currentPage - 1); $i <= ($pageThreshold - 1) AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='promote-director-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		elseif($currentPage == 3)
+		{
+			for($i = ($currentPage - 2); $i <= ($pageThreshold - 1) AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='promote-director-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		elseif($currentPage == 4)
+		{
+			for($i = ($currentPage - 3); $i <= ($pageThreshold - 1) AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='promote-director-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		else
+		{
+			if($currentPage == $totalPages)
+			{
+				for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='promote-director-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+			elseif($currentPage == $totalPages - 1)
+			{
+				for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='promote-director-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+			elseif($currentPage == $totalPages - 2)
+			{
+				for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='promote-director-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+			else
+			{
+				for($i = ($currentPage - 2); $i <= ($pageThreshold - 2) AND $i < $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='promote-director-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+		}
+
+
+		$tableOutput .= "<span class='promote-director-link' id=' " . $totalPages . "'>>></span></div></div>";
+
+	}
 	else
 	{
 		redirect("./index.php");

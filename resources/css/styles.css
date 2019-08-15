@@ -1262,6 +1262,11 @@ article
     height: 53px;
   }
 
+  #account-hidden-club-id
+  {
+    display: none;
+  }
+
   #account-add-director-button
   {
     position: absolute;
@@ -1797,7 +1802,7 @@ article
   .administrator-modal-content
   {
     width: 600px;
-    height: 600px;
+    height: 620px;
     background-color: var(--form-background);
     border-radius: 5px;
   }
@@ -1817,7 +1822,6 @@ article
     height: 80%%;
     width: 100%;
     padding: 20px 40px 20px 40px;
-    font-size: var(--font-small);
   }
 
   .administrator-modal-fields h2
@@ -1846,6 +1850,8 @@ article
     position: relative;
     height: 30px;
     width: 100%;
+    float: right;
+    margin-bottom: 10px;
   }
 
   #add-administrator-searchbar
@@ -1859,6 +1865,144 @@ article
     box-shadow: none;
     border: 1px solid var(--form-input-border);
     border-radius: 4px;
+  }
+
+  #account-search-promote-administrator-button
+  {
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    cursor: pointer;
+    z-index: 2;
+    right: 5px;
+    top: 6px;
+    outline: none;
+  }
+
+  #administrator-table-modal-information
+  {
+    height: 100%;
+    padding: 20px 0 20px 0;
+  }
+
+  .account-modal-tables
+  {
+    height: auto;
+    width: 520px;
+    text-align: center;
+    color: var(--text-dark);
+    table-layout: fixed;
+  }
+
+  .account-modal-tables th
+  {
+    font-size: var(--font-table-headers);
+    font-weight: bold;
+    height: 29px;
+    max-height: 29px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  .account-modal-tables td
+  {
+    padding: 14px 0 14px 0px;
+    font-size: var(--font-medium);
+    color: var(--text-table-data);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 53px;
+    max-height: 53px;
+  }
+
+  .account-modal-tables tr
+  {
+    max-height: 53px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 520px;
+  }
+
+  .account-modal-table-data-name
+  {
+    width: 30%;
+    font-size: var(--text-table-data);
+    text-align: left;
+  }
+
+  .account-modal-table-data-email
+  {
+    width: 35%;
+    text-align: left;
+  }
+
+  .account-modal-data-buttons
+  {
+    text-align: left;
+    width: 20%;
+  }
+
+  .account-modal-row-name
+  {
+    font-size: var(--font-table-headers);
+    width: 35%;
+  }
+
+  .account-modal-row-email
+  {
+    width: 35%;
+  }
+
+  .account-promote-administrator-button
+  {
+    background: var(--primary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-small);
+    width: 80px;
+    text-decoration: none;
+    margin: 0;
+    height: 26px;
+    cursor: pointer;
+  }
+
+  .account-promote-administrator-button:hover
+  {
+    background-color: var(--primary-color-dark);
+  }
+
+  .promote-administrator-link
+  {
+    cursor: pointer;
+    padding: 8px 8px 8px 8px;
+    border: 1px solid #ccc;
+    font-size: var(--font-small);
+    color: var(--primary-color);
+  }
+
+  .promote-administrator-link:hover
+  {
+    background-color: #ccc;
+  }
+
+  .modal-pagination-buttons-container
+  {
+    height: 70px;
+    width: 520px;
+    position: absolute;
+    top: 685px;
+  }
+
+  .modal-pagination-buttons
+  {
+    position: relative;
+    height: 60px;
+    width: 100%;
+    border-top: 2px solid var(--text-medium);
+    text-align: center;
+    padding: 20px 0px 0px 0px; 
+    margin: 0px;
   }
 
 
@@ -1881,7 +2025,7 @@ article
   .director-modal-content
   {
     width: 600px;
-    height: 600px;
+    height: 620px;
     background-color: var(--form-background);
     border-radius: 5px;
   }
@@ -1900,13 +2044,17 @@ article
   {
     height: 80%%;
     width: 100%;
-    padding: 40px;
-    font-size: var(--font-small);
+    padding: 20px 40px 20px 40px;
   }
 
   .director-modal-fields h2
   {
     color: var(--text-dark);
+  }
+
+  .director-modal-fields hr
+  {
+    margin: 10px 0px 10px 0px;
   }
 
   .director-modal-exit-button
@@ -1918,6 +2066,78 @@ article
     transform: rotate(45deg);
     cursor: pointer;
     color: var(--text-light); 
+  }
+
+  #director-searchbar-container
+  {
+    position: relative;
+    height: 30px;
+    width: 100%;
+    float: right;
+    margin-bottom: 10px;
+  }
+
+  #add-director-searchbar
+  {
+    position: relative;
+    height: 30px;
+    width: 100%;
+    font-size: var(--font-small);
+    padding: 0px 30px 0px 10px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+    border-radius: 4px;
+  }
+
+  #account-search-promote-director-button
+  {
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    cursor: pointer;
+    z-index: 2;
+    right: 5px;
+    top: 6px;
+    outline: none;
+  }
+
+  #director-table-modal-information
+  {
+    height: 100%;
+    padding: 20px 0 20px 0;
+  }
+
+  .account-promote-director-button
+  {
+    background: var(--primary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-small);
+    width: 80px;
+    text-decoration: none;
+    margin: 0;
+    height: 26px;
+    cursor: pointer;
+  }
+
+  .account-promote-director-button:hover
+  {
+    background-color: var(--primary-color-dark);
+  }
+
+  .promote-director-link
+  {
+    cursor: pointer;
+    padding: 8px 8px 8px 8px;
+    border: 1px solid #ccc;
+    font-size: var(--font-small);
+    color: var(--primary-color);
+  }
+
+  .promote-director-link:hover
+  {
+    background-color: #ccc;
   }
 
 
@@ -2943,9 +3163,11 @@ article
     height: 30px;
     margin: 10px 5px 10px 5px;
   }
-/*   Advanced player search
-player-advanced-search-border
-*/
+
+
+  /* Advanced Player Search */
+
+
  .player-advanced-search-border
 {
     width:100%;
@@ -2987,7 +3209,10 @@ player-advanced-search-border
     padding: 20px;
     position: relative;
 }
+
+
 /* Initial rating */
+
 
  .initial-rating-border
 {
@@ -3169,6 +3394,11 @@ player-advanced-search-border
     color: var(--text-medium);
   }
 
+  .edit-player-date
+  {
+    position: relative;
+    width: 49%
+  }
 
 
 

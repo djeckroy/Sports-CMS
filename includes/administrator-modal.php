@@ -8,9 +8,11 @@
 	  	<div class="administrator-modal-fields">
   	  		<h2>Add Administrator</h2>
   	  		<hr/>
-  	  		<div class="administrator-searchbar-container">
-				<input type="text" name="add-administrator-searchbar" class="account-input-fields" id="add-administrator-searchbar" placeholder="Search Tournament Directors.."/> 
-				<input type="image" src="./resources/images/search-icon.png" class="account-search-buttons" id="account-add-administrator-button"/>
+  	  		<div id="administrator-searchbar-container">
+				<input type="text" name="add-administrator-searchbar" id="add-administrator-searchbar" class="account-input-fields" placeholder="Search Accounts.."/> 
+				<input type="image" src="./resources/images/search-icon.png" id="account-search-promote-administrator-button"/>
+			</div>
+			<div id="administrator-table-modal-information">		
 			</div>
   	  	</div>
 	</div>

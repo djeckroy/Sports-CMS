@@ -76,7 +76,7 @@ switch($_POST['ajaxMethod'])
           			}
           			
           		$editPlayerModal .= '</select>
-          		<input class="event-field-date" class="edit-player-date" name="event-date" id="event-date" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')" value="' . $playerDetails["date_of_birth"] . '"> 
+          		<input class="edit-player-date" class="event-field-date" name="event-date" id="event-date" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')" value="' . $playerDetails["date_of_birth"] . '"> 
         	</div>
 
         	<input type="email" value="' . $playerDetails["email"] . '" id="edit-player-email" name="email" placeholder="Email" pattern="{7,75}" required title="Email must not exceed 75 characters"> 
@@ -105,6 +105,12 @@ switch($_POST['ajaxMethod'])
 		break;
 	case "editPlayer":
 		$contentManager->editPlayer($_POST["playerID"], $_POST["givenName"], $_POST["familyName"], $_POST["gender"], $_POST["dob"], $_POST["email"], $_POST["country"], $_POST["state"]);
+		break;
+	case "promoteAccount":
+		$contentManager->promoteToAccessLevel($_POST["accountID"], 1);
+		break;
+	case "promoteDirector":
+		$contentManager->promoteToDirector($_POST["accountID"], $_POST["clubID"]);
 		break;
 	default:
 		echo "Post Error";

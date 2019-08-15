@@ -4,7 +4,148 @@ window.onload = retrieveTournamentDirectors(1, "", "");
 window.onload = retrieveAdministrators(1, "");
 window.onload = retrieveInactiveAccounts(1, "");
 window.onload = retrieveSearchedPlayers(1, "", "", "", "", "", "", "", "");
+window.onload = retrievePotentialAdministrators(1, "");
+window.onload = retrievePotentialDirectors(1, "");
 window.onload = uploadEventChangeStates($("#create-club-select-country"),$("#create-club-select-state"));
+
+
+/* ADD DIRECTOR MODAL */
+
+
+function retrievePotentialDirectors(page, searchTerm)
+{
+	var directorModal = 1;
+
+	$.ajax
+    ({
+        url: "./account-pagination.php",
+        type: "POST",
+        data: {page: page, directorModal: directorModal, searchTerm: searchTerm},
+        success: function(data) 
+        {
+            $("#director-table-modal-information").html(data);
+        }
+    });
+}
+
+$(document).on('click', '.promote-director-link', function()
+{
+    var page = $(this).attr("id");
+    var searchValue = $("#add-director-searchbar").val();
+
+    if(page > 0)
+    {
+        retrievePotentialDirectors(page, searchValue);
+    }
+});
+
+$(document).on('click', '#account-search-promote-director-button', function()
+{
+    var searchValue = $("#add-director-searchbar").val();
+    retrievePotentialDirectors(1, searchValue);
+});
+
+$("#add-director-searchbar").keyup(function(event) 
+{
+    if (event.keyCode === 13) 
+    {
+        $("#account-search-promote-director-button").click();
+    }
+});
+
+$(document).on('click', '.account-promote-director-button', function()
+{
+	var accountID = $(this).closest('tr').find('.account-table-id').text();
+	var clubID;
+
+	if($("#admin-change-club").length > 0)
+    {
+        clubID = $("#admin-change-club").find(":selected").val();
+    }
+    else
+    {
+    	clubID = $("#account-hidden-club-id").text();
+    } 
+    
+    $.ajax
+    ({
+        url: "./ajax.php",
+        type: "POST",
+        data: {ajaxMethod: "promoteDirector", accountID: accountID, clubID: clubID},
+        success: function(data) 
+        {
+            $("#account-search-promote-director-button").click();
+            $("#account-search-directors-button").click();
+        }
+    });
+});
+
+
+$(document).on('click', '#account-add-director-button', function()
+{
+	showDirectorModal();
+	$("#account-search-promote-director-button").click();
+});
+
+/* ADD ADMINISTRATOR MODAL */
+
+
+function retrievePotentialAdministrators(page, searchTerm)
+{
+	var administratorModal = 1;
+
+	$.ajax
+    ({
+        url: "./account-pagination.php",
+        type: "POST",
+        data: {page: page, administratorModal: administratorModal, searchTerm: searchTerm},
+        success: function(data) 
+        {
+            $("#administrator-table-modal-information").html(data);
+        }
+    });
+}
+
+$(document).on('click', '.promote-administrator-link', function()
+{
+    var page = $(this).attr("id");
+    var searchValue = $("#add-administrator-searchbar").val();
+
+    if(page > 0)
+    {
+        retrievePotentialAdministrators(page, searchValue);
+    }
+});
+
+$(document).on('click', '#account-search-promote-administrator-button', function()
+{
+    var searchValue = $("#add-administrator-searchbar").val();
+    retrievePotentialAdministrators(1, searchValue);
+});
+
+$("#add-administrator-searchbar").keyup(function(event) 
+{
+    if (event.keyCode === 13) 
+    {
+        $("#account-search-promote-administrator-button").click();
+    }
+});
+
+$(document).on('click', '.account-promote-administrator-button', function()
+{
+	var accountID = $(this).closest('tr').find('.account-table-id').text();
+    
+    $.ajax
+    ({
+        url: "./ajax.php",
+        type: "POST",
+        data: {ajaxMethod: "promoteAccount", accountID: accountID},
+        success: function(data) 
+        {
+            $("#account-search-promote-administrator-button").click();
+        }
+    });
+});
 
 
 /* INACTIVE ACCOUNTS */
@@ -263,6 +404,9 @@ $(document).on('click', '.account-edit-players-button', function()
 {
     var playerID = $(this).closest('tr').find('.account-table-id').text();
     showEditPlayersModal(playerID);
+
+    alert($("#edit-player-state").val());
+    //uploadEventChangeStates($("#edit-player-country"),$("#edit-player-state"));
 });
 
 $(document).on('click', '#edit-player-button', function()
@@ -376,6 +520,7 @@ $(document).on('change', '#admin-change-club', function()
 {
     var searchValue = $("#directors-searchbar").val();
     var clubID = $("#admin-change-club").find(":selected").val();
+
     retrieveTournamentDirectors(1, searchValue, clubID);
     retrieveClubInformation(clubID);
 });
@@ -393,6 +538,10 @@ function retrieveClubInformation(clubID)
         }
     });
 }
+
+$("#edit-player-country").change(function(){
+    uploadEventChangeStates($("#edit-player-country"),$("#edit-player-state"));
+});
 
 
 /* ADMINISTRATORS */
@@ -462,6 +611,7 @@ function demoteAdministrator(accountID)
 $(document).on('click', '#account-add-administrator-button', function(event)
 {
     showAdministratorModal();
+    $("#account-search-promote-administrator-button").click();
 });
 
 
