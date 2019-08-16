@@ -23,8 +23,19 @@ class ContentManager
 		$query = "INSERT INTO player (given_name, family_name, gender, date_of_birth, email, country_id, state_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		$result = $this->database->query($query, [$givenName, $familyName, $gender, $dob, $email, $country, $state]);
 
-		$query = "INSERT INTO membership (membership.player_id, membership.club_id) VALUES (MAX(player.player_id), ?)";
-		$result = $this->database->query($query, [$club]);
+		$query = "SELECT LAST_INSERT_ID() AS player_id FROM player";
+		$result = $this->database->query($query, null)->fetch();
+		$playerID = $result["player_id"];
+
+		$query = "INSERT INTO membership (membership.player_id, membership.club_id) VALUES (?, ?)";
+		$result = $this->database->query($query, [$playerID, $club]);
+
+		$query = "SELECT club.sport_id AS sport_id FROM club where club.club_id = ?";
+		$result = $this->database->query($query, [$club])->fetch();
+		$sportID = $result["sport_id"];
+
+		$query = "INSERT INTO rating (mean, standard_deviation, sport_id, player_id) VALUES(0, 0, $sportID, $playerID)";
+		$result = $this->database->query($query, null);
 
 	}
 
