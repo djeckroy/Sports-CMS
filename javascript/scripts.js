@@ -760,8 +760,10 @@ function setupMatchAutoComplete()
 
 function setInitialRating(playerID)
 {
+    if (playerID != "")
+    {
       var setRating = 1;
-      var sportID = $("#sports-type").find(":selected").val();
+      var sportID = $("#sport-type").find(":selected").val();
 
       $.ajax({
         url: "./initial-rating-Manager.php",
@@ -781,6 +783,7 @@ function setInitialRating(playerID)
         }
         
       });
+    }
 }
 
 
@@ -1188,7 +1191,7 @@ function prefillTextbox()
                                        
 function showInitialRatingModal(playerID, sportID)
 {
-  document.querySelector(".initial-rating-border").style.display="flex";
+  document.querySelector(".initial-rating-border").style.display = "flex";
   $("#hidden-sport-ID").val(sportID);
   $("#hidden-player-ID").val(playerID);
 }

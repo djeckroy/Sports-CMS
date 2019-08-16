@@ -798,9 +798,8 @@ class ContentManager
   }
     public function insertInitialRating($mean, $sd, $playerID, $sportID)
   {
-    $query = "INSERT INTO rating(mean, standard_deviation, player_id, sport_id) VALUES(?, ?, ?, ?)";
+    $query = "INSERT INTO rating(mean, standard_deviation, player_id, sport_id, last_calculated) VALUES(?, ?, ?, ?,NOW())";
     $result = $this->database->query($query, [$mean, $sd, $playerID, $sportID]);
-    
   }
 
 }
