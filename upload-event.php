@@ -27,7 +27,7 @@
                     title="Event name must be within 1-90 characters and can contain letters and numbers"><br /><br />
                 <input class="event-field-date" name="event-date" id="event-date" placeholder="Event Start Date"
                     required type="text" onfocus="(this.type='date')" onblur="(this.type='text')"><br />
-                <select class="sport-type" name="sport-type" required>
+                <select class="sport-type" name="sport-type" id="sport-type" required>
                     <option value="">Event Sport Type</option>
                     <?php
             $sports = $contentManager->getAllSports();
@@ -84,6 +84,8 @@
     </form>
 </article>
 
+<!-- advanced search -->
+
 <div class="player-advanced-search-border">
     <div class="advanced-search-content">
       <div class="player-advanced-search-wrapper">
@@ -96,6 +98,8 @@
   </div>
 </div>
 
+<!-- add player -->
+
 <div class="add-player-border">
       <div class="player-content">
       <div class="player container">
@@ -103,9 +107,6 @@
           
           <div class="add-player-exit-button" onclick="hideAddPlayerModal()">+</div>
   	   </div>
-    
-      
-  
   
      <div class="add-player-wrapper">
         <div class="add-player-header">
@@ -151,10 +152,12 @@
 
         </div>
     </div>
-
 </div>
 </div>
 
+
+<!-- initial rating -->
+<?php include("./includes/initialRating.php"); ?>
 
 </div>
 
