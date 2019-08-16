@@ -112,6 +112,16 @@ switch($_POST['ajaxMethod'])
 	case "promoteDirector":
 		$contentManager->promoteToDirector($_POST["accountID"], $_POST["clubID"]);
 		break;
+	case "editAccountModal":
+		$editAccountModal = '<div class="register-input-group-double">
+          						<input type="text" id="edit-account-given-name" name="given-name" value="' . $_POST["givenName"] . '" placeholder="Given Name" pattern="[a-zA-Z\s]{1,45}" required title="Given name must be within 1-45 characters">
+          						<input type="text" id="edit-account-family-name" name="family-name" value="' . $_POST["familyName"] . '" placeholder="Family Name" pattern="[a-zA-Z\s]{1,45}" required title="Family name must be within 1-45 characters">
+        					</div>
+        					<input type="email" value="' . $_POST["email"] . '" id="edit-account-email" name="email" placeholder="Email" pattern="{7,75}" required title="Email must not exceed 75 characters">
+        					<button type="button" name="update-account-details" id="update-account-details-button">Update</button>';
+
+        echo $editAccountModal;
+		break;
 	default:
 		echo "Post Error";
 		var_dump($_POST);

@@ -18,6 +18,15 @@ class ContentManager
 		return $result;
 	}
 	
+	public function createPlayer($givenName, $familyName, $gender, $dob, $email, $country, $state, $club)
+	{
+		$query = "INSERT INTO player (given_name, family_name, gender, date_of_birth, email, country_id, state_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		$result = $this->database->query($query, [$givenName, $familyName, $gender, $dob, $email, $country, $state]);
+
+		$query = "INSERT INTO membership (membership.player_id, membership.club_id) VALUES (MAX(player.player_id), ?)";
+		$result = $this->database->query($query, [$club]);
+
+	}
 
 	public function getSpecificPlayerInformation($player_id)
 	{

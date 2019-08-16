@@ -1,16 +1,10 @@
 <div class="dropdown-menu">
   <div class="dropdown-header">
-    <h3> <?php echo $account->getAccountName(); ?> </h3>
+    <h3> Hi, <?php echo $account->getAccountName(); ?> </h3>
   </div>
   <div class="dropdown-options">
     <a href="./account.php">Account</a>
     <a href="./upload-event.php">Upload Event</a>
-    <?php 
-      if($account->getAccessLevel() <= 1)
-      {
-      	echo "<a href='./administration.php'>Administration</a>";
-      }
-    ?> 
     <hr/> 
     <div class="dropdown-signout-form">
       <form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>">

@@ -425,6 +425,7 @@ article
 
   .search-button
   {
+    height: 50px;
     background: var(--form-background);
     border-radius: 5px;
     color: var(--text-dark);
@@ -1186,6 +1187,7 @@ article
     width: 100%
     height: 75%;
     padding: 20px;
+    display: inline-flex;
   }
 
   #account-personal-section
@@ -1632,6 +1634,199 @@ article
     background-color: #ccc;
   }
 
+  #account-hidden-id
+  {
+    display: none;
+  }
+
+  .account-field
+  {
+
+  }
+
+  .account-detail-headers
+  {
+    margin-right: 10px;
+  }
+
+  #account-given-name
+  {
+    font-size: var(--font-medium);
+    font-weight: bold;
+    display: inline-flex;
+    margin-right: 30px;
+  }
+
+  #account-given-name-value
+  {
+    font-size: var(--font-medium);
+    color: var(--text-table-data);
+  }
+
+  #account-family-name
+  {
+    font-size: var(--font-medium);
+    font-weight: bold;
+    display: inline-flex;
+    margin-right: 30px;
+  }
+
+  #account-family-name-value
+  {
+    font-size: var(--font-medium);
+    color: var(--text-table-data);
+  }
+
+  #account-email
+  {
+    font-size: var(--font-medium);
+    font-weight: bold;
+    display: inline-flex;
+    margin-right: 30px;
+  }
+
+  #account-email-value
+  {
+    font-size: var(--font-medium);
+    color: var(--text-table-data);
+  }
+
+  #edit-account-details-button
+  {
+    background: var(--primary-color-dark);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 0px 0px 0px 0px;
+    padding: 5px 5px 5px 5px;
+    text-decoration: none;
+    width: 60px;
+    cursor: pointer;
+  }
+
+  #edit-account-details-button:hover
+  {
+    background-color: var(--primary-color-light);
+  }
+
+
+  /* Edit Account Modal */
+
+
+  .edit-account-modal-background
+  {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
+  .edit-account-modal-content
+  {
+    width: 600px;
+    height: 480px;
+    background-color: var(--form-background);
+    border-radius: 5px;
+  }
+
+  .edit-account-modal-header
+  {
+    height: 20%;
+    width: 100%;
+    background-color: var(--primary-color-dark);
+    border-radius: 5px 5px 0px 0px;
+    padding: 20px;
+    position: relative;
+  }
+
+  .edit-account-modal-fields
+  {
+    height: 80%%;
+    width: 100%;
+    padding: 20px 40px 20px 40px;
+    font-size: var(--font-small);
+  }
+
+  .edit-account-modal-fields h2
+  {
+    color: var(--text-dark);
+  }
+
+  .edit-account-modal-fields hr
+  {
+    margin: 10px 0px 10px 0px;
+  }
+
+  .edit-account-modal-exit-button
+  {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: var(--font-large);
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: var(--text-light); 
+  }
+
+  #edit-account-given-name
+  {
+    height: 40px;
+    width: 50%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #edit-account-family-name
+  {
+    height: 40px;
+    width: 49%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #edit-account-email
+  {
+    height: 40px;
+    width: 100%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 10px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #update-account-details-button
+  {
+    background: var(--primary-color-dark);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 0px 0px 0px 0px;
+    padding: 12px 20px 12px 20px;
+    text-decoration: none;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  #update-account-details-button:hover
+  {
+    background-color: var(--primary-color-light);
+  }
+
 
   /* Edit Players Modal */
 
@@ -1661,7 +1856,7 @@ article
   {
     height: 20%;
     width: 100%;
-    background-color: var(--primary-color);
+    background-color: var(--tertiary-color);
     border-radius: 5px 5px 0px 0px;
     padding: 20px;
     position: relative;
@@ -1766,7 +1961,7 @@ article
 
   #edit-player-button
   {
-    background: var(--primary-color);
+    background: var(--tertiary-color);
     border-radius: 5px;
     color: var(--text-light);
     font-size: var(--font-medium);
@@ -1779,7 +1974,7 @@ article
 
   #edit-player-button:hover
   {
-    background: var(--primary-color-dark);
+    background: var(--tertiary-color-dark);
   }
 
 
@@ -1811,7 +2006,7 @@ article
   {
     height: 20%;
     width: 100%;
-    background-color: var(--primary-color);
+    background-color: var(--tertiary-color);
     border-radius: 5px 5px 0px 0px;
     padding: 20px;
     position: relative;
@@ -1956,7 +2151,7 @@ article
 
   .account-promote-administrator-button
   {
-    background: var(--primary-color);
+    background: var(--tertiary-color);
     border-radius: 5px;
     color: var(--text-light);
     font-size: var(--font-small);
@@ -1969,7 +2164,7 @@ article
 
   .account-promote-administrator-button:hover
   {
-    background-color: var(--primary-color-dark);
+    background-color: var(--tertiary-color-dark);
   }
 
   .promote-administrator-link
@@ -1978,7 +2173,7 @@ article
     padding: 8px 8px 8px 8px;
     border: 1px solid #ccc;
     font-size: var(--font-small);
-    color: var(--primary-color);
+    color: var(--tertiary-color);
   }
 
   .promote-administrator-link:hover
@@ -2034,7 +2229,7 @@ article
   {
     height: 20%;
     width: 100%;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color-dark);
     border-radius: 5px 5px 0px 0px;
     padding: 20px;
     position: relative;
@@ -2110,7 +2305,7 @@ article
 
   .account-promote-director-button
   {
-    background: var(--primary-color);
+    background: var(--primary-color-dark);
     border-radius: 5px;
     color: var(--text-light);
     font-size: var(--font-small);
@@ -2123,7 +2318,7 @@ article
 
   .account-promote-director-button:hover
   {
-    background-color: var(--primary-color-dark);
+    background-color: var(--primary-color-light);
   }
 
   .promote-director-link
@@ -2132,7 +2327,7 @@ article
     padding: 8px 8px 8px 8px;
     border: 1px solid #ccc;
     font-size: var(--font-small);
-    color: var(--primary-color);
+    color: var(--primary-color-dark);
   }
 
   .promote-director-link:hover
@@ -2230,6 +2425,26 @@ article
     font-size: var(--font-small);
   }
 
+  #club-name-value
+  {
+    color: var(--text-table-data);
+  }
+
+  #club-sport-value
+  {
+    color: var(--text-table-data);
+  }
+
+  #club-country-value
+  {
+    color: var(--text-table-data);
+  }
+
+  #club-state-value
+  {
+    color: var(--text-table-data);
+  }
+
   #create-club-select-state
   {
     height: 40px;
@@ -2261,6 +2476,176 @@ article
   {
     background-color: var(--primary-color-dark);
   }
+
+
+  /* Create Player Modal */
+
+
+  .create-player-modal-background
+  {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
+  .create-player-modal-content
+  {
+    width: 600px;
+    height: 490px;
+    background-color: var(--form-background);
+    border-radius: 5px;
+  }
+
+  #create-player-hidden-club-id
+  {
+    display: none;
+  }
+
+  .create-player-modal-header
+  {
+    height: 25%;
+    width: 100%;
+    background-color: var(--tertiary-color);
+    border-radius: 5px 5px 0px 0px;
+    padding: 20px;
+    position: relative;
+  }
+
+  .create-player-modal-fields
+  {
+    height: 80%%;
+    width: 100%;
+    padding: 20px 40px 20px 40px;
+    font-size: var(--font-small);
+  }
+
+  .create-player-modal-fields h2
+  {
+    color: var(--text-dark);
+  }
+
+  .create-player-modal-fields hr
+  {
+    margin: 10px 0px 10px 0px;
+  }
+
+  .create-player-modal-exit-button
+  {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: var(--font-large);
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: var(--text-light); 
+  }
+
+  #input-create-player-given-name
+  {
+    height: 40px;
+    width: 50%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #input-create-player-family-name
+  {
+    height: 40px;
+    width: 49%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #create-player-gender
+  {
+    height: 40px;
+    width: 50%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  .create-player-date
+  {
+    height: 40px;
+    width: 49%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #create-player-email
+  {
+    height: 40px;
+    width: 100%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #player-create-select-country
+  {
+    height: 40px;
+    width: 50%;
+    font-size: var(--font-small);
+    margin: 10px 0px 0px 0px;
+  }
+
+  #player-create-select-state
+  {
+    height: 40px;
+    width: 49%;
+    font-size: var(--font-small);
+    margin: 10px 0px 0px 0px;
+  }
+
+  .create-player-input-group-double
+  {
+    display: block
+    width: 100%;
+    margin: 0px;
+  }
+
+  #create-player-button
+  {
+    background: var(--tertiary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 15px 0px 0px 0px;
+    padding: 12px 20px 12px 20px;
+    text-decoration: none;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  #create-player-button:hover
+  {
+    background-color: var(--tertiary-color-dark);
+  }  
 
 
   /* Register Modal */

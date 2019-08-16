@@ -9,6 +9,15 @@ window.onload = retrievePotentialDirectors(1, "");
 window.onload = uploadEventChangeStates($("#create-club-select-country"),$("#create-club-select-state"));
 
 
+/* EDIT ACCOUNT MODAL */
+
+
+$(document).on('click', '#edit-account-details-button', function()
+{
+    showEditAccountModal();
+});
+
+
 /* ADD DIRECTOR MODAL */
 
 
@@ -435,6 +444,12 @@ function editPlayer(playerID, givenName, familyName, gender, dob, email, country
     });
 }
 
+$(document).on('click', '#account-add-player-button', function()
+{
+    showCreatePlayerModal();
+    uploadEventChangeStates($("#player-create-select-country"),$("#player-create-select-state"));
+});
+
 
 /* TOURNAMENT DIRECTORS */
 
@@ -670,7 +685,7 @@ $(".player-search-filter-container").keyup(function(event)
 });
 
 
-/* Create Club Modal */
+/* State Changes */
 
 
 $("#create-club-select-country").on('change', function(){
@@ -679,6 +694,10 @@ $("#create-club-select-country").on('change', function(){
 
 $(document).on('change', '#edit-player-country', function(){
 	uploadEventChangeStates($("#edit-player-country"),$("#edit-player-state"));
+});
+
+$(document).on('change', '#player-create-select-country', function(){
+    uploadEventChangeStates($("#player-create-select-country"),$("#player-create-select-state"));
 });
 
 

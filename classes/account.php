@@ -295,6 +295,14 @@ class Account
 
 		return $result["name"];
 	}
+
+	public function getAccountDetails()
+	{
+		$query = "SELECT account.account_id, account.given_name, account.family_name, account.email FROM account where account.account_id = ?";
+		$result = $this->database->query($query, [$this->accountId])->fetch();
+
+		return $result;
+	}
 }
 
 ?>

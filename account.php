@@ -11,7 +11,12 @@
 
     if(isset($_POST["create-club"]))
     {
-    	$account->createClubAndAssignAccount($_POST["club-name"], $_POST["select-sport"], $_POST["select-country"], 1);
+    	$account->createClubAndAssignAccount($_POST["club-name"], $_POST["select-sport"], $_POST["select-country"], $_POST["state-name"]);
+    }
+
+    if(isset($_POST["create-player"]))
+    {
+    	$contentManager->createPlayer($_POST["player-given-name"], $_POST["player-family-name"], $_POST["create-player-gender"], $_POST["event-date"], $_POST["email"], $_POST["select-country"], $_POST["state-name"], $_POST["hidden-club-ID"]);
     }
 
 ?>
@@ -203,7 +208,27 @@
 		<div id="personal-header" class="account-page-header">
 			<h2>Personal Information</h2>
 		</div>
-		<div id="account-personal-information">		
+		<div id="account-personal-information">	
+			<?php
+				$personalInformation = $account->getAccountDetails();
+
+				echo '
+				<p id="account-hidden-id">' . $personalInformation["account_id"] . '</p>
+				<div id="account-given-name" class="account-field">
+					<p class="account-detail-headers">Given Name: </p>
+					<p id="account-given-name-value">' . $personalInformation["given_name"] . '</p>
+				</div>
+				<div id="account-family-name" class="account-field">
+					<p class="account-detail-headers">Family Name: </p>
+					<p id="account-family-name-value">' . $personalInformation["family_name"] . '</p>
+				</div>
+				<div id="account-email" class="account-field">
+					<p class="account-detail-headers">Email: </p>
+					<p id="account-email-value">' . $personalInformation["email"] . '</p>
+				</div>
+
+				<button type="button" id="edit-account-details-button">Edit</button>';
+			?>
 		</div>
 	</div>
 </div>
@@ -216,6 +241,8 @@
     include("./includes/director-modal.php");
     include("./includes/create-club-modal.php");
     include("./includes/edit-player-modal.php");
+    include("./includes/create-player-modal.php");
+    include("./includes/edit-account-modal.php");
 ?>
 
 <script src="./javascript/pagination.js"></script>

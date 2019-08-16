@@ -14,7 +14,6 @@
         <div class="create-club-input-group-double">
           <input type="text" id="input-club-name" name="club-name" placeholder="Name" pattern="[a-zA-Z\s]{1,90}" required title="Club name must be within 1-90 characters">
           <select name="select-sport" id="create-club-select-sport">
-            <option value="" selected disabled hidden>Sport</option>
             <?php
               $sports = $contentManager->getAllSports();
 
