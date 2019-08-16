@@ -165,8 +165,8 @@ insert into `sport` (name) VALUES ('Badminton');
 insert into `sport` (name) VALUES ('Squash');
 insert into `sport` (name) VALUES ('Table Tennis');
 
-insert into `club` (name, country_id, state_id) VALUES ('Launceston Badminton Club', 1, 1);
-insert into `club` (name, country_id, state_Id) VALUES ('Otago Squash Club', 2, 4);
+insert into `club` (name, country_id, state_id,sport_id) VALUES ('Launceston Badminton Club', 1, 1,1);
+insert into `club` (name, country_id, state_id, sport_id) VALUES ('Otago Squash Club', 2, 4, 2);
 
 insert into `player` (given_name, family_name, gender, date_of_birth, email, last_played, receive_emails, country_id, state_id)
   VALUES ('John', 'Smith', 'M', '1993-03-17', 'Sean.Allen@testonly.com', NOW(), 'Y', '1', '1');
