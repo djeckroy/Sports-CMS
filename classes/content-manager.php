@@ -18,16 +18,46 @@ class ContentManager
 		return $result;
 	}
 	
+	public function createPlayer($givenName, $familyName, $gender, $dob, $email, $country, $state, $club)
+	{
+		$query = "INSERT INTO player (given_name, family_name, gender, date_of_birth, email, country_id, state_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		$result = $this->database->query($query, [$givenName, $familyName, $gender, $dob, $email, $country, $state]);
+
+		$query = "SELECT LAST_INSERT_ID() AS player_id FROM player";
+		$result = $this->database->query($query, null)->fetch();
+		$playerID = $result["player_id"];
+
+		$query = "INSERT INTO membership (membership.player_id, membership.club_id) VALUES (?, ?)";
+		$result = $this->database->query($query, [$playerID, $club]);
+
+		$query = "SELECT club.sport_id AS sport_id FROM club where club.club_id = ?";
+		$result = $this->database->query($query, [$club])->fetch();
+		$sportID = $result["sport_id"];
+
+		$query = "INSERT INTO rating (mean, standard_deviation, sport_id, player_id) VALUES(0, 0, $sportID, $playerID)";
+		$result = $this->database->query($query, null);
+
+	}
 
 	public function getSpecificPlayerInformation($player_id)
 	{
-		$query = "SELECT player.given_name, player.family_name, player.gender, player.date_of_birth, country.name as country_name, state.name as state_name FROM((player INNER JOIN country ON player.country_id = country.country_id) INNER JOIN state ON player.state_id = state.state_id) WHERE player_id = ?;";
+		$query = "SELECT player.given_name, player.family_name, player.gender, player.email, player.date_of_birth, country.name as country_name, state.name as state_name FROM((player INNER JOIN country ON player.country_id = country.country_id) INNER JOIN state ON player.state_id = state.state_id) WHERE player_id = ?;";
 		$result = $this->database->query($query, [$player_id])->fetch();
 
 		return $result;
 	}
-  
 
+	public function promoteToAccessLevel($accountID, $access_level)
+	{
+		$query = "UPDATE account SET access_level = ? WHERE account_id = ?";
+		$result = $this->database->query($query, [$access_level, $accountID]);	
+	}
+  
+	public function editPlayer($playerID, $givenName, $familyName, $gender, $dob, $email, $country, $state)
+	{
+		$query = "UPDATE player set player.given_name = ?, player.family_name = ?, player.gender = ?, player.date_of_birth = ?, player.email = ?, player.country_id = ?, player.state_id = ? WHERE player.player_id = ?";
+		$result = $this->database->query($query, [$givenName, $familyName, $gender, $dob, $email, $country, $state, $playerID]);
+	}
 
 	public function getPlayerClub($player_id)
 	{
@@ -35,6 +65,12 @@ class ContentManager
 		$result = $this->database->query($query, [$player_id])->fetch();
 
 		return $result;
+	}
+
+	public function promoteToDirector($accountID, $clubID)
+	{
+		$query = "INSERT INTO director_of (account_id, club_id) VALUES (?, ?)";
+		$result = $this->database->query($query, [$accountID, $clubID]);
 	}
 	
 	public function getPlayerSports($player_id)
@@ -452,7 +488,7 @@ class ContentManager
 	public function getPlayersByClub($clubID, $start, $amount, $searchTerm)
 	{
 		$query = "SELECT
-					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.email, player.gender, player.date_of_birth, rating.mean
+					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.gender, player.date_of_birth, rating.mean
 				  FROM 
 				  	player 
 				  INNER JOIN 
@@ -606,6 +642,61 @@ class ContentManager
 				  	?)";	  	
 
 		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%"]);
+		return $result->rowCount();
+	}
+
+	public function getInactiveAccounts($start, $amount, $searchTerm)
+	{
+		$query = "SELECT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  from account where active = 'N' AND (account.given_name LIKE ? OR account.family_name LIKE ? OR account.email LIKE ?)
+				  ORDER BY account.date_created ASC LIMIT " . $start . ", " . $amount;		 	
+
+		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%", "$searchTerm%"]);
+		return $result;
+	}
+
+	public function getNumInactiveAccounts($searchTerm)
+	{
+		$query = "SELECT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  from account where active = 'N' AND (account.given_name LIKE ? OR account.family_name LIKE ? OR account.email LIKE ?)";		 	
+
+		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%", "$searchTerm%"]);
+		return $result->rowCount();
+	}
+
+	public function getPotentialAdministrators($start, $amount, $searchTerm)
+	{
+		$query = "SELECT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  from account where active = 'Y' AND account.access_level = 2 AND account.account_id NOT IN (SELECT director_of.account_id FROM director_of) AND (account.given_name LIKE ? OR account.family_name LIKE ? OR account.email LIKE ?) ORDER BY account.date_created ASC LIMIT " . $start . ", " . $amount;		 	
+
+		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%", "$searchTerm%"]);
+		return $result;
+	}
+
+	public function getNumPotentialAdministrators($searchTerm)
+	{
+		$query = "SELECT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  from account where active = 'Y' AND account.access_level = 2 AND account.account_id NOT IN (SELECT director_of.account_id FROM director_of) AND (account.given_name LIKE ? OR account.family_name LIKE ? OR account.email LIKE ?)";
+
+		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%", "$searchTerm%"]);
+		return $result->rowCount();
+	}
+
+	public function getPotentialDirectors($start, $amount, $searchTerm)
+	{
+		$query = "SELECT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  from account where active = 'Y' AND account.access_level = 2 AND account.account_id NOT IN (SELECT director_of.account_id FROM director_of) AND (account.given_name LIKE ? OR account.family_name LIKE ? OR account.email LIKE ?) ORDER BY account.date_created ASC LIMIT " . $start . ", " . $amount;		 	
+
+		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%", "$searchTerm%"]);
+		return $result;
+	}
+
+	public function getNumPotentialDirectors($searchTerm)
+	{
+		$query = "SELECT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
+				  from account where active = 'Y' AND account.access_level = 2 AND account.account_id NOT IN (SELECT director_of.account_id FROM director_of) AND (account.given_name LIKE ? OR account.family_name LIKE ? OR account.email LIKE ?)";
+
+		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%", "$searchTerm%"]);
 		return $result->rowCount();
 	}
 	

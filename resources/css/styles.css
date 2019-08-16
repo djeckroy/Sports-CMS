@@ -425,6 +425,7 @@ article
 
   .search-button
   {
+    height: 50px;
     background: var(--form-background);
     border-radius: 5px;
     color: var(--text-dark);
@@ -825,9 +826,74 @@ article
 
   /* Account Page */
 
+
   #account-page-article
   {
     background-color: var(--body-color);
+  }
+
+  #account-container-requests
+  {
+    width: 100%;
+    height: 542px;
+    display: inline-flex;
+    position: relative;
+    margin: 30px 0px 0px 0px;
+  }
+
+  #account-requests-section
+  {
+    height: 100%;
+    width: 100%;
+    background-color: var(--text-light);
+    float: right;
+  }
+
+  #requests-header
+  {
+    background-color: var(--primary-color-dark);
+  }
+
+  #account-requests-information
+  {
+    height: 75%;
+    padding: 20px 0 20px 0;
+  }
+
+  .account-table-approve-request-button
+  {
+    background: #5EAF56;
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-small);
+    width: 80px;
+    text-decoration: none;
+    margin: 0;
+    height: 26px;
+    cursor: pointer;
+  }
+
+  .account-table-approve-request-button:hover
+  {
+    background-color: #3e8935;
+  }
+
+  .account-table-deny-request-button
+  {
+    background: #D34645;
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-small);
+    width: 80px;
+    text-decoration: none;
+    margin: 0;
+    height: 26px;
+    cursor: pointer;
+  }
+
+  .account-table-deny-request-button:hover
+  {
+    background-color: #aa2e2e;
   }
 
   #account-container-events
@@ -836,7 +902,7 @@ article
     height: 542px;
     display: inline-flex;
     position: relative;
-    margin: 30px 0px 30px 0px;
+    margin: 30px 0px 0px 0px;
   }
 
   #account-event-section
@@ -858,7 +924,7 @@ article
 
   #event-header
   {
-    background-color: var(--primary-color-dark);
+    background-color: var(--secondary-color);
   }
 
   .account-page-header h2
@@ -953,7 +1019,7 @@ article
     height: 530px;
     display: inline-flex;
     position: relative;
-    margin: 0px 0px 30px 0px;
+    margin: 30px 0px 0px 0px;
   }
 
   #account-players-section
@@ -973,6 +1039,19 @@ article
   {
     height: 75%;
     padding: 20px 0 20px 0;
+  }
+
+  .account-edit-players-button
+  {
+    background: var(--tertiary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-small);
+    width: 80px;
+    text-decoration: none;
+    margin: 0;
+    height: 26px;
+    cursor: pointer;
   }
 
   #account-add-player-button
@@ -1002,7 +1081,7 @@ article
     height: 542px;
     display: inline-flex;
     position: relative;
-    margin: 0px 0px 30px 0px;
+    margin: 30px 0px 0px 0px;
   }
 
   #account-club-section
@@ -1015,7 +1094,7 @@ article
 
   #clubs-header
   {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color-dark);
   }
 
   #account-club-information
@@ -1041,7 +1120,7 @@ article
   {
     display: inline-flex;
     font-size: var(--font-medium);
-    margin: 15px 60px 15px 20px;
+    margin: 15px 20px 15px 20px;
     height: 50px;
   }
 
@@ -1070,7 +1149,7 @@ article
     height: 530px;
     display: inline-flex;
     position: relative;
-    margin: 0px 0px 30px 0px;
+    margin: 30px 0px 30px 0px;
     background-color: var(--text-light);
   }
 
@@ -1081,7 +1160,7 @@ article
 
   .account-table-directors-button
   {
-    background: var(--secondary-color);
+    background: var(--primary-color-dark);
     border-radius: 5px;
     color: var(--text-light);
     font-size: var(--font-small);
@@ -1094,7 +1173,7 @@ article
 
   .account-table-directors-button:hover
   {
-    background: var(--secondary-color-dark);
+    background: var(--primary-color);
   }
 
   #personal-header
@@ -1108,6 +1187,7 @@ article
     width: 100%
     height: 75%;
     padding: 20px;
+    display: inline-flex;
   }
 
   #account-personal-section
@@ -1121,6 +1201,31 @@ article
   #account-directors-information
   {
     margin: 0px 0px 15px 0px;
+  }
+
+  #create-club-container
+  {
+    display: inline-flex;
+    width: 100%;
+  }
+
+  #account-create-club-button
+  {
+    height: 40px;
+    background: none;
+    color: var(--link-dark);
+    font-size: var(--font-small);
+    border: none;
+    margin: auto 10px auto 0px;
+    padding: 6px 10px 6px 0px;
+    text-decoration: none;
+    width: 110px;
+    cursor: pointer;
+  }
+
+  #create-club-text
+  {
+    margin: auto 0px auto auto;
   }
 
   #directors-table
@@ -1159,10 +1264,15 @@ article
     height: 53px;
   }
 
+  #account-hidden-club-id
+  {
+    display: none;
+  }
+
   #account-add-director-button
   {
     position: absolute;
-    background: var(--secondary-color);
+    background: var(--primary-color-dark);
     border-radius: 5px;
     color: var(--text-light);
     font-size: var(--font-medium);
@@ -1177,7 +1287,7 @@ article
 
   #account-add-director-button:hover
   {
-    background: var(--secondary-color-dark);
+    background: var(--primary-color-light);
   }
 
   #account-container-administration
@@ -1186,7 +1296,7 @@ article
     height: 530px;
     display: inline-flex;
     position: relative;
-    margin: 0px 0px 30px 0px;
+    margin: 30px 0px 0px 0px;
     background-color: var(--text-light);
   }
 
@@ -1290,6 +1400,16 @@ article
     white-space: nowrap;
   }
 
+  #account-table-inactive
+  {
+    padding-right: 30px;
+  }
+
+  #account-table-inactive th
+  {
+    text-align: left;
+  }
+
   .account-table-data-name
   {
     text-align: justify;
@@ -1298,6 +1418,11 @@ article
   .account-table-data-email
   {
     text-align: justify;
+  }
+
+  .account-table-data-requests
+  {
+    text-align: left;
   }
 
   .account-row-name
@@ -1348,6 +1473,17 @@ article
     display: none;
   }
 
+  .account-row-requests
+  {
+    width: 80%;
+    text-align: left;
+  }
+
+  .account-row-request-buttons
+  {
+    width: 10%;
+  }
+
   .account-table-id
   {
     width: 0%;
@@ -1362,7 +1498,7 @@ article
 
   .account-table-events-button
   {
-    background: var(--primary-color-dark);
+    background: var(--secondary-color);
     border-radius: 5px;
     color: var(--text-light);
     font-size: var(--font-small);
@@ -1375,7 +1511,7 @@ article
 
   .account-table-events-button:hover
   {
-    background: var(--primary-color-light);
+    background: var(--secondary-color-dark);
   }
 
   .pagination-buttons-container
@@ -1405,7 +1541,7 @@ article
     padding: 8px 8px 8px 8px;
     border: 1px solid #ccc;
     font-size: var(--font-small);
-    color: var(--primary-color-dark);
+    color: var(--secondary-color);
   }
 
   .recent-events-link:hover
@@ -1451,7 +1587,7 @@ article
     padding: 8px 8px 8px 8px;
     border: 1px solid #ccc;
     font-size: var(--font-small);
-    color: var(--secondary-color);
+    color: var(--primary-color-dark);
   }
 
   .tournament-directors-link:hover
@@ -1479,6 +1615,1031 @@ article
   .administrators-link:hover
   {
     background-color: #ccc;
+  }
+
+  .admin-requests-link
+  {
+    margin: 0px;
+    display: inline-block;
+    width: 37px;
+    cursor: pointer;
+    padding: 8px 8px 8px 8px;
+    border: 1px solid #ccc;
+    font-size: var(--font-small);
+    color: var(--primary-color-dark);
+  }
+
+  .admin-requests-link:hover
+  {
+    background-color: #ccc;
+  }
+
+  #account-hidden-id
+  {
+    display: none;
+  }
+
+  .account-field
+  {
+
+  }
+
+  .account-detail-headers
+  {
+    margin-right: 10px;
+  }
+
+  #account-given-name
+  {
+    font-size: var(--font-medium);
+    font-weight: bold;
+    display: inline-flex;
+    margin-right: 30px;
+  }
+
+  #account-given-name-value
+  {
+    font-size: var(--font-medium);
+    color: var(--text-table-data);
+  }
+
+  #account-family-name
+  {
+    font-size: var(--font-medium);
+    font-weight: bold;
+    display: inline-flex;
+    margin-right: 30px;
+  }
+
+  #account-family-name-value
+  {
+    font-size: var(--font-medium);
+    color: var(--text-table-data);
+  }
+
+  #account-email
+  {
+    font-size: var(--font-medium);
+    font-weight: bold;
+    display: inline-flex;
+    margin-right: 30px;
+  }
+
+  #account-email-value
+  {
+    font-size: var(--font-medium);
+    color: var(--text-table-data);
+  }
+
+  #edit-account-details-button
+  {
+    background: var(--primary-color-dark);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 0px 0px 0px 0px;
+    padding: 5px 5px 5px 5px;
+    text-decoration: none;
+    width: 60px;
+    cursor: pointer;
+  }
+
+  #edit-account-details-button:hover
+  {
+    background-color: var(--primary-color-light);
+  }
+
+
+  /* Edit Account Modal */
+
+
+  .edit-account-modal-background
+  {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
+  .edit-account-modal-content
+  {
+    width: 600px;
+    height: 480px;
+    background-color: var(--form-background);
+    border-radius: 5px;
+  }
+
+  .edit-account-modal-header
+  {
+    height: 20%;
+    width: 100%;
+    background-color: var(--primary-color-dark);
+    border-radius: 5px 5px 0px 0px;
+    padding: 20px;
+    position: relative;
+  }
+
+  .edit-account-modal-fields
+  {
+    height: 80%%;
+    width: 100%;
+    padding: 20px 40px 20px 40px;
+    font-size: var(--font-small);
+  }
+
+  .edit-account-modal-fields h2
+  {
+    color: var(--text-dark);
+  }
+
+  .edit-account-modal-fields hr
+  {
+    margin: 10px 0px 10px 0px;
+  }
+
+  .edit-account-modal-exit-button
+  {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: var(--font-large);
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: var(--text-light); 
+  }
+
+  #edit-account-given-name
+  {
+    height: 40px;
+    width: 50%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #edit-account-family-name
+  {
+    height: 40px;
+    width: 49%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #edit-account-email
+  {
+    height: 40px;
+    width: 100%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 10px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #update-account-details-button
+  {
+    background: var(--primary-color-dark);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 0px 0px 0px 0px;
+    padding: 12px 20px 12px 20px;
+    text-decoration: none;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  #update-account-details-button:hover
+  {
+    background-color: var(--primary-color-light);
+  }
+
+
+  /* Edit Players Modal */
+
+
+  .edit-player-modal-background
+  {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
+  .edit-player-modal-content
+  {
+    width: 600px;
+    height: 480px;
+    background-color: var(--form-background);
+    border-radius: 5px;
+  }
+
+  .edit-player-modal-header
+  {
+    height: 20%;
+    width: 100%;
+    background-color: var(--tertiary-color);
+    border-radius: 5px 5px 0px 0px;
+    padding: 20px;
+    position: relative;
+  }
+
+  .edit-player-modal-fields
+  {
+    height: 80%%;
+    width: 100%;
+    padding: 20px 40px 20px 40px;
+    font-size: var(--font-small);
+  }
+
+  .edit-player-modal-fields h2
+  {
+    color: var(--text-dark);
+  }
+
+  .edit-player-modal-fields hr
+  {
+    margin: 10px 0px 10px 0px;
+  }
+
+  #hidden-ediy-player-id
+  {
+    display: none;
+  }
+
+  .edit-player-modal-exit-button
+  {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: var(--font-large);
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: var(--text-light); 
+  }
+
+  #edit-given-name
+  {
+    height: 40px;
+    width: 50%;
+    font-size: var(--font-small);
+    padding-left: 10px;
+    margin-bottom: 15px;
+  }
+
+  #edit-family-name
+  {
+    height: 40px;
+    width: 49%;
+    font-size: var(--font-small);
+    padding-left: 10px;
+    margin-bottom: 15px;
+  }
+
+  #player-gender
+  {
+    height: 40px;
+    width: 50%;
+    font-size: var(--font-small);
+    padding-left: 10px;
+    margin-bottom: 15px;
+  }
+
+  .edit-player-date
+  {
+    height: 40px;
+    width: 49%;
+    font-size: var(--font-small);
+    padding-left: 10px;
+    margin-bottom: 15px;
+  }
+
+  #edit-player-email
+  {
+    height: 40px;
+    width: 100%;
+    font-size: var(--font-small);
+    padding-left: 10px;
+    margin-bottom: 15px;
+  }
+
+  #edit-player-country
+  {
+    height: 40px;
+    width: 50%;
+    font-size: var(--font-small);
+    padding-left: 10px;
+    margin: 0px 1% 15px 0px;
+  }
+
+  #edit-player-state
+  {
+    height: 40px;
+    width: 49%;
+    font-size: var(--font-small);
+    padding-left: 10px;
+    margin-bottom: 15px;
+  }
+
+  #edit-player-button
+  {
+    background: var(--tertiary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 0px 0px 0px 0px;
+    padding: 12px 20px 12px 20px;
+    text-decoration: none;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  #edit-player-button:hover
+  {
+    background: var(--tertiary-color-dark);
+  }
+
+
+  /* Administrator Modal */
+
+  
+  .administrator-modal-background
+  {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
+  .administrator-modal-content
+  {
+    width: 600px;
+    height: 620px;
+    background-color: var(--form-background);
+    border-radius: 5px;
+  }
+
+  .administrator-modal-header
+  {
+    height: 20%;
+    width: 100%;
+    background-color: var(--tertiary-color);
+    border-radius: 5px 5px 0px 0px;
+    padding: 20px;
+    position: relative;
+  }
+
+  .administrator-modal-fields
+  {
+    height: 80%%;
+    width: 100%;
+    padding: 20px 40px 20px 40px;
+  }
+
+  .administrator-modal-fields h2
+  {
+    color: var(--text-dark);
+  }
+
+  .administrator-modal-fields hr
+  {
+    margin: 10px 0px 10px 0px;
+  }
+
+  .administrator-modal-exit-button
+  {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: var(--font-large);
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: var(--text-light); 
+  }
+
+  #administrator-searchbar-container
+  {
+    position: relative;
+    height: 30px;
+    width: 100%;
+    float: right;
+    margin-bottom: 10px;
+  }
+
+  #add-administrator-searchbar
+  {
+    position: relative;
+    height: 30px;
+    width: 100%;
+    font-size: var(--font-small);
+    padding: 0px 30px 0px 10px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+    border-radius: 4px;
+  }
+
+  #account-search-promote-administrator-button
+  {
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    cursor: pointer;
+    z-index: 2;
+    right: 5px;
+    top: 6px;
+    outline: none;
+  }
+
+  #administrator-table-modal-information
+  {
+    height: 100%;
+    padding: 20px 0 20px 0;
+  }
+
+  .account-modal-tables
+  {
+    height: auto;
+    width: 520px;
+    text-align: center;
+    color: var(--text-dark);
+    table-layout: fixed;
+  }
+
+  .account-modal-tables th
+  {
+    font-size: var(--font-table-headers);
+    font-weight: bold;
+    height: 29px;
+    max-height: 29px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  .account-modal-tables td
+  {
+    padding: 14px 0 14px 0px;
+    font-size: var(--font-medium);
+    color: var(--text-table-data);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 53px;
+    max-height: 53px;
+  }
+
+  .account-modal-tables tr
+  {
+    max-height: 53px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 520px;
+  }
+
+  .account-modal-table-data-name
+  {
+    width: 30%;
+    font-size: var(--text-table-data);
+    text-align: left;
+  }
+
+  .account-modal-table-data-email
+  {
+    width: 35%;
+    text-align: left;
+  }
+
+  .account-modal-data-buttons
+  {
+    text-align: left;
+    width: 20%;
+  }
+
+  .account-modal-row-name
+  {
+    font-size: var(--font-table-headers);
+    width: 35%;
+  }
+
+  .account-modal-row-email
+  {
+    width: 35%;
+  }
+
+  .account-promote-administrator-button
+  {
+    background: var(--tertiary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-small);
+    width: 80px;
+    text-decoration: none;
+    margin: 0;
+    height: 26px;
+    cursor: pointer;
+  }
+
+  .account-promote-administrator-button:hover
+  {
+    background-color: var(--tertiary-color-dark);
+  }
+
+  .promote-administrator-link
+  {
+    cursor: pointer;
+    padding: 8px 8px 8px 8px;
+    border: 1px solid #ccc;
+    font-size: var(--font-small);
+    color: var(--tertiary-color);
+  }
+
+  .promote-administrator-link:hover
+  {
+    background-color: #ccc;
+  }
+
+  .modal-pagination-buttons-container
+  {
+    height: 70px;
+    width: 520px;
+    position: absolute;
+    top: 685px;
+  }
+
+  .modal-pagination-buttons
+  {
+    position: relative;
+    height: 60px;
+    width: 100%;
+    border-top: 2px solid var(--text-medium);
+    text-align: center;
+    padding: 20px 0px 0px 0px; 
+    margin: 0px;
+  }
+
+
+  /* Director Modal */
+
+
+  .director-modal-background
+  {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
+  .director-modal-content
+  {
+    width: 600px;
+    height: 620px;
+    background-color: var(--form-background);
+    border-radius: 5px;
+  }
+
+  .director-modal-header
+  {
+    height: 20%;
+    width: 100%;
+    background-color: var(--primary-color-dark);
+    border-radius: 5px 5px 0px 0px;
+    padding: 20px;
+    position: relative;
+  }
+
+  .director-modal-fields
+  {
+    height: 80%%;
+    width: 100%;
+    padding: 20px 40px 20px 40px;
+  }
+
+  .director-modal-fields h2
+  {
+    color: var(--text-dark);
+  }
+
+  .director-modal-fields hr
+  {
+    margin: 10px 0px 10px 0px;
+  }
+
+  .director-modal-exit-button
+  {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: var(--font-large);
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: var(--text-light); 
+  }
+
+  #director-searchbar-container
+  {
+    position: relative;
+    height: 30px;
+    width: 100%;
+    float: right;
+    margin-bottom: 10px;
+  }
+
+  #add-director-searchbar
+  {
+    position: relative;
+    height: 30px;
+    width: 100%;
+    font-size: var(--font-small);
+    padding: 0px 30px 0px 10px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+    border-radius: 4px;
+  }
+
+  #account-search-promote-director-button
+  {
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    cursor: pointer;
+    z-index: 2;
+    right: 5px;
+    top: 6px;
+    outline: none;
+  }
+
+  #director-table-modal-information
+  {
+    height: 100%;
+    padding: 20px 0 20px 0;
+  }
+
+  .account-promote-director-button
+  {
+    background: var(--primary-color-dark);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-small);
+    width: 80px;
+    text-decoration: none;
+    margin: 0;
+    height: 26px;
+    cursor: pointer;
+  }
+
+  .account-promote-director-button:hover
+  {
+    background-color: var(--primary-color-light);
+  }
+
+  .promote-director-link
+  {
+    cursor: pointer;
+    padding: 8px 8px 8px 8px;
+    border: 1px solid #ccc;
+    font-size: var(--font-small);
+    color: var(--primary-color-dark);
+  }
+
+  .promote-director-link:hover
+  {
+    background-color: #ccc;
+  }
+
+
+  /* Create Club Modal */
+
+
+  .create-club-modal-background
+  {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
+  .create-club-modal-content
+  {
+    width: 600px;
+    height: 360px;
+    background-color: var(--form-background);
+    border-radius: 5px;
+  }
+
+  .create-club-modal-header
+  {
+    height: 25%;
+    width: 100%;
+    background-color: var(--primary-color);
+    border-radius: 5px 5px 0px 0px;
+    padding: 20px;
+    position: relative;
+  }
+
+  .create-club-modal-fields
+  {
+    height: 80%%;
+    width: 100%;
+    padding: 20px 40px 20px 40px;
+    font-size: var(--font-small);
+  }
+
+  .create-club-modal-fields h2
+  {
+    color: var(--text-dark);
+  }
+
+  .create-club-modal-fields hr
+  {
+    margin: 10px 0px 10px 0px;
+  }
+
+  .create-club-modal-exit-button
+  {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: var(--font-large);
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: var(--text-light); 
+  }
+
+  #create-club-select-sport
+  {
+    height: 40px;
+    width: 49%;
+    font-size: var(--font-small);
+  }
+
+  #input-club-name
+  {
+    height: 40px;
+    width: 50%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 15px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #create-club-select-country
+  {
+    height: 40px;
+    width: 50%;
+    font-size: var(--font-small);
+  }
+
+  #club-name-value
+  {
+    color: var(--text-table-data);
+  }
+
+  #club-sport-value
+  {
+    color: var(--text-table-data);
+  }
+
+  #club-country-value
+  {
+    color: var(--text-table-data);
+  }
+
+  #club-state-value
+  {
+    color: var(--text-table-data);
+  }
+
+  #create-club-select-state
+  {
+    height: 40px;
+    width: 49%;
+    font-size: var(--font-small);
+  }
+
+  .create-club-input-group-double
+  {
+    display: block
+    width: 100%;
+    margin: 0px;
+  }
+
+  #create-club-button
+  {
+    background: var(--primary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 15px 0px 0px 0px;
+    padding: 12px 20px 12px 20px;
+    text-decoration: none;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  #create-club-button:hover
+  {
+    background-color: var(--primary-color-dark);
+  }
+
+
+  /* Create Player Modal */
+
+
+  .create-player-modal-background
+  {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+  }
+
+  .create-player-modal-content
+  {
+    width: 600px;
+    height: 490px;
+    background-color: var(--form-background);
+    border-radius: 5px;
+  }
+
+  #create-player-hidden-club-id
+  {
+    display: none;
+  }
+
+  .create-player-modal-header
+  {
+    height: 25%;
+    width: 100%;
+    background-color: var(--tertiary-color);
+    border-radius: 5px 5px 0px 0px;
+    padding: 20px;
+    position: relative;
+  }
+
+  .create-player-modal-fields
+  {
+    height: 80%%;
+    width: 100%;
+    padding: 20px 40px 20px 40px;
+    font-size: var(--font-small);
+  }
+
+  .create-player-modal-fields h2
+  {
+    color: var(--text-dark);
+  }
+
+  .create-player-modal-fields hr
+  {
+    margin: 10px 0px 10px 0px;
+  }
+
+  .create-player-modal-exit-button
+  {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: var(--font-large);
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: var(--text-light); 
+  }
+
+  #input-create-player-given-name
+  {
+    height: 40px;
+    width: 50%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #input-create-player-family-name
+  {
+    height: 40px;
+    width: 49%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #create-player-gender
+  {
+    height: 40px;
+    width: 50%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  .create-player-date
+  {
+    height: 40px;
+    width: 49%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #create-player-email
+  {
+    height: 40px;
+    width: 100%;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 0px 0px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  }
+
+  #player-create-select-country
+  {
+    height: 40px;
+    width: 50%;
+    font-size: var(--font-small);
+    margin: 10px 0px 0px 0px;
+  }
+
+  #player-create-select-state
+  {
+    height: 40px;
+    width: 49%;
+    font-size: var(--font-small);
+    margin: 10px 0px 0px 0px;
+  }
+
+  .create-player-input-group-double
+  {
+    display: block
+    width: 100%;
+    margin: 0px;
+  }
+
+  #create-player-button
+  {
+    background: var(--tertiary-color);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 15px 0px 0px 0px;
+    padding: 12px 20px 12px 20px;
+    text-decoration: none;
+    width: 100%;
+    cursor: pointer;
   }
 
 /*   Advanced player search
@@ -1525,6 +2686,10 @@ player-advanced-search-border
     padding: 20px;
     position: relative;
 }
+  #create-player-button:hover
+  {
+    background-color: var(--tertiary-color-dark);
+  }  
 
 
   /* Register Modal */
@@ -1535,7 +2700,7 @@ player-advanced-search-border
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    position: absolute;
+    position: fixed;
     top: 0;
     display: flex;
     justify-content: center;
@@ -1676,7 +2841,7 @@ player-advanced-search-border
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    position: absolute;
+    position: fixed;
     top: 0;
     display: flex;
     justify-content: center;
@@ -1800,7 +2965,7 @@ player-advanced-search-border
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    position: absolute;
+    position: fixed;
     top: 0;
     display: flex;
     justify-content: center;
@@ -1920,7 +3085,7 @@ player-advanced-search-border
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    position: absolute;
+    position: fixed;
     top: 0;
     display: flex;
     justify-content: center;
@@ -2427,9 +3592,11 @@ player-advanced-search-border
     height: 30px;
     margin: 10px 5px 10px 5px;
   }
-/*   Advanced player search
-player-advanced-search-border
-*/
+
+
+  /* Advanced Player Search */
+
+
  .player-advanced-search-border
 {
     width:100%;
@@ -2471,7 +3638,10 @@ player-advanced-search-border
     padding: 20px;
     position: relative;
 }
+
+
 /* Initial rating */
+
 
  .initial-rating-border
 {
@@ -2652,6 +3822,13 @@ player-advanced-search-border
   {
     color: var(--text-medium);
   }
+
+  .edit-player-date
+  {
+    position: relative;
+    width: 49%
+  }
+
 
 
 

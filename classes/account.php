@@ -140,6 +140,15 @@ class Account
 		return $result["active"];
 	}
 
+	public function createClubAndAssignAccount($name, $sportID, $countryID, $stateID)
+	{
+		$query = "INSERT INTO club (name, sport_id, country_id, state_id) VALUES (?, ?, ?, ?)";
+		$result = $this->database->query($query, [$name, $sportID, $countryID, $stateID]);
+
+		$query = "INSERT INTO director_of (account_id, club_id) VALUES (?, (SELECT MAX(club_id) FROM club))";
+		$result = $this->database->query($query, [$this->getAccountID()]);
+	}
+
 
 	public function setActiveState($email, $state)
 	{
@@ -147,9 +156,46 @@ class Account
 		$result = $this->database->query($query, [$state, $email]);		
 	}
 
+	public function activateAccount($accountID)
+	{
+		$query = "UPDATE account SET active = 'Y' WHERE account_id = ?";
+		$result = $this->database->query($query, [$accountID]);
+	}
+
+	public function removeAccount($accountID)
+	{
+		$query = "DELETE from account where account_id = ?";
+		$result = $this->database->query($query, [$accountID]);
+	}
+
 	public function getAccountID()
 	{
 		return $this->accountId;
+	}
+
+	public function hasClubAssigned()
+	{
+		$query = "SELECT * from director_of WHERE account_id = ?";
+		$result = $this->database->query($query, [$this->getAccountID()]);
+
+		return ($result->rowCount() > 0);
+	}
+
+	public function getClubID()
+	{
+		$query = "SELECT director_of.club_id from director_of WHERE account_id = ?";
+		$result = $this->database->query($query, [$this->getAccountID()])->fetch();
+
+		return $result["club_id"];
+	}
+
+	public function getClubDetails($clubID)
+	{
+		$query = "SELECT club.name, sport.name AS sport, country.name AS country, state.name AS state FROM club INNER JOIN sport on sport.sport_id = club.sport_id 
+		INNER JOIN country on country.country_id = club.country_id INNER JOIN state on state.state_id = club.state_id WHERE club.club_id = ?";
+		$result = $this->database->query($query, [$clubID])->fetch();
+
+		return $result;
 	}
 
 	public function getAllInactiveAccounts()
@@ -248,6 +294,14 @@ class Account
 		$result = $this->database->query($query, [$this->accountId])->fetch();
 
 		return $result["name"];
+	}
+
+	public function getAccountDetails()
+	{
+		$query = "SELECT account.account_id, account.given_name, account.family_name, account.email FROM account where account.account_id = ?";
+		$result = $this->database->query($query, [$this->accountId])->fetch();
+
+		return $result;
 	}
 }
 

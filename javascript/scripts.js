@@ -99,6 +99,53 @@ function hideRegisterModal()
 	document.querySelector(".register-modal-background").style.display = "none";
 }
 
+function showCreatePlayerModal()
+{
+    document.querySelector(".create-player-modal-background").style.display = "flex";
+
+    if($("#admin-change-club").length > 0)
+    {
+        $('input[name="hidden-club-ID"]').val($("#admin-change-club").find(":selected").val());
+    }
+    else
+    {
+        $('input[name="hidden-club-ID"]').val($("#account-hidden-club-id").text());
+    } 
+
+    hideDropdownMenu();
+}
+
+function showEditAccountModal()
+{
+    document.querySelector(".edit-account-modal-background").style.display = "flex";
+    hideDropdownMenu();
+
+    var givenName = $("#account-given-name-value").text();
+    var familyName = $("#account-family-name-value").text();
+    var email = $("#account-email-value").text();
+
+    $.ajax
+    ({
+        url: "./ajax.php",
+        type: "POST",
+        data: {ajaxMethod: "editAccountModal", givenName: givenName, familyName: familyName, email: email},
+        success: function(data) 
+        {
+            $(".edit-account-modal-field-wrapper").html(data);
+        }
+    });
+}
+
+function hideEditAccountModal()
+{
+    document.querySelector(".edit-account-modal-background").style.display = "none";
+}
+
+function hideCreatePlayerModal()
+{
+    document.querySelector(".create-player-modal-background").style.display = "none";
+}
+
 function showPasswordModal()
 {
     document.querySelector(".password-modal-background").style.display = "flex";
@@ -119,6 +166,63 @@ function showResetModal()
 function hideResetModal()
 {
     document.querySelector(".reset-modal-background").style.display = "none";
+}
+
+function showAdministratorModal()
+{
+    document.querySelector(".administrator-modal-background").style.display = "flex";
+    hideDropdownMenu();
+}
+
+function hideAdministratorModal()
+{
+    document.querySelector(".administrator-modal-background").style.display = "none";
+}
+
+function showCreateClubModal()
+{
+    document.querySelector(".create-club-modal-background").style.display = "flex";
+    hideDropdownMenu();
+}
+
+function hideCreateClubModal()
+{
+    document.querySelector(".create-club-modal-background").style.display = "none";
+}
+
+function showDirectorModal()
+{
+    document.querySelector(".director-modal-background").style.display = "flex";
+    hideDropdownMenu();
+}
+
+function hideDirectorModal()
+{
+    document.querySelector(".director-modal-background").style.display = "none";
+}
+
+function showEditPlayersModal(playerID)
+{
+    document.querySelector(".edit-player-modal-background").style.display = "flex";
+    hideDropdownMenu();
+    $("#hidden-edit-player-id").val(playerID);
+
+    $.ajax
+    ({
+        url: "./ajax.php",
+        type: "POST",
+        data: {ajaxMethod: "editPlayerModal", playerID: playerID},
+        success: function(data) 
+        {
+            $(".edit-player-modal-field-wrapper").html(data);
+            uploadEventChangeStates($("#edit-player-country"),$("#edit-player-state"));
+        }
+    });
+}
+
+function hideEditPlayersModal()
+{
+    document.querySelector(".edit-player-modal-background").style.display = "none";
 }
 
 function showDropdownMenu()
@@ -672,7 +776,8 @@ $( function() {
  * 
  * Triggers by change in country-id and on page load
  */
- 
+
+
  //event listener for change of country
 $("#country-id").change(function(){
     uploadEventChangeStates($("#country-id"),$("#state-name"));
@@ -681,7 +786,7 @@ $("#country-id").change(function(){
 function uploadEventChangeStates(countryCombo, stateCombo)
 {
     var country = countryCombo.val();
-    
+
     //clear the options
     stateCombo.empty();
     
