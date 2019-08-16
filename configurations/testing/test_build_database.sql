@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `player` (
   `gender` VARCHAR(1) NOT NULL CHECK (gender in ('M', 'F')),
   `date_of_birth` DATE NOT NULL,
   `email` VARCHAR(75) NOT NULL UNIQUE,
-  `last_played` DATETIME NOT NULL,
+  `last_played` DATETIME,
   `receive_emails` VARCHAR(1) NOT NULL DEFAULT 'Y'  CHECK (receive_emails IN ('Y', 'N')),
   `country_id` INT NOT NULL,
   `state_id` INT NOT NULL,
@@ -42,9 +42,11 @@ CREATE TABLE IF NOT EXISTS `club` (
   `name` VARCHAR(90) NOT NULL UNIQUE,
   `country_id` INT NOT NULL,
   `state_id` INT NOT NULL,
+  `sport_id` INT NOT NULL,
   PRIMARY KEY (`club_id`),
   FOREIGN KEY (`country_id`) REFERENCES country(country_id),
-  FOREIGN KEY (`state_id`) REFERENCES state(state_id)
+  FOREIGN KEY (`state_id`) REFERENCES state(state_id),
+  FOREIGN KEY (`sport_id`) REFERENCES sport(sport_id)
 );
 
 CREATE TABLE IF NOT EXISTS `event` (
@@ -142,7 +144,13 @@ CREATE TABLE IF NOT EXISTS `membership` (
   FOREIGN KEY (`player_id`) REFERENCES player(player_id)
 );
 
-
+CREATE TABLE IF NOT EXISTS `director_of` (
+  `account_id` INT NOT NULL,
+  `club_id` INT NOT NULL,
+  PRIMARY KEY (`account_id`, `club_id`),
+  FOREIGN KEY (`account_id`) REFERENCES account(account_id),
+  FOREIGN KEY (`club_id`) REFERENCES club(club_id)
+);
 
 
 insert into `country`(name) VALUES ('Australia');
