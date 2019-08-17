@@ -409,7 +409,8 @@ article
 
   #player-page-article
   {
-    min-height: 954px;
+    min-height: 954px; 
+    position: relative;  
   }
 
   .search-input 
@@ -479,8 +480,8 @@ article
 
   .player-search-filter-container
   {
-    height: 20%;
-    background-color: var(--primary-color-dark);
+    width: 100%;
+    background-color: var(--primary-color-dark);    
   }
 
   #player-search-filter-title
@@ -529,44 +530,53 @@ article
   }
 
   .top-row-filter-inputs
-  {
-    margin: 20px 0px 0px 10%;
+  { 
+    position: relative;   
+    margin: 10px 0px 0px 10%;
     display: inline-block;
     width: 80%;
     text-align: center;
+    min-height: 32px;
   }
 
   .middle-row-filter-inputs
   {
+    position: relative; 
     margin: 10px 0px 0px 10%;
     display: inline-block;
     width: 80%;
     text-align: center;
+    min-height: 32px;
   }
 
   .bottom-row-filter-inputs
   {
+    position: relative; 
     margin: 10px 0px 0px 10%;
     display: inline-block;
     width: 80%;
     text-align: center;
+    min-height: 32px;
   }
 
-  #player-name-filter
+  #player-name-filter, #player-club-filter
   {
-    transform: translateX(42px);
+    position: absolute;
+    left: 5%;
   }
 
   #player-age-min-filter
   {
     width: 12%;
-    transform: translateX(42px);
+    position: absolute;
+    left: 35.2%;
   }
 
   #player-age-max-filter
   {
     width: 12%;
-    transform: translateX(-42px);
+    position: absolute;
+    right: 35.2%;
   }
 
   #player-age-filter-dash
@@ -574,13 +584,16 @@ article
     color: #fff;
   }
 
-  #player-country-filter
+  #player-country-filter, #player-state-filter
   {
-    transform: translateX(-42px);
+    position: absolute;
+    right: 5%;
   }
 
   #submit-search-filter
   {
+    position: absolute;
+    right: 5%;
     cursor: pointer;
     width: 10%;
     height: 30px;
@@ -588,47 +601,56 @@ article
     background-color: var(--secondary-color-dark);
     color: var(--text-light);
     float: right;
-    transform: translateX(-44px);
   }
 
   .player-search-result-table
   {
+    position: absolute;
+    top: 190px;
     border: 1px solid #ccc;
     border-collapse: collapse;
-    margin-top: 50px;
+    width: 100%;
   }
 
   .player-search-result-table th
   {
-    border-bottom: 1px solid #ccc;
-    padding: 0px 85px;
+    border: 1px solid #ccc;    
     color: var(--primary-color-dark);
-    text-align: center;
+    text-align: left;
+    height: 43.4375px;
+    padding-left: 20px;
   }
 
   .player-search-result-table td
   {
-    border-bottom: 1px solid #ccc;
-    width: 100%;
-    padding: 10px 0px;
-    text-align: center;
-    background-color: 
+    border-bottom: 1px solid #ccc;  
+    height: 43.4375px;
+    padding-left: 20px;
   }
 
   #player-name-link
   {
     text-decoration: none;
-    color: blue;
+    color: var(--primary-color-dark);
   }
 
-  .pagination-buttons /* should not have to be defined twice? */
+  .player-search-pagination-buttons-container
+  {
+    height: 70px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+  }
+
+  .player-search-pagination-buttons
   {
     position: relative;
-    height: 20%;
+    height: 60px;
     width: 100%;
     border-top: 2px solid var(--text-medium);
     text-align: center;
-    padding: 25px 0px 0px 0px; 
+    padding: 15px 0px 0px 0px; 
+    margin: 0px;
   }
 
   .player-search-link
@@ -643,6 +665,12 @@ article
   .player-search-link:hover
   {
     background-color: #ccc;
+  }
+
+  .no-search-result-message
+  {
+    color: var(--primary-color-dark);
+    text-align: center;
   }
 
 

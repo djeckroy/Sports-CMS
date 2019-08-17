@@ -322,6 +322,16 @@ function demoteAdministrator(accountID)
 
 function retrieveSearchedPlayers(page, playerName, playerAgeMin, playerAgeMax, lastPlayed, clubName, countryName, stateName, submitSearchFilter)
 {
+    if(countryName === "Select Country")
+    {
+        countryName = "";
+    }
+    if(playerAgeMin == "" && playerAgeMax == "")
+    {
+        playerAgeMin = 0;
+        playerAgeMax = 100;
+    }
+
     $.ajax
     ({
         url: "./process-player-list.php",
@@ -339,7 +349,7 @@ $(document).on('click', '.player-search-link', function()
     var page = $(this).attr("id");
     var playerName = $("#player-name-filter").val();
     var lastPlayed = $("#player-recent-match-filter").val();
-    var countryName = $("#player-country-filter").val();
+    var countryName = $("#player-country-filter>option:selected").text();
     var clubName = $("#player-club-filter").val();
     var stateName = $("#player-state-filter").val();
     var playerAgeMin = $("#player-age-min-filter").val();
@@ -356,7 +366,7 @@ $(document).on('click', '#submit-search-filter', function()
 {
     var playerName = $("#player-name-filter").val();
     var lastPlayed = $("#player-recent-match-filter").val();
-    var countryName = $("#player-country-filter").val();
+    var countryName = $("#player-country-filter>option:selected").text();
     var clubName = $("#player-club-filter").val();
     var stateName = $("#player-state-filter").val();
     var playerAgeMin = $("#player-age-min-filter").val();

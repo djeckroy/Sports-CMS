@@ -124,13 +124,12 @@ class ContentManager
 	}
 	
 
-	public function getStatesByCountry($countryID)
+	public function getStatesByCountryID($countryID)
 	{
 		$query = "SELECT state_id, name FROM state WHERE country_id = ?";
 		$result = $this->database->query($query, [$countryID]);
 		
-		return $result;
-		
+		return $result;		
 	}
 
 
@@ -571,7 +570,7 @@ class ContentManager
 						state ON state.state_id = player.state_id
 					WHERE 
 						CONCAT_WS(' ', player.given_name, player.family_name) LIKE ? AND 
-						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) BETWEEN ? AND ? AND
+						(TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) BETWEEN ? AND ?) AND
 						player.last_played LIKE ? AND  
 						club.name LIKE ? AND 
 						country.name LIKE ? AND 
@@ -579,9 +578,9 @@ class ContentManager
 						ORDER BY CONCAT_WS(' ', player.given_name, player.family_name) 
 						LIMIT " . $start . ", " . $amount;
 
-		$result = $this->database->query($query, ["$playerName%", "$playerAgeMin%", "$playerAgeMax%", "$lastPlayed%", "$clubName%", "$countryName%", "$stateName%"]);
+		$result = $this->database->query($query, ["$playerName%", $playerAgeMin, $playerAgeMax, "$lastPlayed%", "$clubName%", "$countryName%", "$stateName%"]);
 
-		return $result;
+		return $result; 
 	}
 
 	public function playerSearchFilterRowCount($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName)
@@ -602,36 +601,29 @@ class ContentManager
 						state ON state.state_id = player.state_id
 					WHERE 
 						CONCAT_WS(' ', player.given_name, player.family_name) LIKE ? AND 
-						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) BETWEEN ? AND ? AND
+						(TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) BETWEEN ? AND ?) AND
 						player.last_played LIKE ? AND  
 						club.name LIKE ? AND 
 						country.name LIKE ? AND 
 						state.name LIKE ?";
 
-		$result = $this->database->query($query, [$playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName]);
+		$result = $this->database->query($query, ["$playerName%", $playerAgeMin, $playerAgeMax, "$lastPlayed%", "$clubName%", "$countryName%", "$stateName%"]);
 
 		return $result->rowCount();
 	}
 
-	public function getRecentCompetitor($recentCompetitor, $playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName, $start, $amount)
+	public function checkIfPlayerInMultipleClubs($playerID)
 	{
-		$playerSearchFilterResult = $this->playerSearchFilter($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName, $start, $amount);
+		$isPlayerInMultipleClubs = false;
 
-		$searchedPlayer = $playerSearchFilterResult->fetch(PDO::FETCH_ASSOC);
+		$getClubs = $this->getPlayerClub($playerID);
 
-		$query = "SELECT 
-						CONCAT_WS(' ', player.given_name, player.family_name) AS competitor_player_name,
-						MAX(game_result.game_id) AS competitor_most_recent_game_id
-					FROM
-						player INNER JOIN
-						game_result ON player.player_id = game_result.game_id
-					WHERE
-						game_result.game_id = ".$searchedPlayer["player_most_recent_game_id"]." OR
-						CONCAT_WS(' ', player.given_name, player.family_name) LIKE ?";
+		if($getClubs->rowCount() > 1)
+		{
+			$isPlayerInMultipleClubs = true;
+		}
 
-		$result = $this->database->query($query, [$recentCompetitor]);
-
-		return $result;
+		return $isPlayerInMultipleClubs;
 	}
 	
 	/**
@@ -660,7 +652,7 @@ class ContentManager
     $filteredGivenName = ucfirst(trim($givenName));
     $filteredFamilyName = ucfirst(trim($familyName));
     
-   $gender = $gender;
+   	$gender = $gender;
     
     $formattedDateOfBirth = date_format(date_create($dateOfBirth),'Y-m-d');
     
