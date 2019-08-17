@@ -541,7 +541,7 @@ function addMoreRows() {
 		
 		dbl=1;
 	}
-    for (var insertCycle = 0; insertCycle < matchRows; insertCycle++) {
+    
         var table = document.getElementById("match-input-table");
 
 
@@ -692,7 +692,7 @@ function addMoreRows() {
         setupMatchAutoComplete();
         setupMatchErrorChecking();
 
-    }
+    
 }
  // show add player modal
  
@@ -745,6 +745,9 @@ function addPlayer()
 function showAdvancedSearchModal()
 {
   document.querySelector(".player-advanced-search-border").style.display = "flex";
+  
+       setupMatchAutoCompleteAdvancedSearch();
+        setupMatchErrorCheckingAdvancedSearch();
 }
 function hideAdvancedSearchModal()
 {
@@ -1292,14 +1295,7 @@ $( function() {
  * 																*
  * -------------------------------------------------------------*
  */
-function showAdvancedSearchModal()
-{
-  document.querySelector(".player-advanced-search-border").style.display = "flex";
-}
-function hideAdvancedSearchModal()
-{
-  document.querySelector(".player-advanced-search-border").style.display = "none";
-}
+
 /**
  * -------------------------------------------------------------*
  * 		Begin Initial Rating Section								*
@@ -1366,4 +1362,57 @@ function addRating()
             
           });
 }
+/*function  setupMatchAutoCompleteAdvancedSearch()
+{
+  $(".advanced-player-name").autocomplete({
+    source: 
+        function( request, response ) 
+        {
+            // Fetch data
+            $.ajax({
+                url: "./getAllPlayer.php",
+                type: 'POST',
+                dataType: "json",
+                data: 
+                {
+                    name: request.term
+                   
+                },
+                success: function( data ) 
+                {
+                    response( data );
+                }
+            });
+        },
+        select: function(event,ui)
+        {
+            //the next elemtent in line will be the hidden cell to contain id
+            //fill this with the id. 
+            //name cell will be automatically filled in 
+            
+            $(this).next().val(ui.item.id);
+            
+            //when an item is selected it is assumed that no error exists, remove the error class
+            $(this).removeClass("upload-page-error-on-submit"); 
+        }
+    
+  })
+}
+function setupMatchErrorCheckingAdvancedSearch(){
+  $( ".advanced-player-name").keyup(function(e){
+    //user has used keyboard to change winner/loser field
+    //The winner/loser hidden field needs to be made blank
+    $(this).next().val("");
+  });
+  
+  $( ".advanced-player-name").change(function(e)
+  {
+        
 
+	 $( ".advanced-player-name").each(function ()
+     {
+		this.setCustomValidity('');
+	 });
+  });
+}
+*/
