@@ -779,9 +779,10 @@ $( function() {
 
 
  //event listener for change of country
-$("#country-id").change(function(){
+$("#country-id").change(function()
+{
     uploadEventChangeStates($("#country-id"),$("#state-name"));
-    });
+});
  
 function uploadEventChangeStates(countryCombo, stateCombo)
 {
@@ -814,6 +815,39 @@ function uploadEventChangeStates(countryCombo, stateCombo)
     });
 }
 
+
+$("#player-country-filter").change(function()
+{
+    playerSearchChangeStates($(this), $("#player-state-filter"));
+});
+ 
+function playerSearchChangeStates(countryName, stateName)
+{
+    var country = countryName.val();
+    
+    stateName.html("<option selected value>Select State</option>");
+    
+    $.ajax
+    ({
+        url: "./get-states-by-country-ID.php",
+        type: "POST",
+        dataType: "text",
+        data: {countryID: country},
+        success: function(data) 
+        {
+            //parse the returned data
+            var jsonData = JSON.parse(data);
+            
+            //add a new option to state-name for each returned state.
+            $.each(jsonData, function(index, value)
+            {
+                stateName.append($("<option>",{
+                    text: value["name"]
+                }));              
+            });
+        }
+    });
+}
 
 /**
  * 

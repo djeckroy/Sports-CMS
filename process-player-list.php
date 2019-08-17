@@ -41,47 +41,60 @@ if(isset($_POST["submitSearchFilter"]))
 	      <th>Region</th>
 	    </tr>";
 
-	while($row = $searchFilter->fetch())
-	{
-		$tableOutput .= "
-			<tr>
-             <td><a id='player-name-link' href='profile.php?profile-id=".$row["player_id"]."'>".$row["player_name"]."</a></td>
-             <td>".$row["player_age"]."</td>
-             <td>".$row["last_played"]."</td>
-             <td>".$row["club_name"]."</td>
-             <td>".$row["country_name"].", ".$row["state_name"]."</td>
-           </tr>";	
-	}
-
-	$tableOutput .= "
-        </table> 
-    <div class='pagination-buttons'>";
-
-    $totalPages = ceil($totalPlayersResult / $resultsPerPage);
-
-    if($totalPages < 1)
-    {
-        $tableOutput .= "<span class='player-search-link' id='0'><<</span>";
+    if($totalPlayersResult != 0)
+    { 
+    	while($row = $searchFilter->fetch())
+    	{
+    		$tableOutput .= "
+    			<tr>
+                 <td><a id='player-name-link' href='profile.php?profile-id=".$row["player_id"]."'>".$row["player_name"]."</a></td>
+                 <td>".$row["player_age"]."</td>
+                 <td>".$row["last_played"]."</td>
+                 <td>".$row["club_name"]."</td>
+                 <td>".$row["country_name"].", ".$row["state_name"]."</td>
+               </tr>";	
+    	}
     }
     else
     {
-        $tableOutput .= "<span class='player-search-link' id='1'><<</span>";
+        echo "<div class='no-search-result-message'>No player by the given search exists.</div>";
     }
 
-    $pageThreshold = $currentPage + 14;
+	$tableOutput .= "
+        </table>
+    <div class='player-search-pagination-buttons-container'> 
+    <div class='player-search-pagination-buttons'>";
+
+    $totalPages = ceil($totalPlayersResult / $resultsPerPage);
+
+    if($totalPages == 0)
+    {
+        $totalPages = 1;
+    }
+
+    if($totalPages < 1)
+    {
+        $tableOutput .= "<span class='player-search-link player-search-link-active' id='0'><<</span>";
+    }
+    else
+    {
+        $tableOutput .= "<span class='player-search-link player-search-link-active' id='1'><<</span>";
+    }
+
+    $pageThreshold = $currentPage + 9;
 
     if($currentPage == 1)
     {
         for($i = $currentPage; $i <= $pageThreshold AND $i <= $totalPages; $i++)
         {
-            $tableOutput .= "<span class='player-search-link' id='" . $i . "'>" . $i . " </span>";
+            $tableOutput .= "<span class='player-search-link player-search-link-active' id='" . $i . "'>" . $i . " </span>";
         }
     }
     elseif($currentPage == 2)
     {
         for($i = ($currentPage - 1); $i <= ($pageThreshold - 1) AND $i <= $totalPages; $i++)
         {
-            $tableOutput .= "<span class='player-search-link' id='" . $i . "'>" . $i . " </span>";
+            $tableOutput .= "<span class='player-search-link player-search-link-active' id='" . $i . "'>" . $i . " </span>";
         }
     }
     else
@@ -90,40 +103,41 @@ if(isset($_POST["submitSearchFilter"]))
         {
             for($i = ($totalPages - 4); $i <= $totalPages; $i++)
             {
-                $tableOutput .= "<span class='player-search-link' id='" . $i . "'>" . $i . " </span>";
+                $tableOutput .= "<span class='player-search-link player-search-link-active' id='" . $i . "'>" . $i . " </span>";
             }
         }
         elseif($currentPage == $totalPages - 1)
         {
             for($i = ($totalPages - 4); $i <= $totalPages; $i++)
             {
-                $tableOutput .= "<span class='player-search-link' id='" . $i . "'>" . $i . " </span>";
+                $tableOutput .= "<span class='player-search-link player-search-link-active' id='" . $i . "'>" . $i . " </span>";
             }
         }
         elseif($currentPage == $totalPages - 2)
         {
             for($i = ($totalPages - 4); $i <= $totalPages; $i++)
             {
-                $tableOutput .= "<span class='player-search-link' id='" . $i . "'>" . $i . " </span>";
+                $tableOutput .= "<span class='player-search-link player-search-link-active' id='" . $i . "'>" . $i . " </span>";
             }
         }
         else
         {
             for($i = ($currentPage - 2); $i <= ($pageThreshold - 2) AND $i < $totalPages; $i++)
             {
-                $tableOutput .= "<span class='player-search-link' id='" . $i . "'>" . $i . " </span>";
+                $tableOutput .= "<span class='player-search-link player-search-link-active' id='" . $i . "'>" . $i . " </span>";
             }
         }
     }
 
+    $tableOutput .= "
+        <span class='player-search-link player-search-link-active' id='" . $totalPages . "'>>></span>
+    </div>
+    </div>";                
+}
 
-    $tableOutput .= "<span class='player-search-link' id=' " . $totalPages . "'>>></span></div>";                 
-}
-else
-{ 
-    echo "No player by the given search exists.";
-}
 
 echo $tableOutput;
+
+$query = "SELECT * FROM (SELECT player_id, CONCAT_WS(' ', given_name, family_name) AS player_name, TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) AS player_age, DATE_FORMAT(last_played, '%d %M %Y') AS last_played FROM player WHERE CONCAT_WS(' ', given_name, family_name) LIKE '%Earl Taylor%' AND (TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) BETWEEN 0 AND 30) AND last_played LIKE '%2019-08-15%') AS player_details, (SELECT club.name FROM club INNER JOIN membership ON membership.club_id = club.club_id INNER JOIN player ON player.player_id = membership.player_id WHERE club.name LIKE '%Launceston Badminton Club%') AS club_name, (SELECT country.name FROM country INNER JOIN player ON player.country_id = country.country_id WHERE country.name LIKE '%Australia%') AS country_name, (SELECT state.name FROM state INNER JOIN player ON player.state_id = state.state_id WHERE state.name LIKE '%Tasmania%') AS state_name LIMIT 0, 6";
 
 ?>               
