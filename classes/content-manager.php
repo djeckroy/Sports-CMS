@@ -267,6 +267,31 @@ class ContentManager
 
 		return $result;
 	}
+  public function getAllPlayersByAdvancedSearch($nameFilter)
+  {
+    $unfiltered = preg_replace("/[^a-zA-Z0-9\s]/", "", $nameFilter);
+		$nameString = explode(" ", $unfiltered);
+
+		if(count($nameString) == 2)
+		{
+			$query = "SELECT `player_id`, `given_name`, `family_name`, country.name AS country, state.name AS state FROM player JOIN state ON player.state_id = state.state_id JOIN country ON player.country_id = country.country_id WHERE given_name LIKE '%" . $nameString[0] . "%' OR
+				family_name LIKE '%" . $nameString[1] . "%'";
+		}
+		else if(count($nameString) == 1)
+		{
+			$query = "SELECT `player_id`, `given_name`, `family_name`, country.name AS country, state.name AS state FROM player JOIN state ON player.state_id = state.state_id JOIN country ON player.country_id = country.country_id WHERE given_name LIKE '%" . $nameFilter . "%' OR
+				family_name LIKE '%" . $nameFilter . "%'";
+		}
+		else
+		{
+			//No error handling atm
+		}
+
+		$result = $this->database->query($query, null); 
+
+		return $result;
+    
+  }
 	
 
 	public function getEventSport($eventID)

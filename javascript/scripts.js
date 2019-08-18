@@ -332,198 +332,223 @@ function resetPassword()
  */
 
 function showUploadMatchRows()
-{ 
-    var matchInputNumber = document.getElementById("match-field-input").value;
-
-    if (matchInputNumber == "") {
-        window.alert("Please type a number (greater than 1) before clicking");
+{
+    
+    //check sport and event type selected
+    if ( $("#sport-type").val() == null )
+    {
+        //no sport selected
+        alert("Please select a sport before clicking.");
     }
-
-    if (matchInputNumber < 1 && matchInputNumber != "") {
-        window.alert("Match input number cannot be less than 1");
-    }
-  
-    var matchRows = document.getElementById("match-field-input").value;
-  
-    var table = document.getElementById("match-input-table");
-
-    if (table.rows.length !== 0) {
-        for (var deleteCycle = table.rows.length - 1; deleteCycle >= 0; deleteCycle--) {
-            table.deleteRow(deleteCycle);
+    else
+    {
+        if ( $("#event-type").val() == null )
+        {
+            //no event type selected
+            alert("Please select the match type (Singles or Doubles) before clicking.");
+        }
+        else
+        {
+        
+            var matchInputNumber = document.getElementById("match-field-input").value;
+        
+            if (matchInputNumber == "") {
+                window.alert("Please type a number (greater than 1) before clicking");
+            }
+            else
+            {
+        
+                if (matchInputNumber < 1 && matchInputNumber != "") {
+                    window.alert("Match input number cannot be less than 1");
+                }
+                else
+                {
+              
+                    var matchRows = document.getElementById("match-field-input").value;
+                  
+                    var table = document.getElementById("match-input-table");
+                
+                    if (table.rows.length !== 0) {
+                        for (var deleteCycle = table.rows.length - 1; deleteCycle >= 0; deleteCycle--) {
+                            table.deleteRow(deleteCycle);
+                        }
+                    }
+                    
+                    var a = document.getElementById("event-type").value;
+                    var dbl;
+                    if(a == 'Double'){
+                        
+                        dbl=1;
+                    }
+                    for (var insertCycle = 0; insertCycle < matchRows; insertCycle++) {
+                        addEventRow(dbl);
+                
+                    }
+                    
+                    setupMatchAutoComplete();
+                    setupMatchErrorChecking();
+                    setupAdvancedSearchLinks();
+                    
+                // display submit match button
+                 
+                 document.getElementById('submit_event').style.display = 'block';
+                
+                    /*var addButton = document.createElement("BUTTON");
+                      addButton.innerHTML = "Add More Rows";
+                       addButton.setAttribute('class','add-button');
+                         document.body.appendChild(addButton);*/
+                
+                
+                    if (matchInputNumber != 0) {
+                        document.getElementById("match-final-submit").style.display = "block";
+                    }
+                }
+            }
         }
     }
-	
-	var a = document.getElementById("type").value;
-	var dbl;
-	if(a == 'Double'){
-		
-		dbl=1;
-	}
-    for (var insertCycle = 0; insertCycle < matchRows; insertCycle++) {
-        var table = document.getElementById("match-input-table");
+    return false;
+}
 
-
-        var row = table.insertRow(0);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        var cell4 = row.insertCell(3);
-        var cell5 = row.insertCell(4);
-
-
-		var newlabel0 = document.createElement("Label");
-        newlabel0.setAttribute('class', 'find-help');
-        newlabel0.innerHTML = "<b style='margin: 0px 18px; font-size:24px;'>#Match details</b><br/>";
-        cell1.appendChild(newlabel0);
-
-
-        var insertCell1 = document.createElement("input");
-        insertCell1.setAttribute('type', 'text');
-        insertCell1.setAttribute('class', 'match-field-input winner-loser-field winner-field');
-        insertCell1.setAttribute('name', 'winner-name[]');
-        insertCell1.setAttribute('pattern', '[a-zA-Z ]{1,45}');
-        insertCell1.setAttribute('title', 'Winner name must be within 1-45 characters');
-        insertCell1.onkeyup = "checkForm()";
-        insertCell1.placeholder = "Winning Player";
-        cell1.appendChild(insertCell1);
-
-        //adds a hidden cell to contain ids of winners
-        var hiddenInput1 = document.createElement("input");
-        hiddenInput1.setAttribute('type', 'hidden');
-        hiddenInput1.setAttribute('name', 'winner-id[]');
-        cell1.appendChild(hiddenInput1);
-
-        var newlabel = document.createElement("Label");
-        newlabel.setAttribute('class', 'ad-search');
-		newlabel.setAttribute('onclick', 'showAdvancedSearchModal()');
-        var str = "Advanced search";
-        var result = str.link("#");
-        newlabel.innerHTML = "</br>" + result + "<br/>";
-        cell1.appendChild(newlabel);
-
-		if(dbl == '1'){
-				
-			var insertCell11 = document.createElement("input");
-			insertCell11.setAttribute('type', 'text');
-			insertCell11.setAttribute('class', 'match-field-input winner-loser-field winner-field');
-			insertCell11.setAttribute('name', 'winner-name[]');
-			insertCell11.setAttribute('pattern', '[a-zA-Z ]{1,45}');
-			insertCell11.setAttribute('title', 'Winner name must be within 1-45 characters');
-			insertCell11.onkeyup = "checkForm()";
-			insertCell11.placeholder = "Winning Player";
-			cell1.appendChild(insertCell11);
-			
-			//adds a hidden cell to contain ids of winners
-			var hiddenInput1 = document.createElement("input");
-			hiddenInput1.setAttribute('type', 'hidden');
-			hiddenInput1.setAttribute('name', 'winner-id[]');
-			cell1.appendChild(hiddenInput1);
-
-			var newlabel11 = document.createElement("Label");
-			newlabel11.setAttribute('class', 'ad-search');
-			newlabel11.setAttribute('onclick', 'showAdvancedSearchModal()');
-			var str11 = "Advanced search";
-			var result11 = str11.link("#");
-			newlabel11.innerHTML = "</br>" + result11;
-			cell1.appendChild(newlabel11);
-		}
-		
-        var newlabel2 = document.createElement("Label");
-        newlabel2.setAttribute('class', 'find-help');
-		newlabel2.setAttribute('onclick', 'showAddPlayerModal()');
-        var str3 = "Can't find a player? Add them "
-        var str2 = "here";
-        var result2 = str2.link("#");
-        newlabel2.innerHTML = "<br/><br/>" + str3 + result2+"<br/>";
-        cell1.appendChild(newlabel2);
-
-        
-
-        /* var insertCell2 = document.createElement("button");
-        insertCell2.innerHTML = "Search";
-        insertCell2.setAttribute('class', 'search-button');
-        cell2.appendChild(insertCell2); */
-
-        var insertCell3 = document.createElement("input");
-        insertCell3.setAttribute('type', 'text');
-		insertCell3.setAttribute('style', 'margin-top:25px');
-        insertCell3.setAttribute('class', 'match-field-input winner-loser-field loser-field');
-        insertCell3.setAttribute('name', 'loser-name[]');
-        insertCell3.setAttribute('pattern', '[a-zA-Z ]{1,45}');
-        insertCell3.setAttribute('title', 'Loser name must be within 1-45 characters');
-        insertCell3.placeholder = "Losing Player";
-        insertCell3.onkeyup = "checkForm()";
-        cell3.appendChild(insertCell3);
-        
-        //adds a hidden cell to contain ids of losers
-        var hiddenInput2 = document.createElement("input");
-        hiddenInput2.setAttribute('type', 'hidden');
-        hiddenInput2.setAttribute('name', 'loser-id[]');
-        cell3.appendChild(hiddenInput2);
-
-        var newlabel1 = document.createElement("Label");
-        newlabel1.setAttribute('class', 'ad-search1');
-		newlabel1.setAttribute('onclick', 'showAdvancedSearchModal()');
-        var str1 = "Advanced search";
-        var result1 = str1.link("#");
-        newlabel1.innerHTML = "<br/>" + result1 + "<br/>";
-        cell3.appendChild(newlabel1);
-
-		if(dbl == '1'){
-			
-			var insertCell3 = document.createElement("input");
-			insertCell3.setAttribute('type', 'text');
-			insertCell3.setAttribute('style', 'margin-top:25px');
-			insertCell3.setAttribute('class', 'match-field-input winner-loser-field loser-field');
-			insertCell3.setAttribute('name', 'loser-name[]');
-			insertCell3.setAttribute('pattern', '[a-zA-Z ]{1,45}');
-			insertCell3.setAttribute('title', 'Loser name must be within 1-45 characters');
-			insertCell3.placeholder = "Losing Player";
-			insertCell3.onkeyup = "checkForm()";
-			cell3.appendChild(insertCell3);
-			
-			 //adds a hidden cell to contain ids of losers
-			var hiddenInput2 = document.createElement("input");
-			hiddenInput2.setAttribute('type', 'hidden');
-			hiddenInput2.setAttribute('name', 'loser-id[]');
-			cell3.appendChild(hiddenInput2);
-
-			var newlabel33 = document.createElement("Label");
-			newlabel33.setAttribute('class', 'ad-search');
-			newlabel33.setAttribute('onclick', 'showAdvancedSearchModal()');
-			var str33 = "Advanced search";
-			var result33 = str33.link("#");
-			newlabel33.innerHTML = "</br>" + result33;21
-			cell3.appendChild(newlabel33)
-		}
-
-
-        var insertCell5 = document.createElement("button");
-        insertCell5.innerHTML = "Delete";
-        insertCell5.setAttribute('class', 'delete-button');
-
-        cell5.appendChild(insertCell5);
-        insertCell5.onclick = function() {
-            deleteRow(this);
-        };
-
-        setupMatchAutoComplete();
-        setupMatchErrorChecking();
-
-    }
-// display submit match button
- 
- document.getElementById('submit_event').style.display = 'block';
-
-    /*var addButton = document.createElement("BUTTON");
-      addButton.innerHTML = "Add More Rows";
-       addButton.setAttribute('class','add-button');
-         document.body.appendChild(addButton);*/
-
-
-    if (matchInputNumber != 0) {
-        document.getElementById("match-final-submit").style.display = "block";
-    }
+function addEventRow(dbl)
+{
+    var table = document.getElementById("match-input-table");
+                
+                
+                        var row = table.insertRow(0);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+                        var cell5 = row.insertCell(4);
+                
+                
+                        var newlabel0 = document.createElement("Label");
+                        newlabel0.setAttribute('class', 'find-help');
+                        newlabel0.innerHTML = "<b style='margin: 0px 18px; font-size:24px;'>#Match details</b><br/>";
+                        cell1.appendChild(newlabel0);
+                
+                
+                        var insertCell1 = document.createElement("input");
+                        insertCell1.setAttribute('type', 'text');
+                        insertCell1.setAttribute('class', 'match-field-input winner-loser-field winner-field');
+                        insertCell1.setAttribute('name', 'winner-name[]');
+                        insertCell1.onkeyup = "checkForm()";
+                        insertCell1.placeholder = "Winning Player";
+                        cell1.appendChild(insertCell1);
+                
+                        //adds a hidden cell to contain ids of winners
+                        var hiddenInput1 = document.createElement("input");
+                        hiddenInput1.setAttribute('type', 'hidden');
+                        hiddenInput1.setAttribute('name', 'winner-id[]');
+                        cell1.appendChild(hiddenInput1);
+                
+                        var newlabel = document.createElement("Label");
+                        newlabel.setAttribute('class', 'ad-search');
+                        //newlabel.setAttribute('onclick', 'showAdvancedSearchModal()');
+                        var str = "Advanced search";
+                        var result = str.link("#");
+                        newlabel.innerHTML = "</br>" + result + "<br/>";
+                        cell1.appendChild(newlabel);
+                
+                        if(dbl == '1'){
+                                
+                            var insertCell11 = document.createElement("input");
+                            insertCell11.setAttribute('type', 'text');
+                            insertCell11.setAttribute('class', 'match-field-input winner-loser-field winner-field');
+                            insertCell11.setAttribute('name', 'winner-name[]');
+                            insertCell11.onkeyup = "checkForm()";
+                            insertCell11.placeholder = "Winning Player";
+                            cell1.appendChild(insertCell11);
+                            
+                            //adds a hidden cell to contain ids of winners
+                            var hiddenInput1 = document.createElement("input");
+                            hiddenInput1.setAttribute('type', 'hidden');
+                            hiddenInput1.setAttribute('name', 'winner-id[]');
+                            cell1.appendChild(hiddenInput1);
+                
+                            var newlabel11 = document.createElement("Label");
+                            newlabel11.setAttribute('class', 'ad-search');
+                            //newlabel11.setAttribute('onclick', 'showAdvancedSearchModal()');
+                            var str11 = "Advanced search";
+                            var result11 = str11.link("#");
+                            newlabel11.innerHTML = "</br>" + result11;
+                            cell1.appendChild(newlabel11);
+                        }
+                        
+                        var newlabel2 = document.createElement("Label");
+                        newlabel2.setAttribute('class', 'find-help');
+                        newlabel2.setAttribute('onclick', 'showAddPlayerModal()');
+                        var str3 = "Can't find a player? Add them ";
+                        var str2 = "here";
+                        var result2 = str2.link("#");
+                        newlabel2.innerHTML = "<br/><br/>" + str3 + result2+"<br/>";
+                        cell1.appendChild(newlabel2);
+                
+                        
+                
+                        /* var insertCell2 = document.createElement("button");
+                        insertCell2.innerHTML = "Search";
+                        insertCell2.setAttribute('class', 'search-button');
+                        cell2.appendChild(insertCell2); */
+                
+                        var insertCell3 = document.createElement("input");
+                        insertCell3.setAttribute('type', 'text');
+                        insertCell3.setAttribute('style', 'margin-top:25px');
+                        insertCell3.setAttribute('class', 'match-field-input winner-loser-field loser-field');
+                        insertCell3.setAttribute('name', 'loser-name[]');
+                        insertCell3.placeholder = "Losing Player";
+                        insertCell3.onkeyup = "checkForm()";
+                        cell3.appendChild(insertCell3);
+                        
+                        //adds a hidden cell to contain ids of losers
+                        var hiddenInput2 = document.createElement("input");
+                        hiddenInput2.setAttribute('type', 'hidden');
+                        hiddenInput2.setAttribute('name', 'loser-id[]');
+                        cell3.appendChild(hiddenInput2);
+                
+                        var newlabel1 = document.createElement("Label");
+                        newlabel1.setAttribute('class', 'ad-search');
+                        //newlabel1.setAttribute('onclick', 'showAdvancedSearchModal()');
+                        var str1 = "Advanced search";
+                        var result1 = str1.link("#");
+                        newlabel1.innerHTML = "<br/>" + result1 + "<br/>";
+                        cell3.appendChild(newlabel1);
+                
+                        if(dbl == '1'){
+                            
+                            var insertCell3 = document.createElement("input");
+                            insertCell3.setAttribute('type', 'text');
+                            insertCell3.setAttribute('style', 'margin-top:25px');
+                            insertCell3.setAttribute('class', 'match-field-input winner-loser-field loser-field');
+                            insertCell3.setAttribute('name', 'loser-name[]');
+                            insertCell3.placeholder = "Losing Player";
+                            insertCell3.onkeyup = "checkForm()";
+                            cell3.appendChild(insertCell3);
+                            
+                             //adds a hidden cell to contain ids of losers
+                            var hiddenInput2 = document.createElement("input");
+                            hiddenInput2.setAttribute('type', 'hidden');
+                            hiddenInput2.setAttribute('name', 'loser-id[]');
+                            cell3.appendChild(hiddenInput2);
+                
+                            var newlabel33 = document.createElement("Label");
+                            newlabel33.setAttribute('class', 'ad-search');
+                            //newlabel33.setAttribute('onclick', 'showAdvancedSearchModal()');
+                            var str33 = "Advanced search";
+                            var result33 = str33.link("#");
+                            newlabel33.innerHTML = "</br>" + result33;
+                            cell3.appendChild(newlabel33);
+                        }
+                
+                
+                        var insertCell5 = document.createElement("button");
+                        insertCell5.innerHTML = "Delete";
+                        insertCell5.setAttribute('class', 'delete-button');
+                
+                        cell5.appendChild(insertCell5);
+                        insertCell5.onclick = function() {
+                            deleteRow(this);
+                        };
 }
 
 function deleteRow(selectedRow) {
@@ -535,164 +560,20 @@ function deleteRow(selectedRow) {
 function addMoreRows() {
 
 
-	var a = document.getElementById("type").value;
+	var a = document.getElementById("event-type").value;
 	var dbl;
 	if(a == 'Double'){
 		
 		dbl=1;
 	}
-    for (var insertCycle = 0; insertCycle < matchRows; insertCycle++) {
-        var table = document.getElementById("match-input-table");
-
-
-        var row = table.insertRow(0);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        var cell4 = row.insertCell(3);
-        var cell5 = row.insertCell(4);
-
-
-		var newlabel0 = document.createElement("Label");
-        newlabel0.setAttribute('class', 'find-help');
-        newlabel0.innerHTML = "<b style='margin: 0px 18px; font-size:24px;'>#Match details</b><br/>";
-        cell1.appendChild(newlabel0);
-
-
-        var insertCell1 = document.createElement("input");
-        insertCell1.setAttribute('type', 'text');
-        insertCell1.setAttribute('class', 'match-field-input winner-loser-field winner-field');
-        insertCell1.setAttribute('name', 'winner-name[]');
-        insertCell1.setAttribute('pattern', '[a-zA-Z ]{1,45}');
-        insertCell1.setAttribute('title', 'Winner name must be within 1-45 characters');
-        insertCell1.onkeyup = "checkForm()";
-        insertCell1.placeholder = "Winning Player";
-        cell1.appendChild(insertCell1);
-
-        //adds a hidden cell to contain ids of winners
-        var hiddenInput1 = document.createElement("input");
-        hiddenInput1.setAttribute('type', 'hidden');
-        hiddenInput1.setAttribute('name', 'winner-id[]');
-        cell1.appendChild(hiddenInput1);
-
-        var newlabel = document.createElement("Label");
-        newlabel.setAttribute('class', 'ad-search');
-		newlabel.setAttribute('onclick', 'showAdvancedSearchModal()');
-        var str = "Advanced search";
-        var result = str.link("#");
-        newlabel.innerHTML = "</br>" + result + "<br/>";
-        cell1.appendChild(newlabel);
-
-		if(dbl == '1'){
-				
-			var insertCell11 = document.createElement("input");
-			insertCell11.setAttribute('type', 'text');
-			insertCell11.setAttribute('class', 'match-field-input winner-loser-field winner-field');
-			insertCell11.setAttribute('name', 'winner-name[]');
-			insertCell11.setAttribute('pattern', '[a-zA-Z ]{1,45}');
-			insertCell11.setAttribute('title', 'Winner name must be within 1-45 characters');
-			insertCell11.onkeyup = "checkForm()";
-			insertCell11.placeholder = "Winning Player";
-			cell1.appendChild(insertCell11);
-			
-			//adds a hidden cell to contain ids of winners
-			var hiddenInput1 = document.createElement("input");
-			hiddenInput1.setAttribute('type', 'hidden');
-			hiddenInput1.setAttribute('name', 'winner-id[]');
-			cell1.appendChild(hiddenInput1);
-
-			var newlabel11 = document.createElement("Label");
-			newlabel11.setAttribute('class', 'ad-search');
-			newlabel11.setAttribute('onclick', 'showAdvancedSearchModal()');
-			var str11 = "Advanced search";
-			var result11 = str11.link("#");
-			newlabel11.innerHTML = "</br>" + result11;
-			cell1.appendChild(newlabel11);
-		}
-		
-        var newlabel2 = document.createElement("Label");
-        newlabel2.setAttribute('class', 'find-help');
-		newlabel2.setAttribute('onclick', 'showAddPlayerModal()');
-        var str3 = "Can't find a player? Add them "
-        var str2 = "here";
-        var result2 = str2.link("#");
-        newlabel2.innerHTML = "<br/><br/>" + str3 + result2+"<br/>";
-        cell1.appendChild(newlabel2);
-
-        
-
-        /* var insertCell2 = document.createElement("button");
-        insertCell2.innerHTML = "Search";
-        insertCell2.setAttribute('class', 'search-button');
-        cell2.appendChild(insertCell2); */
-
-        var insertCell3 = document.createElement("input");
-        insertCell3.setAttribute('type', 'text');
-		insertCell3.setAttribute('style', 'margin-top:25px');
-        insertCell3.setAttribute('class', 'match-field-input winner-loser-field loser-field');
-        insertCell3.setAttribute('name', 'loser-name[]');
-        insertCell3.setAttribute('pattern', '[a-zA-Z ]{1,45}');
-        insertCell3.setAttribute('title', 'Loser name must be within 1-45 characters');
-        insertCell3.placeholder = "Losing Player";
-        insertCell3.onkeyup = "checkForm()";
-        cell3.appendChild(insertCell3);
-        
-        //adds a hidden cell to contain ids of losers
-        var hiddenInput2 = document.createElement("input");
-        hiddenInput2.setAttribute('type', 'hidden');
-        hiddenInput2.setAttribute('name', 'loser-id[]');
-        cell3.appendChild(hiddenInput2);
-
-        var newlabel1 = document.createElement("Label");
-        newlabel1.setAttribute('class', 'ad-search1');
-		newlabel1.setAttribute('onclick', 'showAdvancedSearchModal()');
-        var str1 = "Advanced search";
-        var result1 = str1.link("#");
-        newlabel1.innerHTML = "<br/>" + result1 + "<br/>";
-        cell3.appendChild(newlabel1);
-
-		if(dbl == '1'){
-			
-			var insertCell3 = document.createElement("input");
-			insertCell3.setAttribute('type', 'text');
-			insertCell3.setAttribute('style', 'margin-top:25px');
-			insertCell3.setAttribute('class', 'match-field-input winner-loser-field loser-field');
-			insertCell3.setAttribute('name', 'loser-name[]');
-			insertCell3.setAttribute('pattern', '[a-zA-Z ]{1,45}');
-			insertCell3.setAttribute('title', 'Loser name must be within 1-45 characters');
-			insertCell3.placeholder = "Losing Player";
-			insertCell3.onkeyup = "checkForm()";
-			cell3.appendChild(insertCell3);
-			
-			 //adds a hidden cell to contain ids of losers
-			var hiddenInput2 = document.createElement("input");
-			hiddenInput2.setAttribute('type', 'hidden');
-			hiddenInput2.setAttribute('name', 'loser-id[]');
-			cell3.appendChild(hiddenInput2);
-
-			var newlabel33 = document.createElement("Label");
-			newlabel33.setAttribute('class', 'ad-search');
-			newlabel33.setAttribute('onclick', 'showAdvancedSearchModal()');
-			var str33 = "Advanced search";
-			var result33 = str33.link("#");
-			newlabel33.innerHTML = "</br>" + result33;21
-			cell3.appendChild(newlabel33)
-		}
-
-
-        var insertCell5 = document.createElement("button");
-        insertCell5.innerHTML = "Delete";
-        insertCell5.setAttribute('class', 'delete-button');
-
-        cell5.appendChild(insertCell5);
-        insertCell5.onclick = function() {
-            deleteRow(this);
-        };
+    
+        addEventRow(dbl);
 
         setupMatchAutoComplete();
         setupMatchErrorChecking();
+        setupAdvancedSearchLinks();
 
-    }
+    
 }
  // show add player modal
  
@@ -740,11 +621,32 @@ function addPlayer()
   //});
 }
 
+//variables used for advanced search
+var advancedSeachPlayerNameInput;   //will store the input of the name field
+var advancedSeachPlayerIDInput;     //will store the input of the (hidden) id field
+
+
+function setupAdvancedSearchLinks()
+{
+    $('.ad-search').click(function(){
+                          advancedSeachPlayerIDInput = $(this).prev();
+                          advancedSeachPlayerNameInput = $(this).prev().prev();                       
+                          showAdvancedSearchModal();
+    });
+}
+
 //show advance search player modal-background
 
 function showAdvancedSearchModal()
 {
+    //clear any previous entry
+    $("#input-player-name").val("");
+    
+    
   document.querySelector(".player-advanced-search-border").style.display = "flex";
+  
+       setupMatchAutoCompleteAdvancedSearch();
+        setupMatchErrorCheckingAdvancedSearch();
 }
 function hideAdvancedSearchModal()
 {
@@ -757,6 +659,8 @@ function hideAdvancedSearchModal()
  * They are described in line. 
  */
 $( function() {
+    $("#match-number-submit").click(function(){showUploadMatchRows();});
+    
     uploadEventChangeStates($("#country-id"),$("#state-name"));	//gets states based on country
     setupMatchAutoComplete();	//gets players based on state
     
@@ -1292,14 +1196,7 @@ $( function() {
  * 																*
  * -------------------------------------------------------------*
  */
-function showAdvancedSearchModal()
-{
-  document.querySelector(".player-advanced-search-border").style.display = "flex";
-}
-function hideAdvancedSearchModal()
-{
-  document.querySelector(".player-advanced-search-border").style.display = "none";
-}
+
 /**
  * -------------------------------------------------------------*
  * 		Begin Initial Rating Section								*
@@ -1365,5 +1262,50 @@ function addRating()
             }
             
           });
+}
+
+function  setupMatchAutoCompleteAdvancedSearch()
+{
+  $(".advanced-player-name").autocomplete({
+    source: 
+        function( request, response ) 
+        {
+            // Fetch data
+            $.ajax({
+                url: "./getAllPlayer.php",
+                type: 'POST',
+                dataType: "json",
+                data: 
+                {
+                    name: request.term
+                   
+                },
+                success: function( data ) 
+                {
+                    response( data );
+                }
+            });
+        },
+        select: function(event,ui)
+        {
+            //player has been chosen from advanced search list. fill in the box on main page.
+            
+            advancedSeachPlayerIDInput.val(ui.item.id);
+            advancedSeachPlayerNameInput.val(ui.item.label);
+            
+            hideAdvancedSearchModal();
+            
+            //when an item is selected it is assumed that no error exists, remove the validity message
+            var playerID = ui.item.id; 
+            setInitialRating(playerID);
+        
+             $( ".winner-loser-field").each(function ()
+             {
+                this.setCustomValidity('');
+             });
+             
+        }
+    
+  });
 }
 
