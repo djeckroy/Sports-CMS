@@ -55,15 +55,14 @@
                 <br /><br />
             </div>
 
-            <select class="event-type" id = "type" name="event-type" required>
+            <select class="event-type" id="event-type" name="event-type" required>
                 <option disabled selected value="">Match type</option>
                 <option value="Single">Singles</option>
                 <option value="Double">Doubles</option>
             </select><br /><br />
             <input class="match-input" id="match-field-input" type="number" id="match-number" name="match-number"
                 placeholder="Number of Matches" pattern="[0-9]{1,3}" title="Number must be within 1-300">
-            <button class="match-number-input" id="match-submit" name="match-number-submission" value="Add Matches"
-                onclick="showUploadMatchRows(); return false;">Add Matches</button>
+            <button class="match-number-input" id="match-number-submit" name="match-number-submission" value="Add Matches" type="button">Add Matches</button>
             <p class="fill-help"> Need Help on how to fill the Event upload form? Click <a href="#">Here</a></p>
            <div> <table class="match-input-table" id="match-input-table"></table></div>
         </div>
