@@ -756,8 +756,7 @@ class ContentManager
 						WHERE
 							team.team_id= ? AND
 							team.team_id = rating.team_id AND
-							rating.sport_id = ?;"
-			
+							rating.sport_id = ?;";
 		}
 		else
 		{
