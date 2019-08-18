@@ -705,7 +705,7 @@ class ContentManager
 	 * winners and losers of each match in a tournament.
 	 * 
 	 */
-	public function updateAfterMatchStatisticComputed($tournamentDate, $sportID, $matchID, $winnerID, $winnerNewMean, $winnerNewSD, $loserID, $loserNewMean, $loserNewSD)
+	public function updateAfterMatchStatisticComputed($tournamentDate, $sportID, $matchID, $winnerID, $winnerNewMean, $winnerNewSD, $loserID, $loserNewMean, $loserNewSD, $doubles)
 	{
 		//update entry in game
 		$query = "UPDATE game
@@ -721,16 +721,34 @@ class ContentManager
 		
 		//update players ratings.
 		
-		$query = "UPDATE player, rating
-					SET
-						player.last_played = STR_TO_DATE(?,'%d/%m/%Y'),
-						rating.mean = ?,
-						rating.standard_deviation = ?,
-						rating.last_calculated = NOW()
-					WHERE
-						player.player_id = ? AND
-						player.player_id = rating.player_id AND
-						rating.sport_id = ?;";
+		if ($doubles)
+		{
+			//doubles match
+			$query = "UPDATE rating
+						SET
+							rating.mean = ?,
+							rating.standard_deviation = ?,
+							rating.last_calculated = NOW()
+						WHERE
+							team.team_id= ? AND
+							team.team_id = rating.team_id AND
+							rating.sport_id = ?;"
+			
+		}
+		else
+		{
+			//singles match
+			$query = "UPDATE player, rating
+			SET
+				player.last_played = STR_TO_DATE(?,'%d/%m/%Y'),
+				rating.mean = ?,
+				rating.standard_deviation = ?,
+				rating.last_calculated = NOW()
+			WHERE
+				player.player_id = ? AND
+				player.player_id = rating.player_id AND
+				rating.sport_id = ?;";
+		}
 
 		$result = $this->database->query($query,[$tournamentDate,$winnerNewMean,$winnerNewSD,$winnerID,$sportID]);
 		

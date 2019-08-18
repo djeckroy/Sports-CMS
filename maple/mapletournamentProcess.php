@@ -42,7 +42,7 @@ for ($i=0;$i<$numMatches;$i++)
 	sscanf($str,"%s%s%f%f%s%f%f", $matchID, $winnerID, $winnerNewMean, $winnerNewSD, $loserID, $loserNewMean, $loserNewSD);
 	
 	//update database to reflect newly calculated changes
-	$contentManager->updateAfterMatchStatisticComputed($tournamentDate, $sportID, $matchID, $winnerID, $winnerNewMean, $winnerNewSD, $loserID, $loserNewMean, $loserNewSD);
+	$contentManager->updateAfterMatchStatisticComputed($tournamentDate, $sportID, $matchID, $winnerID, $winnerNewMean, $winnerNewSD, $loserID, $loserNewMean, $loserNewSD,false);
 }
 
 //tidy up and delete files no longer needed. 
