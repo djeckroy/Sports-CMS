@@ -147,12 +147,12 @@
 
     <h2 class="profile-sport-name"></h2>
 
-    <table class="player-history-table" border="0">
+    <table class="player-history-table">
 		  <tr class="odd-row">
-			<th>Event</th>
-			<th>Initial Rating</th>
-			<th>Point Change</th>
-			<th>Final Rating</th>
+  			<th>Event</th>
+  			<th>Initial Rating</th>
+  			<th>Point Change</th>
+  			<th>Final Rating</th>
 		  </tr>
 		  
 		  <tbody id="player-history-table-body">
@@ -160,6 +160,35 @@
     </table>
 
     <p id="player-history-view-more">
+      View More
+    </p>
+
+  </div>
+
+  <div class="player-team-border">
+
+    <h1>Player Teams</h1>
+
+    <table class="player-team-table" border="1">
+        <?php 
+          $playerId = $_GET['profile-id']; 
+          $playerTeams = $contentManager->listPlayerTeams($playerId);
+          $numberOfTeams = 0;
+
+          while($row = $playerTeams->fetch(PDO::FETCH_ASSOC))
+          {
+            $numberOfTeams++;
+
+            echo "<tr>
+                    <td>
+                      <a id='team-table-link' href='team-profile.php?team-profile-id=".$row['team_id']."'>Team".$numberOfTeams."</a>
+                    </td>
+                  </tr>";
+          }
+        ?>
+    </table>
+
+    <p id="player-team-view-more">
       View More
     </p>
 
