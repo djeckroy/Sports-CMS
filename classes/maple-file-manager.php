@@ -21,7 +21,7 @@ class MapleFileManager
 {
 	//directory where all the files will be placed until processed.
 	//this directory must also contain tournamentProcess.php
-	private $mapleDirectory = "/tournamentFiles";
+	private $mapleDirectory = "/mapleWorkingDir";
 	
 	private $matchStrings; //array of strings containing strings describing matches to be written to file.
 	
@@ -108,14 +108,14 @@ class MapleFileManager
 		if (!strcmp($this->tournamentType, "Single"))
 		{
 			//singles
-			#exec("echo \"php tournamentProcess.php " . $this->tournamentID . "\"" . " | at now + 2 minutes");
-			exec("php tournamentProcess.php " . $this->tournamentID);
+			exec("echo \"/bin/php tournamentProcess.php " . $this->tournamentID . "\"" . " | at now");
+			#exec("php tournamentProcess.php " . $this->tournamentID);
 		}
 		else
 		{
 			//doubles
-			#exec("echo \"php tournamentProcessDoubles.php " . $this->tournamentID . "\"" . " | at now + 2 minutes");
-			exec("php tournamentProcessDouble.php " . $this->tournamentID);
+			exec("echo \"/bin/php tournamentProcessDouble.php " . $this->tournamentID . "\"" . " | at now");
+			#exec("php tournamentProcessDouble.php " . $this->tournamentID);
 		}
 
 		chdir($working_dir);
