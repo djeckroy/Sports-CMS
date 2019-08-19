@@ -748,15 +748,20 @@ class ContentManager
 		if ($doubles)
 		{
 			//doubles match
-			$query = "UPDATE rating
+			$query = "UPDATE rating, team, player
 						SET
+							player.last_played = STR_TO_DATE(?,'%d/%m/%Y'),
 							rating.mean = ?,
 							rating.standard_deviation = ?,
 							rating.last_calculated = NOW()
 						WHERE
 							team.team_id= ? AND
 							team.team_id = rating.team_id AND
-							rating.sport_id = ?;";
+							rating.sport_id = ? AND
+                            (
+                                player.player_id = team.player_one_id OR
+                                player.player_id = team.player_two_id
+                             );";
 		}
 		else
 		{
