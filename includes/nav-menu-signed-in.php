@@ -3,7 +3,7 @@
     <h3> Hi, <?php echo $account->getAccountName(); ?> </h3>
   </div>
   <div class="dropdown-options">
-    <a href="./account.php">Account</a>
+    <a href="./account.php">Club Administration</a>
     <a href="./upload-event.php">Upload Event</a>
     <hr/> 
     <div class="dropdown-signout-form">
