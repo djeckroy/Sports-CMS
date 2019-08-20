@@ -20,7 +20,7 @@
           }
           else
           { 
-            echo "Account"; 
+            echo "Administration"; 
           }
         ?>
       </a>

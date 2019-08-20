@@ -809,7 +809,7 @@ class ContentManager
 						ORDER BY CONCAT_WS(' ', player.given_name, player.family_name) 
 						LIMIT " . $start . ", " . $amount;
 
-		$result = $this->database->query($query, ["$playerName%", $playerAgeMin, $playerAgeMax, "$lastPlayed%", "$clubName%", "$countryName%", "$stateName%"]);
+		$result = $this->database->query($query, ["%$playerName%", $playerAgeMin, $playerAgeMax, "$lastPlayed%", "$clubName%", "$countryName%", "$stateName%"]);
 
 		return $result; 
 	}
