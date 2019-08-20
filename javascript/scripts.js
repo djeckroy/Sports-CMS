@@ -806,7 +806,7 @@ function setInitialRating(playerID)
     if (playerID != "")
     {
       var setRating = 1;
-      var sportID = $("#sport-type").find(":selected").val();
+      var sportID = $("#sport-type").val();
 
       $.ajax({
         url: "./initial-rating-Manager.php",
