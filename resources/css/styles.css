@@ -3181,7 +3181,13 @@ player-advanced-search-border
 
 /* Upload Event Page */
 
-.event-details-border h1 {
+.event-details-border
+{
+  min-height: 600px;
+}
+
+.event-details-border h1 
+{
     padding: 10px 0 0 25px;
 }
 
