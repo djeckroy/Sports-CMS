@@ -187,7 +187,7 @@ class ContentManager
 	}
 
 
-	public function createEvent($name, $countryID, $stateID, $sportType, $eventType, $date)
+	public function createEvent($name, $countryID, $stateID, $sportType, $eventType, $date, $clubID)
 	{
 		$formatedDate = date_format(date_create($date), 'Y-m-d');
 		
@@ -197,6 +197,9 @@ class ContentManager
 
 		$idQuery = $this->database->query("SELECT LAST_INSERT_ID()", null);
 		$id = $idQuery->fetchColumn();
+		
+		$query = "INSERT INTO `plays_at` (`club_id`, `event_id`) VALUES (?, ?);";
+		$result = $this->database->query($query,[$clubID,$id]);
 
 		return $id;
 	}

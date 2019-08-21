@@ -295,6 +295,14 @@ class Account
 
 		return $result["name"];
 	}
+	
+	public function getRegisteredClubSportID()
+	{
+		$query = "SELECT club.sport_id FROM club INNER JOIN director_of ON director_of.club_id = club.club_id WHERE director_of.account_id = ?";
+		$result = $this->database->query($query, [$this->accountId])->fetch();
+
+		return $result["sport_id"];
+	}
 
 	public function getAccountDetails()
 	{
