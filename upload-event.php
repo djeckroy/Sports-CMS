@@ -63,13 +63,13 @@
             <input class="match-input" id="match-field-input" type="number" id="match-number" name="match-number"
                 placeholder="Number of Matches" pattern="[0-9]{1,3}" title="Number must be within 1-300">
             <button class="match-number-input" id="match-number-submit" name="match-number-submission" value="Add Matches" type="button">Add Matches</button>
-            <p class="fill-help"> Need Help on how to fill the Event upload form? Click <a href="#">Here</a></p>
+            <p class="fill-help"> Need Help on how to fill the Event upload form? <a href="#">Click Here</a></p>
            <div> <table class="match-input-table" id="match-input-table"></table></div>
         </div>
 
 
         <div class="ui-widget" id = "submit_event">
-            <p class="more-matches"> Need more matches? Click <a name="add-button" id="add-button" onclick="addMoreRows(); return false;" href="#">Here</a></p>
+            <p class="more-matches"> Need more matches?  <a name="add-button" id="add-button" onclick="addMoreRows(); return false;" href="#">Click Here</a></p>
             <input class="match-submit" id="match-final-submit" type="submit" name="event-page-submission"
                 value="Submit Event"><br />
 
