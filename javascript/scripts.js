@@ -418,7 +418,6 @@ function addEventRow(dbl) {
 
     var insertCell3 = document.createElement("input");
     insertCell3.setAttribute('type', 'text');
-    insertCell3.setAttribute('style', 'margin-top:25px');
     insertCell3.setAttribute('class', 'match-field-input winner-loser-field loser-field break');
     insertCell3.setAttribute('name', 'loser-name[]');
     insertCell3.placeholder = "Losing Player";
@@ -443,7 +442,6 @@ function addEventRow(dbl) {
 
         var insertCell3 = document.createElement("input");
         insertCell3.setAttribute('type', 'text');
-        insertCell3.setAttribute('style', 'margin-top:25px');
         insertCell3.setAttribute('class', 'match-field-input winner-loser-field loser-field break');
         insertCell3.setAttribute('name', 'loser-name[]');
         insertCell3.placeholder = "Losing Player";

@@ -2787,55 +2787,59 @@ player-advanced-search-border
 
 /* Upload Event Page */
 
-.event-details-border h1 {
+.event-details-border h1 
+{
     padding: 10px 0 0 25px;
 }
 
-.event-field-input {
-    background-color: white;
-    padding: 12px;
+.event-field-input 
+{
+    background-color: var(--form-input-background);
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
     transform: translate(5%, 0%);
     text-align: left;
     width: 500px;
     height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border: 1px solid var(--form-input-border);
+    box-shadow: none;
     margin-top: 6px;
     margin-bottom: 16px;
 }
 
-.event-rows {
+.event-rows 
+{
     width: 525px;
 }
 
-.event-details-row {
+.event-details-row 
+{
     float: left;
     display: inline-grid;
     padding: 0 25px;
 }
 
-.event-details-row2 {
+.event-details-row2 
+{
     float: right;
     display: inline-grid;
 }
 
-.input-table {}
-
-.event-field-date {
-    background-color: white;
-    padding: 1px 0 0 7px;
+.event-field-date 
+{
+    background-color: var(--form-input-background);
+    padding: 0px 10px 0px 10px;
     text-align: left;
     width: 200px;
     height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border: 1px solid var(--form-input-border);
+    box-shadow: none;
     margin-top: 6px;
     margin-bottom: 16px;
 }
 
-input[type="date"]::-webkit-inner-spin-button {
+input[type="date"]::-webkit-inner-spin-button 
+{
     opacity: 0;
 }
 
@@ -2850,113 +2854,100 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     opacity: 0.8;
 }
 
-.sport-type {
-    background-color: white;
-    padding: 1px 0 0 7px;
+.Host-country 
+{
+    background-color: var(--form-input-background);
+    font-size: var(--font-small);
     text-align: left;
     width: 200px;
     height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border: 1px solid var(--form-input-border);
+    padding: 0px 10px 0px 10px;
     margin-top: 6px;
     margin-bottom: 16px;
 }
 
-.Host-country {
-    background-color: white;
-    padding: 1px 0 0 7px;
+.Host-state 
+{
+    background-color: var(--form-input-background);
+    font-size: var(--font-small);
     text-align: left;
     width: 200px;
     height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 6px;
-    margin-bottom: 16px;
-}
-
-.Host-state {
-    background-color: white;
-    padding: 1px 0 0 7px;
-    text-align: left;
-    width: 200px;
-    height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border: 1px solid var(--form-input-border);
+    padding: 0px 10px 0px 10px;
     margin-top: 6px;
     margin-bottom: 16px;
 }
 
 .event-type {
-    background-color: white;
-    padding: 1px 0 0 7px;
+    background-color: var(--form-input-background);
+    font-size: var(--font-small);
     text-align: left;
     width: 200px;
     height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border: 1px solid var(--form-input-border);
+    padding: 0px 10px 0px 10px;
     margin-top: 6px;
     margin-bottom: 16px;
 }
 
 .match-input {
-    background-color: white;
-    padding: 1px 0 0 7px;
+    background-color: var(--form-input-background);
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
     text-align: left;
     width: 200px;
     height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    border: 1px solid var(--form-input-border);
+    padding: 0px 10px 0px 10px;
+    box-shadow: none;
     margin-top: 6px;
     margin-bottom: 16px;
 }
 
 .match-number-input {
-    background-color: #0091d2;
-    border: none;
+    background: var(--primary-color);
+    border-radius: 5px;
     color: var(--text-light);
-    width: 200px;
-    height: 40px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
     font-size: var(--font-medium);
+    text-decoration: none;
+    padding: 6px 10px 6px 10px;
+    width: 200px;
     margin: 4px 2px;
     cursor: pointer;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
+   
+}
+.match-number-input:hover 
+{
+    background: var(--primary-color-light);
 }
 
 
 
 
-
-.match-number-input:hover {
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-}
-
-.fill-help {
+.fill-help 
+{
     transform: translate(-224px, 11px);
     display: inline-block;
 }
 
-.fill-help a {
+.fill-help a 
+{
     text-decoration: none;
-    color: blue;
+    color: var(--link-dark);
 }
 
-.win-lose-field {
+.win-lose-field
+{
     width: 100%;
     height: 150px;
     transform: translate(0%, -200%);
     background-color: #E8E8E8;
 }
 
-.win-player-input {
+.win-player-input 
+{
     background-color: white;
     padding: 1px 0 0 7px;
     transform: translate(70%, 0%);
@@ -2970,7 +2961,8 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     margin-bottom: 16px;
 }
 
-.lose-player-input {
+.lose-player-input 
+{
     background-color: white;
     padding: 1px 0 0 7px;
     transform: translate(120%, 0%);
@@ -2984,84 +2976,79 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     margin-bottom: 16px;
 }
 
-.delete-buton {
-    background-color: #0091d2;
-    border: none;
-    color: var(--text-light);
-    padding: 15px 32px;
-    transform: translate(250%, 0%);
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-}
 
-.delete-button {
-    background-color: #0091d2;
-    border: none;
+
+.delete-button 
+{
+    background: var(--primary-color);
+    border-radius: 5px;
     color: var(--text-light);
-    padding: 15px 32px;
+    font-size: var(--font-medium);
+    padding: 6px 10px 6px 10px;
+    width: 200px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 190px;
+    margin: 4px 130px;
     cursor: pointer;
 }
 
-.delete-buton:hover,
-.delete-button:hover {
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+.delete-button:hover 
+{
+    background: var(--primary-color-light);
 }
 
-.find-help {
-    transform: translate(13%, 20%);
-}
-
-.match-submit {
-    background-color: #0091d2;
-    border: none;
+.match-submit 
+{
+    background: var(--primary-color);
+    border-radius: 5px;
     color: var(--text-light);
-    padding: 15px 32px;
+    padding: 6px 10px 6px 10px;
+    width: 200px;
+    height: 40px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border-radius: 20px;
-    font-size: 16px;
+    font-size: var(--font-medium);
     margin: 10px 60px;
     cursor: pointer;
-    -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
 }
 
-.match-submit:hover {
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+.match-submit:hover 
+{
+    background: var(--primary-color-light);
 }
 
-.more-matches {
+.more-matches 
+{
     margin: 0px 34px;
     padding: 22px 0 0 0px;
 }
 
-.more-matches a {
+.more-matches a 
+{
     text-decoration: none;
-    color: blue;
+    color: var(--link-dark);
 }
 
-.match-input-table {
+.more-matches a:hover 
+{
+    color: var(--link-light);
+}
+
+.match-input-table 
+{
     width: 100%;
     margin: 25px 0;
-    background-color: #E8E8E8;
+    background-color: var(--form-input-border);
     border-collapse: collapse;
 }
 
-.match-input-table tr {
+.match-input-table tr 
+{
     height: 125px;
-    border-bottom: 2pt solid white;
+    border-bottom: 2pt solid var(--text-light);
 }
 
 .match-input-table td
@@ -3069,20 +3056,18 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   display: inline-grid;
 }
 
-.event-type,
-.sport-type {
-    font-size: var(--font-small);
-}
-
-.match-detail-heading {
+.match-detail-heading 
+{
     font-size: var(--font-medium);
 }
 
-.match-detail-heading b {
+.match-detail-heading b 
+{
     padding: 0px 30px;
 }
 
-.add-match {
+.add-match 
+{
     padding: 0px 30px;
 }
 
@@ -3091,12 +3076,19 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   padding: 0 30px;
 }
 
-.add-player-link a {
+.add-player-link a 
+{
     color: blue;
     text-decoration: none;
 }
 
-.winner-field {
+.winner-loser-field
+{
+    
+}
+
+.winner-field 
+{
     background-color: white;
     padding: 1px 0 0 7px;
     width: 200px;
@@ -3107,7 +3099,8 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     margin-left: 30px;
 }
 
-.loser-field {
+.loser-field 
+{
     background-color: white;
     padding: 1px 0 0 7px;
     width: 200px;
@@ -3117,25 +3110,49 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     margin: 0px 35px;
 }
 
-.ad-search a {
+.ad-search a 
+{
     text-decoration: none;
     color: blue;
     margin-left: 115px;
 }
 
-.ad-search1 a {
+.ad-search1 a 
+{
     text-decoration: none;
     color: blue;
     margin-left: 125px;
 }
 
-.match-heading {
+.match-heading 
+{
     margin: 0px 18px;
     width: 100%;
 }
 
-.ui-widget {
+.ui-widget 
+{
     display: none;
+}
+
+/* inserting line-break through css  */
+
+.break:before 
+{
+    content: '\A';
+    font-size: 0;
+    display: block;
+    line-height: 1;
+    margin-top: 10px;
+}
+
+.break:after 
+{
+    content: '\A';
+    font-size: 0;
+    display: block;
+    line-height: 0;
+    margin-top: 10px;
 }
 
 
@@ -3486,20 +3503,3 @@ footer a {
 }
 
 
-/* inserting line-break through css  */
-
-.break:before {
-    content: '\A';
-    font-size: 0;
-    display: block;
-    line-height: 1;
-    margin-top: 10px;
-}
-
-.break:after {
-    content: '\A';
-    font-size: 0;
-    display: block;
-    line-height: 0;
-    margin-top: 10px;
-}
