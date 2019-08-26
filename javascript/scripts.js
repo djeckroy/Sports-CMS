@@ -295,16 +295,39 @@ function showUploadMatchRows() {
                     var table = document.getElementById("match-input-table");
 
                     if (table.rows.length !== 0) {
-                        for (var deleteCycle = table.rows.length - 1; deleteCycle >= 0; deleteCycle--) {
-                            table.deleteRow(deleteCycle);
+
+
+                        if (x == 1) {
+                            var check = confirm("Are you sure you wish to change match type? You will lose any un-submitted double event on this page");
+                            if (check == true) {
+                                for (var deleteCycle = table.rows.length - 1; deleteCycle >= 0; deleteCycle--) {
+                                    table.deleteRow(deleteCycle);
+                                }
+                            } else {
+                                return;
+                            }
+                        } else {
+
+                            var check = confirm("Are you sure you wish to change match type? You will lose any un-submitted single event on this page");
+                            if (check == true) {
+                                for (var deleteCycle = table.rows.length - 1; deleteCycle >= 0; deleteCycle--) {
+                                    table.deleteRow(deleteCycle);
+                                }
+                            } else {
+                                return;
+                            }
                         }
+
+
                     }
 
                     var a = document.getElementById("event-type").value;
                     var dbl;
                     if (a == 'Double') {
-
+                        x = 1;
                         dbl = 1;
+                    } else {
+                        x = 0;
                     }
                     for (var insertCycle = 0; insertCycle < matchRows; insertCycle++) {
                         addEventRow(dbl);
@@ -831,6 +854,28 @@ $("#event-upload-form").submit(function() {
     return rtn;
 
 });
+
+
+//chnageing match type and updating table accordingly
+
+
+
+var x = 0;
+
+function changeValue() {
+    var matchRows = document.getElementById("match-field-input").value;
+
+    var table = document.getElementById("match-input-table");
+
+    if (table.rows.length !== 0) {
+
+        showUploadMatchRows();
+
+    } else {
+        return;
+    }
+
+}
 
 /**
  * ---------------------------------------------- *

@@ -55,7 +55,7 @@
 
                     <div class="event-details-row2">
 
-                        <select class="event-type" id="event-type" name="event-type" required>
+                        <select class="event-type" id="event-type" name="event-type" required onchange="changeValue();">
                             <option disabled selected value="">Match type</option>
                             <option value="Single">Singles</option>
                             <option value="Double">Doubles</option>
@@ -88,6 +88,7 @@
 
 
         </form>
+
     </article>
 
     <!-- advanced search -->
