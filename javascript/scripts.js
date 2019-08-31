@@ -424,7 +424,7 @@ function addEventRow(dbl)
                 
                         var newlabel0 = document.createElement("Label");
                         newlabel0.setAttribute('class', 'find-help');
-                        newlabel0.innerHTML = "<b style='margin: 0px 18px; font-size:24px;'>#Match details</b><br/>";
+                        newlabel0.innerHTML = "<b style='margin: 2px 18px; font-size:24px;'>Match details</b><br/>";
                         cell1.appendChild(newlabel0);
                 
                 
@@ -474,6 +474,7 @@ function addEventRow(dbl)
                             newlabel11.innerHTML = "</br>" + result11;
                             cell1.appendChild(newlabel11);
                         }
+    
                         
                         var newlabel2 = document.createElement("Label");
                         newlabel2.setAttribute('class', 'find-help');
@@ -493,7 +494,7 @@ function addEventRow(dbl)
                 
                         var insertCell3 = document.createElement("input");
                         insertCell3.setAttribute('type', 'text');
-                        insertCell3.setAttribute('style', 'margin-top:25px');
+                        insertCell3.setAttribute('style', 'margin-top:20px');
                         insertCell3.setAttribute('class', 'match-field-input winner-loser-field loser-field');
                         insertCell3.setAttribute('name', 'loser-name[]');
                         insertCell3.placeholder = "Losing Player";
