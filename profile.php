@@ -181,7 +181,7 @@
 
             echo "<tr>
                     <td>
-                      <a id='team-table-link' href='team-profile.php?team-profile-id=".$row['team_id']."'>Team".$numberOfTeams."</a>
+                      <a id='team-table-link' href='team-profile.php?team-id=".$row['team_id']."'>Team".$numberOfTeams."</a>
                     </td>
                   </tr>";
           }

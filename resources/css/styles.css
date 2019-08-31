@@ -492,14 +492,15 @@ article
 
   #player-search-filter-title
   {
-    color: lightblue;
+    color: #7EBBDA;
   }
 
   #player-search-filter-line
   {
     border-bottom: 1px solid #fff; 
     padding-bottom: 3px;
-    width: 82.3%;
+    margin-left: 20px;
+    width: 96%;
     display: inline-block;
   }
 
@@ -634,10 +635,16 @@ article
     padding-left: 20px;
   }
 
-  #player-name-link
+  #player-name-link:link
   {
     text-decoration: none;
-    color: var(--primary-color-dark);
+    color: #7EBBDA;
+  }
+
+  #player-name-link:visited
+  {
+    text-decoration: none;
+    color: #551A8B;
   }
 
   .player-search-pagination-buttons-container

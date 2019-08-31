@@ -1220,11 +1220,10 @@ function updateProfileSport()
  {
     //get the team id from url
      var params = (new URL(document.location)).searchParams;
-     var teamID = params.get('team-profile-id');
+     var teamID = params.get('team-id');
      
      //get sport ID
      sportID = $("#team-profile-sport-id").val();
-     alert(sportID);
     
     //run ajax to recent event histories
     $.ajax
@@ -1241,7 +1240,6 @@ function updateProfileSport()
         },
         success: function(data) 
         {
-            alert(data);
             //parse the returned data
             var jsonData = JSON.parse(data);
             

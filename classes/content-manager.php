@@ -844,7 +844,7 @@ class ContentManager
 	{
 		$query = "SELECT
 						player.player_id, 
-						CONCAT_WS(' ', player.given_name, player.family_name) AS player_name, 
+						CONCAT_WS(' ', player.family_name, player.given_name) AS player_name, 
 						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) AS player_age,
 						DATE_FORMAT(player.last_played, '%d %M %Y') AS last_played,
 						club.name AS club_name, 
@@ -857,16 +857,16 @@ class ContentManager
 						country ON country.country_id = player.country_id INNER JOIN 
 						state ON state.state_id = player.state_id
 					WHERE 
-						CONCAT_WS(' ', player.given_name, player.family_name) LIKE ? AND 
+						(player.family_name LIKE ? OR player.given_name LIKE ? OR CONCAT_WS(' ', player.family_name, player.given_name) LIKE ? OR CONCAT_WS(' ', player.given_name, player.family_name) LIKE ?) AND 
 						(TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) BETWEEN ? AND ?) AND
 						player.last_played LIKE ? AND  
 						club.name LIKE ? AND 
 						country.name LIKE ? AND 
 						state.name LIKE ?
-						ORDER BY CONCAT_WS(' ', player.given_name, player.family_name) 
+						ORDER BY CONCAT_WS(' ', player.family_name, player.given_name) 
 						LIMIT " . $start . ", " . $amount;
 
-		$result = $this->database->query($query, ["$playerName%", $playerAgeMin, $playerAgeMax, "$lastPlayed%", "$clubName%", "$countryName%", "$stateName%"]);
+		$result = $this->database->query($query, ["$playerName%", "$playerName%", "$playerName%", "$playerName%", $playerAgeMin, $playerAgeMax, "$lastPlayed%", "%$clubName%", "$countryName%", "$stateName%"]);
 
 		return $result; 
 	}
@@ -875,7 +875,7 @@ class ContentManager
 	{
 		$query = "SELECT
 						player.player_id, 
-						CONCAT_WS(' ', player.given_name, player.family_name) AS player_name, 
+						CONCAT_WS(' ', player.family_name, player.given_name) AS player_name, 
 						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) AS player_age,
 						DATE_FORMAT(player.last_played, '%d %M %Y') AS last_played,
 						club.name AS club_name, 
@@ -888,14 +888,14 @@ class ContentManager
 						country ON country.country_id = player.country_id INNER JOIN 
 						state ON state.state_id = player.state_id
 					WHERE 
-						CONCAT_WS(' ', player.given_name, player.family_name) LIKE ? AND 
+						(player.family_name LIKE ? OR player.given_name LIKE ? OR CONCAT_WS(' ', player.family_name, player.given_name) LIKE ? OR CONCAT_WS(' ', player.given_name, player.family_name) LIKE ?) AND 
 						(TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) BETWEEN ? AND ?) AND
 						player.last_played LIKE ? AND  
 						club.name LIKE ? AND 
 						country.name LIKE ? AND 
 						state.name LIKE ?";
 
-		$result = $this->database->query($query, ["$playerName%", $playerAgeMin, $playerAgeMax, "$lastPlayed%", "$clubName%", "$countryName%", "$stateName%"]);
+		$result = $this->database->query($query, ["$playerName%", "$playerName%", "$playerName%", "$playerName%", $playerAgeMin, $playerAgeMax, "$lastPlayed%", "%$clubName%", "$countryName%", "$stateName%"]);
 
 		return $result->rowCount();
 	}
