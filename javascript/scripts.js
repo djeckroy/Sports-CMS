@@ -685,12 +685,12 @@ $( function() {
  //event listener for change of country
 $("#country-id").change(function()
 {
-    uploadEventChangeStates($("#country-id"),$("#state-name"));
+    uploadEventChangeStates($(this),$("#state-name"));
 });
  
 function uploadEventChangeStates(countryCombo, stateCombo)
 {
-    var country = countryCombo.val();
+    var country = countryCombo.find(":selected").val();
 
     //clear the options
     stateCombo.empty();
@@ -1053,7 +1053,6 @@ function updateProfileSport()
 
  function addEventHistory(changeSport)
  {
-
     //get the player id from url
 	 var params = (new URL(document.location)).searchParams;
 	 var playerID = params.get(getVariableName);
@@ -1083,7 +1082,6 @@ function updateProfileSport()
         },
         success: function(data) 
         {
-            
             //parse the returned data
             var jsonData = JSON.parse(data);
             
@@ -1119,9 +1117,72 @@ function updateProfileSport()
             
             $("#player-history-table-body").html(currentHTML);
         }
-    });
-    
+    });   
  }
+
+ function addTeamEventHistory()
+ {
+    //get the team id from url
+     var params = (new URL(document.location)).searchParams;
+     var teamID = params.get('team-id');
+     
+     //get sport ID
+     sportID = $("#team-profile-sport-id").val();
+    
+    //run ajax to recent event histories
+    $.ajax
+    ({
+        url: "./ajax.php",
+        type: "POST",
+        dataType: "text",
+        data:
+        {
+            teamID: teamID,
+            sportID: sportID,
+            limitOffset: eventHistoryRowCount,
+            ajaxMethod: "team-event-history"
+        },
+        success: function(data) 
+        {
+            //parse the returned data
+            var jsonData = JSON.parse(data);
+            
+            var currentHTML = $("#team-history-table-body").html();
+            
+            for (var i=0; i<jsonData.length; i++)
+            {
+                var event = jsonData[i][0];
+                                
+                if ((eventHistoryRowCount % 2) == 0)
+                {
+                    // 'even' row
+                    currentHTML = currentHTML + "<tr class='even-row'>";
+                }
+                else
+                {
+                    currentHTML = currentHTML + "<tr class='odd-row'>";
+                }
+                
+                currentHTML = currentHTML + "<td>" + event.event_name + "</td>";
+                currentHTML = currentHTML + "<td>" + event.meanBefore + " &plusmn;" + event.SDBefore + "</td>";
+                
+                var pointChange = event.meanAfter - event.meanBefore;
+                
+                currentHTML = currentHTML + "<td>" + (pointChange<0?"":"+") + pointChange + "</td>";
+                currentHTML = currentHTML + "<td>" + event.meanAfter + " &plusmn;" + event.SDAfter + "</td>";
+                
+                currentHTML = currentHTML + "</td>";
+                
+                
+                eventHistoryRowCount++;
+            }
+            
+            $("#team-history-table-body").html(currentHTML);
+        }
+    });   
+ }
+
+ $("#team-table-link").click(addTeamEventHistory());
  
  $( function(){
     $(".profile-sport-name").html($("#profile-select-sport option:selected").text());
@@ -1131,6 +1192,11 @@ function updateProfileSport()
  $("#player-history-view-more").click(function(){
         addEventHistory(false);
  });
+
+ $("#team-history-view-more").click(function(){
+        addTeamEventHistory();
+ });
+
 /*
  * -------------------------------------------------------------*
  * 		Begin Add Player Section								*

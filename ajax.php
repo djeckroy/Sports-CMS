@@ -1,20 +1,31 @@
 <?php
 require("./includes/initialize.php");
 
-//var_dump($_POST);
-
 switch($_POST['ajaxMethod'])
 {
 	case "player-event-history":
-		$result = $contentManager->getPlayersRecentEvents($_POST['playerID'], $_POST['sportID'],$_POST['limitOffset']);
+		$result = $contentManager->getPlayersRecentEvents($_POST['playerID'], $_POST['sportID'], $_POST['limitOffset']);
 		
-		//var_dump($result);
 		$response = array();
 
 		while ($row = $result->fetch())
 		{
 			$response[] = array($row);
 		}
+
+		echo json_encode($response);
+		break;
+	case "team-event-history":
+		$result = $contentManager->getTeamRecentEvents($_POST['teamID'], $_POST['sportID'], $_POST['limitOffset']);
+		
+		$response = array();
+
+		while ($row = $result->fetch())
+		{
+			$response[] = array($row);
+		}
+
+		//echo var_dump($result->fetchAll());
 
 		echo json_encode($response);
 		break;
