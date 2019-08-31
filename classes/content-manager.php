@@ -187,7 +187,7 @@ class ContentManager
 	}
 
 
-	public function createEvent($name, $countryID, $stateID, $sportType, $eventType, $date)
+	public function createEvent($name, $countryID, $stateID, $sportType, $eventType, $date, $clubID)
 	{
 		$formatedDate = date_format(date_create($date), 'Y-m-d');
 		
@@ -197,6 +197,9 @@ class ContentManager
 
 		$idQuery = $this->database->query("SELECT LAST_INSERT_ID()", null);
 		$id = $idQuery->fetchColumn();
+		
+		$query = "INSERT INTO `plays_at` (`club_id`, `event_id`) VALUES (?, ?);";
+		$result = $this->database->query($query,[$clubID,$id]);
 
 		return $id;
 	}
@@ -267,6 +270,31 @@ class ContentManager
 
 		return $result;
 	}
+  public function getAllPlayersByAdvancedSearch($nameFilter)
+  {
+    $unfiltered = preg_replace("/[^a-zA-Z0-9\s]/", "", $nameFilter);
+		$nameString = explode(" ", $unfiltered);
+
+		if(count($nameString) == 2)
+		{
+			$query = "SELECT `player_id`, `given_name`, `family_name`, country.name AS country, state.name AS state FROM player JOIN state ON player.state_id = state.state_id JOIN country ON player.country_id = country.country_id WHERE given_name LIKE '%" . $nameString[0] . "%' OR
+				family_name LIKE '%" . $nameString[1] . "%'";
+		}
+		else if(count($nameString) == 1)
+		{
+			$query = "SELECT `player_id`, `given_name`, `family_name`, country.name AS country, state.name AS state FROM player JOIN state ON player.state_id = state.state_id JOIN country ON player.country_id = country.country_id WHERE given_name LIKE '%" . $nameFilter . "%' OR
+				family_name LIKE '%" . $nameFilter . "%'";
+		}
+		else
+		{
+			//No error handling atm
+		}
+
+		$result = $this->database->query($query, null); 
+
+		return $result;
+    
+  }
 	
 
 	public function getEventSport($eventID)
@@ -808,7 +836,7 @@ class ContentManager
 	 * winners and losers of each match in a tournament.
 	 * 
 	 */
-	public function updateAfterMatchStatisticComputed($tournamentDate, $sportID, $matchID, $winnerID, $winnerNewMean, $winnerNewSD, $loserID, $loserNewMean, $loserNewSD)
+	public function updateAfterMatchStatisticComputed($tournamentDate, $sportID, $matchID, $winnerID, $winnerNewMean, $winnerNewSD, $loserID, $loserNewMean, $loserNewSD, $doubles)
 	{
 		//update entry in game
 		$query = "UPDATE game
@@ -824,16 +852,38 @@ class ContentManager
 		
 		//update players ratings.
 		
-		$query = "UPDATE player, rating
-					SET
-						player.last_played = STR_TO_DATE(?,'%d/%m/%Y'),
-						rating.mean = ?,
-						rating.standard_deviation = ?,
-						rating.last_calculated = NOW()
-					WHERE
-						player.player_id = ? AND
-						player.player_id = rating.player_id AND
-						rating.sport_id = ?;";
+		if ($doubles)
+		{
+			//doubles match
+			$query = "UPDATE rating, team, player
+						SET
+							player.last_played = STR_TO_DATE(?,'%d/%m/%Y'),
+							rating.mean = ?,
+							rating.standard_deviation = ?,
+							rating.last_calculated = NOW()
+						WHERE
+							team.team_id= ? AND
+							team.team_id = rating.team_id AND
+							rating.sport_id = ? AND
+                            (
+                                player.player_id = team.player_one_id OR
+                                player.player_id = team.player_two_id
+                             );";
+		}
+		else
+		{
+			//singles match
+			$query = "UPDATE player, rating
+			SET
+				player.last_played = STR_TO_DATE(?,'%d/%m/%Y'),
+				rating.mean = ?,
+				rating.standard_deviation = ?,
+				rating.last_calculated = NOW()
+			WHERE
+				player.player_id = ? AND
+				player.player_id = rating.player_id AND
+				rating.sport_id = ?;";
+		}
 
 		$result = $this->database->query($query,[$tournamentDate,$winnerNewMean,$winnerNewSD,$winnerID,$sportID]);
 		
@@ -867,6 +917,7 @@ class ContentManager
 						LIMIT " . $start . ", " . $amount;
 
 		$result = $this->database->query($query, ["$playerName%", "$playerName%", "$playerName%", "$playerName%", $playerAgeMin, $playerAgeMax, "$lastPlayed%", "%$clubName%", "$countryName%", "$stateName%"]);
+
 
 		return $result; 
 	}

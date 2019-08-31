@@ -18,6 +18,9 @@
 <article class="event-details-border">
 
     <form class="event-upload-form" id="event-upload-form"  autocomplete="off" action=".\process-event.php" method="post">
+		
+		<input value=<?php echo ("'".$account->getRegisteredClubSportID()."'");?> id="sport-type" name="sport-type" hidden/>
+		
         <h1 class="event-details-header">Event Upload-Details</h1>
 
         <div class="event-form" action="">
@@ -27,17 +30,8 @@
                     title="Event name must be within 1-90 characters and can contain letters and numbers"><br /><br />
                 <input class="event-field-date" name="event-date" id="event-date" placeholder="Event Start Date"
                     required type="text" onfocus="(this.type='date')" onblur="(this.type='text')"><br />
-                <select class="sport-type" name="sport-type" id="sport-type" required>
-                    <option value="">Event Sport Type</option>
-                    <?php
-            $sports = $contentManager->getAllSports();
-
-            while ($sport = $sports->fetch())
-            {
-                echo "<option value=\"".$sport["sport_id"]."\">".$sport["name"]."</option>";
-            }
-        ?>
-                </select><br /><br />
+                
+                <br /><br /><br /><br />
                 <select class="Host-country" name="country-id" id="country-id">
 
                     <?php
@@ -46,7 +40,7 @@
 			{
 				echo "<option value=\"".$country["country_id"]."\">".$country["name"]."</option>";
 			}
-		  ?>
+		        ?>
                 </select>
                 <br /><br />
                 <!-- <input class="event-field-input" type="text" name="state-name" placeholder="State"><br/><br/> -->
@@ -55,23 +49,21 @@
                 <br /><br />
             </div>
 
-            <select class="event-type" id = "type" name="event-type" required>
-                <option value="">Match type</option>
+            <select class="event-type" id="event-type" name="event-type" required>
+                <option disabled selected value="">Match type</option>
                 <option value="Single">Singles</option>
                 <option value="Double">Doubles</option>
             </select><br /><br />
             <input class="match-input" id="match-field-input" type="number" id="match-number" name="match-number"
                 placeholder="Number of Matches" pattern="[0-9]{1,3}" title="Number must be within 1-300">
-            <button class="match-number-input" id="match-submit" name="match-number-submission" value="Add Matches"
-                onclick="showUploadMatchRows(); return false;">Add Matches</button>
+            <button class="match-number-input" id="match-number-submit" name="match-number-submission" value="Add Matches" type="button">Add Matches</button>
             <p class="fill-help"> Need Help on how to fill the Event upload form? Click <a href="#">Here</a></p>
            <div> <table class="match-input-table" id="match-input-table"></table></div>
         </div>
 
 
         <div class="ui-widget" id = "submit_event">
-            <p class="more-matches"> Need more matches? Cick <a name="add-button" id="add-button"
-                    onclick="addMoreRows(); return false;" href="#">Here</a></p>
+            <p class="more-matches"> Need more matches? Click <a name="add-button" id="add-button" onclick="addMoreRows(); return false;" href="#">Here</a></p>
             <input class="match-submit" id="match-final-submit" type="submit" name="event-page-submission"
                 value="Submit Event"><br />
 

@@ -168,7 +168,7 @@ article
     display: none;
     position: absolute;
     top: 80px;
-    right: -100px;
+    right: -70px;
     background-color: var(--form-background);
     height: auto;
     width: 300px;
@@ -3231,7 +3231,13 @@ player-advanced-search-border
 
 /* Upload Event Page */
 
-.event-details-border h1 {
+.event-details-border
+{
+  min-height: 600px;
+}
+
+.event-details-border h1 
+{
     padding: 10px 0 0 25px;
 }
 
@@ -3262,6 +3268,23 @@ player-advanced-search-border
     margin-top: 6px;
     margin-bottom: 16px;
 }
+input[type="date"]::-webkit-inner-spin-button
+  {
+    opacity: 0;
+  }
+    
+  input[type="date"]::-webkit-calendar-picker-indicator 
+  {
+    background: url(https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/calendar-16.png) center/80% no-repeat;
+    color: rgba(0, 0, 0, 0);
+    opacity: 0.5;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator:hover 
+  {
+    background: url(https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/calendar-16.png) center/80% no-repeat;
+    opacity: 0.8;
+  }
 
 .sport-type {
     background-color: white;
@@ -3336,7 +3359,7 @@ player-advanced-search-border
 .match-number-input {
     background-color: #0091d2;
     border: none;
-    color: black;
+    color: var(--text-light);
     padding: 15px 32px;
     transform: translate(230%, -615%);
     text-align: center;
@@ -3405,7 +3428,7 @@ player-advanced-search-border
 .delete-buton {
     background-color: #0091d2;
     border: none;
-    color: black;
+    color: var(--text-light);
     padding: 15px 32px;
     transform: translate(250%, 0%);
     text-align: center;
@@ -3421,7 +3444,7 @@ player-advanced-search-border
 .delete-button {
     background-color: #0091d2;
     border: none;
-    color: black;
+    color: var(--text-light);
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -3443,7 +3466,7 @@ player-advanced-search-border
 .match-submit {
     background-color: #0091d2;
     border: none;
-    color: black;
+    color: var(--text-light);
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -3572,7 +3595,7 @@ player-advanced-search-border
   {
     width:100%;
     height:100%;
-    position: absolute;
+    position: fixed;
     margin: 0px 0px 0px 0px;
     top:0;
     display:flex;
@@ -3584,8 +3607,9 @@ player-advanced-search-border
   #player-given-name, #player-family-name,  #player-email, .player-club, .player-gender, #player-birth-date
   {
     height: 40px;
-    padding-left: 5px;
+    padding-left:5px ;
     width: 200px;
+    margin: 0px 10px 0px 10px;
   }
 
 
@@ -3602,7 +3626,8 @@ player-advanced-search-border
 
    #player-family-name,.player-club,#player-birth-date
   {
-    margin-left: 20px;
+    margin:10px 10px 10px 20px;
+    
   }
 
   .input-player-name-wrapper
@@ -3670,6 +3695,16 @@ player-advanced-search-border
     height: 30px;
     margin: 10px 5px 10px 5px;
   }
+.add-player-exit-button
+{
+  position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: var(--font-large);
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: var(--text-light); 
+}
 
 
   /* Advanced Player Search */
@@ -3679,7 +3714,7 @@ player-advanced-search-border
 {
     width:100%;
     height:100%;
-    position: absolute;
+    position: fixed;
     margin: 0px 0px 0px 0px;
     top:0;
     display:flex;
@@ -3725,7 +3760,7 @@ player-advanced-search-border
 {
   width:100%;
   height:100%;
-  position: absolute;
+  position: fixed;
   top:0;
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 5px;
