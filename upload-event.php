@@ -18,6 +18,9 @@
 <article class="event-details-border">
 
     <form class="event-upload-form" id="event-upload-form"  autocomplete="off" action=".\process-event.php" method="post">
+		
+		<input value=<?php echo ("'".$account->getRegisteredClubSportID()."'");?> id="sport-type" name="sport-type" hidden/>
+		
         <h1 class="event-details-header">Event Upload-Details</h1>
 
         <div class="event-form" action="">
@@ -27,17 +30,8 @@
                     title="Event name must be within 1-90 characters and can contain letters and numbers"><br /><br />
                 <input class="event-field-date" name="event-date" id="event-date" placeholder="Event Start Date"
                     required type="text" onfocus="(this.type='date')" onblur="(this.type='text')"><br />
-                <select class="sport-type" name="sport-type" id="sport-type" required>
-                    <option disabled selected value="">Event Sport Type</option>
-                    <?php
-            $sports = $contentManager->getAllSports();
-
-            while ($sport = $sports->fetch())
-            {
-                echo "<option value=\"".$sport["sport_id"]."\">".$sport["name"]."</option>";
-            }
-                  ?>
-                </select><br /><br />
+                
+                <br /><br /><br /><br />
                 <select class="Host-country" name="country-id" id="country-id">
 
                     <?php

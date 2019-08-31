@@ -73,11 +73,11 @@ class ContentManager
 		$result = $this->database->query($query, [$accountID, $clubID]);
 	}
 	
-	public function getPlayerSports($player_id)
+	public function getPlayerSports($playerID)
 	{
 		$query = "SELECT DISTINCT rating.sport_id, sport.name FROM rating INNER JOIN sport ON rating.sport_id = sport.sport_id WHERE player_id = ? ";
 		
-		$result = $this->database->query($query, [$player_id]);
+		$result = $this->database->query($query, [$playerID]);
 
 		return $result;
 	}
@@ -187,7 +187,7 @@ class ContentManager
 	}
 
 
-	public function createEvent($name, $countryID, $stateID, $sportType, $eventType, $date)
+	public function createEvent($name, $countryID, $stateID, $sportType, $eventType, $date, $clubID)
 	{
 		$formatedDate = date_format(date_create($date), 'Y-m-d');
 		
@@ -197,6 +197,9 @@ class ContentManager
 
 		$idQuery = $this->database->query("SELECT LAST_INSERT_ID()", null);
 		$id = $idQuery->fetchColumn();
+		
+		$query = "INSERT INTO `plays_at` (`club_id`, `event_id`) VALUES (?, ?);";
+		$result = $this->database->query($query,[$clubID,$id]);
 
 		return $id;
 	}
@@ -335,6 +338,24 @@ class ContentManager
 
 		return ($result['team_id']);
 	}
+
+	public function getTeamSports($teamID)
+	{
+		$query = "SELECT DISTINCT rating.sport_id, sport.name FROM rating INNER JOIN sport ON rating.sport_id = sport.sport_id WHERE rating.team_id = ? ";
+		
+		$result = $this->database->query($query, [$teamID])->fetch();
+
+		return $result;
+	}
+
+	public function listPlayerTeams($playerID)
+	{
+		$query = "SELECT team_id FROM team WHERE player_one_id = ? OR player_two_id = ?";
+
+		$result = $this->database->query($query, [$playerID, $playerID]);
+
+		return $result;
+	}
 	
 	public function createTeam($playerID1, $playerID2)
 	{
@@ -386,6 +407,67 @@ class ContentManager
 		
 		return $result->fetch();
 	}
+
+	public function getTeamRecentEvents($teamID, $sportID, $limitOffset = 0, $limitCount = 5)
+	{
+		$query = 	"SELECT * FROM
+					( SELECT
+					event.event_id, event.name as event_name, event.start_date AS event_date, MAX(game_result.game_result_id) AS lastGameResultID
+					FROM event
+					JOIN game ON event.event_id = game.event_id
+					JOIN game_result ON game.game_id = game_result.game_id
+					WHERE
+					game_result.team_id = ?
+					AND
+					event.sport_id = ? 
+					GROUP BY event.event_id
+					ORDER BY lastGameResultID DESC
+					) AS teamEvents,
+					( SELECT
+					 game_result.game_result_id AS gameResult,
+					CASE
+							WHEN game_result.won = 'Y' THEN
+								game.mean_before_winning
+							WHEN game_result.won = 'N' THEN
+								game.mean_before_losing
+							END
+						AS meanBefore,
+						CASE
+							WHEN game_result.won = 'Y' THEN
+								game.mean_after_winning
+							WHEN game_result.won = 'N' THEN
+								game.mean_before_losing
+							END
+						AS meanAfter,
+						CASE
+							WHEN game_result.won = 'Y' THEN
+								game.standard_deviation_before_winning
+							WHEN game_result.won = 'N' THEN
+								game.standard_deviation_before_losing
+							END
+						AS SDBefore,
+						CASE
+							WHEN game_result.won = 'Y' THEN
+								game.standard_deviation_after_winning
+							WHEN game_result.won = 'N' THEN
+								game.standard_deviation_after_losing
+							END
+						AS SDAfter
+					 FROM game_result 
+					 JOIN game ON game_result.game_id = game.game_id
+					 ) AS teamRatings
+					 WHERE teamRatings.gameResult = teamEvents.lastGameResultID
+					LIMIT ?,?";
+		
+		$this->database->fixLimitProblem(false);
+		
+		$result = $this->database->query($query, [$teamID, $sportID, $limitOffset, $limitCount]);
+		
+		$this->database->fixLimitProblem(true);
+		
+		return $result;
+
+	}
 	
 	public function getTeamPlayers($teamID)
 	{
@@ -394,6 +476,31 @@ class ContentManager
 					team.team_id = ?";
 		$result = $this->database->query($query, [$teamID])->fetch();
 		
+		return $result;
+	}
+
+	public function getTeamPlayerNames($playerOneID, $playerTwoID)
+	{
+		$query = "SELECT * FROM
+				  (
+				  	SELECT 
+						CONCAT_WS(' ', given_name, family_name) AS player_one
+					FROM
+						player
+					WHERE
+						player_id = ?
+				  ) AS one,
+				  (
+				  	SELECT 
+				  		CONCAT_WS(' ', given_name, family_name) AS player_two
+				  	FROM
+				  		player
+				  	WHERE 
+				  		player_id = ?
+				  ) AS two";
+
+		$result = $this->database->query($query, [$playerOneID, $playerTwoID])->fetch();
+
 		return $result;
 	}
 
@@ -787,7 +894,7 @@ class ContentManager
 	{
 		$query = "SELECT
 						player.player_id, 
-						CONCAT_WS(' ', player.given_name, player.family_name) AS player_name, 
+						CONCAT_WS(' ', player.family_name, player.given_name) AS player_name, 
 						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) AS player_age,
 						DATE_FORMAT(player.last_played, '%d %M %Y') AS last_played,
 						club.name AS club_name, 
@@ -800,16 +907,17 @@ class ContentManager
 						country ON country.country_id = player.country_id INNER JOIN 
 						state ON state.state_id = player.state_id
 					WHERE 
-						CONCAT_WS(' ', player.given_name, player.family_name) LIKE ? AND 
+						(player.family_name LIKE ? OR player.given_name LIKE ? OR CONCAT_WS(' ', player.family_name, player.given_name) LIKE ? OR CONCAT_WS(' ', player.given_name, player.family_name) LIKE ?) AND 
 						(TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) BETWEEN ? AND ?) AND
 						player.last_played LIKE ? AND  
 						club.name LIKE ? AND 
 						country.name LIKE ? AND 
 						state.name LIKE ?
-						ORDER BY CONCAT_WS(' ', player.given_name, player.family_name) 
+						ORDER BY CONCAT_WS(' ', player.family_name, player.given_name) 
 						LIMIT " . $start . ", " . $amount;
 
-		$result = $this->database->query($query, ["%$playerName%", $playerAgeMin, $playerAgeMax, "$lastPlayed%", "$clubName%", "$countryName%", "$stateName%"]);
+		$result = $this->database->query($query, ["$playerName%", "$playerName%", "$playerName%", "$playerName%", $playerAgeMin, $playerAgeMax, "$lastPlayed%", "%$clubName%", "$countryName%", "$stateName%"]);
+
 
 		return $result; 
 	}
@@ -818,7 +926,7 @@ class ContentManager
 	{
 		$query = "SELECT
 						player.player_id, 
-						CONCAT_WS(' ', player.given_name, player.family_name) AS player_name, 
+						CONCAT_WS(' ', player.family_name, player.given_name) AS player_name, 
 						TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) AS player_age,
 						DATE_FORMAT(player.last_played, '%d %M %Y') AS last_played,
 						club.name AS club_name, 
@@ -831,14 +939,14 @@ class ContentManager
 						country ON country.country_id = player.country_id INNER JOIN 
 						state ON state.state_id = player.state_id
 					WHERE 
-						CONCAT_WS(' ', player.given_name, player.family_name) LIKE ? AND 
+						(player.family_name LIKE ? OR player.given_name LIKE ? OR CONCAT_WS(' ', player.family_name, player.given_name) LIKE ? OR CONCAT_WS(' ', player.given_name, player.family_name) LIKE ?) AND 
 						(TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) BETWEEN ? AND ?) AND
 						player.last_played LIKE ? AND  
 						club.name LIKE ? AND 
 						country.name LIKE ? AND 
 						state.name LIKE ?";
 
-		$result = $this->database->query($query, ["$playerName%", $playerAgeMin, $playerAgeMax, "$lastPlayed%", "$clubName%", "$countryName%", "$stateName%"]);
+		$result = $this->database->query($query, ["$playerName%", "$playerName%", "$playerName%", "$playerName%", $playerAgeMin, $playerAgeMax, "$lastPlayed%", "%$clubName%", "$countryName%", "$stateName%"]);
 
 		return $result->rowCount();
 	}

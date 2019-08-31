@@ -426,6 +426,11 @@ article
     position: relative;  
   }
 
+  #team-profile-page-article
+  {
+    min-height: 954px; 
+  }
+
   .search-input 
   {
     height: 50px;
@@ -664,7 +669,7 @@ article
     padding-left: 20px;
   }
 
-  #player-name-link
+  #player-name-link:link
   {
     text-decoration: none;
     color: var(--link-dark);
@@ -673,6 +678,12 @@ article
   #player-name-link:hover
   {
     color: var(--link-light);
+  }
+
+  #player-name-link:visited
+  {
+    text-decoration: none;
+    color: #551A8B;
   }
 
 
@@ -839,11 +850,7 @@ article
 
   .player-history-border
   {
-    display: inline-block;
-    position: relative;
-    left: 50%;
-    transform: translate(-50%, 0);
-    
+    display: inline-block;   
   }
 
   .player-history-border h1
@@ -890,8 +897,50 @@ article
   #player-history-view-more
   {
     float: right;
+  }
+
+  .player-team-border
+  {
+    display: inline-block;
+  }
+
+  .player-team-border h1
+  {
+    color: var(--secondary-color-dark);
+    margin-bottom: 20px;
+  }
+
+  .player-team-table
+  {
+    margin-top: 20px;
+    border-collapse: collapse;
+    border-left: none;
+    border-right: none;
+  }
+
+  .player-team-table td
+  {
+    padding: 2px 10px;
+  }
+
+  #team-table-link
+  {
+    text-decoration: none;
+    color: var(--primary-color-dark);
+  }
+
+  #player-team-view-more
+  {
+    float: right;
   } 
 
+
+  /* Team Profile Page */
+
+  .team-player-names-border
+  {
+    margin-top: 5px;
+  }
 
   /* Account Page */
 
@@ -3237,7 +3286,13 @@ player-advanced-search-border
 
 /* Upload Event Page */
 
-.event-details-border h1 {
+.event-details-border
+{
+  min-height: 600px;
+}
+
+.event-details-border h1 
+{
     padding: 10px 0 0 25px;
 }
 
