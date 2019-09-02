@@ -821,7 +821,7 @@ function setInitialRating(playerID)
         {                
             if(data == "false")
             {
-                showInitialRatingModal(playerID, sportID);
+              showInitialRatingModal(playerID, sportID);
             }              
         }
         
