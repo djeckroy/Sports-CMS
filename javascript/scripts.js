@@ -857,21 +857,20 @@ function setupMatchErrorChecking(){
   });
 }
 
-function changeImageWhenClicked(){
-    $(".favourite-icon").click(function(e){
-        if($(".favourite-icon").attr('src') === "resources/images/favourite-icon-24.png"){
-            $(this).attr('src', 'resources/images/favourite-icon-filled-24.png');
+function favouriteButtonAnimation()
+{
+    $(".favourite-label>img").click(function()
+    {
+        $currentImage = $(this).attr('src');
+        if($currentImage == './resources/images/favourite-icon-24.png')
+        {
+            $(this).attr('src') = './resources/images/favourite-icon-filled-24.png';
         }
-        else{
-            $(this).attr('src', 'resources/images/favourite-icon-24.png');
-        }       
-    });
-}
-
-function enlargeImageWhenHovered(){
-    $(".favourite-icon").hover(function(e){
-        $(this).css('background-image', 'url(resources/images/favourite-icon-36.png)');
-    });
+        else
+        {
+            $(this).attr('src') = './resources/images/favourite-icon-24.png';
+        }
+    });      
 }
 
 /**
@@ -991,12 +990,12 @@ $("#event-upload-form").submit(function(){
  }
 
 //listener for when bookmark button pressed
-$("#favourite-button").click(createBookmark);
+$(".favourite-label").click(createBookmark);
  
 
  $(document).ready(function(){
-			  enlargeImageWhenHovered();
-		  });
+    favouriteButtonAnimation();
+});
  
  /**
   *------------------------------------------------*
@@ -1103,12 +1102,40 @@ function updateProfileSport()
                 }
                 
                 currentHTML = currentHTML + "<td>" + event.event_name + "</td>";
-                currentHTML = currentHTML + "<td>" + event.meanBefore + " &plusmn;" + event.SDBefore + "</td>";
+
+                if(event.SDBefore >= 0 && event.SDBefore <= 50)
+                {
+                    currentHTML = currentHTML + "<td>" + event.meanBefore + "<span class='sd-value-green'>&plusmn" + event.SDBefore + "</span></td>";
+                }
+
+                if(event.SDBefore > 50 && event.SDBefore < 100)
+                {
+                    currentHTML = currentHTML + "<td>" + event.meanBefore + "<span class='sd-value-orange'>&plusmn" + event.SDBefore + "</span></td>";
+                }
+
+                if(event.SDBefore > 100)
+                {
+                    currentHTML = currentHTML + "<td>" + event.meanBefore + "<span class='sd-value-red'>&plusmn" + event.SDBefore + "</span></td>";
+                }
                 
                 var pointChange = event.meanAfter - event.meanBefore;
                 
                 currentHTML = currentHTML + "<td>" + (pointChange<0?"":"+") + pointChange + "</td>";
-                currentHTML = currentHTML + "<td>" + event.meanAfter + " &plusmn;" + event.SDAfter + "</td>";
+
+                if(event.SDAfter >= 0 && event.SDAfter <= 50)
+                {
+                    currentHTML = currentHTML + "<td>" + event.meanAfter + "<span class='sd-value-green'>&plusmn" + event.SDAfter + "</span></td>";
+                }
+
+                if(event.SDAfter > 50 && event.SDAfter < 100)
+                {
+                    currentHTML = currentHTML + "<td>" + event.meanAfter + "<span class='sd-value-orange'>&plusmn" + event.SDAfter + "</span></td>";
+                }
+
+                if(event.SDAfter > 100)
+                {
+                    currentHTML = currentHTML + "<td>" + event.meanAfter + "<span class='sd-value-red'>&plusmn" + event.SDAfter + "</span></td>";
+                }
                 
                 currentHTML = currentHTML + "</td>";
                 
@@ -1165,12 +1192,40 @@ function updateProfileSport()
                 }
                 
                 currentHTML = currentHTML + "<td>" + event.event_name + "</td>";
-                currentHTML = currentHTML + "<td>" + event.meanBefore + " &plusmn;" + event.SDBefore + "</td>";
+
+                if(event.SDBefore >= 0 && event.SDBefore <= 50)
+                {
+                    currentHTML = currentHTML + "<td>" + event.meanBefore + "<span class='sd-value-green'>&plusmn" + event.SDBefore + "</span></td>";
+                }
+
+                if(event.SDBefore > 50 && event.SDBefore < 100)
+                {
+                    currentHTML = currentHTML + "<td>" + event.meanBefore + "<span class='sd-value-orange'>&plusmn" + event.SDBefore + "</span></td>";
+                }
+
+                if(event.SDBefore > 100)
+                {
+                    currentHTML = currentHTML + "<td>" + event.meanBefore + "<span class='sd-value-red'>&plusmn" + event.SDBefore + "</span></td>";
+                }
                 
                 var pointChange = event.meanAfter - event.meanBefore;
                 
                 currentHTML = currentHTML + "<td>" + (pointChange<0?"":"+") + pointChange + "</td>";
-                currentHTML = currentHTML + "<td>" + event.meanAfter + " &plusmn;" + event.SDAfter + "</td>";
+
+                if(event.SDAfter >= 0 && event.SDAfter <= 50)
+                {
+                    currentHTML = currentHTML + "<td>" + event.meanAfter + "<span class='sd-value-green'>&plusmn" + event.SDAfter + "</span></td>";
+                }
+
+                if(event.SDAfter > 50 && event.SDAfter < 100)
+                {
+                    currentHTML = currentHTML + "<td>" + event.meanAfter + "<span class='sd-value-orange'>&plusmn" + event.SDAfter + "</span></td>";
+                }
+
+                if(event.SDAfter > 100)
+                {
+                    currentHTML = currentHTML + "<td>" + event.meanAfter + "<span class='sd-value-red'>&plusmn" + event.SDAfter + "</span></td>";
+                }
                 
                 currentHTML = currentHTML + "</td>";
                 

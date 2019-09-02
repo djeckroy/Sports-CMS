@@ -327,16 +327,13 @@ class ContentManager
 		return ($result->rowCount() > 0);
 	}
 	
-	public function getTeamID($playerID1, $playerID2)
+	public function getTeamID($playerID)
 	{
-		$query = "SELECT team.team_id FROM team 
-					WHERE
-					( team.player_one_id = ? OR team.player_two_id = ?)
-					AND
-					( team.player_one_id = ? OR team.player_two_id = ?)";
-		$result = $this->database->query($query, [$playerID1,$playerID1,$playerID2,$playerID2])->fetch();
+		$query = "SELECT team_id FROM team WHERE player_one_id = ? OR player_two_id = ?";
 
-		return ($result['team_id']);
+		$result = $this->database->query($query, [$playerID, $playerID]);
+
+		return $result;
 	}
 
 	public function getTeamSports($teamID)
@@ -348,14 +345,14 @@ class ContentManager
 		return $result;
 	}
 
-	public function listPlayerTeams($playerID)
+	/*public function listPlayerTeams($playerID)
 	{
 		$query = "SELECT team_id FROM team WHERE player_one_id = ? OR player_two_id = ?";
 
-		$result = $this->database->query($query, [$playerID, $playerID]);
+		$result = $this->database->query($query, [$playerID, $playerID])->fetch();
 
 		return $result;
-	}
+	}*/
 	
 	public function createTeam($playerID1, $playerID2)
 	{

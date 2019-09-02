@@ -4,7 +4,7 @@
   include("./includes/header.php");
   include("./includes/navigation.php"); 
 
-  $teamID = $_GET['team-profile-id'];
+  $teamID = $_GET['team-id'];
 
   $teamPlayers = $contentManager->getTeamPlayers($teamID); 
 
@@ -18,27 +18,75 @@
 
 <article id="team-profile-page-article">
 
-	<h1 id="team-name"><?php echo "<h1>Team".$teamID."</h1>"; ?></h1>
-
+  <div class="player-details-border">
 	<div class="team-player-names-border">
 
 		<a id="player-name-link" href="profile.php?profile-id=<?php echo $teamPlayers['player_one_id']; ?>">
 			<?php 
-				echo "<div>".$playerNames['player_one']."</div>";
+				echo "<h1>".$playerNames['player_one'].",&nbsp</h1>";
 			?>
 		</a>
-
+    
 		<a id="player-name-link" href="profile.php?profile-id=<?php echo $teamPlayers['player_two_id']; ?>">
 			<?php 
-				echo "<div>".$playerNames['player_two']."</div>";
+				echo "<h1>".$playerNames['player_two']."</h1>";
 			?>
 		</a>
 
 	</div>
 
-	<div id="team-rating-border">
-		<?php echo $teamRating['mean']."&plusmn".$teamRating['standard_deviation']; ?>
-	</div>
+  <div class="team-rating-border">
+    <div class="team-mean-border">       
+      <p class="mean-value">
+        <?php
+          echo (int)$teamRating['mean'];
+        ?>
+      </p>
+      <p>Mean</p>   
+    </div>
+
+    <div class="team-sd-border">       
+      <?php
+        if($teamRating['standard_deviation'] >= 0 && $teamRating['standard_deviation'] <= 50)
+        {
+      ?>    
+        <p class="sd-value-green">
+          &plusmn
+            <?php
+              echo (int)$teamRating['standard_deviation'];
+            ?>  
+        </p>    
+      <?php
+        }
+
+        if($teamRating['standard_deviation'] > 50 && $teamRating['standard_deviation'] < 100)
+        {
+      ?> 
+        <p class="sd-value-orange">
+          &plusmn
+            <?php
+              echo (int)$teamRating['standard_deviation'];
+            ?>  
+        </p>
+      <?php
+        }
+
+        if($teamRating['standard_deviation'] > 100)
+        {
+      ?>
+        <p class="sd-value-red">
+          &plusmn
+          <?php
+            echo (int)$teamRating['standard_deviation'];
+          ?>  
+        </p>     
+      <?php
+        }
+      ?>
+      <p class="sd-name">Standard Deviation</p>
+    </div>
+  </div>
+  </div>
 
 	<div class="team-history-border">
 
