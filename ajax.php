@@ -205,6 +205,7 @@ switch($_POST['ajaxMethod'])
 		}
 
 		echo json_encode($response);
+		break;
 	default:
 		echo "Post Error";
 		var_dump($_POST);
