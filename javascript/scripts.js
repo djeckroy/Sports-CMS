@@ -69,10 +69,10 @@ function isEmailTaken()
 
 	$.ajax
 	({
-		url: "./isEmailTaken.php",
+		url: "./ajax.php",
         type: "POST",
         dataType: "text",
-        data: {email: email},
+        data: {email: email, ajaxMethod: "is-email-taken"},
         success: function(data) 
         {
             if(data == "true")
@@ -600,7 +600,7 @@ function addPlayer()
     var playerClubID = $("#player-club-ID").val();
     
     $.ajax({
-      url: "./add-player-manager.php",
+      url: "./ajax.php",
       type:'post',
       datatype: "text",
       data :{
@@ -609,7 +609,8 @@ function addPlayer()
         playerGenderID: playerGenderID,
         playerBirthDate: playerBirthDate,
         playerEmail: playerEmail,
-        playerClubID: playerClubID
+        playerClubID: playerClubID,
+        ajaxMethod: "add-player-manager"
       },
       success: function(data)
       {
@@ -699,10 +700,10 @@ function uploadEventChangeStates(countryCombo, stateCombo)
     //run ajax
     $.ajax
     ({
-        url: "./get-states-by-country-ID.php",
+        url: "./ajax.php",
         type: "POST",
         dataType: "text",
-        data: {countryID: country},
+        data: {countryID: country,ajaxMethod: "get-states-by-country-ID"},
         success: function(data) 
         {
             //parse the returned data
@@ -734,10 +735,10 @@ function playerSearchChangeStates(countryName, stateName)
     
     $.ajax
     ({
-        url: "./get-states-by-country-ID.php",
+        url: "./ajax.php",
         type: "POST",
         dataType: "text",
-        data: {countryID: country},
+        data: {countryID: country, ajaxMethod: "get-states-by-country-ID"},
         success: function(data) 
         {
             //parse the returned data
@@ -774,13 +775,14 @@ function setupMatchAutoComplete()
         {
             // Fetch data
             $.ajax({
-                url: "./get-player-by-state.php",
+                url: "./ajax.php",
                 type: 'POST',
                 dataType: "json",
                 data: 
                 {
                     name: request.term,
-                    state: state
+                    state: state,
+                    ajaxMethod: "get-player-by-state"
                 },
                 success: function( data ) 
                 {
@@ -810,13 +812,14 @@ function setInitialRating(playerID)
       var sportID = $("#sport-type").val();
 
       $.ajax({
-        url: "./initial-rating-Manager.php",
+        url: "./ajax.php",
         type: 'POST',
         datatype: "text",
         data :{
           playerID: playerID, 
           sportID: sportID,
-          setRating: setRating
+          setRating: setRating,
+          ajaxMethod: "initial-rating-Manager"
         },
         success: function(data)
         {                
@@ -1225,7 +1228,7 @@ function addPlayer()
     var playerClubID = $("#player-club-ID").val();
     
     $.ajax({
-      url: "./add-player-manager.php",
+      url: "./ajax.php",
       type:'post',
       datatype: "text",
       data :{
@@ -1234,7 +1237,8 @@ function addPlayer()
         playerGenderID: playerGenderID,
         playerBirthDate: playerBirthDate,
         playerEmail: playerEmail,
-        playerClubID: playerClubID
+        playerClubID: playerClubID,
+        ajaxMethod: "add-player-manager"
       },
       success: function(data)
       {
@@ -1314,14 +1318,15 @@ function addRating()
   var sdID = $("#initial-sd-ID").val();
 
   $.ajax({
-            url: "./initial-rating-Manager.php",
+            url: "./ajax.php",
             type: 'POST',
             datatype: "text",
             data :{
               meanID: meanID, 
               sdID: sdID,
               playerID: playerID,
-              sportID: sportID
+              sportID: sportID,
+              ajaxMethod: "initial-rating-Manager"
               },
             success: function(data)
             {           
@@ -1339,13 +1344,13 @@ function  setupMatchAutoCompleteAdvancedSearch()
         {
             // Fetch data
             $.ajax({
-                url: "./getAllPlayer.php",
+                url: "./ajax.php",
                 type: 'POST',
                 dataType: "json",
                 data: 
                 {
-                    name: request.term
-                   
+                    name: request.term,
+                    ajaxMethod: "get-all-player"
                 },
                 success: function( data ) 
                 {
