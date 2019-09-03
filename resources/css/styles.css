@@ -3568,25 +3568,52 @@ input[type="date"]::-webkit-inner-spin-button
     font-size: var(--font-small);
   }
 
-.winner-field {
+.winner-field 
+{
     height: 40px;
     font-size: var(--font-small);
     padding: 0px 10px 0px 10px;
     background-color: var(--form-input-background);
     box-shadow: none;
     border: 1px solid var(--form-input-border);
-    margin-top: 35px;
+    margin-top: 50px;
     margin-left: 25px;
+  
 }
 
-.loser-field {
+.winner-set-score
+{
+    height: 40px;
+    width: 110px;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+  /*margin-left:20px;*/
+}
+
+.loser-field 
+{
     height: 40px;
     font-size: var(--font-small);
     padding: 0px 10px 0px 10px;
     background-color: var(--form-input-background);
     box-shadow: none;
     border: 1px solid var(--form-input-border);
-    margin: 0px 35px;
+    margin: 0px 15px;
+}
+
+.loser-set-score
+{
+   
+   height: 40px;
+    width: 110px;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
 }
 
 .ad-search
