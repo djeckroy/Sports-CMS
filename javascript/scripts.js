@@ -69,10 +69,10 @@ function isEmailTaken()
 
 	$.ajax
 	({
-		url: "./isEmailTaken.php",
+		url: "./ajax.php",
         type: "POST",
         dataType: "text",
-        data: {email: email},
+        data: {email: email, ajaxMethod: "is-email-taken"},
         success: function(data) 
         {
             if(data == "true")
@@ -424,7 +424,7 @@ function addEventRow(dbl)
                 
                         var newlabel0 = document.createElement("Label");
                         newlabel0.setAttribute('class', 'find-help');
-                        newlabel0.innerHTML = "<b style='margin: 0px 18px; font-size:24px;'>#Match details</b><br/>";
+                        newlabel0.innerHTML = "<b style='margin: 2px 18px; font-size:24px;'>Match details</b><br/>";
                         cell1.appendChild(newlabel0);
                 
                 
@@ -474,6 +474,7 @@ function addEventRow(dbl)
                             newlabel11.innerHTML = "</br>" + result11;
                             cell1.appendChild(newlabel11);
                         }
+    
                         
                         var newlabel2 = document.createElement("Label");
                         newlabel2.setAttribute('class', 'find-help');
@@ -493,7 +494,7 @@ function addEventRow(dbl)
                 
                         var insertCell3 = document.createElement("input");
                         insertCell3.setAttribute('type', 'text');
-                        insertCell3.setAttribute('style', 'margin-top:25px');
+                        insertCell3.setAttribute('style', 'margin-top:20px');
                         insertCell3.setAttribute('class', 'match-field-input winner-loser-field loser-field');
                         insertCell3.setAttribute('name', 'loser-name[]');
                         insertCell3.placeholder = "Losing Player";
@@ -599,7 +600,7 @@ function addPlayer()
     var playerClubID = $("#player-club-ID").val();
     
     $.ajax({
-      url: "./add-player-manager.php",
+      url: "./ajax.php",
       type:'post',
       datatype: "text",
       data :{
@@ -608,7 +609,8 @@ function addPlayer()
         playerGenderID: playerGenderID,
         playerBirthDate: playerBirthDate,
         playerEmail: playerEmail,
-        playerClubID: playerClubID
+        playerClubID: playerClubID,
+        ajaxMethod: "add-player-manager"
       },
       success: function(data)
       {
@@ -685,12 +687,12 @@ $( function() {
  //event listener for change of country
 $("#country-id").change(function()
 {
-    uploadEventChangeStates($("#country-id"),$("#state-name"));
+    uploadEventChangeStates($(this),$("#state-name"));
 });
  
 function uploadEventChangeStates(countryCombo, stateCombo)
 {
-    var country = countryCombo.val();
+    var country = countryCombo.find(":selected").val();
 
     //clear the options
     stateCombo.empty();
@@ -698,10 +700,10 @@ function uploadEventChangeStates(countryCombo, stateCombo)
     //run ajax
     $.ajax
     ({
-        url: "./get-states-by-country-ID.php",
+        url: "./ajax.php",
         type: "POST",
         dataType: "text",
-        data: {countryID: country},
+        data: {countryID: country,ajaxMethod: "get-states-by-country-ID"},
         success: function(data) 
         {
             //parse the returned data
@@ -733,10 +735,10 @@ function playerSearchChangeStates(countryName, stateName)
     
     $.ajax
     ({
-        url: "./get-states-by-country-ID.php",
+        url: "./ajax.php",
         type: "POST",
         dataType: "text",
-        data: {countryID: country},
+        data: {countryID: country, ajaxMethod: "get-states-by-country-ID"},
         success: function(data) 
         {
             //parse the returned data
@@ -773,13 +775,14 @@ function setupMatchAutoComplete()
         {
             // Fetch data
             $.ajax({
-                url: "./get-player-by-state.php",
+                url: "./ajax.php",
                 type: 'POST',
                 dataType: "json",
                 data: 
                 {
                     name: request.term,
-                    state: state
+                    state: state,
+                    ajaxMethod: "get-player-by-state"
                 },
                 success: function( data ) 
                 {
@@ -809,13 +812,14 @@ function setInitialRating(playerID)
       var sportID = $("#sport-type").val();
 
       $.ajax({
-        url: "./initial-rating-Manager.php",
+        url: "./ajax.php",
         type: 'POST',
         datatype: "text",
         data :{
           playerID: playerID, 
           sportID: sportID,
-          setRating: setRating
+          setRating: setRating,
+          ajaxMethod: "initial-rating-Manager"
         },
         success: function(data)
         {                
@@ -1053,7 +1057,6 @@ function updateProfileSport()
 
  function addEventHistory(changeSport)
  {
-
     //get the player id from url
 	 var params = (new URL(document.location)).searchParams;
 	 var playerID = params.get(getVariableName);
@@ -1083,7 +1086,6 @@ function updateProfileSport()
         },
         success: function(data) 
         {
-            
             //parse the returned data
             var jsonData = JSON.parse(data);
             
@@ -1119,9 +1121,72 @@ function updateProfileSport()
             
             $("#player-history-table-body").html(currentHTML);
         }
-    });
-    
+    });   
  }
+
+ function addTeamEventHistory()
+ {
+    //get the team id from url
+     var params = (new URL(document.location)).searchParams;
+     var teamID = params.get('team-id');
+     
+     //get sport ID
+     sportID = $("#team-profile-sport-id").val();
+    
+    //run ajax to recent event histories
+    $.ajax
+    ({
+        url: "./ajax.php",
+        type: "POST",
+        dataType: "text",
+        data:
+        {
+            teamID: teamID,
+            sportID: sportID,
+            limitOffset: eventHistoryRowCount,
+            ajaxMethod: "team-event-history"
+        },
+        success: function(data) 
+        {
+            //parse the returned data
+            var jsonData = JSON.parse(data);
+            
+            var currentHTML = $("#team-history-table-body").html();
+            
+            for (var i=0; i<jsonData.length; i++)
+            {
+                var event = jsonData[i][0];
+                                
+                if ((eventHistoryRowCount % 2) == 0)
+                {
+                    // 'even' row
+                    currentHTML = currentHTML + "<tr class='even-row'>";
+                }
+                else
+                {
+                    currentHTML = currentHTML + "<tr class='odd-row'>";
+                }
+                
+                currentHTML = currentHTML + "<td>" + event.event_name + "</td>";
+                currentHTML = currentHTML + "<td>" + event.meanBefore + " &plusmn;" + event.SDBefore + "</td>";
+                
+                var pointChange = event.meanAfter - event.meanBefore;
+                
+                currentHTML = currentHTML + "<td>" + (pointChange<0?"":"+") + pointChange + "</td>";
+                currentHTML = currentHTML + "<td>" + event.meanAfter + " &plusmn;" + event.SDAfter + "</td>";
+                
+                currentHTML = currentHTML + "</td>";
+                
+                
+                eventHistoryRowCount++;
+            }
+            
+            $("#team-history-table-body").html(currentHTML);
+        }
+    });   
+ }
+
+ $("#team-table-link").click(addTeamEventHistory());
  
  $( function(){
     $(".profile-sport-name").html($("#profile-select-sport option:selected").text());
@@ -1131,6 +1196,11 @@ function updateProfileSport()
  $("#player-history-view-more").click(function(){
         addEventHistory(false);
  });
+
+ $("#team-history-view-more").click(function(){
+        addTeamEventHistory();
+ });
+
 /*
  * -------------------------------------------------------------*
  * 		Begin Add Player Section								*
@@ -1158,7 +1228,7 @@ function addPlayer()
     var playerClubID = $("#player-club-ID").val();
     
     $.ajax({
-      url: "./add-player-manager.php",
+      url: "./ajax.php",
       type:'post',
       datatype: "text",
       data :{
@@ -1167,7 +1237,8 @@ function addPlayer()
         playerGenderID: playerGenderID,
         playerBirthDate: playerBirthDate,
         playerEmail: playerEmail,
-        playerClubID: playerClubID
+        playerClubID: playerClubID,
+        ajaxMethod: "add-player-manager"
       },
       success: function(data)
       {
@@ -1247,14 +1318,15 @@ function addRating()
   var sdID = $("#initial-sd-ID").val();
 
   $.ajax({
-            url: "./initial-rating-Manager.php",
+            url: "./ajax.php",
             type: 'POST',
             datatype: "text",
             data :{
               meanID: meanID, 
               sdID: sdID,
               playerID: playerID,
-              sportID: sportID
+              sportID: sportID,
+              ajaxMethod: "initial-rating-Manager"
               },
             success: function(data)
             {           
@@ -1272,13 +1344,13 @@ function  setupMatchAutoCompleteAdvancedSearch()
         {
             // Fetch data
             $.ajax({
-                url: "./getAllPlayer.php",
+                url: "./ajax.php",
                 type: 'POST',
                 dataType: "json",
                 data: 
                 {
-                    name: request.term
-                   
+                    name: request.term,
+                    ajaxMethod: "get-all-player"
                 },
                 success: function( data ) 
                 {

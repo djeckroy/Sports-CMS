@@ -1,20 +1,31 @@
 <?php
 require("./includes/initialize.php");
 
-//var_dump($_POST);
-
 switch($_POST['ajaxMethod'])
 {
 	case "player-event-history":
-		$result = $contentManager->getPlayersRecentEvents($_POST['playerID'], $_POST['sportID'],$_POST['limitOffset']);
+		$result = $contentManager->getPlayersRecentEvents($_POST['playerID'], $_POST['sportID'], $_POST['limitOffset']);
 		
-		//var_dump($result);
 		$response = array();
 
 		while ($row = $result->fetch())
 		{
 			$response[] = array($row);
 		}
+
+		echo json_encode($response);
+		break;
+	case "team-event-history":
+		$result = $contentManager->getTeamRecentEvents($_POST['teamID'], $_POST['sportID'], $_POST['limitOffset']);
+		
+		$response = array();
+
+		while ($row = $result->fetch())
+		{
+			$response[] = array($row);
+		}
+
+		//echo var_dump($result->fetchAll());
 
 		echo json_encode($response);
 		break;
@@ -122,6 +133,78 @@ switch($_POST['ajaxMethod'])
 
         echo $editAccountModal;
 		break;
+	case "initial-rating-Manager":
+		if(isset($_POST["setRating"]))
+		{
+		  $playerID = $_POST["playerID"];
+		  $sportID = $_POST["sportID"];
+
+		  $ratingExists = $contentManager->initialRatingExists($playerID, $sportID);
+
+		  if($ratingExists == "true")
+		  {
+			  echo "true";
+		  }
+		  else
+		  {
+			echo "false";
+		  }
+		}
+
+		if((isset($_POST["meanID"]) && (isset($_POST["sdID"]))))
+		{
+		  $playerID = $_POST["playerID"];
+		  $sportID = $_POST["sportID"];
+		  $mean = $_POST["meanID"];
+		  $sd = $_POST["sdID"];
+		  
+		  $result = $contentManager->insertInitialRating($mean, $sd, $playerID, $sportID);
+		}
+		break;
+	case "add-player-manager":
+		if((isset($_POST["playerGivenName"])) && (isset($_POST["playerFamilyName"])) && (isset($_POST["playerGenderID"])) && (isset($_POST["playerBirthDate"])) && (isset($_POST["playerEmail"])) && (isset($_POST["playerClubID"])))
+		{
+		  
+		  
+		  $contentManager->addPlayer($_POST["playerGivenName"], $_POST["playerFamilyName"], $_POST["playerGenderID"], $_POST["playerBirthDate"], $_POST["playerEmail"], $_POST["playerClubID"]);
+		}
+		break;
+	case "get-all-player":
+		$result = $contentManager->getAllPlayersByAdvancedSearch($_POST['name']);
+		$response = array();
+
+		while ($row = $result->fetch())
+		{
+			$response[] = array("id"=>$row['player_id'],"label"=>$row['family_name'].", ".$row['given_name'] . " (" . $row['state'] . ", " . $row['country'] . ")");
+		}
+
+		echo json_encode($response);
+		break;
+	case "is-email-taken":
+		$result = $account->emailExists($_POST["email"]);
+
+		if($result)
+		{
+			echo "true";
+		}
+
+		unset($_POST["email"]);
+		$account = null;
+		break;
+	case "get-states-by-country-ID":
+		$result = $contentManager->getStatesByCountryID($_POST["countryID"]);
+		echo json_encode($result->fetchAll());
+		break;
+	case "get-player-by-state":
+		$result = $contentManager->getPlayersByNameAndState($_POST['name'],$_POST['state']);
+		$response = array();
+
+		while ($row = $result->fetch())
+		{
+			$response[] = array("id"=>$row['player_id'],"label"=>$row['family_name'].", ".$row['given_name']);
+		}
+
+		echo json_encode($response);
 	default:
 		echo "Post Error";
 		var_dump($_POST);

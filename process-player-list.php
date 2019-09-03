@@ -138,6 +138,4 @@ if(isset($_POST["submitSearchFilter"]))
 
 echo $tableOutput;
 
-$query = "SELECT * FROM (SELECT player_id, CONCAT_WS(' ', given_name, family_name) AS player_name, TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) AS player_age, DATE_FORMAT(last_played, '%d %M %Y') AS last_played FROM player WHERE CONCAT_WS(' ', given_name, family_name) LIKE '%Earl Taylor%' AND (TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE()) BETWEEN 0 AND 30) AND last_played LIKE '%2019-08-15%') AS player_details, (SELECT club.name FROM club INNER JOIN membership ON membership.club_id = club.club_id INNER JOIN player ON player.player_id = membership.player_id WHERE club.name LIKE '%Launceston Badminton Club%') AS club_name, (SELECT country.name FROM country INNER JOIN player ON player.country_id = country.country_id WHERE country.name LIKE '%Australia%') AS country_name, (SELECT state.name FROM state INNER JOIN player ON player.state_id = state.state_id WHERE state.name LIKE '%Tasmania%') AS state_name LIMIT 0, 6";
-
 ?>               
