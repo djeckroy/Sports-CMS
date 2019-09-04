@@ -47,11 +47,7 @@
 
 <article>
 
-  <div class="favourite-icon-border" id="favourite-button">
-      <a class="favourite-icon-link" href="#">
-        <img class="favourite-icon" alt="favourite-icon" src="resources/images/favourite-icon-24.png" onclick="changeImageWhenClicked();">favourite
-      </a>
-  </div>
+  
 
   <div class="player-details-border">
 
@@ -60,16 +56,19 @@
 			echo $playerInfo["given_name"] . " " . $playerInfo["family_name"];
 		?> 
     </h1>
+
+    <div class="favourite-icon-border">
+      <input id="toggle-heart" type="checkbox" />
+  	  <label class="favourite-label" data-text="favourite" for="toggle-heart">
+  	    <img alt="favourite" src="resources/images/favourite-icon-24.png">
+  	  </label>
+  	</div>
     
-    <h2 class="profile-sport-name" id="profile-sport">
-		
-    </h2>
+    <h2 class="profile-sport-name" id="profile-sport"></h2>
 
     <ul class="player-bio-list">
-		
-		
-		
-		<li id="player-bio-row">
+
+	  <li id="player-bio-row">
       	<span id="player-bio-row-heading"><b>Select Sport</b></span>
       	<span id="player-bio-row-value">
       		<select class="select-sport-menu" id="profile-select-sport">
@@ -116,28 +115,56 @@
     </ul>
 
     <div class="rating-border">
- 	  <div class="mean-border">
-	    <div id="side-colour-mean">&nbsp</div>	    	
-		  <p id="mean-value">
-		  <?php
-			echo (int)$playerRating['mean'];
-		  ?>
-		  </p>
-		  <p>Badminton Rating</p>   	
+ 	  <div class="mean-border">	    	
+	    <p class="mean-value">
+	      <?php
+		    echo (int)$playerRating['mean'];
+	      ?>
+	    </p>
+	  <p>Mean</p>  	
       </div>
-	     
-	  <div class="sd-border"> 
-	    <div id="side-colour-sd">&nbsp</div>
-		  <p id="sd-value">
-			  &plusmn;
-		  <?php
-			echo (int)$playerRating['standard_deviation'];
-		  ?>
-		  
-		  </p>
-		  <p>Standard Deviation</p>   	
-	  </div>
+
+      <div class="sd-border">
+		<?php
+		  if($playerRating['standard_deviation'] >= 0 && $playerRating['standard_deviation'] <= 50)
+		  {
+		?>   	   
+		  <p class="sd-value-green">
+			&plusmn
+			<?php
+			  echo (int)$playerRating['standard_deviation'];
+			?>  
+		  </p>   	
+		<?php
+		  }
+
+		  if($playerRating['standard_deviation'] > 50 && $playerRating['standard_deviation'] < 100)
+		  {
+		?> 
+		  <p class="sd-value-orange">
+			&plusmn
+			<?php
+			  echo (int)$playerRating['standard_deviation'];
+			?>  
+		  </p>  	
+		<?php
+		  }
+
+		  if($playerRating['standard_deviation'] > 100)
+		  {
+		?> 
+		  <p class="sd-value-red">
+			&plusmn
+			<?php
+			  echo (int)$playerRating['standard_deviation'];
+			?>  
+		  </p>			
+		<?php
+		  }
+		?>
+		<p class="sd-name">Standard Deviation</p>
 	</div>
+  </div>
 
   </div> 
 
@@ -170,22 +197,21 @@
     <h1>Player Teams</h1>
 
     <table class="player-team-table" border="1">
-        <?php 
-          $playerId = $_GET['profile-id']; 
-          $playerTeams = $contentManager->listPlayerTeams($playerId);
-          $numberOfTeams = 0;
+      <?php 
+        $playerId = $_GET['profile-id']; 
+        $playerTeams = $contentManager->getTeamID($playerId);
 
-          while($row = $playerTeams->fetch(PDO::FETCH_ASSOC))
-          {
-            $numberOfTeams++;
-
-            echo "<tr>
-                    <td>
-                      <a id='team-table-link' href='team-profile.php?team-id=".$row['team_id']."'>Team".$numberOfTeams."</a>
-                    </td>
-                  </tr>";
-          }
-        ?>
+        while($row = $playerTeams->fetch(PDO::FETCH_ASSOC))
+        {
+        	$teamPlayers = $contentManager->getTeamPlayers($row['team_id']);
+        	$playerNames = $contentManager->getTeamPlayerNames($teamPlayers['player_one_id'], $teamPlayers['player_two_id']);
+        	echo "<tr>
+                  <td>
+                    <a id='team-table-link' href='team-profile.php?team-id=".$row['team_id']."'>".$playerNames['player_one'].', &nbsp'.$playerNames['player_two']."</a>
+                  </td>
+                </tr>";
+    	}
+      ?>
     </table>
 
     <p id="player-team-view-more">
