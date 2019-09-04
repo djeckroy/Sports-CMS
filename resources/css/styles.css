@@ -1,5 +1,6 @@
     @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans');
-    * {
+    * 
+    {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -3177,7 +3178,7 @@ player-advanced-search-border
 
 .event-details-border
 {
-    margin-bottom: -25px;
+	margin-bottom: -25px;
 }
 
 .event-details-border h1 
@@ -3435,7 +3436,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
 {
     width: 100%;
     margin: 25px 0;
-    background-color: var(--form-input-border);
+        background-color: #E8E8E8;
     border-collapse: collapse;
 }
 
@@ -3472,7 +3473,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
 
 .add-player-link a 
 {
-    color: blue;
+    color: var(--link-dark);
     text-decoration: none;
 }
 
@@ -3505,14 +3506,14 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
 .ad-search a 
 {
     text-decoration: none;
-    color: blue;
-    margin-left: 115px;
+    color: var(--link-dark);
+    margin-left: 35px;
 }
 
 .ad-search1 a 
 {
     text-decoration: none;
-    color: blue;
+   color: var(--link-dark);
     margin-left: 125px;
 }
 
