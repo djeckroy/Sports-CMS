@@ -204,13 +204,12 @@ class ContentManager
 		return $id;
 	}
 	
-	public function newGame($winnerID, $winnerMean, $winnerSD, $loserID, $loserMean, $loserSD, $eventID, $singles)
-	{
+	public function newGame($winnerID, $winnerMean, $winnerSD, $loserID, $loserMean, $loserSD, $winnerScore, $loserScore, $eventID, $singles)
+	{	
 		//create game
-		$query = "INSERT INTO `game` (`game_id`, `mean_before_winning`, `mean_after_winning`, `standard_deviation_before_winning`, `standard_deviation_after_winning`, `mean_before_losing`, `mean_after_losing`, `standard_deviation_before_losing`, `standard_deviation_after_losing`, `event_id`) VALUES (NULL, ?, NULL, ?, NULL, ?, NULL, ?, NULL, ?)";
+		$query = "INSERT INTO `game` (`game_id`, `mean_before_winning`, `mean_after_winning`, `standard_deviation_before_winning`, `standard_deviation_after_winning`, `mean_before_losing`, `mean_after_losing`, `standard_deviation_before_losing`, `standard_deviation_after_losing`, `winner_score`, `loser_score`, `event_id`) VALUES (NULL, ?, NULL, ?, NULL, ?, NULL, ?, NULL, ?, ?, ?)";
 		
-		$result = $this->database->query($query,[$winnerMean,$winnerSD,$loserMean,$loserSD,$eventID]);
-		
+		$result = $this->database->query($query,[$winnerMean,$winnerSD,$loserMean,$loserSD,$winnerScore,$loserScore,$eventID]);
 				
 		//get game id
 		$idQuery = $this->database->query("SELECT LAST_INSERT_ID()", null);

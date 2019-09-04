@@ -446,7 +446,7 @@ function addEventRow(dbl)
                         var insertCell2 = document.createElement("input");
                         insertCell2.setAttribute('type', 'number');
                         insertCell2.setAttribute('class', 'winner-set-score');
-                        insertCell2.setAttribute('name', 'winner-set-score');
+                        insertCell2.setAttribute('name', 'winner-set-score[]');
                         insertCell2.onkeyup = "checkForm()";
                         insertCell2.placeholder = "Set Score";
                         cell2.appendChild(insertCell2);
@@ -475,15 +475,6 @@ function addEventRow(dbl)
                             hiddenInput1.setAttribute('type', 'hidden');
                             hiddenInput1.setAttribute('name', 'winner-id[]');
                             cell1.appendChild(hiddenInput1);
-                          
-                            var insertCell12 = document.createElement("input");
-                        insertCell12.setAttribute('type', 'number');
-                        insertCell12.setAttribute('style', 'margin-top:50px');
-                        insertCell12.setAttribute('class', 'winner-set-score');
-                        insertCell12.setAttribute('name', 'winner-set-score');
-                        insertCell12.onkeyup = "checkForm()";
-                        insertCell12.placeholder = "Set Score";
-                        cell2.appendChild(insertCell12);
                 
                             var newlabel11 = document.createElement("Label");
                             newlabel11.setAttribute('class', 'ad-search');
@@ -529,7 +520,7 @@ function addEventRow(dbl)
                           var insertCell4 = document.createElement("input");
                         insertCell4.setAttribute('type', 'number');
                         insertCell4.setAttribute('class', 'loser-set-score');
-                        insertCell4.setAttribute('name', 'loser-set-score');
+                        insertCell4.setAttribute('name', 'loser-set-score[]');
                         insertCell4.onkeyup = "checkForm()";
                         insertCell4.placeholder = "Set Score";
                         cell4.appendChild(insertCell4);
@@ -558,16 +549,6 @@ function addEventRow(dbl)
                             hiddenInput2.setAttribute('type', 'hidden');
                             hiddenInput2.setAttribute('name', 'loser-id[]');
                             cell3.appendChild(hiddenInput2);
-                
-                          
-                           var insertCell34 = document.createElement("input");
-                        insertCell34.setAttribute('type', 'number');
-                         insertCell34.setAttribute('style', 'margin-top:50px');
-                        insertCell34.setAttribute('class', 'loser-set-score');
-                        insertCell34.setAttribute('name', 'loser-set-score');
-                        insertCell34.onkeyup = "checkForm()";
-                        insertCell34.placeholder = "Set Score";
-                        cell4.appendChild(insertCell34);
                           
                             var newlabel33 = document.createElement("Label");
                             newlabel33.setAttribute('class', 'ad-search');

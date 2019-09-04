@@ -104,6 +104,8 @@ CREATE TABLE IF NOT EXISTS `game` (
   `mean_after_losing` DOUBLE,
   `standard_deviation_before_losing` DOUBLE NOT NULL,
   `standard_deviation_after_losing` DOUBLE,
+  `winner_score` INT,
+  `loser_score` INT,
   `event_id` INT NOT NULL,
   PRIMARY KEY (`game_id`),
   FOREIGN KEY (`event_id`) REFERENCES event(event_id)

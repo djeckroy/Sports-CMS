@@ -22,4 +22,10 @@ if(isset($_SESSION["login-incorrect"]))
 	unset($_SESSION['login-incorrect']);
 }
 
+if(isset($_SESSION["upload-success"]))
+{
+	echo "<script> showNotificationModal('Event Upload Successfull', 'The rankings for players will now be calculated. It may take a few moments before the results are ready.') </script>";
+	unset($_SESSION['upload-success']);
+}
+
 ?>

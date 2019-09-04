@@ -47,7 +47,7 @@ require("./includes/initialize.php");
 					$loserStats = $contentManager->getPlayerCurrentStats($_POST['loser-id'][$i]);
 					
 					//create new game in db and get the id
-					$gameID = $contentManager->newGame($_POST['winner-id'][$i],$winnerStats['mean'],$winnerStats['standard_deviation'],$_POST['loser-id'][$i],$loserStats['mean'],$loserStats['standard_deviation'],$eventID, true);
+					$gameID = $contentManager->newGame($_POST['winner-id'][$i],$winnerStats['mean'],$winnerStats['standard_deviation'],$_POST['loser-id'][$i],$loserStats['mean'],$loserStats['standard_deviation'],$_POST['winner-set-score'][$i],$_POST['loser-set-score'][$i],$eventID, true);
 					
 					//add the game to the maple manager
 					$mapleFileManager->addMatchData($_POST['winner-id'][$i],$winnerStats['mean'],$winnerStats['standard_deviation'],$winnerStats['last_played'],$_POST['loser-id'][$i],$loserStats['mean'],$loserStats['standard_deviation'],$loserStats['last_played'],$gameID);
@@ -98,9 +98,13 @@ require("./includes/initialize.php");
 						$winnerStats = $contentManager->getTeamRating($winnerTeam,$sportID);
 						$loserStats = $contentManager->getTeamRating($loserTeam,$sportID);
 						
+						$winnerSetScore = $_POST['winner-set-score'][intdiv($i,2)];
+						$loserSetScore = $_POST['loser-set-score'][intdiv($i,2)];
+						
 						//add match to db and maple file manager
 						//create new game in db and get the id
-						$gameID = $contentManager->newGame($winnerTeam,$winnerStats['mean'],$winnerStats['standard_deviation'],$loserTeam,$loserStats['mean'],$loserStats['standard_deviation'],$eventID, false);
+						$gameID = $contentManager->newGame($winnerTeam,$winnerStats['mean'],$winnerStats['standard_deviation'],$loserTeam,$loserStats['mean'],$loserStats['standard_deviation'],$winnerSetScore,$loserSetScore,$eventID, false);
+						
 						$mapleFileManager->addMatchData($winnerTeam,$winnerStats['mean'],$winnerStats['standard_deviation'],$winnerStats['last_played'],$loserTeam,$loserStats['mean'],$loserStats['standard_deviation'],$loserStats['last_played'],$gameID);
 						
 					}
@@ -115,6 +119,7 @@ require("./includes/initialize.php");
 		// redirect and show user some confirmation
 		//this will be a redirect. The following is for testing only. 
 		//[AJAX query and on result success open popup box?]
+	$_SESSION['upload-success'] = true;
 	redirect("./account.php");
 		
 ?>
