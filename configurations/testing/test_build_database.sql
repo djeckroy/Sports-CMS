@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `country` (
 
 CREATE TABLE IF NOT EXISTS `state` (
   `state_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL UNIQUE,
+  `name` VARCHAR(45) NOT NULL,
   `country_id` INT NOT NULL,
   PRIMARY KEY (`state_id`),
   FOREIGN KEY (`country_id`) REFERENCES country(country_id)

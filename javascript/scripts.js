@@ -1040,8 +1040,8 @@ function updateProfileSport()
      newSportName = $("#profile-select-sport option:selected").text();
      
      $(".profile-sport-name").html(newSportName);
-     $("#mean-value").html("Loading");
-     $("#sd-value").html("Loading");
+     $(".mean-value").html("Loading");
+     $(".sd-value").html("Loading");
 
      //run ajax to update sd and mean
     $.ajax
@@ -1061,8 +1061,8 @@ function updateProfileSport()
             //parse the returned data
             var jsonData = JSON.parse(data);
             
-            $("#mean-value").html(jsonData.mean);
-            $("#sd-value").html("&plusmn; " + jsonData.sd);
+            $(".mean-value").html(parseInt(jsonData.mean));
+            $(".sd-value").html("&plusmn; " + parseInt(jsonData.sd));
         }
     });
     

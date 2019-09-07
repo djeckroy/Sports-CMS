@@ -59,7 +59,7 @@
 <div id="account-container-clubs">
 	<div id="account-club-section">
 		<div id="clubs-header" class="account-page-header">
-			<h2>Club Information</h2>
+			<h2>Club Management</h2>
 			<?php
 				$tableOutput = "";
 
