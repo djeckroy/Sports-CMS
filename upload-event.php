@@ -102,6 +102,9 @@
     <!-- initial rating -->
     <?php include("./includes/initialRating.php"); ?>
 
+    <!-- change match type notification modal -->
+     <?php include("./includes/event-type-notification-modal.php"); ?>
+
 </div>
 
 <?php

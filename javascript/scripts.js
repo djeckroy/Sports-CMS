@@ -297,28 +297,10 @@ function showUploadMatchRows() {
                     if (table.rows.length !== 0) {
 
 
-                        if (x == 1) {
-                            var check = confirm("Are you sure you wish to change match type? You will lose any un-submitted double event on this page");
-                            if (check == true) {
                                 for (var deleteCycle = table.rows.length - 1; deleteCycle >= 0; deleteCycle--) {
                                     table.deleteRow(deleteCycle);
                                 }
-                            } else {
-                                return;
-                            }
-                        } else {
-
-                            var check = confirm("Are you sure you wish to change match type? You will lose any un-submitted single event on this page");
-                            if (check == true) {
-                                for (var deleteCycle = table.rows.length - 1; deleteCycle >= 0; deleteCycle--) {
-                                    table.deleteRow(deleteCycle);
-                                }
-                            } else {
-                                return;
-                            }
-                        }
-
-
+                           
                     }
 
                     var a = document.getElementById("event-type").value;
@@ -856,7 +838,7 @@ $("#event-upload-form").submit(function() {
 });
 
 
-//chnageing match type and updating table accordingly
+/* chnageing match type and updating table accordingly */
 
 
 
@@ -869,13 +851,55 @@ function changeValue() {
 
     if (table.rows.length !== 0) {
 
-        showUploadMatchRows();
+        modalSelection();
 
     } else {
         return;
     }
 
 }
+
+ /* harinder's work to show notification modal */
+
+function modalSelection(){
+    var ab = document.getElementById("event-type").value;
+                    
+                    if (ab == 'Double') {
+                        x = 1;
+                        
+                    } else {
+                        x = 0;
+                    }
+    
+    if (x == 1) {
+        document.getElementById("notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted single event on this page";
+        document.querySelector(".notification-modal-background").style.display = "flex";
+    }
+    else {
+        document.getElementById("notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted double event on this page";
+        document.querySelector(".notification-modal-background").style.display = "flex";
+                           
+}
+}
+
+function changeType(){
+    
+    showUploadMatchRows();
+    hideNotificationModal()
+}
+function hideTypeModal() {
+    document.querySelector(".notification-modal-background").style.display = "none";
+     var ind = document.getElementById("event-type").selectedIndex
+     if(ind == "1"){
+         document.getElementById("event-type").selectedIndex = "2";
+     }
+     else if(ind == "2"){
+         document.getElementById("event-type").selectedIndex = "1";
+     }
+    
+}
+
+/* Harinder's work ends here  */
 
 /**
  * ---------------------------------------------- *
