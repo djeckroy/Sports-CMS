@@ -17,7 +17,10 @@
 	  {
 		  $playerInfo = $contentManager->getSpecificPlayerInformation($playerId);
 		  $playerClub = $contentManager->getPlayerClub($playerId);
-		  $playerRating = $contentManager->getPlayerRating($playerId, 1);
+		  
+		  $sports = $contentManager->getPlayerSports($playerId);
+		  $firstSport = $sports->fetch();
+		  $playerRating = $contentManager->getPlayerRating($playerId, $firstSport["sport_id"]);
 
 		  $userDob = new DateTime($playerInfo["date_of_birth"]);
 		  $today = new Datetime(date("Y-m-d"));
