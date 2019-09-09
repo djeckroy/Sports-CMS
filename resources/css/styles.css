@@ -3097,10 +3097,123 @@ player-advanced-search-border
     margin-top: 0px;
 }
 
+/* Harrinder's work of change match type modal */
 
-/* Notification Modal */
 
-.notification-modal-background 
+/* Reset Password Modal */
+
+.reset-modal-background1 
+{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    display: flex;
+}
+
+.reset-modal-content1 
+{
+    width: 450px;
+    height: 450px;
+    background-color: var(--form-background);
+    border-radius: 5px;
+}
+
+.reset-modal-header1 
+{
+    height: 20%;
+    width: 100%;
+    background-color: var(--primary-color);
+    border-radius: 5px 5px 0px 0px;
+    padding: 20px;
+    position: relative;
+}
+
+.reset-modal-fields1 
+{
+    height: 80%%;
+    width: 100%;
+    padding: 40px;
+    font-size: var(--font-small);
+}
+
+.reset-modal-fields1 h2 
+{
+    color: var(--text-dark);
+}
+
+.reset-modal-fields-wrapper1 
+{
+    display: block;
+}
+
+.reset-modal-fields1 hr 
+{
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    margin: 10px 0px 25px 0px;
+}
+
+
+.reset-modal-exit-button1 
+{
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: var(--font-large);
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: var(--text-light);
+}
+
+#reset-match-button1 
+{
+    background: var(--primary-color);
+    border-radius: 2px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 0px -90px 30px 90px;
+    padding: 12px 20px 12px 20px;
+    text-decoration: none;
+    width: 40%;
+    cursor: pointer;
+}
+
+#reset-match-button1:hover 
+{
+    background: var(--primary-color-dark);
+}
+
+
+
+                        /* event-type-change Notification Modal */
+                         /* harinder's work */
+.change-match-button 
+{
+    background: var(--primary-color);
+    border-radius: 2px;
+    color: var(--text-light);
+    font-size: var(--font-medium);
+    margin: 0px -90px 30px 90px;
+    
+    text-decoration: none;
+    width: 30%;
+	height: 15%;
+    cursor: pointer;
+}
+
+.change-match-button:hover 
+{
+    background: var(--primary-color-dark);
+}
+.event-type-notification-modal-background 
 {
     width: 100%;
     height: 100%;
@@ -3114,17 +3227,17 @@ player-advanced-search-border
     display: none;
 }
 
-.notification-modal-content 
+.event-type-notification-modal-content 
 {
     width: 400px;
-    height: 200px;
+    height: 250px;
     background-color: var(--form-background);
     border-radius: 5px;
 }
 
-.notification-modal-header 
+.event-type-notification-modal-header 
 {
-    height: 15%;
+    height: 20%;
     width: 100%;
     background-color: var(--primary-color);
     border-radius: 5px 5px 0px 0px;
@@ -3132,7 +3245,7 @@ player-advanced-search-border
     position: relative;
 }
 
-.notification-modal-fields 
+.event-type-notification-modal-fields 
 {
     height: 80%%;
     width: 100%;
@@ -3140,17 +3253,17 @@ player-advanced-search-border
     font-size: var(--font-small);
 }
 
-.notification-modal-fields h2 
+.event-type-notification-modal-fields h2 
 
     color: var(--text-dark);
 }
 
-.notification-modal-fields-wrapper 
+.event-type-notification-modal-fields-wrapper 
 {
     display: block;
 }
 
-.notification-modal-fields hr 
+.event-type-notification-modal-fields hr 
 {
     border: 0;
     height: 0;
@@ -3159,7 +3272,7 @@ player-advanced-search-border
     margin: 10px 0px 0px 0px;
 }
 
-.notification-modal-exit-button 
+.event-type-notification-modal-exit-button 
 {
     position: absolute;
     top: -8px;
@@ -3171,28 +3284,9 @@ player-advanced-search-border
 }
 
 
-/* Harrinder's work of change match type modal */
+
 /* Notification Modal */
 
-
-.change-match-button 
-{
-    background: var(--primary-color);
-    border-radius: 2px;
-    color: var(--text-light);
-    font-size: var(--font-medium);
-    margin: 0px -90px 30px 90px;
-    
-    text-decoration: none;
-    width: 30%;
-    height: 15%;
-    cursor: pointer;
-}
-
-.change-match-button:hover 
-{
-    background: var(--primary-color-dark);
-}
 .notification-modal-background 
 {
     width: 100%;
@@ -3477,7 +3571,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    margin: 4px 130px;
+    margin: 4px 40px;
     cursor: pointer;
 }
 
@@ -3564,6 +3658,11 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
   padding: 0 30px;
 }
 
+.add-player-link
+{
+  padding: 0 30px;
+}
+
 .add-player-link a 
 {
     color: var(--link-dark);
@@ -3595,7 +3694,31 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     transform: translate(0%, 2.7%);
 
 }
-
+.loser-set-score
+{
+   
+    height: 35px;
+    width: 110px;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+	margin-top: -30px;
+	margin-left:30px;
+}
+.winner-set-score
+{
+    height: 40px;
+    width: 110px;
+    font-size: var(--font-small);
+    padding: 0px 10px 0px 10px;
+    background-color: var(--form-input-background);
+    box-shadow: none;
+    border: 1px solid var(--form-input-border);
+	margin-left:-50px;
+	margin-top: -30px;
+}
 .ad-search a 
 {
     text-decoration: none;
@@ -3959,7 +4082,6 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     padding: 40px;
     font-size: var(--font-small);
 }
-
 
 
 

@@ -1,5 +1,4 @@
 var slideIndex = 0;
-
 window.onload = function() {
     retrieveRecentEventsForClub(1);
     document.getElementById("input-confirm-password").onchange = passwordMatches;
@@ -133,6 +132,13 @@ function hideResetModal() {
     document.querySelector(".reset-modal-background").style.display = "none";
 }
 
+//harrinder's work
+// Hide change match type modal
+function hideChangePlayerModal() {
+    document.querySelector(".reset-modal-background1").style.display = "none";
+}
+
+
 function showAdministratorModal() {
     document.querySelector(".administrator-modal-background").style.display = "flex";
     hideDropdownMenu();
@@ -199,6 +205,10 @@ function showNotificationModal(header, message) {
 
 function hideNotificationModal() {
     document.querySelector(".notification-modal-background").style.display = "none";
+}
+
+function hideNotificationModal1() {
+    document.querySelector(".notification-modal-background1").style.display = "none";
 }
 
 function toggleDropdownMenu() {
@@ -372,6 +382,14 @@ function addEventRow(dbl) {
     hiddenInput1.setAttribute('name', 'winner-id[]');
     cell1.appendChild(hiddenInput1);
 
+	 var insertCell2 = document.createElement("input");
+                        insertCell2.setAttribute('type', 'number');
+                        insertCell2.setAttribute('class', 'winner-set-score');
+                        insertCell2.setAttribute('name', 'winner-set-score[]');
+                        insertCell2.onkeyup = "checkForm()";
+                        insertCell2.placeholder = "Set Score";
+                        cell2.appendChild(insertCell2);
+	
     var newlabel = document.createElement("Label");
     newlabel.setAttribute('class', 'ad-search break');
     //newlabel.setAttribute('onclick', 'showAdvancedSearchModal()');
@@ -467,8 +485,14 @@ function addEventRow(dbl) {
         newlabel33.innerHTML = result33;
         cell3.appendChild(newlabel33);
     }
-
-
+	
+	var insertCell4 = document.createElement("input");
+                        insertCell4.setAttribute('type', 'number');
+                        insertCell4.setAttribute('class', 'loser-set-score');
+                        insertCell4.setAttribute('name', 'loser-set-score[]');
+                        insertCell4.onkeyup = "checkForm()";
+                        insertCell4.placeholder = "Set Score";
+                        cell4.appendChild(insertCell4);
     var insertCell5 = document.createElement("button");
     insertCell5.innerHTML = "Delete";
     insertCell5.setAttribute('class', 'delete-button');
@@ -838,7 +862,7 @@ $("#event-upload-form").submit(function() {
 });
 
 
-/* chnageing match type and updating table accordingly */
+//harinder's work  to changing match type and updating table accordingly
 
 
 
@@ -859,10 +883,10 @@ function changeValue() {
 
 }
 
- /* harinder's work to show notification modal */
+//harinder's work to show notification modal
 
 function modalSelection(){
-    var ab = document.getElementById("event-type").value;
+	var ab = document.getElementById("event-type").value;
                     
                     if (ab == 'Double') {
                         x = 1;
@@ -870,37 +894,36 @@ function modalSelection(){
                     } else {
                         x = 0;
                     }
-    
-    if (x == 1) {
-        document.getElementById("notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted single event on this page";
-        document.querySelector(".notification-modal-background").style.display = "flex";
-    }
-    else {
-        document.getElementById("notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted double event on this page";
-        document.querySelector(".notification-modal-background").style.display = "flex";
+	
+	if (x == 1) {
+		document.getElementById("notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted single event on this page";
+		document.querySelector(".event-type-notification-modal-background").style.display = "flex";
+	}
+	else {
+		document.getElementById("notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted double event on this page";
+		document.querySelector(".event-type-notification-modal-background").style.display = "flex";
                            
 }
 }
 
 function changeType(){
-    
-    showUploadMatchRows();
-    hideNotificationModal()
+	
+	showUploadMatchRows();
+	document.querySelector(".event-type-notification-modal-background").style.display = "none";
 }
 function hideTypeModal() {
-    document.querySelector(".notification-modal-background").style.display = "none";
-     var ind = document.getElementById("event-type").selectedIndex
-     if(ind == "1"){
-         document.getElementById("event-type").selectedIndex = "2";
-     }
-     else if(ind == "2"){
-         document.getElementById("event-type").selectedIndex = "1";
-     }
-    
+    document.querySelector(".event-type-notification-modal-background").style.display = "none";
+	 var ind = document.getElementById("event-type").selectedIndex
+	 if(ind == "1"){
+		 document.getElementById("event-type").selectedIndex = "2";
+	 }
+	 else if(ind == "2"){
+		 document.getElementById("event-type").selectedIndex = "1";
+	 }
+	
 }
 
-/* Harinder's work ends here  */
-
+/* Harrinder's work ends here */
 /**
  * ---------------------------------------------- *
  *  Begin bookmark section                        *
