@@ -15,7 +15,7 @@
 
 		<form class="event-upload-form" id="event-upload-form" autocomplete="off" action=".\process-event.php" method="post">
 			<input value=<?php echo ("'".$account->getRegisteredClubSportID()."'");?> id="sport-type" name="sport-type" hidden />
-			<h1 class="event-details-header">Event Upload-Details</h1>
+			<h1 class="event-details-header">Event Details</h1>
 
 			<div class="event-form" action="">
 				<div class="event-field">
