@@ -686,6 +686,15 @@ $(document).on('click', '#submit-search-filter', function()
     retrieveSearchedPlayers(1, playerName, playerAgeMin, playerAgeMax, lastPlayed, clubName, countryName, stateName, submitSearchFilter);
 });
 
+//on load of player search page check to see if a search needs to be conducted
+//based on post variable from home page.
+$( function() {
+    if (typeof $_POST["home-player-search"] !== 'undefined') {
+        retrieveSearchedPlayers(1,$_POST["home-player-search"],'','','','','','','');
+        $("#player-name-filter").val($_POST["home-player-search"]);
+    }
+});
+
 $(".player-search-filter-container").keyup(function(event) 
 {
     if (event.keyCode === 13) 

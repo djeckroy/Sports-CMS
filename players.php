@@ -5,6 +5,10 @@
     include("./includes/navigation.php");
 ?>
 
+<script type="text/javascript">
+	var $_POST = <?php echo json_encode($_POST); ?>;
+</script>
+
 <article id="player-page-article">
 
     <div class="player-search-filter-container">
