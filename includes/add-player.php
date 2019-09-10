@@ -9,13 +9,6 @@
   	  <h2>Add Player</h2>
   	  <hr/>
         
-          <!-- form for uploading excel file -->
-        <form method= "post" action="" enctype="multipart/form-data">
-        <div class="add-player-input-group-double">
-          <input type="file" class="player-file" name="player-file"/>
-          <input type="submit" id= "add-player-file" name="add-player-file" value="Add File"/>   
-        </div>
-        </form>
       <div class="register-modal-field-wrapper">
         <form method="post">
 
@@ -56,5 +49,3 @@
 
   </div>
 </div>
-
-

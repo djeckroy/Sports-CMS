@@ -25,8 +25,6 @@ switch($_POST['ajaxMethod'])
 			$response[] = array($row);
 		}
 
-		//echo var_dump($result->fetchAll());
-
 		echo json_encode($response);
 		break;
 	case "get-player-rating":

@@ -138,4 +138,4 @@ if(isset($_POST["submitSearchFilter"]))
 
 echo $tableOutput;
 
-?>               
+?>             

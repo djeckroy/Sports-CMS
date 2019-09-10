@@ -277,9 +277,10 @@ class ContentManager
 
 		return $result;
 	}
-  public function getAllPlayersByAdvancedSearch($nameFilter)
-  {
-    $unfiltered = preg_replace("/[^a-zA-Z0-9\s]/", "", $nameFilter);
+
+    public function getAllPlayersByAdvancedSearch($nameFilter)
+    {
+        $unfiltered = preg_replace("/[^a-zA-Z0-9\s]/", "", $nameFilter);
 		$nameString = explode(" ", $unfiltered);
 
 		if(count($nameString) == 2)
@@ -299,9 +300,8 @@ class ContentManager
 
 		$result = $this->database->query($query, null); 
 
-		return $result;
-    
-  }
+		return $result; 
+    }
 	
 
 	public function getEventSport($eventID)
@@ -988,38 +988,34 @@ class ContentManager
 	}
 
   
-  public function addPlayer($givenName, $familyName,$gender,$dateOfBirth, $email, $clubID)
-  {
+    public function addPlayer($givenName, $familyName,$gender,$dateOfBirth, $email, $clubID)
+    {
+     
+    	$filteredGivenName = ucfirst(trim($givenName));
+   	 	$filteredFamilyName = ucfirst(trim($familyName));
     
-  
-    $filteredGivenName = ucfirst(trim($givenName));
-    $filteredFamilyName = ucfirst(trim($familyName));
+   		$gender = $gender;
     
-   	$gender = $gender;
+    	$formattedDateOfBirth = date_format(date_create($dateOfBirth),'Y-m-d');
     
-    $formattedDateOfBirth = date_format(date_create($dateOfBirth),'Y-m-d');
-    
-    $filteredEmail = strtolower(trim($email));
-    
-    $query1 = "SELECT  country_id FROM club WHERE club_id = ?";
-    $result1 = $this->database->query($query1, [$clubID])->fetch();
-    
-    $query2 = "SELECT  state_id FROM club WHERE club_id = ?";
-    $result2 = $this->database->query($query2, [$clubID])->fetch();
-    
-    
-    $query = "INSERT INTO player (given_name, family_name, gender, date_of_birth, email, country_id, state_id, last_played) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
-    $result = $this->database->query($query, [$filteredGivenName, $filteredFamilyName, $gender, $formattedDateOfBirth, $filteredEmail, $result1["country_id"], $result2["state_id"]]);
-    
-    $query = "select MAX(player_id) as player from player";
-    $playerResult = $this->database->query($query,[])->fetch();
-    
-    
-  
-    
-    $query = "INSERT INTO membership (club_id, player_id) VALUES (?,?)";
-    $result = $this->database->query($query,[$clubID, $playerResult['player']]);
-  }
+	   	$filteredEmail = strtolower(trim($email));
+	    
+	    $query1 = "SELECT  country_id FROM club WHERE club_id = ?";
+	    $result1 = $this->database->query($query1, [$clubID])->fetch();
+	    
+	    $query2 = "SELECT  state_id FROM club WHERE club_id = ?";
+	    $result2 = $this->database->query($query2, [$clubID])->fetch();
+	    
+	    
+	    $query = "INSERT INTO player (given_name, family_name, gender, date_of_birth, email, country_id, state_id, last_played) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
+	    $result = $this->database->query($query, [$filteredGivenName, $filteredFamilyName, $gender, $formattedDateOfBirth, $filteredEmail, $result1["country_id"], $result2["state_id"]]);
+	    
+	    $query = "select MAX(player_id) as player from player";
+	    $playerResult = $this->database->query($query,[])->fetch();
+      
+	    $query = "INSERT INTO membership (club_id, player_id) VALUES (?,?)";
+	    $result = $this->database->query($query,[$clubID, $playerResult['player']]);
+    }
   
   
   
@@ -1047,3 +1043,4 @@ class ContentManager
 }
 	
 ?>
+
