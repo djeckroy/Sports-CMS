@@ -33,8 +33,10 @@
     <div id="player-content" class="tab-content">
       <div class="search-box">
         <div class="search-field">
-          <input type="txt" class="search-input" placeholder="Search for Players">
-          <button class="search-button" onclick="window.location.href='./profile.php'" type="button">Search</button>
+			<form action="/players.php" method="post">
+			  <input type="txt" class="search-input" name="home-player-search" placeholder="Search for Players">
+			  <button class="search-button" type="submit">Search</button>
+			</form>
         </div>
       </div>
     </div>
