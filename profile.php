@@ -63,7 +63,7 @@
     <div class="favourite-icon-border">
       <input id="toggle-heart" type="checkbox" />
   	  <label class="favourite-label" data-text="favourite" for="toggle-heart">
-  	    <img alt="favourite" src="resources/images/favourite-icon-24.png">
+  	    <img id="favourite-icon" alt="favourite" src="resources/images/favourite-icon-24.png">
   	  </label>
   	</div>
     

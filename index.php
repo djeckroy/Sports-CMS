@@ -33,7 +33,7 @@
     <div id="player-content" class="tab-content">
       <div class="search-box">
         <div class="search-field">
-			<form action="/players.php" method="post">
+			<form action="./players.php" method="post">
 			  <input type="txt" class="search-input" name="home-player-search" placeholder="Search for Players">
 			  <button class="search-button" type="submit">Search</button>
 			</form>

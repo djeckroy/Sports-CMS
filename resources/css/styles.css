@@ -698,9 +698,12 @@ nav a:hover
 
 .favourite-icon-border
 {
-  position: relative;
+  position: absolute;
+  top: 3px;
   display: inline-block;
-  width: 15%;
+  width: 25%;
+  height: 28px;
+  margin-left: 15px;
 }
 
 [id='toggle-heart']
@@ -719,7 +722,7 @@ nav a:hover
 [id='toggle-heart']:checked + label > img
 {
   will-change: width, height;
-  animation: heart 1s cubic-bezier(.17, .89, .32, 1.49);
+  animation: heart 0.5s cubic-bezier(0, 0, 0.58, 1);
 }
 
 @keyframes heart
@@ -728,11 +731,18 @@ nav a:hover
     width: 0;
     height: 0;
   }
+
+  80% {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 .favourite-label
 {
-  position: relative;
+  position: absolute;
+  top: 0;
+  height: 28px;
 }
 
 .favourite-label::after
@@ -742,11 +752,18 @@ nav a:hover
   overflow: hidden;
   display: inline-block;
   transition: all 0.2s ease-in;
+  margin-left: 30px;
+  margin-top: 3px;
 }
 
 .favourite-label:hover::after
 {
-  width: 50%;
+  width: 100%;
+}
+
+#favourite-icon
+{
+  position: fixed;
 }
 
 .player-details-border
