@@ -19,7 +19,7 @@
         <a href="./privacy-policy.php">Privacy Policy</a>
         <a href="./terms-and-conditions.php">Terms & Conditions</a>
       </div>
-    <!--  <p>|</p> -->
+
       <div class="footer-social-media">
         <h2 class="footer-heading">Follow Us</h2>
         <a href="www.facebook.com">Facebook</a>
