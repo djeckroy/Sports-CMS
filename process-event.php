@@ -123,7 +123,3 @@ require("./includes/initialize.php");
 	redirect("./account.php");
 		
 ?>
-
-
-	
-
