@@ -3360,9 +3360,6 @@ color: var(--text-light);
 
 /* Upload Event Page */
 
-/* Upload Event Page */
-
-
 
 .event-details-border
 {
@@ -3418,6 +3415,7 @@ color: var(--text-light);
     box-shadow: none;
     margin-top: 6px;
     margin-bottom: 16px;
+    font-size: var(--font-small);
 }
 
 input[type="date"]::-webkit-inner-spin-button 

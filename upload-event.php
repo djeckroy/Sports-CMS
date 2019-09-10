@@ -10,10 +10,6 @@
 	}
 ?>
 
-<head>
-	<link rel="stylesheet" href="jquery.range.css">
-	<script src="jquery.range.js"></script>
-</head>
 <div>
 	<article class="event-details-border">
 

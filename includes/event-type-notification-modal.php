@@ -1,5 +1,3 @@
-<!-- Harinder's work for notification modal -->
-
 <div class="event-type-notification-modal-background">
   <div class="event-type-notification-modal-content">
 
@@ -8,7 +6,7 @@
     </div>
 
     <div class="event-type-notification-modal-fields">
-      <h2 id="notification-header-text">Notification</h2>
+      <h2 id="notification-header-text">Event Type Change</h2>
       <hr/>
   
       <div class="event-type-notification-modal-field-wrapper">
