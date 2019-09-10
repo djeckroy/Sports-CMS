@@ -7,7 +7,9 @@
 
 <article>
   
-<!-- CODE HERE -->
+<?php
+	echo nl2br( file_get_contents('./includes/terms-and-conditions.txt') );
+?>
 
 </article>
 
