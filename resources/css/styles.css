@@ -972,17 +972,30 @@ nav a:hover
 
 /* Team Profile Page */
 
-
-.team-player-names-border
+.select-sport-border
 {
+  position: relative;
   display: inline-block;
+  width: 50%;
+  border-top: 1px solid black;
+  padding: 7.5px 5px;
+}
+
+.select-sport-menu
+{
+  position: absolute;
+  text-align: right;
+  left: 55%;
 }
 
 .team-rating-border
 {
+  display: inline-block;
   width: 15%;
-  min-height: 150px;
-  position: relative;
+  margin-left: 5%;
+  position: absolute;
+  top: 27%;
+  height: 73%;
 }
 
 .team-mean-border
@@ -1013,7 +1026,7 @@ nav a:hover
   margin-bottom: 20px;
 }
 
-#team-profile-sport-name
+.team-profile-sport-name
 {
   color: var(--tertiary-color-dark);
   margin-bottom: 20px;

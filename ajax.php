@@ -33,6 +33,12 @@ switch($_POST['ajaxMethod'])
 		$response = array("mean"=>$result['mean'],"sd"=>$result['standard_deviation']);
 		echo json_encode($response);
 		break;
+	case "get-team-rating":
+		$result = $contentManager->getTeamRating($_POST['teamID'],$_POST['sportID']);
+
+		$response = array("mean"=>$result['mean'],"sd"=>$result['standard_deviation']);
+		echo json_encode($response);
+		break;
 	case "activate-account":
 		$account->activateAccount($_POST['accountID']);
 		break;

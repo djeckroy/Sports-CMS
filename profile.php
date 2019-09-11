@@ -55,9 +55,9 @@
   <div class="player-details-border">
 
     <h1>
-		<?php 
-			echo $playerInfo["given_name"] . " " . $playerInfo["family_name"];
-		?> 
+  		<?php 
+  			echo $playerInfo["given_name"] . " " . $playerInfo["family_name"];
+  		?> 
     </h1>
 
     <div class="favourite-icon-border">
@@ -74,7 +74,7 @@
 	  <li id="player-bio-row">
       	<span id="player-bio-row-heading"><b>Select Sport</b></span>
       	<span id="player-bio-row-value">
-      		<select class="select-sport-menu" id="profile-select-sport">
+      		<select id="profile-select-sport">
       			<?php
             $sports = $contentManager->getPlayerSports($playerId);
 
@@ -132,7 +132,7 @@
 		  if($playerRating['standard_deviation'] >= 0 && $playerRating['standard_deviation'] <= 50)
 		  {
 		?>   	   
-		  <p class="sd-value-green">
+		  <p class="sd-value sd-value-green">
 			&plusmn
 			<?php
 			  echo (int)$playerRating['standard_deviation'];
@@ -144,7 +144,7 @@
 		  if($playerRating['standard_deviation'] > 50 && $playerRating['standard_deviation'] < 100)
 		  {
 		?> 
-		  <p class="sd-value-orange">
+		  <p class="sd-value sd-value-orange">
 			&plusmn
 			<?php
 			  echo (int)$playerRating['standard_deviation'];
@@ -156,7 +156,7 @@
 		  if($playerRating['standard_deviation'] > 100)
 		  {
 		?> 
-		  <p class="sd-value-red">
+		  <p class="sd-value sd-value-red">
 			&plusmn
 			<?php
 			  echo (int)$playerRating['standard_deviation'];
