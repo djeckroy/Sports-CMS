@@ -834,19 +834,19 @@ function setupMatchErrorChecking() {
     });
 }
 
-function changeImageWhenClicked() {
-    $(".favourite-icon").click(function(e) {
-        if ($(".favourite-icon").attr('src') === "resources/images/favourite-icon-24.png") {
+function favouriteButtonAnimation() {
+    $("#favourite-icon").click(function(e) {
+        if ($(this).attr('src') === "resources/images/favourite-icon-24.png") {
             $(this).attr('src', 'resources/images/favourite-icon-filled-24.png');
         } else {
             $(this).attr('src', 'resources/images/favourite-icon-24.png');
         }
     });
-}
 
-function enlargeImageWhenHovered() {
-    $(".favourite-icon").hover(function(e) {
-        $(this).css('background-image', 'url(resources/images/favourite-icon-36.png)');
+    $("#favourite-icon").on("mouseenter" , function(e) {
+            $(this).animate( { width: "28px", height: "28px" }, 200 );
+    }).on("mouseleave", function(e) {
+            $(this).animate( { width: "24px", height: "24px" }, 200 );
     });
 }
 
@@ -1444,7 +1444,7 @@ function  setupMatchAutoCompleteAdvancedSearch()
             advancedSeachPlayerIDInput.val(ui.item.id);
             advancedSeachPlayerNameInput.val(ui.item.label);
             
-            hideAdvancedSearchModal();
+            hideAdvancedModal();
             
             //when an item is selected it is assumed that no error exists, remove the validity message
             var playerID = ui.item.id; 
