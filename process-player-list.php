@@ -32,7 +32,7 @@ if(isset($_POST["submitSearchFilter"]))
 	$totalPlayersResult = $contentManager->playerSearchFilterRowCount($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName);
 
 	$tableOutput .= "
-	  <table class='player-search-result-table'>
+	  <table class='search-result-table'>
 	    <tr>
 	      <th>Player</th>
 	      <th>Age</th>
@@ -62,8 +62,8 @@ if(isset($_POST["submitSearchFilter"]))
 
 	$tableOutput .= "
         </table>
-    <div class='player-search-pagination-buttons-container'> 
-    <div class='player-search-pagination-buttons'>";
+    <div class='search-pagination-buttons-container'> 
+    <div class='search-pagination-buttons'>";
 
     $totalPages = ceil($totalPlayersResult / $resultsPerPage);
 
@@ -138,4 +138,4 @@ if(isset($_POST["submitSearchFilter"]))
 
 echo $tableOutput;
 
-?>             
+?>               

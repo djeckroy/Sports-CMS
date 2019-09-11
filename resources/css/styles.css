@@ -748,6 +748,29 @@ nav a:hover
 }
 
 
+/* Clubs Page */
+  .club-search-filter-container
+  {
+    width: 100%;
+    height:200px; 
+    background-color: var(--tertiary-color);    
+  }
+
+  #club-search-filter-title
+  {
+    padding-top: 20px;
+    padding-left: 20px;
+    color: var(--text-light);
+  }
+
+  #club-search-filter-line
+  {
+    border-bottom: 1px solid #fff; 
+    padding-bottom: 3px;
+    width: 100%;
+    display: inline-block;
+  }
+
 /* Profile Page */
 
 
@@ -1024,6 +1047,196 @@ nav a:hover
   float: right;
 } 
 
+
+ /* Events Page */
+  .event-search-filter-container
+  {
+    width: 100%;
+    height:200px; 
+    background-color: var(--secondary-color);    
+  }
+
+  #event-search-filter-title
+  {
+    padding-top: 20px;
+    padding-left: 20px;
+    color: var(--text-light);
+  }
+
+  #event-search-filter-line
+  {
+    border-bottom: 1px solid #fff; 
+    padding-bottom: 3px;
+    width: 100%;
+    display: inline-block;
+  }
+/* Events profile page */
+
+.events-information-container {
+	width: 100%;
+	height: 240px;
+	position: block;
+	padding: 30px 20px 20px 30px;
+	border-radius: 5px 5px 5px 5px;
+	background-color: #fdc300;
+	overflow: hidden;
+	text-align: center;
+}
+.events-information-container h1 {
+	color: white;
+	padding-bottom: 20px;
+}
+.events-information-container h2 {
+	color: white;
+	font-size: var(--font-small);
+}
+.matches-table-container {
+	width: 100%;
+	position: relative;
+	border-radius: 10px 10px 10px 10px;
+	overflow: hidden;
+    margin-top: 40px;
+    
+}
+.matches-table-container h2 {
+	padding: 10px 0px 10px 0px;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: white;
+}
+.matches-table
+  {
+    position: relative;
+    border-collapse: collapse;
+    width: 100%;
+      
+  }
+
+  .matches-table th
+  {
+ 
+    font-size: var(--font-table-headers);
+    font-weight: bold;
+    background-color:#e8e5df; 
+    color: var(--primary-color);
+    height: 43.4375px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .matches-table td
+  {
+    border-bottom: 1px solid #ccc;  
+    height: 43.4375px;
+    padding-left: 20px;
+    text-align: center;
+  }
+/* Clubs profile page */
+
+.clubs-information-container {
+	width: 100%;
+	height: 200px;
+	position: block;
+	padding: 30px 20px 20px 30px;
+	border-radius: 5px 5px 5px 5px;
+	background-color: var(--tertiary-color);
+    color: white;
+	overflow: hidden;
+	text-align: center;
+}
+.clubs-information-container h1 {
+	color: white;
+	padding-bottom: 20px;
+}
+.clubs-information-container h2 {
+	color: white;
+	font-size: var(--font-small);
+}
+.club-members-container {
+	width: 100%;
+	position: relative;
+	border-radius: 10px 10px 10px 10px;
+	overflow: hidden;
+    margin-top: 40px;
+    
+}
+.club-members-container h2 {
+	padding: 10px 0px 10px 0px;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: white;
+}
+.club-members-table
+  {
+    position: relative;
+    border-collapse: collapse;
+    width: 100%;
+      
+  }
+
+  .club-members-table th
+  {
+ 
+    font-size: var(--font-table-headers);
+    font-weight: bold;
+    background-color:#e8e5df; 
+    color: var(--primary-color);
+    height: 43.4375px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .club-members-table td
+  {
+    border-bottom: 1px solid #ccc;  
+    height: 43.4375px;
+    padding-left: 20px;
+    text-align: center;
+  }
+.events-list-container {
+	width: 100%;
+	position: relative;
+	border-radius: 10px 10px 10px 10px;
+	overflow: hidden;
+    margin-top: 40px;
+    
+}
+.events-list-container h2 {
+	padding: 10px 0px 10px 0px;
+    text-align: center;
+    background-color: var(--secondary-color);
+    color: white;
+}
+.events-list-table
+  {
+    position: relative;
+    border-collapse: collapse;
+    width: 100%;
+      
+  }
+
+  .events-list-table th
+  {
+ 
+    font-size: var(--font-table-headers);
+    font-weight: bold;
+    background-color:#e8e5df; 
+    color: var(--secondary-color);
+    height: 43.4375px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .events-list-table td
+  {
+    border-bottom: 1px solid #ccc;  
+    height: 43.4375px;
+    padding-left: 20px;
+    text-align: center;
+  }
 
 /* Team Profile Page */
 
@@ -4400,8 +4613,8 @@ footer a
 
 .footer-logo img
 {
-  height: 135px;
-  width: 135px;
+  height: 130px;
+  width: 130px;
 }
 
 .footer-information
