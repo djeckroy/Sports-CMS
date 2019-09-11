@@ -748,9 +748,9 @@ nav a:hover
   position: absolute;
   top: 0;
   height: 30px;
-  border: 3px solid black;
+  border: 3px solid var(--secondary-color-dark);
   border-radius: 100px;
-  background-color: rgba(184, 15, 10, 1);
+  background-color: var(--primary-color);
 }
 
 .favourite-label::after
