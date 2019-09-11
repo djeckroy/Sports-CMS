@@ -347,7 +347,7 @@ class ContentManager
 	{
 		$query = "SELECT DISTINCT rating.sport_id, sport.name FROM rating INNER JOIN sport ON rating.sport_id = sport.sport_id WHERE rating.team_id = ? ";
 		
-		$result = $this->database->query($query, [$teamID])->fetch();
+		$result = $this->database->query($query, [$teamID]);
 
 		return $result;
 	}

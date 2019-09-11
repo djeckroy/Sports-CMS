@@ -1175,14 +1175,64 @@ function updateProfileSport()
     });   
  }
 
- function addTeamEventHistory()
- {
-    //get the team id from url
+ function updateTeamSport()
+{ 
+     //get the team id from url
      var params = (new URL(document.location)).searchParams;
      var teamID = params.get('team-id');
      
      //get sport ID
-     sportID = $("#team-profile-sport-id").val();
+     newSportID = $("#team-select-sport").val();
+     newSportName = $("#team-select-sport option:selected").text();
+     
+     $(".team-profile-sport-name").html(newSportName);
+     $(".mean-value").html("Loading");
+     $(".sd-value").html("Loading");
+
+     //run ajax to update sd and mean
+    $.ajax
+    ({
+        url: "./ajax.php",
+        type: "POST",
+        dataType: "text",
+        data:
+        {
+            teamID: teamID,
+            sportID: newSportID,
+            ajaxMethod: "get-team-rating"
+        },
+        success: function(data) 
+        {
+            
+            //parse the returned data
+            var jsonData = JSON.parse(data);
+            
+            $(".mean-value").html(parseInt(jsonData.mean));
+            $(".sd-value").html("&plusmn; " + parseInt(jsonData.sd));
+        }
+    });
+    
+    addTeamEventHistory(true);
+}
+
+ //listener for change of sport on team profile page
+ $("#team-select-sport").change(updateTeamSport);
+
+ function addTeamEventHistory(changeSport)
+ {
+    //get the team id from url
+    var params = (new URL(document.location)).searchParams;
+    var teamID = params.get('team-id');
+ 
+    //get sport ID
+    sportID = $("#team-select-sport").val();
+
+    if (changeSport)
+    {
+        //set count to zero and reset the table
+        eventHistoryRowCount = 0;
+        $("#team-history-table-body").html(""); //possibly this should report loading
+    }
     
     //run ajax to recent event histories
     $.ajax
@@ -1273,11 +1323,16 @@ function updateProfileSport()
  });
  
  $("#player-history-view-more").click(function(){
-        addEventHistory(false);
+    addEventHistory(false);
+ });
+
+ $( function(){
+    $(".team-profile-sport-name").html($("#team-select-sport option:selected").text());
+    addTeamEventHistory(true);
  });
 
  $("#team-history-view-more").click(function(){
-        addTeamEventHistory();
+    addTeamEventHistory(false);
  });
 
 /*
