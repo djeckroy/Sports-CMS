@@ -1098,40 +1098,70 @@ nav a:hover
     margin-top: 40px;
     
 }
-.matches-table-container h2 {
-	padding: 10px 0px 10px 0px;
+.matches-table-header-container {
     text-align: center;
+    padding:10px 0px 10px 10px;
+    height: 50px;
     background-color: var(--primary-color);
     color: white;
+}
+.matches-table-header-container h2 {
+	padding: 10px;
+    display: inline;
 }
 .matches-table
   {
     position: relative;
     border-collapse: collapse;
-    width: 100%;
-      
+    margin top: 40px;
+    width: 100%;   
   }
 
-  .matches-table th
+.matches-table th
   {
- 
     font-size: var(--font-table-headers);
     font-weight: bold;
-    background-color:#e8e5df; 
-    color: var(--primary-color);
+    background-color:var(--primary-color); 
+    color: white;
     height: 43.4375px;
     overflow: hidden;
     white-space: nowrap;
     text-align: center;
   }
+.matches-table th#doubleDefeat{
+    padding-top:  25px;
+}
+ 
 
-  .matches-table td
+.matches-table td
   {
     border-bottom: 1px solid #ccc;  
     height: 43.4375px;
-    padding-left: 20px;
     text-align: center;
   }
+.strong{
+    font-weight: bold;
+    color: var(--primary-color);  
+    width: 160px;
+  }
+
+#player-link:link
+{
+  text-decoration: none;
+  color: white;
+}
+
+#Player-link:hover
+{
+  color: var(--link-light);
+}
+
+#player-link:visited
+{
+  text-decoration: none;
+  color: white;
+}
+
 /* Clubs profile page */
 
 .clubs-information-container {
@@ -1175,7 +1205,7 @@ nav a:hover
       
   }
 
-  .club-members-table th
+.club-members-table th
   {
  
     font-size: var(--font-table-headers);
@@ -1188,7 +1218,7 @@ nav a:hover
     text-align: center;
   }
 
-  .club-members-table td
+.club-members-table td
   {
     border-bottom: 1px solid #ccc;  
     height: 43.4375px;
@@ -1217,7 +1247,7 @@ nav a:hover
       
   }
 
-  .events-list-table th
+.events-list-table th
   {
  
     font-size: var(--font-table-headers);
@@ -1230,7 +1260,7 @@ nav a:hover
     text-align: center;
   }
 
-  .events-list-table td
+.events-list-table td
   {
     border-bottom: 1px solid #ccc;  
     height: 43.4375px;
