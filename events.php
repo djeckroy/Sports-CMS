@@ -64,7 +64,7 @@
 					echo " hidden ";
 				}
 				echo ">";
-				echo "<td><a id='player-name-link' href='./club-profile.php?id=" . $row['event_id'] . "'>" . $row['eventName'] . "</a></td>";
+				echo "<td><a id='player-name-link' href='./event-profile.php?id=" . $row['event_id'] . "'>" . $row['eventName'] . "</a></td>";
 				echo "<td>" . $row['clubName'] . "</td>";
 				echo "<td>" . $row['date'] . "</td>";
 				echo "<td>" . $row['type'] . "</td>";
