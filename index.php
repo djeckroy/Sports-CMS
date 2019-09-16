@@ -44,8 +44,10 @@
     <div id="event-content" class="tab-content">
       <div class="search-box">
         <div class="search-field">
-          <input type="txt" class="search-input" placeholder="Search for Events">
-          <button class="search-button" onclick="" type="button">Search</button>
+			<form action="./events.php" method="post">
+			  <input type="txt" class="search-input" name="search" placeholder="Search for Events">
+			  <button class="search-button" onclick="" type="submit">Search</button>
+          </form>
         </div>
       </div>
     </div>
@@ -53,8 +55,10 @@
     <div id="club-content" class="tab-content">
       <div class="search-box">
         <div class="search-field">
-          <input type="txt" class="search-input" placeholder="Search for Clubs">
-          <button class="search-button" onclick="" type="button">Search</button>
+			<form action="./clubs.php" method="post">
+			  <input type="txt" class="search-input" name="search" placeholder="Search for Clubs">
+			  <button class="search-button" onclick="" type="submit">Search</button>
+          </form>
         </div>
       </div>
     </div>  

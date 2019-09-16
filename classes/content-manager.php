@@ -1039,6 +1039,40 @@ class ContentManager
     $query = "INSERT INTO rating(mean, standard_deviation, player_id, sport_id, last_calculated) VALUES(?, ?, ?, ?,NOW())";
     $result = $this->database->query($query, [$mean, $sd, $playerID, $sportID]);
   }
+  
+  public function searchClubs($search)
+  {
+		$search = "%" . $search . "%";
+		$query = "SELECT club.club_id, club.name as club, sport.name as sport, CONCAT(state.name, ', ', country.name) as region FROM club
+			JOIN country ON club.country_id = country.country_id
+			JOIN state ON club.state_id = state.state_id
+			JOIN sport ON club.sport_id = sport.sport_id
+			WHERE 
+			club.name LIKE ?
+			OR state.name LIKE ?
+			OR country.name LIKE ?
+			OR sport.name LIKE ?";
+		$result = $this->database->query($query,[$search,$search,$search,$search]);
+		return $result;
+  }
+  
+  public function searchEvents($search)
+  {
+	  $search = "%" . $search . "%";
+		$query = "SELECT event.event_id, event.name as eventName, club.name as clubName, event.start_date as date, event.type, CONCAT(state.name, ', ', country.name) as region FROM event
+		JOIN plays_at ON plays_at.event_id = event.event_id
+		JOIN club ON plays_at.club_id =club.club_id
+		JOIN state ON event.state_id = state.state_id
+		JOIN country ON event.country_id = country.country_id
+		WHERE 
+		event.name LIKE ? OR
+		club.name LIKE ? OR
+		country.name LIKE ? OR
+		state.name LIKE ?
+		ORDER BY event.start_date DESC";
+		$result = $this->database->query($query,[$search,$search,$search,$search]);
+		return $result;
+  }
 
 }
 	

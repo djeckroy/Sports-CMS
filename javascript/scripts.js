@@ -1514,3 +1514,29 @@ function  setupMatchAutoCompleteAdvancedSearch()
     
   });
 }
+
+/**
+ *-----------------------------------------
+ * Club Search Page --------------
+ * ---------------------
+ */
+
+$(".club-page-selector").click(function(event){
+        var newPage = event.target.id;
+        $(".club-search-results").hide();
+        var selector = ".club-search-results-page-" + newPage;
+        $(selector).show();
+    });
+
+/**
+ *--------------------------
+ *event search page
+ *--------------------------
+ */
+
+$(".event-page-selector").click(function(event){
+        var newPage = event.target.id;
+        $(".event-search-results").hide();
+        var selector = ".event-search-results-page-" + newPage;
+        $(selector).show();
+    });
