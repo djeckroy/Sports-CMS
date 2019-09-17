@@ -49,11 +49,11 @@ function sign( $number ) {
 			<tr>
 				<th> </th>
 				<th>
-					<?php echo("<a id='player-link' href='/player/profile?id=" . $row['winning_id'] . "'>" . $row['winning_name'] . "</a>"); ?>
+					<?php echo("<a id='player-link' href='./profile.php?profile-id=" . $row['winning_id'] . "'>" . $row['winning_name'] . "</a>"); ?>
 				</th>
 				<th>defeats</th>
 				<th>
-					<?php echo("<a id='player-link' href='/player/profile?id=" . $row['losing_id'] . "'>" . $row['losing_name'] . "</a>"); ?>
+					<?php echo("<a id='player-link' href='./profile.php?profile-id=" . $row['losing_id'] . "'>" . $row['losing_name'] . "</a>"); ?>
 				</th>
 			</tr>
 			<tr>
@@ -72,7 +72,7 @@ function sign( $number ) {
 					<td class="strong">Ranking Change:</td>
 					<td>
 					<?php
-						$change = (int)($row['mean_after_winning'] - $row['mean_before_winning']);
+						$change = ((int)$row['mean_after_winning'] - (int)$row['mean_before_winning']);
 						if (sign($change) < 0)
 						{
 							//negative change
@@ -123,16 +123,24 @@ function sign( $number ) {
 			<?php
 			}
 		}
+		else
+		{
+			//doubles
+			$result = $contentManager->getEventMatches($eventID, false);
+			while ($row = $result->fetch())
+			{
 	
 	?>
 	<div class="matches-table-container">
 		<table class='matches-table'>
 			<tr>
 				<th> </th>
-				<th><a id='player-link' href="/player/profile">Bailey Fred</a>
+				<th>
+					<?php echo("<a id='player-link' href='./team-profile.php?team-id=" . $row['winning_id'] . "'>" . $row['winning_name1'] . "</a>"); ?>
 				</th>
-				<th id="doubleDefeat">defeat</th>
-				<th><a id='player-link' href="/player/profile">Collins George</a>
+				<th id="doubleDefeat">defeats</th>
+				<th>
+					<?php echo("<a id='player-link' href='./team-profile.php?team-id=" . $row['losing_id'] . "'>" . $row['losing_name1'] . "</a>"); ?>
 				</th>
 				<th> </th>
 			</tr>
@@ -140,79 +148,81 @@ function sign( $number ) {
 
 				<tr>
 					<th> </th>
-					<th><a id='player-link' href="/player/profile">Clark Ernest</a>
+					<th>
+						<?php echo("<a id='player-link' href='./team-profile.php?team-id=" . $row['winning_id'] . "'>" . $row['winning_name2'] . "</a>"); ?>
 					</th>
 					<th> </th>
-					<th><a id='player-link' href="/player/profile">Butler Alan</a>
+					<th>
+						<?php echo("<a id='player-link' href='./team-profile.php?team-id=" . $row['losing_id'] . "'>" . $row['losing_name2'] . "</a>"); ?>
 					</th>
 				</tr>
 				<tr>
 
 					<tr>
-						<td class="strong">Previous Ranking:</td>
-						<td>4326</td>
-						<td>-</td>
-						<td>3250</td>
-					</tr>
-					<tr>
-						<td class="strong">Ranking Change:</td>
-						<td>+100</td>
-						<td>-</td>
-						<td>-50</td>
-					</tr>
-					<tr>
-						<td class="strong">New Ranking:</td>
-						<td>4426</td>
-						<td>-</td>
-						<td>3200</td>
-					</tr>
-					<tr>
-						<td class="strong">Set Score:</td>
-						<td>426</td>
-						<td>-</td>
-						<td>332</td>
-					</tr>
-		</table>
-	</div>
-
-	<div class="matches-table-container">
-		<table class='matches-table'>
-			<tr>
-				<th> </th>
-				<th><a id='player-link' href="/player/profile">Bailey Fred</a>
-				</th>
-				<th>defeats</th>
-				<th><a id='player-link' href="/player/profile">Collins George</a>
-				</th>
-			</tr>
-			<tr>
-
-				<tr>
 					<td class="strong">Previous Ranking:</td>
-					<td>4326</td>
+					<td>
+					<?php echo((int)$row['mean_before_winning'] . " &plusmn" . (int)$row['standard_deviation_before_winning']); ?>
+					</td>
 					<td>-</td>
-					<td>3250</td>
+					<td>
+					<?php echo((int)$row['mean_before_losing'] . " &plusmn" . (int)$row['standard_deviation_before_losing']); ?>
+					</td>
 				</tr>
 				<tr>
 					<td class="strong">Ranking Change:</td>
-					<td>+100</td>
+					<td>
+					<?php
+						$change = ((int)$row['mean_after_winning'] - (int)$row['mean_before_winning']);
+						if (sign($change) < 0)
+						{
+							//negative change
+							echo($change);
+						}
+						else
+						{
+							echo("+" . $change);
+						}
+					?>
+					</td>
 					<td>-</td>
-					<td>-50</td>
+					<td>
+					<?php
+						$change = (int)($row['mean_after_losing'] - $row['mean_before_losing']);
+						if (sign($change) < 0)
+						{
+							//negative change
+							echo($change);
+						}
+						else
+						{
+							echo("+" . $change);
+						}
+					?>
+					</td>
 				</tr>
 				<tr>
 					<td class="strong">New Ranking:</td>
-					<td>4426</td>
+					<td>
+					<?php echo((int)$row['mean_after_winning'] . " &plusmn" . (int)$row['standard_deviation_after_winning']); ?>
+					</td>
 					<td>-</td>
-					<td>3200</td>
+					<td>
+					<?php echo((int)$row['mean_after_losing'] . " &plusmn" . (int)$row['standard_deviation_after_losing']); ?>
+					</td>
 				</tr>
 				<tr>
 					<td class="strong">Set Score:</td>
-					<td>426</td>
+					<td><?php echo ($row['winner_score']); ?></td>
 					<td>-</td>
-					<td>332</td>
+					<td><?php echo ($row['loser_score']); ?></td>
 				</tr>
 		</table>
 	</div>
+	
+	<?php
+}
+}
+?>
 
 </article>
 

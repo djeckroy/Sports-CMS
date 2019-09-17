@@ -1112,6 +1112,33 @@ class ContentManager
 	  else
 	  {
 		  //doubles
+		  
+		  $query = "SELECT 
+					game.mean_before_winning, game.mean_after_winning, game.standard_deviation_before_winning, game.standard_deviation_after_winning,
+					game.winner_score, CONCAT(winning_player1.given_name, ' ', winning_player1.family_name) AS winning_name1, CONCAT(winning_player2.given_name, ' ', winning_player2.family_name) AS winning_name2, winning_team.team_id AS winning_id,
+
+					game.mean_before_losing, game.mean_after_losing, game.standard_deviation_before_losing, game.standard_deviation_after_losing,
+					game.loser_score, CONCAT(loser_player1.given_name, ' ', loser_player1.family_name) AS losing_name1, CONCAT(loser_player2.given_name, ' ', loser_player2.family_name) AS losing_name2, losing_team.team_id AS losing_id
+
+					FROM game
+
+					JOIN game_result AS winner_game_result ON (winner_game_result.game_id = game.game_id AND winner_game_result.won = 'Y')
+
+					JOIN game_result AS loser_game_result ON (loser_game_result.game_id = game.game_id AND loser_game_result.won = 'N')
+
+					JOIN team AS winning_team ON winner_game_result.team_id = winning_team.team_id
+                    
+                    JOIN team AS losing_team ON loser_game_result.team_id = losing_team.team_id
+                    
+                    JOIN player AS winning_player1 ON winning_team.player_one_id = winning_player1.player_id
+                    
+                    JOIN player AS winning_player2 ON winning_team.player_two_id = winning_player2.player_id
+
+					JOIN player AS loser_player1 ON losing_team.player_one_id = loser_player1.player_id
+                    
+                    JOIN player AS loser_player2 ON losing_team.player_two_id = loser_player2.player_id
+
+					WHERE game.event_id = ?";
 	  }
 	  $result = $this->database->query($query,[$eventID]);
 	  return $result;
