@@ -1143,6 +1143,17 @@ class ContentManager
 	  $result = $this->database->query($query,[$eventID]);
 	  return $result;
   }
+  
+  public function getClubInformation($clubID)
+  {
+	  $query = "SELECT club.club_id, club.name AS club_name, sport.name AS sport_name, CONCAT(state.name, ', ', country.name) as region FROM club
+				JOIN sport ON club.sport_id = sport.sport_id
+				JOIN state ON club.state_id = state.state_id
+				JOIN country ON club.country_id = country.country_id
+				WHERE club.club_id = ?";
+		$result = $this->database->query($query,[$clubID])->fetch();
+		return $result;
+  }
 
 }
 	

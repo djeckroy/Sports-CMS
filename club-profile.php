@@ -3,14 +3,27 @@
 
     include("./includes/header.php");
     include("./includes/navigation.php");
+    
+    if (isset($_GET['id'])){
+		$clubID = $_GET['id'];
+	}
+	else
+	{
+		//somehow the user has got to the event profile page without an event id
+		//send them to the event search page
+		redirect("./clubs.php");
+	}
+
+
+$clubInfo =  $contentManager->getClubInformation($clubID);
+
 ?>
 
 <article id="club-profile-page-article">
   <div class="clubs-information-container">
-      <h1>Habart Badminton Club</h1>
-      <h2>Badminton</h2>
-      <h2>Tasmania</h2>
-      <h2>Australia</h2> 
+		<h1><?php echo($clubInfo['club_name']) ?></h1>
+		<h2><?php echo($clubInfo['sport_name']) ?></h2>
+		<h2><?php echo($clubInfo['region']) ?></h2>
   </div>
   <div class="club-members-container">
       <h2>Club Members List</h2>
