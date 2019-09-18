@@ -1540,3 +1540,23 @@ $(".event-page-selector").click(function(event){
         var selector = ".event-search-results-page-" + newPage;
         $(selector).show();
     });
+
+/**
+ *----------------------------
+ *Club profile page
+ *------------------------------
+ */
+
+$(".club-players-page-selector").click(function(event){
+        var newPage = event.target.id;
+        $(".club-players-search-results").hide();
+        var selector = ".club-players-search-results-page-" + newPage;
+        $(selector).show();
+    });
+
+$(".club-events-page-selector").click(function(event){
+        var newPage = event.target.id;
+        $(".club-events-search-results").hide();
+        var selector = ".club-events-search-results-page-" + newPage;
+        $(selector).show();
+    });

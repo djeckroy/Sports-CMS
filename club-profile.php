@@ -1,8 +1,10 @@
 <?php 
     $title = "Peterman Ratings | Club-profile";
-
+	
     include("./includes/header.php");
     include("./includes/navigation.php");
+    
+    $rowsPerPage = 10;
     
     if (isset($_GET['id'])){
 		$clubID = $_GET['id'];
@@ -33,150 +35,108 @@ $clubInfo =  $contentManager->getClubInformation($clubID);
 	      <th>Age</th>
 	      <th>Last Played</th>
 	      </tr>
-          <tr>
-          <td>PlayName</td>
-          <td>28</td>
-          <td>19 August 2019</td>
-          </tr>
-          <tr>
-          <td>PlayName</td>
-          <td>28</td>
-          <td>19 August 2019</td>
-          </tr>
-          <tr>
-          <td>PlayName</td>
-          <td>28</td>
-          <td>19 August 2019</td>
-          </tr>
-          <tr>
-          <td>PlayName</td>
-          <td>28</td>
-          <td>19 August 2019</td>
-          </tr>
-          <tr>
-          <td>PlayName</td>
-          <td>28</td>
-          <td>19 August 2019</td>
-          </tr>
-          <tr>
-          <td>PlayName</td>
-          <td>28</td>
-          <td>19 August 2019</td>
-          </tr>
-          <tr>
-          <td>PlayName</td>
-          <td>28</td>
-          <td>19 August 2019</td>
-          </tr>
-          <tr>
-          <td>PlayName</td>
-          <td>28</td>
-          <td>19 August 2019</td>
-          </tr>
-          <tr>
-          <td>PlayName</td>
-          <td>28</td>
-          <td>19 August 2019</td>
-          </tr>
-          <tr>
-          <td>PlayName</td>
-          <td>28</td>
-          <td>19 August 2019</td>
-          </tr>
+	      
+	      <?php
+	      
+	      $result = $contentManager->getClubsPlayers($clubID);
+			$totalRows = $result->rowCount();
+			$pages = ceil($totalRows / $rowsPerPage);
+			$count = 0;
+			
+			while ($row = $result->fetch())
+			{
+				$page = intdiv($count,$rowsPerPage);
+				echo "<tr class='club-players-search-results club-players-search-results-page-" . $page . "'";
+				if ($page > 0)
+				{
+					echo " hidden ";
+				}
+				echo ">";
+				echo "<td><a href='./profile.php?profile-id=" . $row['player_id'] . "'>" . $row['player_name'] . "</a></td>";
+				echo "<td>" . $row['player_age'] . "</td>";
+				echo "<td>" . $row['last_played'] . "</td>";
+				echo "</tr>";
+				
+				$count++;
+			}
+	      
+	      ?>
         </table>
     
   </div>
     
   <div class="search-pagination-buttons">
-        <span class="player-search-link player-search-link-active" id="1">&lt;&lt;</span>
-        <span class="player-search-link player-search-link-active" id="1">1 </span>
-        <span class="player-search-link player-search-link-active" id="2">2 </span>
-        <span class="player-search-link player-search-link-active" id="3">3 </span>
-        <span class="player-search-link player-search-link-active" id="4">4 </span>
-        <span class="player-search-link player-search-link-active" id="4">&gt;&gt;</span>
+		<?php
+			if ($pages > 1)
+			{
+				echo "<span class='club-players-page-selector player-search-link player-search-link-active' id='0'>&lt;&lt;</span>";
+				$i = 0;
+				while (($i < $pages))
+				{
+					echo "<span class='club-players-page-selector club-page-selector-inner player-search-link player-search-link-active' id='" . $i . "'>". ($i + 1) ." </span>";
+					$i++;
+				}
+				echo "<span class='club-players-page-selector player-search-link player-search-link-active' id='" . ($pages - 1) . "'>&gt;&gt;</span>";
+			}
+		?>
     </div>
     
     <div class="events-list-container">
     <h2>Events List</h2>
     <table class='events-list-table'>
 	      <tr>
-	      <th>Player</th>
+	      <th>Event Name</th>
 	      <th>Date</th>
 	      <th>Type</th>
           <th>Region</th>
 	      </tr>
-          <tr>
-          <td>EventName</td>
-          <td>04/04/2019</td>
-          <td>Single</td>
-          <td>Australia, Tasmania</td>
-          </tr>
-          <tr>
-          <td>EventName</td>
-          <td>04/04/2019</td>
-          <td>Single</td>
-          <td>Australia, Tasmania</td>
-          </tr>
-          <tr>
-          <td>EventName</td>
-          <td>04/04/2019</td>
-          <td>Single</td>
-          <td>Australia, Tasmania</td>
-          </tr>
-          <tr>
-          <td>EventName</td>
-          <td>04/04/2019</td>
-          <td>Single</td>
-          <td>Australia, Tasmania</td>
-          </tr>
-          <tr>
-          <td>EventName</td>
-          <td>04/04/2019</td>
-          <td>Single</td>
-          <td>Australia, Tasmania</td>
-          </tr>
-          <tr>
-          <td>EventName</td>
-          <td>04/04/2019</td>
-          <td>Single</td>
-          <td>Australia, Tasmania</td>
-          </tr>
-          <tr>
-          <td>EventName</td>
-          <td>04/04/2019</td>
-          <td>Single</td>
-          <td>Australia, Tasmania</td>
-          </tr>
-          <tr>
-          <td>EventName</td>
-          <td>04/04/2019</td>
-          <td>Single</td>
-          <td>Australia, Tasmania</td>
-          </tr>
-          <tr>
-          <td>EventName</td>
-          <td>04/04/2019</td>
-          <td>Single</td>
-          <td>Australia, Tasmania</td>
-          </tr>
-          <tr>
-          <td>EventName</td>
-          <td>04/04/2019</td>
-          <td>Single</td>
-          <td>Australia, Tasmania</td>
-          </tr>
+	      
+	      
+	      <?php
+	      
+	      $result = $contentManager->getClubEvents($clubID);
+			$totalRows = $result->rowCount();
+			$pages = ceil($totalRows / $rowsPerPage);
+			$count = 0;
+			
+			while ($row = $result->fetch())
+			{
+				$page = intdiv($count,$rowsPerPage);
+				echo "<tr class='club-events-search-results club-events-search-results-page-" . $page . "'";
+				if ($page > 0)
+				{
+					echo " hidden ";
+				}
+				echo ">";
+				echo "<td><a href='./event-profile.php?id=" . $row['event_id'] . "'>" . $row['name'] . "</a></td>";
+				echo "<td>" . $row['date'] . "</td>";
+				echo "<td>" . $row['type'] . "s</td>";
+				echo "<td>" . $row['region'] . "</td>";
+				echo "</tr>";
+				
+				$count++;
+			}
+	      
+	      ?>
         
         </table>
     
   </div>
     
     <div class="search-pagination-buttons">
-        <span class="player-search-link player-search-link-active" id="1">&lt;&lt;</span>
-        <span class="player-search-link player-search-link-active" id="1">1 </span>
-        <span class="player-search-link player-search-link-active" id="2">2 </span>
-        <span class="player-search-link player-search-link-active" id="3">3 </span>
-        <span class="player-search-link player-search-link-active" id="4">4 </span>
-        <span class="player-search-link player-search-link-active" id="4">&gt;&gt;</span>
+        <?php
+			if ($pages > 1)
+			{
+				echo "<span class='club-events-page-selector player-search-link player-search-link-active' id='0'>&lt;&lt;</span>";
+				$i = 0;
+				while (($i < $pages))
+				{
+					echo "<span class='club-events-page-selector club-page-selector-inner player-search-link player-search-link-active' id='" . $i . "'>". ($i + 1) ." </span>";
+					$i++;
+				}
+				echo "<span class='club-events-page-selector player-search-link player-search-link-active' id='" . ($pages - 1) . "'>&gt;&gt;</span>";
+			}
+		?>
     </div>
 
 

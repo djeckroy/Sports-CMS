@@ -1154,6 +1154,28 @@ class ContentManager
 		$result = $this->database->query($query,[$clubID])->fetch();
 		return $result;
   }
+  
+  public function getClubsPlayers($clubID)
+  {
+	  $query = "SELECT player.player_id, CONCAT(player.given_name, ' ', player.family_name) AS player_name, TIMESTAMPDIFF(YEAR, player.date_of_birth, CURDATE()) AS player_age,
+				DATE_FORMAT(player.last_played, '%d %M %Y') AS last_played
+				FROM player
+				JOIN membership ON membership.player_id = player.player_id
+				WHERE membership.club_id = ?";
+	  $result = $this->database->query($query,[$clubID]);
+	  return $result;
+  }
+  
+  public function getClubEvents($clubID)
+  {
+	  $query = "SELECT event.event_id, event.name, event.start_date AS date, event.type, CONCAT(state.name, ', ', country.name) as region FROM event
+				JOIN plays_at ON plays_at.event_id = event.event_id
+				JOIN state ON event.state_id = state.state_id
+				JOIN country ON event.country_id = country.country_id
+				WHERE plays_at.club_id = ?";
+		$result = $this->database->query($query,[$clubID]);
+		return $result;
+  }
 
 }
 	
