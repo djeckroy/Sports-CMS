@@ -443,13 +443,14 @@ function addEventRow(dbl) {
                         insertCell2.placeholder = "Set Score";
                         cell2.appendChild(insertCell2);
     
-    var newlabel = document.createElement("Label");
+    var newlabel = document.createElement("label");
     newlabel.setAttribute('class', 'ad-search break');
-    //newlabel.setAttribute('onclick', 'showAdvancedSearchModal()');
-    var str = "Advanced search";
-    var result = str.link("#");
-    newlabel.innerHTML = "" + result + "";
     cell1.appendChild(newlabel);
+    var advancedSearchLink = document.createElement("a");
+    advancedSearchLink.setAttribute('class', 'ad-search-link');
+    advancedSearchLink.innerHTML = "Advanced Search";
+    advancedSearchLink.setAttribute('href','#');
+    newlabel.appendChild(advancedSearchLink);
 
     if (dbl == '1') {
 
@@ -467,23 +468,29 @@ function addEventRow(dbl) {
         hiddenInput1.setAttribute('name', 'winner-id[]');
         cell1.appendChild(hiddenInput1);
 
-        var newlabel11 = document.createElement("Label");
-        newlabel11.setAttribute('class', 'ad-search break');
-        //newlabel11.setAttribute('onclick', 'showAdvancedSearchModal()');
-        var str11 = "Advanced search";
-        var result11 = str11.link("#");
-        newlabel11.innerHTML = "" + result11;
-        cell1.appendChild(newlabel11);
+        var newlabel = document.createElement("label");
+        newlabel.setAttribute('class', 'ad-search break');
+        cell1.appendChild(newlabel);
+        var advancedSearchLink = document.createElement("a");
+        advancedSearchLink.setAttribute('class', 'ad-search-link');
+        advancedSearchLink.innerHTML = "Advanced Search";
+        advancedSearchLink.setAttribute('href','#');
+        newlabel.appendChild(advancedSearchLink);
     }
 
     var newlabel2 = document.createElement("Label");
-    newlabel2.setAttribute('class', 'add-player-link break add-match');
-    newlabel2.setAttribute('onclick', 'showAddPlayerModal()');
+    newlabel2.setAttribute('class', 'break add-player-link add-match');
+    //newlabel2.setAttribute('onclick', 'showAddPlayerModal()');
     var str3 = "Can't find a player? Add them ";
     var str2 = "here";
     var result2 = str2.link("#");
-    newlabel2.innerHTML = str3 + result2;
+    newlabel2.innerHTML = str3;// + result2;
     cell1.appendChild(newlabel2);
+    var newPlayerLink = document.createElement("a");
+    newPlayerLink.setAttribute('href','#');
+    newPlayerLink.setAttribute('onclick', 'showAddPlayerModal()');
+    newPlayerLink.innerHTML = "here";
+    newlabel2.appendChild(newPlayerLink);
 
 
 
@@ -506,13 +513,14 @@ function addEventRow(dbl) {
     hiddenInput2.setAttribute('name', 'loser-id[]');
     cell3.appendChild(hiddenInput2);
 
-    var newlabel1 = document.createElement("Label");
-    newlabel1.setAttribute('class', 'ad-search break');
-    //newlabel1.setAttribute('onclick', 'showAdvancedSearchModal()');
-    var str1 = "Advanced search";
-    var result1 = str1.link("#");
-    newlabel1.innerHTML = result1;
-    cell3.appendChild(newlabel1);
+    var newlabel = document.createElement("label");
+    newlabel.setAttribute('class', 'ad-search break');
+    cell3.appendChild(newlabel);
+    var advancedSearchLink = document.createElement("a");
+    advancedSearchLink.setAttribute('class', 'ad-search-link');
+    advancedSearchLink.innerHTML = "Advanced Search";
+    advancedSearchLink.setAttribute('href','#');
+    newlabel.appendChild(advancedSearchLink);
 
     if (dbl == '1') {
 
@@ -530,13 +538,14 @@ function addEventRow(dbl) {
         hiddenInput2.setAttribute('name', 'loser-id[]');
         cell3.appendChild(hiddenInput2);
 
-        var newlabel33 = document.createElement("Label");
-        newlabel33.setAttribute('class', 'ad-search break');
-        //newlabel33.setAttribute('onclick', 'showAdvancedSearchModal()');
-        var str33 = "Advanced search";
-        var result33 = str33.link("#");
-        newlabel33.innerHTML = result33;
-        cell3.appendChild(newlabel33);
+        var newlabel = document.createElement("label");
+        newlabel.setAttribute('class', 'ad-search break');
+        cell3.appendChild(newlabel);
+        var advancedSearchLink = document.createElement("a");
+        advancedSearchLink.setAttribute('class', 'ad-search-link');
+        advancedSearchLink.innerHTML = "Advanced Search";
+        advancedSearchLink.setAttribute('href','#');
+        newlabel.appendChild(advancedSearchLink);
     }
     
     var insertCell4 = document.createElement("input");
@@ -629,9 +638,9 @@ var advancedSeachPlayerIDInput; //will store the input of the (hidden) id field
 
 
 function setupAdvancedSearchLinks() {
-    $('.ad-search').click(function() {
-        advancedSeachPlayerIDInput = $(this).prev();
-        advancedSeachPlayerNameInput = $(this).prev().prev();
+    $('.ad-search-link').click(function() {
+        advancedSeachPlayerIDInput = $(this).parent().prev();
+        advancedSeachPlayerNameInput = $(this).parent().prev().prev();
         showAdvancedSearchModal();
     });
 }
@@ -1499,7 +1508,7 @@ function  setupMatchAutoCompleteAdvancedSearch()
             advancedSeachPlayerIDInput.val(ui.item.id);
             advancedSeachPlayerNameInput.val(ui.item.label);
             
-            hideAdvancedModal();
+            hideAdvancedSearchModal();
             
             //when an item is selected it is assumed that no error exists, remove the validity message
             var playerID = ui.item.id; 
