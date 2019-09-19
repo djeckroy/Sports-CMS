@@ -613,7 +613,7 @@ function addPlayer() {
     var playerClubID = $("#player-club-ID").val();
 
     $.ajax({
-        url: "./add-player-manager.php",
+        url: "./ajax.php",
         type: 'post',
         datatype: "text",
         data: {
@@ -622,7 +622,8 @@ function addPlayer() {
             playerGenderID: playerGenderID,
             playerBirthDate: playerBirthDate,
             playerEmail: playerEmail,
-            playerClubID: playerClubID
+            playerClubID: playerClubID,
+            ajaxMethod: "add-player-manager"
         },
         success: function(data) {
             hideAddPlayerModal();
@@ -706,10 +707,10 @@ function uploadEventChangeStates(countryCombo, stateCombo) {
 
     //run ajax
     $.ajax({
-        url: "./get-states-by-country-ID.php",
+        url: "./ajax.php",
         type: "POST",
         dataType: "text",
-        data: { countryID: country },
+        data: { countryID: country, ajaxMethod: "get-states-by-country-ID"},
         success: function(data) {
             //parse the returned data
             var jsonData = JSON.parse(data);
@@ -747,10 +748,10 @@ function playerSearchChangeStates(countryName, stateName) {
     stateName.html("<option selected value>Select State</option>");
 
     $.ajax({
-        url: "./get-states-by-country-ID.php",
+        url: "./ajax.php",
         type: "POST",
         dataType: "text",
-        data: { countryID: country },
+        data: { countryID: country, ajaxMethod: "get-states-by-country-ID" },
         success: function(data) {
             //parse the returned data
             var jsonData = JSON.parse(data);
@@ -782,12 +783,13 @@ function setupMatchAutoComplete() {
         source: function(request, response) {
             // Fetch data
             $.ajax({
-                url: "./get-player-by-state.php",
+                url: "./ajax.php",
                 type: 'POST',
                 dataType: "json",
                 data: {
                     name: request.term,
-                    state: state
+                    state: state,
+                    ajaxMethod: "get-player-by-state"
                 },
                 success: function(data) {
                     response(data);
@@ -813,13 +815,14 @@ function setInitialRating(playerID) {
         var sportID = $("#sport-type").val();
 
         $.ajax({
-            url: "./initial-rating-Manager.php",
+            url: "./ajax.php",
             type: 'POST',
             datatype: "text",
             data: {
                 playerID: playerID,
                 sportID: sportID,
-                setRating: setRating
+                setRating: setRating,
+                ajaxMethod: "initial-rating-Manager"
             },
             success: function(data) {
                 if (data == "false") {
