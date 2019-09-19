@@ -336,21 +336,21 @@ function showUploadMatchRows() {
     //check sport and event type selected
     if ($("#sport-type").val() == null) {
         //no sport selected
-        alert("Please select a sport before clicking.");
+        showNotificationModal('Error', 'Please select a sport before clicking.');
     } else {
         if ($("#event-type").val() == null) {
             //no event type selected
-            alert("Please select the match type (Singles or Doubles) before clicking.");
+            showNotificationModal('Error','Please select the match type (Singles or Doubles) before clicking.');
         } else {
 
             var matchInputNumber = document.getElementById("match-field-input").value;
 
             if (matchInputNumber == "") {
-                window.alert("Please type a number (greater than 1) before clicking");
+                showNotificationModal('Error',"Please type a number (greater than 1) before clicking");
             } else {
 
                 if (matchInputNumber < 1 && matchInputNumber != "") {
-                    window.alert("Match input number cannot be less than 1");
+                    showNotificationModal('Error',"Match input number cannot be less than 1");
                 } else {
 
                     var matchRows = document.getElementById("match-field-input").value;
@@ -969,11 +969,11 @@ function modalSelection(){
                     }
     
     if (x == 1) {
-        document.getElementById("notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted single event on this page";
+        document.getElementById("event-type-notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted singles events on this page.";
         document.querySelector(".event-type-notification-modal-background").style.display = "flex";
     }
     else {
-        document.getElementById("notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted double event on this page";
+        document.getElementById("event-type-notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted doubles event on this page.";
         document.querySelector(".event-type-notification-modal-background").style.display = "flex";
                            
 }
