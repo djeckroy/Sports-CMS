@@ -31,7 +31,7 @@ require("./includes/initialize.php");
 		else
 		{
 			$eventName = trim($_POST["event-name"]);
-			$eventName = preg_replace('/[^A-Za-z0-9\-]/', '', $eventName);
+			$eventName = preg_replace('/[^A-Za-z0-9" "\-]/', '', $eventName);
 			$eventID = $contentManager->createEvent($eventName, $countryID, $stateID, $sportID, $eventType, $eventDate, $account->getClubID());
 			
 			$mapleFileManager = new MapleFileManager($eventID, $_POST['event-date'], $eventType);

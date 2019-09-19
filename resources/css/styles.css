@@ -4876,6 +4876,13 @@ footer a
     color: var(--text-light);
 }
 
-
+/*limit size of auto complete boxes and make
+ * them scrollable.
+ */
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
 

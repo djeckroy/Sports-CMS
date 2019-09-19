@@ -336,21 +336,21 @@ function showUploadMatchRows() {
     //check sport and event type selected
     if ($("#sport-type").val() == null) {
         //no sport selected
-        alert("Please select a sport before clicking.");
+        showNotificationModal('Error', 'Please select a sport before clicking.');
     } else {
         if ($("#event-type").val() == null) {
             //no event type selected
-            alert("Please select the match type (Singles or Doubles) before clicking.");
+            showNotificationModal('Error','Please select the match type (Singles or Doubles) before clicking.');
         } else {
 
             var matchInputNumber = document.getElementById("match-field-input").value;
 
             if (matchInputNumber == "") {
-                window.alert("Please type a number (greater than 1) before clicking");
+                showNotificationModal('Error',"Please type a number (greater than 1) before clicking");
             } else {
 
-                if (matchInputNumber < 1 && matchInputNumber != "") {
-                    window.alert("Match input number cannot be less than 1");
+                if (matchInputNumber < 1 || matchInputNumber > 100) {
+                    showNotificationModal('Error',"Match input number cannot be less than 1 or more than 100. If your event has more than 100 matches split it across multiple uploads.");
                 } else {
 
                     var matchRows = document.getElementById("match-field-input").value;
@@ -443,13 +443,14 @@ function addEventRow(dbl) {
                         insertCell2.placeholder = "Set Score";
                         cell2.appendChild(insertCell2);
     
-    var newlabel = document.createElement("Label");
+    var newlabel = document.createElement("label");
     newlabel.setAttribute('class', 'ad-search break');
-    //newlabel.setAttribute('onclick', 'showAdvancedSearchModal()');
-    var str = "Advanced search";
-    var result = str.link("#");
-    newlabel.innerHTML = "" + result + "";
     cell1.appendChild(newlabel);
+    var advancedSearchLink = document.createElement("a");
+    advancedSearchLink.setAttribute('class', 'ad-search-link');
+    advancedSearchLink.innerHTML = "Advanced Search";
+    advancedSearchLink.setAttribute('href','#');
+    newlabel.appendChild(advancedSearchLink);
 
     if (dbl == '1') {
 
@@ -467,23 +468,29 @@ function addEventRow(dbl) {
         hiddenInput1.setAttribute('name', 'winner-id[]');
         cell1.appendChild(hiddenInput1);
 
-        var newlabel11 = document.createElement("Label");
-        newlabel11.setAttribute('class', 'ad-search break');
-        //newlabel11.setAttribute('onclick', 'showAdvancedSearchModal()');
-        var str11 = "Advanced search";
-        var result11 = str11.link("#");
-        newlabel11.innerHTML = "" + result11;
-        cell1.appendChild(newlabel11);
+        var newlabel = document.createElement("label");
+        newlabel.setAttribute('class', 'ad-search break');
+        cell1.appendChild(newlabel);
+        var advancedSearchLink = document.createElement("a");
+        advancedSearchLink.setAttribute('class', 'ad-search-link');
+        advancedSearchLink.innerHTML = "Advanced Search";
+        advancedSearchLink.setAttribute('href','#');
+        newlabel.appendChild(advancedSearchLink);
     }
 
     var newlabel2 = document.createElement("Label");
-    newlabel2.setAttribute('class', 'add-player-link break add-match');
-    newlabel2.setAttribute('onclick', 'showAddPlayerModal()');
+    newlabel2.setAttribute('class', 'break add-player-link add-match');
+    //newlabel2.setAttribute('onclick', 'showAddPlayerModal()');
     var str3 = "Can't find a player? Add them ";
     var str2 = "here";
     var result2 = str2.link("#");
-    newlabel2.innerHTML = str3 + result2;
+    newlabel2.innerHTML = str3;// + result2;
     cell1.appendChild(newlabel2);
+    var newPlayerLink = document.createElement("a");
+    newPlayerLink.setAttribute('href','#');
+    newPlayerLink.setAttribute('onclick', 'showAddPlayerModal()');
+    newPlayerLink.innerHTML = "here";
+    newlabel2.appendChild(newPlayerLink);
 
 
 
@@ -506,13 +513,14 @@ function addEventRow(dbl) {
     hiddenInput2.setAttribute('name', 'loser-id[]');
     cell3.appendChild(hiddenInput2);
 
-    var newlabel1 = document.createElement("Label");
-    newlabel1.setAttribute('class', 'ad-search break');
-    //newlabel1.setAttribute('onclick', 'showAdvancedSearchModal()');
-    var str1 = "Advanced search";
-    var result1 = str1.link("#");
-    newlabel1.innerHTML = result1;
-    cell3.appendChild(newlabel1);
+    var newlabel = document.createElement("label");
+    newlabel.setAttribute('class', 'ad-search break');
+    cell3.appendChild(newlabel);
+    var advancedSearchLink = document.createElement("a");
+    advancedSearchLink.setAttribute('class', 'ad-search-link');
+    advancedSearchLink.innerHTML = "Advanced Search";
+    advancedSearchLink.setAttribute('href','#');
+    newlabel.appendChild(advancedSearchLink);
 
     if (dbl == '1') {
 
@@ -530,13 +538,14 @@ function addEventRow(dbl) {
         hiddenInput2.setAttribute('name', 'loser-id[]');
         cell3.appendChild(hiddenInput2);
 
-        var newlabel33 = document.createElement("Label");
-        newlabel33.setAttribute('class', 'ad-search break');
-        //newlabel33.setAttribute('onclick', 'showAdvancedSearchModal()');
-        var str33 = "Advanced search";
-        var result33 = str33.link("#");
-        newlabel33.innerHTML = result33;
-        cell3.appendChild(newlabel33);
+        var newlabel = document.createElement("label");
+        newlabel.setAttribute('class', 'ad-search break');
+        cell3.appendChild(newlabel);
+        var advancedSearchLink = document.createElement("a");
+        advancedSearchLink.setAttribute('class', 'ad-search-link');
+        advancedSearchLink.innerHTML = "Advanced Search";
+        advancedSearchLink.setAttribute('href','#');
+        newlabel.appendChild(advancedSearchLink);
     }
     
     var insertCell4 = document.createElement("input");
@@ -549,11 +558,13 @@ function addEventRow(dbl) {
     var insertCell5 = document.createElement("button");
     insertCell5.innerHTML = "Delete";
     insertCell5.setAttribute('class', 'delete-button');
-
-    cell5.appendChild(insertCell5);
+    insertCell5.setAttribute('type', 'button');
+    
     insertCell5.onclick = function() {
         deleteRow(this);
     };
+    cell5.appendChild(insertCell5);
+    
 }
 
 function deleteRow(selectedRow) {
@@ -629,9 +640,9 @@ var advancedSeachPlayerIDInput; //will store the input of the (hidden) id field
 
 
 function setupAdvancedSearchLinks() {
-    $('.ad-search').click(function() {
-        advancedSeachPlayerIDInput = $(this).prev();
-        advancedSeachPlayerNameInput = $(this).prev().prev();
+    $('.ad-search-link').click(function() {
+        advancedSeachPlayerIDInput = $(this).parent().prev();
+        advancedSeachPlayerNameInput = $(this).parent().prev().prev();
         showAdvancedSearchModal();
     });
 }
@@ -702,13 +713,24 @@ function uploadEventChangeStates(countryCombo, stateCombo) {
         success: function(data) {
             //parse the returned data
             var jsonData = JSON.parse(data);
-
             //add a new option to state-name for each returned state.
             $.each(jsonData, function(index, value) {
-                stateCombo.append($("<option>", {
-                    value: value["state_id"],
-                    text: value["name"]
-                }));
+                if (value["state_id"] == getHomeState())
+                {
+                    stateCombo.append($("<option>", {
+                        value: value["state_id"],
+                        text: value["name"],
+                        selected: true
+                        }));
+                }
+                else
+                {
+                    stateCombo.append($("<option>", {
+                        value: value["state_id"],
+                        text: value["name"]}));
+                }
+                
+                
             });
         }
     });
@@ -949,11 +971,11 @@ function modalSelection(){
                     }
     
     if (x == 1) {
-        document.getElementById("notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted single event on this page";
+        document.getElementById("event-type-notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted singles events on this page.";
         document.querySelector(".event-type-notification-modal-background").style.display = "flex";
     }
     else {
-        document.getElementById("notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted double event on this page";
+        document.getElementById("event-type-notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted doubles event on this page.";
         document.querySelector(".event-type-notification-modal-background").style.display = "flex";
                            
 }
@@ -1499,7 +1521,7 @@ function  setupMatchAutoCompleteAdvancedSearch()
             advancedSeachPlayerIDInput.val(ui.item.id);
             advancedSeachPlayerNameInput.val(ui.item.label);
             
-            hideAdvancedModal();
+            hideAdvancedSearchModal();
             
             //when an item is selected it is assumed that no error exists, remove the validity message
             var playerID = ui.item.id; 

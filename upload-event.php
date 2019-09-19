@@ -3,12 +3,20 @@
 
 	include("./includes/header.php");
 	include("./includes/navigation.php");
-
+	
 	if(!$account->isLoggedIn())
 	{
 		redirect("./index.php");
 	}
+	
 ?>
+
+<script>
+	function getHomeState()
+	{
+		return <?php echo($account->getRegisteredClubRegion()['state_id']); ?>;
+	}
+</script>
 
 <div>
 	<article class="event-details-border">
@@ -29,14 +37,21 @@
 						required type="text" onfocus="(this.type='date')" onblur="(this.type='text')">
 						<select class="Host-country" name="country-id" id="country-id">
 						<?php
+							$countryToSelect = $account->getRegisteredClubRegion()['country_id'];
 							$countries = $contentManager->getAllCountries();
 							while ($country = $countries->fetch())
 							{
-								echo "<option value=\"".$country["country_id"]."\">".$country["name"]."</option>";
+								if ($country["country_id"] == $countryToSelect)
+								{
+									echo "<option selected value=\"".$country["country_id"]."\">".$country["name"]."</option>";
+								}
+								else
+								{
+									echo "<option value=\"".$country["country_id"]."\">".$country["name"]."</option>";
+								}
 							}
 						?>
 						</select>
-
 						<select class="Host-state" name="state-name" id="state-name"></select>
 					</div>
 

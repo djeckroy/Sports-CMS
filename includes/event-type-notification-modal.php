@@ -6,11 +6,11 @@
     </div>
 
     <div class="event-type-notification-modal-fields">
-      <h2 id="notification-header-text">Event Type Change</h2>
+      <h2 id="event-type-notification-header-text">Event Type Change</h2>
       <hr/>
   
       <div class="event-type-notification-modal-field-wrapper">
-          <p id="notification-modal-text"></p>
+          <p id="event-type-notification-modal-text"></p>
       </div>
     </div>
   <button type = "submit" class="change-match-button" value="Yes" onclick="changeType()">Yes</button>
