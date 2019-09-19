@@ -711,13 +711,24 @@ function uploadEventChangeStates(countryCombo, stateCombo) {
         success: function(data) {
             //parse the returned data
             var jsonData = JSON.parse(data);
-
             //add a new option to state-name for each returned state.
             $.each(jsonData, function(index, value) {
-                stateCombo.append($("<option>", {
-                    value: value["state_id"],
-                    text: value["name"]
-                }));
+                if (value["state_id"] == getHomeState())
+                {
+                    stateCombo.append($("<option>", {
+                        value: value["state_id"],
+                        text: value["name"],
+                        selected: true
+                        }));
+                }
+                else
+                {
+                    stateCombo.append($("<option>", {
+                        value: value["state_id"],
+                        text: value["name"]}));
+                }
+                
+                
             });
         }
     });

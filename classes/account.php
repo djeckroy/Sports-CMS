@@ -311,6 +311,15 @@ class Account
 
 		return $result;
 	}
+	
+	public function getRegisteredClubRegion()
+	{
+		$query = "SELECT state.state_id, state.name AS state_name, country.country_id, country.name AS country_name, CONCAT(state.name, ', ', country.name) as region FROM account JOIN director_of ON account.account_id = director_of.account_id JOIN club ON director_of.club_id = club.club_id JOIN state ON club.state_id = state.state_id JOIN country ON club.country_id = country.country_id WHERE account.account_id = ?";
+		
+		$result = $this->database->query($query, [$this->accountId])->fetch();
+
+		return $result;
+	}
 }
 
 ?>
