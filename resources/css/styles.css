@@ -4007,7 +4007,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    margin: 4px 40px;
+    margin:0px 1px 30px 17px;
     cursor: pointer;
 }
 
