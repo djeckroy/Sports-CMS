@@ -349,8 +349,8 @@ function showUploadMatchRows() {
                 showNotificationModal('Error',"Please type a number (greater than 1) before clicking");
             } else {
 
-                if (matchInputNumber < 1 && matchInputNumber != "") {
-                    showNotificationModal('Error',"Match input number cannot be less than 1");
+                if (matchInputNumber < 1 || matchInputNumber > 100) {
+                    showNotificationModal('Error',"Match input number cannot be less than 1 or more than 100. If your event has more than 100 matches split it across multiple uploads.");
                 } else {
 
                     var matchRows = document.getElementById("match-field-input").value;
