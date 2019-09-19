@@ -558,11 +558,13 @@ function addEventRow(dbl) {
     var insertCell5 = document.createElement("button");
     insertCell5.innerHTML = "Delete";
     insertCell5.setAttribute('class', 'delete-button');
-
-    cell5.appendChild(insertCell5);
+    insertCell5.setAttribute('type', 'button');
+    
     insertCell5.onclick = function() {
         deleteRow(this);
     };
+    cell5.appendChild(insertCell5);
+    
 }
 
 function deleteRow(selectedRow) {
