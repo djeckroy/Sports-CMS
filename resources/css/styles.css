@@ -3950,12 +3950,39 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
 {
     transform: translate(-224px, 11px);
     display: inline-block;
+    font-size: var(--font-small);
 }
 
 .fill-help a 
 {
     text-decoration: none;
     color: var(--link-dark);
+    cursor: pointer;
+    left: -15px;
+}
+
+
+
+.step
+{
+  color: blue;
+}
+
+.note
+{
+  color: red;
+}
+
+.popover-content
+{
+  width: 250px;
+    position: relative;
+ 
+}
+
+.popover-body
+{
+  width: 250px;
 }
 
 .win-lose-field
@@ -4007,7 +4034,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    margin:0px 1px 30px 17px;
+    margin: 0px 1px 30px 17px;
     cursor: pointer;
 }
 
@@ -4028,7 +4055,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     text-decoration: none;
     display: inline-block;
     font-size: var(--font-medium);
-    margin: 10px 60px;
+    margin: 10px 40px;
     cursor: pointer;
     transition-duration: 0.4s;
 }
@@ -4042,12 +4069,14 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
 {
     margin: 0px 34px;
     padding: 22px 0 0 0px;
+    font-size: var(--font-small);
 }
 
 .more-matches a 
 {
     text-decoration: none;
     color: var(--link-dark);
+    font-size: var(--font-small);
 }
 
 .more-matches a:hover 
@@ -4092,12 +4121,10 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
 .add-player-link
 {
   padding: 0 30px;
+   font-size: var(--font-small);
 }
 
-.add-player-link
-{
-  padding: 0 30px;
-}
+
 
 .add-player-link a 
 {
@@ -4127,15 +4154,15 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     height: 40px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-top: 12px;
+    margin-top: 13px;
     margin-left: 30px;
-    transform: translate(0%, 2.7%);
+    
 
 }
 .loser-set-score
 {
    
-    height: 35px;
+    height: 40px;
     width: 110px;
     font-size: var(--font-small);
     padding: 0px 10px 0px 10px;
@@ -4154,22 +4181,18 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     background-color: var(--form-input-background);
     box-shadow: none;
     border: 1px solid var(--form-input-border);
-  margin-left:-50px;
-  margin-top: -30px;
+    margin-left: -30px;
+    margin-top: -30px;
 }
 .ad-search a 
 {
     text-decoration: none;
     color: var(--link-dark);
     margin-left: 35px;
+    font-size: var(--font-small);
 }
 
-.ad-search1 a 
-{
-    text-decoration: none;
-   color: var(--link-dark);
-    margin-left: 125px;
-}
+
 
 .match-heading 
 {

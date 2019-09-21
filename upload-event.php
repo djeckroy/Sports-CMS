@@ -70,7 +70,10 @@
 				</div>
 
 				<div class="input-table">
-					<p class="fill-help"> Need Help on how to fill the Event upload form? Click <a href="#">Here</a>
+					<p class="fill-help"> Need Help on how to fill the Event upload form? Click <a class="popover-content" data-toggle="popover"  data-html="true"  data-content="<p class=step>Step1 </p><p>  Fill all the details in Event Name, Event Start Date, Country and state where the event is happening , then the Match type(singles/Doubles)</p><p class=step>Step2</p><p>  Then enter the number of matches you want to fill and click on Add Matches</p><p class=note>Note: Please follow till step 2 in order to see options for step 3</p> 
+                                                       <p class=step>Step3</p><p>  Then fill the Details of winning and losing players</p>
+                                                      <p class=step>Step4 </p><p>  In case you need need more matches click on need more matches option near the submit button</p>
+                                                      <p class=step> Step5 </p><p>  When finished with submitting details click on Submit event and you have successfully submitted the event.</p>">Here</a>
 					</p>
 					<table class="match-input-table" id="match-input-table"></table>
 				</div>
@@ -78,8 +81,8 @@
 			</div>
 
 			<div class="ui-widget" id="submit_event">
-				<p class="more-matches"> Need more matches? Click <a name="add-button" id="add-button"
-					onclick="addMoreRows(); return false;" href="#">Here</a></p>
+				<p class="more-matches"> Need more matches? Click<a name="add-button" id="add-button"
+					onclick="addMoreRows(); return false;" href="#"> Here</a></p>
 				<input class="match-submit" id="match-final-submit" type="submit" name="event-page-submission"
 					value="Submit Event">
 			</div>
