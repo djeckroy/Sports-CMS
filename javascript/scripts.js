@@ -432,6 +432,7 @@ function addEventRow(dbl) {
     //adds a hidden cell to contain ids of winners
     var hiddenInput1 = document.createElement("input");
     hiddenInput1.setAttribute('type', 'hidden');
+    hiddenInput1.setAttribute('class', 'winner-id-field');
     hiddenInput1.setAttribute('name', 'winner-id[]');
     cell1.appendChild(hiddenInput1);
 
@@ -465,6 +466,7 @@ function addEventRow(dbl) {
         //adds a hidden cell to contain ids of winners
         var hiddenInput1 = document.createElement("input");
         hiddenInput1.setAttribute('type', 'hidden');
+        hiddenInput1.setAttribute('class', 'winner-id-field');
         hiddenInput1.setAttribute('name', 'winner-id[]');
         cell1.appendChild(hiddenInput1);
 
@@ -510,6 +512,7 @@ function addEventRow(dbl) {
     //adds a hidden cell to contain ids of losers
     var hiddenInput2 = document.createElement("input");
     hiddenInput2.setAttribute('type', 'hidden');
+    hiddenInput2.setAttribute('class', 'loser-id-field');
     hiddenInput2.setAttribute('name', 'loser-id[]');
     cell3.appendChild(hiddenInput2);
 
@@ -535,6 +538,7 @@ function addEventRow(dbl) {
         //adds a hidden cell to contain ids of losers
         var hiddenInput2 = document.createElement("input");
         hiddenInput2.setAttribute('type', 'hidden');
+        hiddenInput2.setAttribute('class', 'loser-id-field');
         hiddenInput2.setAttribute('name', 'loser-id[]');
         cell3.appendChild(hiddenInput2);
 
