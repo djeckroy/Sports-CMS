@@ -70,10 +70,12 @@
 				</div>
 
 				<div class="input-table">
-					<p class="fill-help"> Need Help on how to fill the Event upload form? Click <a class="popover-content" data-toggle="popover"  data-html="true"  data-content="<p class=step>Step1 </p><p>  Fill all the details in Event Name, Event Start Date, Country and state where the event is happening , then the Match type(singles/Doubles)</p><p class=step>Step2</p><p>  Then enter the number of matches you want to fill and click on Add Matches</p><p class=note>Note: Please follow till step 2 in order to see options for step 3</p> 
-                                                       <p class=step>Step3</p><p>  Then fill the Details of winning and losing players</p>
-                                                      <p class=step>Step4 </p><p>  In case you need need more matches click on need more matches option near the submit button</p>
-                                                      <p class=step> Step5 </p><p>  When finished with submitting details click on Submit event and you have successfully submitted the event.</p>">Here</a>
+					<p class="fill-help"> Need Help? Click <a class="popover-content" data-toggle="popover"  data-html="true"  data-content="
+						<p class=step>Step 1</p><p> Enter your event details in the fields above. Remember, all fields are compulsory to submit the event!</p>
+						<p class=step>Step 2</p><p>Pre-fill the page with your event matches by entering the required number of matches into 'Number of Matches'. Finally, click 'Add Matches' to begin entering match details.</p>
+						<p class=note>Note: If you make a mistake, don't worry - you can always add or delete additional matches by clicking 'Add more matches' at the bottom of the page, or the 'Delete' button next to each match.</p> 
+                        <p class=step>Step 3</p><p> In Match Details, enter details of each match such as the winning and losing player names - if the player exists in our system they will be shown in a drop down menu. If you can't find a player, select 'Advanced Search' - this will find players registered outside of your region. Still can't find them? Select 'Add them here', and fill in their player details.</p>
+                        <p class=step>Step 4</p><p> Double check your event details, and click the 'Submit event' button to upload the details. Results will be available to players shortly.</p>">here!</a>
 					</p>
 					<table class="match-input-table" id="match-input-table"></table>
 				</div>
