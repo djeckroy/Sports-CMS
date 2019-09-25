@@ -1157,7 +1157,7 @@ function updateProfileSport()
                     currentHTML = currentHTML + "<tr class='odd-row'>";
                 }
                 
-                currentHTML = currentHTML + "<td>" + event.event_name + "</td>";
+                currentHTML = currentHTML + "<td><a href='./event-profile.php?id=" + event.event_id + "' >" + event.event_name + "</a></td>";
 
                 if(event.SDBefore >= 0 && event.SDBefore <= 50)
                 {
@@ -1297,7 +1297,7 @@ function updateProfileSport()
                     currentHTML = currentHTML + "<tr class='odd-row'>";
                 }
                 
-                currentHTML = currentHTML + "<td>" + event.event_name + "</td>";
+                currentHTML = currentHTML + "<td><a href='./event-profile.php?id=" + event.event_id + "' >" + event.event_name + "</a></td>";
 
                 if(event.SDBefore >= 0 && event.SDBefore <= 50)
                 {
