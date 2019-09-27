@@ -77,12 +77,7 @@
 				</div>
 
 				<div class="input-table">
-					<p class="fill-help"> Need Help? Click <a class="popover-content" data-toggle="popover"  data-html="true"  data-content="
-						<p class=step>Step 1</p><p> Enter your event details in the fields above. Remember, all fields are compulsory to submit the event!</p>
-						<p class=step>Step 2</p><p>Pre-fill the page with your event matches by entering the required number of matches into 'Number of Matches'. Finally, click 'Add Matches' to begin entering match details.</p>
-						<p class=note>Note: If you make a mistake, don't worry - you can always add or delete additional matches by clicking 'Add more matches' at the bottom of the page, or the 'Delete' button next to each match.</p> 
-                        <p class=step>Step 3</p><p> In Match Details, enter details of each match such as the winning and losing player names - if the player exists in our system they will be shown in a drop down menu. If you can't find a player, select 'Advanced Search' - this will find players registered outside of your region. Still can't find them? Select 'Add them here', and fill in their player details.</p>
-                        <p class=step>Step 4</p><p> Double check your event details, and click the 'Submit event' button to upload the details. Results will be available to players shortly.</p>">here!</a>
+					<p class="fill-help"> Need Help on how to fill the Event upload form? Click <a href="#">Here</a>
 					</p>
 					<table class="match-input-table" id="match-input-table"></table>
 				</div>
@@ -90,8 +85,8 @@
 			</div>
 
 			<div class="ui-widget" id="submit_event">
-				<p class="more-matches"> Need more matches? Click<a name="add-button" id="add-button"
-					onclick="addMoreRows(); return false;" href="#"> Here</a></p>
+				<p class="more-matches"> Need more matches? Click <a name="add-button" id="add-button"
+					onclick="addMoreRows(); return false;" href="#">Here</a></p>
 				<input class="match-submit" id="match-final-submit" type="submit" name="event-page-submission"
 					value="Submit Event">
 			</div>
