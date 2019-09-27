@@ -1,4 +1,4 @@
-<div class="dropdown-menu">
+<div class="dropdowns-menu">
   <div class="dropdown-header">
     <h3> Hi, <?php echo $account->getAccountName(); ?> </h3>
   </div>
