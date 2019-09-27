@@ -40,4 +40,9 @@ if(isset($_SESSION['club-exp']))
 	unset($_SESSION['club-exp']);
 }
 
+if (isset($_POST['editEventID']))
+{
+	echo "<script> showNotificationModal('Editing Event', 'Be advised you are now editing an event. This should only be done when an error has been found and the event is less than a few days old.') </script>";
+}
+
 ?>
