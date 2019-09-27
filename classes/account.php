@@ -142,7 +142,7 @@ class Account
 
 	public function createClubAndAssignAccount($name, $sportID, $countryID, $stateID)
 	{
-		$query = "INSERT INTO club (name, sport_id, country_id, state_id) VALUES (?, ?, ?, ?)";
+		$query = "INSERT INTO club (name, sport_id, country_id, state_id, club_exp) VALUES (?, ?, ?, ?, CURDATE() + INTERVAL 1 MONTH)";
 		$result = $this->database->query($query, [$name, $sportID, $countryID, $stateID]);
 
 		$query = "INSERT INTO director_of (account_id, club_id) VALUES (?, (SELECT MAX(club_id) FROM club))";
@@ -319,6 +319,18 @@ class Account
 		$result = $this->database->query($query, [$this->accountId])->fetch();
 
 		return $result;
+	}
+	
+	public function getClubExp()
+	{
+		$query = "SELECT club.club_exp FROM club
+			JOIN director_of ON director_of.club_id = club.club_id
+			JOIN account ON director_of.account_id = account.account_id
+			WHERE account.account_id = ?";
+
+		$result = $this->database->query($query, [$this->accountId])->fetch();
+		
+		return $result['club_exp'];
 	}
 }
 

@@ -28,4 +28,16 @@ if(isset($_SESSION["upload-success"]))
 	unset($_SESSION['upload-success']);
 }
 
+if(isset($_SESSION['club-exp-name']))
+{
+	echo "<script> showNotificationModal('Club Expiry Set', 'The expiry date for the club " . $_SESSION['club-exp-name'] . " has been updated.') </script>";
+	unset($_SESSION['club-exp-name']);
+}
+
+if(isset($_SESSION['club-exp']))
+{
+	echo "<script> showNotificationModal('Subscription Expired', 'Your club\'s subscription has expired. Please contact us to renew. Your subscription expired on " . $_SESSION['club-exp'] . ". You will be unable to upload events until your subscription is renewed.') </script>";
+	unset($_SESSION['club-exp']);
+}
+
 ?>

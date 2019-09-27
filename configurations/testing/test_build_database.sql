@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `club` (
   `country_id` INT NOT NULL,
   `state_id` INT NOT NULL,
   `sport_id` INT NOT NULL,
+  `club_exp` date NOT NULL,
   PRIMARY KEY (`club_id`),
   FOREIGN KEY (`country_id`) REFERENCES country(country_id),
   FOREIGN KEY (`state_id`) REFERENCES state(state_id),
