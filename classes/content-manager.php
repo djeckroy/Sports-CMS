@@ -1099,12 +1099,16 @@ class ContentManager
   
   public function getEventInformation($eventID)
   {
-	  $query = "SELECT event.event_id, event.name, club.name AS club, event.type, event.start_date AS date, CONCAT(state.name, ', ', country.name) as region FROM event
+	  $query = "SELECT event.event_id, event.name, club.name AS club, event.type, event.start_date AS date, CONCAT(state.name, ', ', country.name) as region, state.state_id, country.country_id, COUNT(game.game_id) AS number_matches FROM event
 				JOIN plays_at ON plays_at.event_id = event.event_id
 				JOIN club ON plays_at.club_id =club.club_id
 				JOIN state ON event.state_id = state.state_id
 				JOIN country ON event.country_id = country.country_id
-				WHERE event.event_id = ?";
+                LEFT JOIN game ON event.event_id = game.event_id
+				WHERE event.event_id = ?
+                GROUP BY 
+                	event.event_id,
+                    club.name";
 		$result = $this->database->query($query,[$eventID])->fetch();
 		return $result;
   }
@@ -1138,10 +1142,10 @@ class ContentManager
 		  
 		  $query = "SELECT 
 					game.mean_before_winning, game.mean_after_winning, game.standard_deviation_before_winning, game.standard_deviation_after_winning,
-					game.winner_score, CONCAT(winning_player1.given_name, ' ', winning_player1.family_name) AS winning_name1, CONCAT(winning_player2.given_name, ' ', winning_player2.family_name) AS winning_name2, winning_team.team_id AS winning_id,
+					game.winner_score, CONCAT(winning_player1.given_name, ' ', winning_player1.family_name) AS winning_name1, CONCAT(winning_player2.given_name, ' ', winning_player2.family_name) AS winning_name2, winning_team.team_id AS winning_id, winning_player1.player_id AS winning_id1, winning_player2.player_id AS winning_id2,
 
 					game.mean_before_losing, game.mean_after_losing, game.standard_deviation_before_losing, game.standard_deviation_after_losing,
-					game.loser_score, CONCAT(loser_player1.given_name, ' ', loser_player1.family_name) AS losing_name1, CONCAT(loser_player2.given_name, ' ', loser_player2.family_name) AS losing_name2, losing_team.team_id AS losing_id
+					game.loser_score, CONCAT(loser_player1.given_name, ' ', loser_player1.family_name) AS losing_name1, CONCAT(loser_player2.given_name, ' ', loser_player2.family_name) AS losing_name2, losing_team.team_id AS losing_id, loser_player1.player_id AS losing_id1, loser_player2.player_id AS losing_id2
 
 					FROM game
 

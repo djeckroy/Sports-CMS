@@ -62,7 +62,7 @@
 					<td> " . $row['type'] . "</td>
 					<td> " . $row['start_date'] . "</td>
 					<td> " . $row['country_name'] . "</td>
-					<td> <button class='account-table-events-button'>Edit</button> </td>
+					<td> <form action='./upload-event.php' method='post'><input type='hidden' name='editEventID' value='" . $row['event_id'] . "' /><button class='account-table-events-button'>Edit</button> </form></td>
 				</tr>";
 		}
 

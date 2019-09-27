@@ -669,6 +669,103 @@ function hideAdvancedSearchModal() {
     document.querySelector(".player-advanced-search-border").style.display = "none";
 }
 
+function setEditEvent(eventID)
+{
+	//run ajax
+    $.ajax({
+        url: "./ajax.php",
+        type: "POST",
+        dataType: "text",
+        data: { eventID: eventID, ajaxMethod: "get-event-info"},
+        success: function(data) {
+            //parse the returned data
+            var jsonData = JSON.parse(data);
+            $('#event-name').val(jsonData.name);
+            $('#event-date').val(jsonData.date);
+            $('#event-type').val(jsonData.type);
+            $('#match-field-input').val(jsonData.number_matches);
+            $('#country-id').val(jsonData.country_id);
+            $('#home-state').val(jsonData.state_id);
+            showUploadMatchRows();
+            uploadEventChangeStates($("#country-id"), $("#state-name"));	
+            
+            if (jsonData.type == "Single")
+            {
+				var single = 1;
+			}
+			else
+			{
+				var single = 0;
+			}
+			
+			$.ajax({
+				url: "./ajax.php",
+				type: "POST",
+				dataType: "text",
+				data: { eventID: eventID, singles: single, ajaxMethod: "get-event-matches"},
+				success: function(data) {
+					//parse the returned data
+					var jsonData = JSON.parse(data);
+					
+					$.each(jsonData, function(index, value) {
+						if (single == 1)
+						{
+							$('.winner-field').eq(index).val(value.winning_name);
+							$('.winner-id-field').eq(index).val(value.winning_id);
+							$('.loser-field').eq(index).val(value.losing_name);
+							$('.loser-id-field').eq(index).val(value.losing_id);
+							
+							$('.winner-set-score').eq(index).val(value.winner_score);
+							$('.loser-set-score').eq(index).val(value.loser_score);
+						}
+						else
+						{
+							//doubles
+							var field1 = index * 2;
+							var field2 = (index * 2) + 1;
+							
+							$('.winner-field').eq(field1).val(value.winning_name1);
+							$('.winner-id-field').eq(field1).val(value.winning_id1);
+							$('.loser-field').eq(field1).val(value.losing_name1);
+							$('.loser-id-field').eq(field1).val(value.losing_id1);
+							
+							$('.winner-field').eq(field2).val(value.winning_name2);
+							$('.winner-id-field').eq(field2).val(value.winning_id2);
+							$('.loser-field').eq(field2).val(value.losing_name2);
+							$('.loser-id-field').eq(field2).val(value.losing_id2);
+							
+							$('.winner-set-score').eq(index).val(value.winner_score);
+							$('.loser-set-score').eq(index).val(value.loser_score);
+						}
+					});
+				}
+			});
+        }
+    });
+
+}
+/*
+loser_score: "2"
+losing_id: "4"
+losing_id1: "63"
+losing_id2: "14"
+losing_name1: "Edward Fern"
+losing_name2: "Ashton Wheelwright"
+mean_after_losing: null
+mean_after_winning: null
+mean_before_losing: "456.066556"
+mean_before_winning: "547.4677565"
+standard_deviation_after_losing: null
+standard_deviation_after_winning: null
+standard_deviation_before_losing: "506.066556"
+standard_deviation_before_winning: "597.4677565"
+winner_score: "1"
+winning_id: "3"
+winning_id1: "1"
+winning_id2: "8"
+winning_name1: "John Smith"
+winning_name2: "Felix Taylor"*/
+
 /**
  * on page load funcion.
  * A number of items need to be setup on page load. 
@@ -686,6 +783,12 @@ $(function() {
     $("#event-date").attr({
         "max": nowString
     });
+    
+    if ( $('#edit-event-id').val() > 0 )
+    {
+		setEditEvent($('#edit-event-id').val());
+		setupMatchAutoComplete(); //gets players based on state
+	}
 });
 
 /**
@@ -720,7 +823,6 @@ function uploadEventChangeStates(countryCombo, stateCombo) {
             var jsonData = JSON.parse(data);
             //add a new option to state-name for each returned state.
             $.each(jsonData, function(index, value) {
-				console.log($('#home-state').val());
                 if (value["state_id"] == $('#home-state').val())
                 {
                     stateCombo.append($("<option>", {

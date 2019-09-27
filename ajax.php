@@ -210,6 +210,21 @@ switch($_POST['ajaxMethod'])
 
 		echo json_encode($response);
 		break;
+	case "get-event-info":
+		$result = $contentManager->getEventInformation($_POST['eventID']);
+		echo json_encode($result);
+		break;
+	case "get-event-matches":
+		$result = $contentManager->getEventMatches($_POST['eventID'],$_POST['singles']);
+		$response = array();
+
+		while ($row = $result->fetch())
+		{
+			$response[] = $row;
+		}
+
+		echo json_encode($response);
+		break;
 	default:
 		echo "Post Error";
 		var_dump($_POST);
