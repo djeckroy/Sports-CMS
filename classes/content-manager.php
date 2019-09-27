@@ -1056,6 +1056,29 @@ class ContentManager
 		return $result;
   }
   
+  public function searchClubsEXP($search)
+  {
+	  $search = "%" . $search . "%";
+		$query = "SELECT club.club_id, club.name as club, sport.name as sport, CONCAT(state.name, ', ', country.name) as region, club.club_exp FROM club
+			JOIN country ON club.country_id = country.country_id
+			JOIN state ON club.state_id = state.state_id
+			JOIN sport ON club.sport_id = sport.sport_id
+			WHERE 
+			club.name LIKE ?
+			OR state.name LIKE ?
+			OR country.name LIKE ?
+			OR sport.name LIKE ?
+			ORDER BY club.club_exp ASC, club.name ASC";
+		$result = $this->database->query($query,[$search,$search,$search,$search]);
+		return $result;
+  }
+  
+  public function updateClubEXP($clubID, $exp)
+  {
+	  $query = "UPDATE `club` SET `club_exp` = ? WHERE `club`.`club_id` = ?;";
+	  $result = $this->database->query($query, [$exp, $clubID]);	
+  }
+  
   public function searchEvents($search)
   {
 	  $search = "%" . $search . "%";

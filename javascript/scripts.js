@@ -720,7 +720,8 @@ function uploadEventChangeStates(countryCombo, stateCombo) {
             var jsonData = JSON.parse(data);
             //add a new option to state-name for each returned state.
             $.each(jsonData, function(index, value) {
-                if (value["state_id"] == getHomeState())
+				console.log($('#home-state').val());
+                if (value["state_id"] == $('#home-state').val())
                 {
                     stateCombo.append($("<option>", {
                         value: value["state_id"],

@@ -9,20 +9,27 @@
 		redirect("./index.php");
 	}
 	
-?>
-
-<script>
-	function getHomeState()
+	//check for club expiration.
+	if($account->getAccessLevel() > 1)
 	{
-		return <?php echo($account->getRegisteredClubRegion()['state_id']); ?>;
+		$exp = $account->getClubExp();
+		
+		if ( (time() - strtotime($exp)) > 0 )
+		{
+			//club expired
+			$_SESSION['club-exp'] = $exp;
+			redirect('./index.php');
+		}
 	}
-</script>
+	
+?>
 
 <div>
 	<article class="event-details-border">
 
 		<form class="event-upload-form" id="event-upload-form" autocomplete="off" action=".\process-event.php" method="post">
 			<input value=<?php echo ("'".$account->getRegisteredClubSportID()."'");?> id="sport-type" name="sport-type" hidden />
+			<input value=<?php echo ("'" . $account->getRegisteredClubRegion()['state_id'] . "'");?> id="home-state" hidden />
 			<h1 class="event-details-header">Event Details</h1>
 
 			<div class="event-form" action="">

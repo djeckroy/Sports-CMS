@@ -8,6 +8,19 @@ require("./includes/initialize.php");
 	}
 	else
 	{
+		//check for club expiration.
+		if($account->getAccessLevel() > 1)
+		{
+			$exp = $account->getClubExp();
+			
+			if ( (time() - strtotime($exp)) > 0 )
+			{
+				//club expired
+				$_SESSION['club-exp'] = $exp;
+				redirect('./index.php');
+			}
+		}
+	
 		$eventType = $_POST["event-type"];
 		$countryID = $_POST["country-id"];
 		$stateID = $_POST["state-name"];
