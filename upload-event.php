@@ -9,8 +9,10 @@
 		redirect("./index.php");
 	}
 	
+	$accessLevel = $account->getAccessLevel();
+	
 	//check for club expiration.
-	if($account->getAccessLevel() > 1)
+	if($accessLevel > 1)
 	{
 		$exp = $account->getClubExp();
 		
@@ -28,7 +30,6 @@
 	<article class="event-details-border">
 
 		<form class="event-upload-form" id="event-upload-form" autocomplete="off" action=".\process-event.php" method="post">
-			<input value=<?php echo ("'".$account->getRegisteredClubSportID()."'");?> id="sport-type" name="sport-type" hidden />
 			<input value=<?php echo ("'" . $account->getRegisteredClubRegion()['state_id'] . "'");?> id="home-state" hidden />
 			<h1 class="event-details-header">Event Details</h1>
 
@@ -40,6 +41,25 @@
 				</div>
 				<div class="event-rows">
 					<div class="event-details-row">
+						<?php
+						
+						if ($accessLevel < 2)
+						{
+							?>
+						
+						<select class="event-type" name='admin-select-club' id='admin-select-club'>
+								<?php
+									$clubs = $contentManager->getAllClubs();
+									while ($club = $clubs->fetch())
+									{
+										echo "<option value=\"".$club["club_id"]."\">".$club["name"]."</option>";
+									}
+								?>
+						</select>
+						
+						<?php
+						}
+						?>
 						<input class="event-field-date" name="event-date" id="event-date" placeholder="Event Start Date"
 						required type="text" onfocus="(this.type='date')" onblur="(this.type='text')">
 						<select class="Host-country" name="country-id" id="country-id">
@@ -63,6 +83,34 @@
 					</div>
 
 					<div class="event-details-row2">
+						
+						<div class="event-details-row">
+						<?php
+						
+						if ($accessLevel < 2)
+						{
+							?>
+						
+						<select class="event-type" name='sport-type' id='sport-type'>
+								<?php
+									$sports = $contentManager->getAllSports();
+									while ($sport = $sports->fetch())
+									{
+										echo "<option value=\"".$sport["sport_id"]."\">".$sport["name"]."</option>";
+									}
+								?>
+						</select>
+						
+						<?php
+						}
+						else
+						{
+							?>
+							<input value=<?php echo ("'".$account->getRegisteredClubSportID()."'");?> id="sport-type" name="sport-type" hidden />
+							<?php
+						}
+						?>
+						
 						<select class="event-type" id="event-type" name="event-type" required onchange="changeValue();">
 							<option disabled selected value="">Match type</option>
 							<option value="Single">Singles</option>
