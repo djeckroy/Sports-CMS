@@ -19,6 +19,12 @@ require("./includes/initialize.php");
 				$_SESSION['club-exp'] = $exp;
 				redirect('./index.php');
 			}
+			$clubID = $account->getClubID();
+		}
+		else
+		{
+			//not an admin so get club id from post
+			$clubID = $_POST['admin-select-club'];
 		}
 	
 		$eventType = $_POST["event-type"];
@@ -45,7 +51,7 @@ require("./includes/initialize.php");
 		{
 			$eventName = trim($_POST["event-name"]);
 			$eventName = preg_replace('/[^A-Za-z0-9" "\-]/', '', $eventName);
-			$eventID = $contentManager->createEvent($eventName, $countryID, $stateID, $sportID, $eventType, $eventDate, $account->getClubID());
+			$eventID = $contentManager->createEvent($eventName, $countryID, $stateID, $sportID, $eventType, $eventDate, $clubID);
 			
 			$mapleFileManager = new MapleFileManager($eventID, $_POST['event-date'], $eventType);
 			
