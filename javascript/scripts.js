@@ -227,13 +227,13 @@ function hideEditPlayersModal()
 
 function showDropdownMenu()
 {
-    document.querySelector(".dropdowns-menu").style.display = "inline-block";
+    document.querySelector(".dropdown-menu").style.display = "inline-block";
     document.querySelector(".nav-sign-in-button").style.backgroundColor = "var(--secondary-color)";
 }
 
 function hideDropdownMenu()
 {
-    document.querySelector(".dropdowns-menu").style.display = "none";
+    document.querySelector(".dropdown-menu").style.display = "none";
     document.querySelector(".nav-sign-in-button").style.backgroundColor = "var(--primary-color)";
 }
 
@@ -252,7 +252,7 @@ function hideNotificationModal()
 
 function toggleDropdownMenu()
 {
-    if($(".dropdowns-menu").css("display") === "none")
+    if($(".dropdown-menu").css("display") === "none")
     {
         showDropdownMenu();
     }
@@ -1005,14 +1005,6 @@ function hideTypeModal() {
      }
     
 }
-
-
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();   
-});
-
-
-
 
 /**
  * ---------------------------------------------- *
