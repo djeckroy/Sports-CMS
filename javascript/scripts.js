@@ -105,12 +105,12 @@ function showCreatePlayerModal()
 
     if($("#admin-change-club").length > 0)
     {
-        $('input[name="hidden-club-ID"]').val($("#admin-change-club").find(":selected").val());
+        $('input[name="hidden-club-ID"]').val($("#admin-change-club-members").find(":selected").val());
     }
     else
     {
         $('input[name="hidden-club-ID"]').val($("#account-hidden-club-id").text());
-    } 
+    }
 
     hideDropdownMenu();
 }
@@ -177,6 +177,17 @@ function showAdministratorModal()
 function hideAdministratorModal()
 {
     document.querySelector(".administrator-modal-background").style.display = "none";
+}
+
+function showAddExistingPlayerModal()
+{
+    document.querySelector(".existing-player-modal-background").style.display = "flex";
+    hideDropdownMenu();
+}
+
+function hideAddExistingPlayerModal()
+{
+    document.querySelector(".existing-player-modal-background").style.display = "none";
 }
 
 function showCreateClubModal()

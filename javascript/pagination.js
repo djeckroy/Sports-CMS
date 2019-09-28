@@ -151,7 +151,8 @@ $(document).on('click', '.account-promote-administrator-button', function()
         data: {ajaxMethod: "promoteAccount", accountID: accountID},
         success: function(data) 
         {
-            $("#account-search-promote-administrator-button").click();
+            retrieveAdministrators(1, "");
+            retrievePotentialAdministrators(1, "");
         }
     });
 });
@@ -384,6 +385,10 @@ $(document).on('click', '#account-search-players-button', function()
     {
         var clubID = $("#admin-change-club-members").find(":selected").val();
     }
+    else
+    {
+        clubID = $("#account-hidden-club-id").text();
+    }
 
     retrieveClubPlayers(1, searchValue, clubID);
 });
@@ -404,6 +409,10 @@ $(document).on('change', '#admin-change-club-members', function()
     if($("#admin-change-club-members").length > 0)
     {
         var clubID = $("#admin-change-club-members").find(":selected").val();
+    }
+    else
+    {
+        clubID = $("#account-hidden-club-id").text();
     }
 
     retrieveClubPlayers(1, searchValue, clubID);
@@ -448,6 +457,119 @@ $(document).on('click', '#account-add-player-button', function()
 {
     showCreatePlayerModal();
     uploadEventChangeStates($("#player-create-select-country"),$("#player-create-select-state"));
+});
+
+$(document).on('click', '#account-add-existing-player-button', function()
+{
+    showAddExistingPlayerModal();
+    retrieveExistingPlayers(1, "");
+
+});
+
+function retrieveExistingPlayers(page, searchTerm)
+{
+    var existingPlayerID = 0;
+    var clubID = "";
+
+    if($("#admin-change-club-members").length > 0)
+    {
+        var clubID = $("#admin-change-club-members").find(":selected").val();
+    }
+    else
+    {
+        clubID = $("#account-hidden-club-id").text();
+    }
+
+    $.ajax
+    ({
+        url: "./account-pagination.php",
+        type: "POST",
+        data: {page: page, existingPlayerID: existingPlayerID, searchTerm: searchTerm, clubID: clubID},
+        success: function(data) 
+        {
+            $("#existing-player-table-modal-information").empty();
+            $("#existing-player-table-modal-information").html(data);
+        }
+    });
+}
+
+$(document).on('click', '.existing-players-link', function()
+{
+    var page = $(this).attr("id");
+    var searchValue = $("#add-existing-player-searchbar").val();
+
+    if(page > 0)
+    {
+        retrieveExistingPlayers(page, searchValue);
+    }
+});
+
+$(document).on('click', '#account-search-add-existing-player-button', function()
+{
+    var searchValue = $("#add-existing-player-searchbar").val();
+    retrieveExistingPlayers(1, searchValue);
+});
+
+$("#add-existing-player-searchbar").keyup(function(event) 
+{
+    if (event.keyCode === 13) 
+    {
+        $("#account-search-add-existing-player-button").click();
+    }
+});
+
+$(document).on('click', '.account-remove-players-button', function()
+{
+    var playerID = $(this).closest('tr').find('.account-table-id').text();
+    var clubID = "";
+
+    if($("#admin-change-club-members").length > 0)
+    {
+        var clubID = $("#admin-change-club-members").find(":selected").val();
+    }
+    else
+    {
+        clubID = $("#account-hidden-club-id").text();
+    }
+
+    $.ajax
+    ({
+        url: "./remove-player-from-club.php",
+        type: "POST",
+        data: {playerID: playerID, clubID: clubID},
+        success: function(data) 
+        {
+            $("#account-search-players-button").click();
+        }
+    });
+});
+
+
+$(document).on('click', '.add-existing-player-table-button', function()
+{
+    var playerID = $(this).closest('tr').find('.account-table-id').text();
+    var clubID = "";
+
+    if($("#admin-change-club-members").length > 0)
+    {
+        var clubID = $("#admin-change-club-members").find(":selected").val();
+    }
+    else
+    {
+        clubID = $("#account-hidden-club-id").text();
+    }
+    
+    $.ajax
+    ({
+        url: "./ajax.php",
+        type: "POST",
+        data: {ajaxMethod: "add-existing-player", playerID: playerID, clubID: clubID},
+        success: function(data) 
+        {
+            retrieveClubPlayers(1, "", clubID);
+            retrieveExistingPlayers(1, "");
+        }
+    });
 });
 
 
@@ -524,6 +646,7 @@ function removeDirectorFromClub(accountID)
         success: function(data) 
         {
             $("#account-search-directors-button").click();
+            document.location.reload();
         }
     });
 }
@@ -615,7 +738,7 @@ function demoteAdministrator(accountID)
         data: {accountID: accountID},
         success: function(data) 
         {
-            $("#account-search-administrators-button").click();
+            document.location.reload();
         }
     });
 }
@@ -662,9 +785,19 @@ $(document).on('click', '.player-search-link', function()
     var countryName = $("#player-country-filter>option:selected").text();
     var clubName = $("#player-club-filter").val();
     var stateName = $("#player-state-filter").val();
-    var playerAgeMin = $("#player-age-min-filter").val();
-    var playerAgeMax = $("#player-age-max-filter").val();
     var submitSearchFilter = $("#submit-search-filter").val();
+    var playerAgeMin = 0;
+    var playerAgeMax = 120;
+
+    if(Number.isInteger($("#player-age-min-filter").val()))
+    {
+        playerAgeMin = $("#player-age-min-filter").val();
+    }
+
+    if(Number.isInteger($("#player-age-max-filter").val()))
+    {
+        playerAgeMax = $("#player-age-max-filter").val();
+    }
 
     if(page > 0)
     {
@@ -679,9 +812,19 @@ $(document).on('click', '#submit-search-filter', function()
     var countryName = $("#player-country-filter>option:selected").text();
     var clubName = $("#player-club-filter").val();
     var stateName = $("#player-state-filter").val();
-    var playerAgeMin = $("#player-age-min-filter").val();
-    var playerAgeMax = $("#player-age-max-filter").val();
     var submitSearchFilter = $("#submit-search-filter").val();
+    var playerAgeMin = 0;
+    var playerAgeMax = 120;
+
+    if(!isNaN($("#player-age-min-filter").val()))
+    {
+        playerAgeMin = $("#player-age-min-filter").val();
+    }
+
+    if(!isNaN($("#player-age-max-filter").val()))
+    {
+        playerAgeMax = $("#player-age-max-filter").val();
+    }
 
     retrieveSearchedPlayers(1, playerName, playerAgeMin, playerAgeMax, lastPlayed, clubName, countryName, stateName, submitSearchFilter);
 });
@@ -718,6 +861,7 @@ $(document).on('change', '#edit-player-country', function(){
 $(document).on('change', '#player-create-select-country', function(){
     uploadEventChangeStates($("#player-create-select-country"),$("#player-create-select-state"));
 });
+
 
 
 

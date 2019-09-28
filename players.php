@@ -22,11 +22,11 @@
 
                 <input type="text" id="player-name-filter" placeholder="Enter Player Name">
 
-                <input type="text" id="player-age-min-filter" placeholder="Age">
+                <input type="text" id="player-age-min-filter" placeholder="Min Age" pattern="[0-9]{1,3}">
 
                 <span id="player-age-filter-dash">-</span>
 
-                <input type="text" id="player-age-max-filter" placeholder="Age">  
+                <input type="text" id="player-age-max-filter" placeholder="Max Age" pattern="[0-9]{1,3}">  
 
                 <select id="player-country-filter">
                     <option selected>Select Country</option>

@@ -210,6 +210,8 @@ switch($_POST['ajaxMethod'])
 
 		echo json_encode($response);
 		break;
+	case "add-existing-player":
+		$contentManager->addExistingPlayer($_POST["playerID"], $_POST["clubID"]);
 	default:
 		echo "Post Error";
 		var_dump($_POST);

@@ -1585,11 +1585,25 @@ nav a:hover
   border-radius: 5px;
   color: var(--text-light);
   font-size: var(--font-small);
-  width: 80px;
+  width: 55px;
   text-decoration: none;
   margin: 0;
   height: 26px;
   cursor: pointer;
+}
+
+.account-remove-players-button
+{
+  background: var(--tertiary-color);
+  border-radius: 5px;
+  color: var(--text-light);
+  font-size: var(--font-small);
+  width: 75px;
+  text-decoration: none;
+  margin: 0;
+  height: 26px;
+  cursor: pointer;
+  margin-left: 20px;
 }
 
 #account-add-player-button
@@ -1602,7 +1616,7 @@ nav a:hover
   margin: 0px 20px 0px 0px;
   padding: 6px 10px 6px 10px;
   text-decoration: none;
-  width: 150px;
+  width: 170px;
   cursor: pointer;
   bottom: 5px;
   right: 15px;
@@ -1965,7 +1979,7 @@ nav a:hover
 
 .account-row-name
 {
-  width: 30%;
+  width: 20%;
   text-align: left;
 }
 
@@ -2002,7 +2016,7 @@ nav a:hover
 
 .account-row-gender
 {
-  width: 10%;
+  width: 8%;
 }
 
 .account-row-id
@@ -2026,6 +2040,11 @@ nav a:hover
 {
   width: 0%;
   display: none;
+}
+
+#account-table-name-players
+{
+  width: 20%;
 }
 
 .account-table-headers
@@ -2245,6 +2264,27 @@ nav a:hover
 #edit-account-details-button:hover
 {
   background-color: var(--primary-color-light);
+}
+
+#account-add-existing-player-button
+{
+  position: absolute;
+  background: var(--tertiary-color);
+  border-radius: 5px;
+  color: var(--text-light);
+  font-size: var(--font-medium);
+  margin: 0px 20px 0px 0px;
+  padding: 6px 10px 6px 10px;
+  text-decoration: none;
+  width: 200px;
+  cursor: pointer;
+  bottom: 5px;
+  right: 200px;
+}
+
+#account-add-existing-player-button:hover
+{
+  background: var(--tertiary-color-dark);
 }
 
 
@@ -2621,7 +2661,8 @@ nav a:hover
 .account-modal-tables
 {
   height: auto;
-  width: 520px;
+  /*width: 520px;*/
+  width: 100%;
   text-align: center;
   color: var(--text-dark);
   table-layout: fixed;
@@ -2644,7 +2685,7 @@ nav a:hover
   font-size: var(--font-medium);
   color: var(--text-table-data);
   white-space: nowrap;
-  text-overflow: ellipsis;
+  text-overflow: hidden;
   height: 53px;
   max-height: 53px;
 }
@@ -3510,6 +3551,271 @@ color: var(--text-light);
 }
 
 
+/* Add Existing Player Modal */
+
+
+.existing-player-modal-background
+{
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.existing-player-modal-content
+{
+  width: 680px;
+  height: 620px;
+  background-color: var(--form-background);
+  border-radius: 5px;
+}
+
+.existing-player-modal-header
+{
+  height: 20%;
+  width: 100%;
+  background-color: var(--tertiary-color);
+  border-radius: 5px 5px 0px 0px;
+  padding: 20px;
+  position: relative;
+}
+
+.existing-player-modal-fields
+{
+  height: 80%%;
+  width: 100%;
+  padding: 20px 40px 20px 40px;
+}
+
+.existing-player-modal-fields h2
+{
+  color: var(--text-dark);
+}
+
+.existing-player-modal-fields hr
+{
+  margin: 10px 0px 10px 0px;
+}
+
+.existing-player-modal-exit-button
+{
+  position: absolute;
+  top: 0;
+  right: 20px;
+  font-size: var(--font-large);
+  transform: rotate(45deg);
+  cursor: pointer;
+  color: var(--text-light); 
+}
+
+#existing-player-searchbar-container
+{
+  position: relative;
+  height: 30px;
+  width: 100%;
+  float: right;
+  margin-bottom: 10px;
+}
+
+#add-existing-player-searchbar
+{
+  position: relative;
+  height: 30px;
+  width: 100%;
+  font-size: var(--font-small);
+  padding: 0px 30px 0px 10px;
+  background-color: var(--form-input-background);
+  box-shadow: none;
+  border: 1px solid var(--form-input-border);
+  border-radius: 4px;
+}
+
+/* Delete? Perhaps */
+#account-search-add-existing-player-button
+{
+  position: absolute;
+  height: 26px;
+  width: 26px;
+  cursor: pointer;
+  z-index: 2;
+  right: 5px;
+  top: 6px;
+  outline: none;
+}
+
+.existing-players-link
+{
+  cursor: pointer;
+  padding: 8px 8px 8px 8px;
+  border: 1px solid #ccc;
+  font-size: var(--font-small);
+  color: var(--tertiary-color);
+}
+
+.existing-players-link:hover
+{
+  background-color: #ccc;
+}
+
+.add-existing-player-table-button
+{
+  background: var(--tertiary-color);
+  border-radius: 5px;
+  color: var(--text-light);
+  font-size: var(--font-small);
+  width: 80px;
+  text-decoration: none;
+  margin: 0;
+  height: 26px;
+  cursor: pointer;
+
+}
+
+.add-existing-player-table-button:hover
+{
+  background-color: var(--tertiary-color-dark);
+}
+
+#administrator-table-modal-information
+{
+  height: 100%;
+  padding: 20px 0 20px 0;
+}
+
+.account-modal-tables
+{
+  height: auto;
+  width: 100%;
+  text-align: center;
+  color: var(--text-dark);
+  table-layout: fixed;
+}
+
+.account-modal-tables th
+{
+  font-size: var(--font-table-headers);
+  font-weight: bold;
+  height: 29px;
+  max-height: 29px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.account-modal-tables td
+{
+  padding: 14px 0 14px 0px;
+  font-size: var(--font-medium);
+  color: var(--text-table-data);
+  white-space: nowrap;
+  text-overflow: hidden;
+  height: 53px;
+  max-height: 53px;
+}
+
+.account-modal-tables tr
+{
+  max-height: 53px;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 520px;
+}
+
+.account-modal-table-data-name
+{
+  width: 30%;
+  font-size: var(--text-table-data);
+  text-align: left;
+}
+
+.account-modal-table-data-email
+{
+  width: 35%;
+  text-align: left;
+}
+
+.account-modal-data-buttons
+{
+  text-align: left;
+  width: 20%;
+}
+
+.account-modal-row-name
+{
+  font-size: var(--font-table-headers);
+  width: 35%;
+}
+
+.account-modal-row-email
+{
+  width: 35%;
+}
+
+.account-promote-administrator-button
+{
+  background: var(--tertiary-color);
+  border-radius: 5px;
+  color: var(--text-light);
+  font-size: var(--font-small);
+  width: 80px;
+  text-decoration: none;
+  margin: 0;
+  height: 26px;
+  cursor: pointer;
+}
+
+.account-promote-administrator-button:hover
+{
+  background-color: var(--tertiary-color-dark);
+}
+
+.promote-administrator-link
+{
+  cursor: pointer;
+  padding: 8px 8px 8px 8px;
+  border: 1px solid #ccc;
+  font-size: var(--font-small);
+  color: var(--tertiary-color);
+}
+
+.promote-administrator-link:hover
+{
+  background-color: #ccc;
+}
+
+.modal-pagination-buttons-container
+{
+  height: 70px;
+  width: 520px;
+  position: absolute;
+  top: 685px;
+}
+
+.modal-pagination-buttons
+{
+  position: relative;
+  height: 60px;
+  width: 100%;
+  border-top: 2px solid var(--text-medium);
+  text-align: center;
+  padding: 20px 0px 0px 0px; 
+  margin: 0px;
+}
+
+.modal-pagination-buttons-container-existing-player
+{
+  height: 70px;
+  width: 580px;
+  position: absolute;
+  top: 685px;
+}
+
+
 /* Reset Password Modal */
 
 
@@ -3793,10 +4099,6 @@ color: var(--text-light);
     cursor: pointer;
     color: var(--text-light);
 }
-
-
-
-
 
 .event-details-border
 {
