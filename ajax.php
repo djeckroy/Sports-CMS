@@ -147,11 +147,11 @@ switch($_POST['ajaxMethod'])
 
 		  if($ratingExists == "true")
 		  {
-			  echo "true";
+			  echo "1";
 		  }
 		  else
 		  {
-			echo "false";
+			echo "0";
 		  }
 		}
 

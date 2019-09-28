@@ -943,7 +943,8 @@ function setInitialRating(playerID) {
                 ajaxMethod: "initial-rating-Manager"
             },
             success: function(data) {
-                if (data == "false") {
+                if (!parseInt(data)) {
+					//player as no rating for this sport set.
                     showInitialRatingModal(playerID, sportID);
                 }
             }
