@@ -34,7 +34,7 @@ class ContentManager
 		$result = $this->database->query($query, [$club])->fetch();
 		$sportID = $result["sport_id"];
 
-		$query = "INSERT INTO rating (mean, standard_deviation, sport_id, player_id) VALUES(0, 0, $sportID, $playerID)";
+		$query = "INSERT INTO rating (mean, standard_deviation, last_calculated, sport_id, player_id, team_id) VALUES(0, 0, CURRENT_TIMESTAMP(), $sportID, $playerID, NULL)";
 		$result = $this->database->query($query, null);
 
 	}
@@ -623,7 +623,7 @@ class ContentManager
 	public function getPlayersByClub($clubID, $start, $amount, $searchTerm)
 	{
 		$query = "SELECT
-					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.gender, player.date_of_birth, rating.mean
+					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.gender, player.date_of_birth, rating.mean, rating.standard_deviation
 				  FROM 
 				  	player 
 				  INNER JOIN 
@@ -817,6 +817,24 @@ class ContentManager
 		return $result->rowCount();
 	}
 
+	public function getPotentialExistingPlayers($start, $amount, $searchTerm, $clubID)
+	{
+		$query = "SELECT DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.email
+				  from player WHERE player.given_name LIKE ? OR player.family_name LIKE ? OR player.email LIKE ? ORDER BY player_name ASC LIMIT " . $start . ", " . $amount;		 	
+
+		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%", "$searchTerm%"]);
+		return $result;
+	}
+
+	public function getNumPotentialExistingPlayers($searchTerm, $clubID)
+	{
+		$query = "SELECT DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.email
+				  from player WHERE (player.given_name LIKE ? OR player.family_name LIKE ? OR player.email LIKE ?)";
+
+		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%", "$searchTerm%"]);
+		return $result->rowCount();
+	}
+
 	public function getPotentialDirectors($start, $amount, $searchTerm)
 	{
 		$query = "SELECT CONCAT(account.given_name, ' ', account.family_name) AS account_name, account.account_id, account.email
@@ -833,6 +851,14 @@ class ContentManager
 
 		$result = $this->database->query($query, ["$searchTerm%", "$searchTerm%", "$searchTerm%"]);
 		return $result->rowCount();
+	}
+
+	public function removePlayerFromClub($playerID, $clubID)
+	{
+		$query = "DELETE FROM membership WHERE player_id = ? AND club_id = ?";		 	
+
+		$result = $this->database->query($query, [$playerID, $clubID]);
+		return $result;
 	}
 	
 	/*
@@ -1017,7 +1043,11 @@ class ContentManager
 	    $result = $this->database->query($query,[$clubID, $playerResult['player']]);
     }
   
-  
+  public function addExistingPlayer($playerID, $clubID)
+  {
+  	  $query = "INSERT INTO membership (player_id, club_id) VALUES(?, ?)";
+  	  $result = $this->database->query($query, [$playerID, $clubID]);
+  }
   
   
   public function initialRatingExists($playerID, $sportID)

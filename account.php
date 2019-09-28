@@ -66,7 +66,7 @@
 				if($account->getAccessLevel() < 2)
 				{
 					$tableOutput .= "<select name='Club' id='admin-change-club'>
-									<option disabled selected value> Select a Club </option>";
+									";
 					
 					$clubs = $contentManager->getAllClubs();
 
@@ -243,6 +243,7 @@
     include("./includes/edit-player-modal.php");
     include("./includes/create-player-modal.php");
     include("./includes/edit-account-modal.php");
+    include("./includes/add-existing-player-modal.php");
 ?>
 
 <script src="./javascript/pagination.js"></script>

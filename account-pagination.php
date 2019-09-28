@@ -191,11 +191,11 @@
 			$tableOutput .= "
 				<tr>
 					<td class='account-table-id'> " . $row['player_id'] . "</td>
-					<td class='account-table-data-name'> " . $row['player_name'] . "</td>
+					<td id='account-table-name-players' class='account-table-data-name'> " . $row['player_name'] . "</td>
 					<td> " . $row['gender'] . "</td>
 					<td> " . $row['date_of_birth'] . "</td>
-					<td> " . $row['mean'] . "</td>
-					<td> <button class='account-edit-players-button'>Edit</button> </td>
+					<td> " . $row['mean'] . ' ± ' . $row['standard_deviation'] . "</td>
+					<td> <button class='account-edit-players-button'>Edit</button> <button class='account-remove-players-button'>Remove</button> </td>
 				</tr>";
 		}
 
@@ -285,7 +285,8 @@
 
 
 		$tableOutput .= "<span class='club-players-link' id=' " . $totalPages . "'>>></span>
-						<button type='button' id='account-add-player-button'>Add Player</button> </div></div>";
+						<button type='button' id='account-add-player-button'>Add New Player</button>
+						<button type='button' id='account-add-existing-player-button'>Add Existing Player</button> </div></div>";
 
 	}
 	elseif(isset($_POST["directorID"]))
@@ -902,6 +903,127 @@
 
 		$tableOutput .= "<span class='promote-director-link' id=' " . $totalPages . "'>>></span></div></div>";
 
+	}
+	elseif(isset($_POST["existingPlayerID"]))
+	{
+		$resultsPerPage = 5;
+		$resultsPageToStartFrom = ($currentPage - 1) * $resultsPerPage;
+		$searchTerm = "";
+		$clubID = $_POST["clubID"];
+		
+		if(isset($_POST["searchTerm"]))
+		{
+			$searchTerm = $_POST["searchTerm"];
+		}
+
+		$existingResults = $contentManager->getPotentialExistingPlayers($resultsPageToStartFrom, $resultsPerPage, $searchTerm, $clubID);
+
+		$tableOutput .= "
+			<table class='account-modal-tables'>
+			<tr>
+				<th class='account-row-id'>ID</th>
+				<th class='account-modal-row-name'>Name</th>
+				<th class='account-modal--row-email'>Email</th>
+				<th class='account-row-date'></th>			
+			</tr>";
+
+		while($row = $existingResults->fetch())
+		{
+			$tableOutput .= "
+				<tr>
+					<td class='account-table-id'> " . $row['player_id'] . "</td>
+					<td class='account-modal-table-data-name'> " . $row['player_name'] . "</td>
+					<td class='account-modal-table-data-email'> " . $row['email'] . "</td>
+					<td class='account-modal-data-buttons'> <button class='add-existing-player-table-button'>Add</button> </td>
+				</tr>";
+		}
+
+		$tableOutput .= "
+			</table>
+			<div class='modal-pagination-buttons-container-existing-player'>
+			<div class='modal-pagination-buttons'>";
+
+		$totalPotentialExistingPlayers = $contentManager->getNumPotentialExistingPlayers($searchTerm, $clubID);
+		$totalPages = ceil($totalPotentialExistingPlayers / $resultsPerPage);
+
+		if($totalPages == 0)
+		{
+			$totalPages = 1;
+		}
+
+		if($totalPages < 1)
+		{
+			$tableOutput .= "<span class='existing-players-link' id='0'><<</span>";
+		}
+		else
+		{
+			$tableOutput .= "<span class='existing-players-link' id='1'><<</span>";
+		}
+
+		$pageThreshold = $currentPage + 4;
+
+		if($currentPage == 1)
+		{
+			for($i = $currentPage; $i <= $pageThreshold AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='existing-players-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		elseif($currentPage == 2)
+		{
+			for($i = ($currentPage - 1); $i <= ($pageThreshold - 1) AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='existing-players-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		elseif($currentPage == 3)
+		{
+			for($i = ($currentPage - 2); $i <= ($pageThreshold - 1) AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='existing-players-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		elseif($currentPage == 4)
+		{
+			for($i = ($currentPage - 3); $i <= ($pageThreshold - 1) AND $i <= $totalPages; $i++)
+			{
+				$tableOutput .= "<span class='existing-players-link' id='" . $i . "'>" . $i . " </span>";
+			}
+		}
+		else
+		{
+			if($currentPage == $totalPages)
+			{
+				for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='existing-players-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+			elseif($currentPage == $totalPages - 1)
+			{
+				for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='existing-players-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+			elseif($currentPage == $totalPages - 2)
+			{
+				for($i = ($totalPages - 4); $i <= $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='existing-players-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+			else
+			{
+				for($i = ($currentPage - 2); $i <= ($pageThreshold - 2) AND $i < $totalPages; $i++)
+				{
+					$tableOutput .= "<span class='existing-players-link' id='" . $i . "'>" . $i . " </span>";
+				}
+			}
+		}
+
+
+		$tableOutput .= "<span class='existing-players-link' id=' " . $totalPages . "'>>></span></div></div>";
 	}
 	else
 	{
