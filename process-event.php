@@ -49,6 +49,13 @@ require("./includes/initialize.php");
 		}
 		else
 		{
+			if(isset($_POST['edit-event-id']))
+			{
+				//event is being edited. We will need to reset all the players ratings and delete all evidence of the event from the database. 
+				$contentManager->resetPlayersRatings($_POST['edit-event-id']);
+				$contentManager->deleteEvent($_POST['edit-event-id']);
+			}
+			
 			$eventName = trim($_POST["event-name"]);
 			$eventName = preg_replace('/[^A-Za-z0-9" "\-]/', '', $eventName);
 			$eventID = $contentManager->createEvent($eventName, $countryID, $stateID, $sportID, $eventType, $eventDate, $clubID);

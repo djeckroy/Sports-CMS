@@ -1203,6 +1203,61 @@ class ContentManager
 		$result = $this->database->query($query,[$clubID]);
 		return $result;
   }
+  
+  public function resetPlayersRatings($eventID)
+  {
+	  $query = "SELECT DISTINCT rating.rating_id,
+				CASE
+						WHEN game_result.won = 'Y' THEN
+							game.mean_before_winning
+						WHEN game_result.won = 'N' THEN
+							game.mean_before_losing
+						END
+					AS mean,
+				  CASE
+						WHEN game_result.won = 'Y' THEN
+							game.standard_deviation_before_winning
+						WHEN game_result.won = 'N' THEN
+							game.standard_deviation_before_losing
+						END
+					AS sd FROM game_result
+					JOIN game ON game_result.game_id = game.game_id
+					JOIN event ON game.event_id = event.event_id
+					JOIN rating ON 
+						(rating.player_id = game_result.player_id OR rating.team_id = game_result.team_id)
+						 AND rating.sport_id = event.sport_id
+				   
+					WHERE game.event_id = ?";
+		$result = $this->database->query($query,[$eventID]);
+		
+		$updateQuery = "UPDATE rating SET mean = ?, standard_deviation = ? WHERE rating_id = ?";
+		
+		while ($row = $result->fetch())
+		{
+			$updateResult = $this->database->query($updateQuery,[$row['mean'],$row['sd'],$row['rating_id']]);
+		}
+  }
+  
+  public function deleteEvent($eventID)
+  {
+	  $fk =  "SET foreign_key_checks = 0";
+	  $result = $this->database->query($fk,[]);
+	  $query = "DELETE game_result, game FROM game_result
+				JOIN game 
+				WHERE 
+                game_result.game_id = game.game_id AND
+                game.event_id = ?";
+		$result = $this->database->query($query,[$eventID]);
+		$query = "DELETE FROM game WHERE game.event_id = ?";
+		$result = $this->database->query($query,[$eventID]);
+		$query = "DELETE FROM plays_at WHERE plays_at.event_id = ?";
+		$result = $this->database->query($query,[$eventID]);
+		$query = "DELETE FROM event WHERE event.event_id = ?";
+		$result = $this->database->query($query,[$eventID]);
+		
+		$fk =  "SET foreign_key_checks = 1";
+	  $result = $this->database->query($fk,[]);
+  }
 
 }
 	
