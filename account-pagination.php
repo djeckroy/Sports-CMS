@@ -284,10 +284,13 @@
 		}
 
 
-		$tableOutput .= "<span class='club-players-link' id=' " . $totalPages . "'>>></span>
-						<button type='button' id='account-add-player-button'>Add New Player</button>
-						<button type='button' id='account-add-existing-player-button'>Add Existing Player</button> </div></div>";
+		$tableOutput .= "<span class='club-players-link' id=' " . $totalPages . "'>>></span>";
 
+		if($account->getAccessLevel() < 2 || $account->hasClubAssigned())
+		{
+			$tableOutput .= "<button type='button' id='account-add-player-button'>Add New Player</button>
+							 <button type='button' id='account-add-existing-player-button'>Add Existing Player</button> </div></div>";
+		}				
 	}
 	elseif(isset($_POST["directorID"]))
 	{
@@ -418,8 +421,12 @@
 		}
 
 
-		$tableOutput .= "<span class='tournament-directors-link' id=' " . $totalPages . "'>>></span>
-						<button type='button' id='account-add-director-button'>Add Director</button> </div></div>";
+		$tableOutput .= "<span class='tournament-directors-link' id=' " . $totalPages . "'>>></span>";
+
+		if($account->getAccessLevel() < 2 || $account->hasClubAssigned())
+		{
+			$tableOutput .= "<button type='button' id='account-add-director-button'>Add Director</button> </div></div>";
+		}
 	}
 	elseif(isset($_POST["administrationID"]))
 	{

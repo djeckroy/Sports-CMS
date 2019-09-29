@@ -8,6 +8,10 @@ window.onload = retrievePotentialAdministrators(1, "");
 window.onload = retrievePotentialDirectors(1, "");
 window.onload = uploadEventChangeStates($("#create-club-select-country"),$("#create-club-select-state"));
 
+$(document).ready(function()
+{
+    setupInitialClubInfo();
+});
 
 /* EDIT ACCOUNT MODAL */
 
@@ -862,6 +866,19 @@ $(document).on('change', '#player-create-select-country', function(){
     uploadEventChangeStates($("#player-create-select-country"),$("#player-create-select-state"));
 });
 
+
+/* Setup Administration Selected Clubs */
+
+function setupInitialClubInfo()
+{
+    if($("#admin-change-club").length > 0)
+    {
+        $("#admin-change-club").val(1).change();
+        $("#admin-change-club-members").val(1).change();
+        $("#admin-change-club-events").val(1).change();
+    }
+
+}
 
 
 
