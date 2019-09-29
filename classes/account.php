@@ -332,6 +332,14 @@ class Account
 		
 		return $result['club_exp'];
 	}
+	
+	public function updateAccDetails($firstName, $lastName, $email)
+	{
+		$query = "UPDATE `account` SET `given_name` = ?, family_name = ?, email = ? WHERE `account`.`account_id` = ?";
+		
+		$result = $this->database->query($query, [$firstName, $lastName, $email, $this->accountId]);
+		
+	}
 }
 
 ?>
