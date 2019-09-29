@@ -45,4 +45,9 @@ if (isset($_POST['editEventID']))
 	echo "<script> showNotificationModal('Editing Event', 'Be advised you are now editing an event. This should only be done when an error has been found and the event is less than a few days old.') </script>";
 }
 
+if(isset($_POST["update-account-details"]))
+{
+	echo "<script> showNotificationModal('Account Details Updated', 'Your account details have now been updated..') </script>";
+}
+
 ?>

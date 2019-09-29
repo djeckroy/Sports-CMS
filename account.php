@@ -18,6 +18,11 @@
     {
     	$contentManager->createPlayer($_POST["player-given-name"], $_POST["player-family-name"], $_POST["create-player-gender"], $_POST["event-date"], $_POST["email"], $_POST["select-country"], $_POST["state-name"], $_POST["hidden-club-ID"]);
     }
+    
+    if(isset($_POST["update-account-details"]))
+    {
+		$account->updateAccDetails($_POST['given-name'], $_POST['family-name'], $_POST['email']);
+	}
 
 ?>
 

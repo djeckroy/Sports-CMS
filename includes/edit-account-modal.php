@@ -7,9 +7,11 @@
   	<div class="edit-account-modal-fields">
   	  <h2>Edit Account</h2>
   	  <hr/>
-      <p id="hidden-edit-account-id"></p>
-      <div class="edit-account-modal-field-wrapper">
-      </div>
+  	  <form method='post' action='./account.php'>
+		  <p id="hidden-edit-account-id"></p>
+		  <div class="edit-account-modal-field-wrapper">
+		  </div>
+      </form>
   	</div>
   </div>
 </div>
