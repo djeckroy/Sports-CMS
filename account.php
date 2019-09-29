@@ -70,8 +70,7 @@
 
 				if($account->getAccessLevel() < 2)
 				{
-					$tableOutput .= "<select name='Club' id='admin-change-club'>
-									";
+					$tableOutput .= "<select name='Club' id='admin-change-club'>";
 					
 					$clubs = $contentManager->getAllClubs();
 
@@ -149,8 +148,7 @@
 
 				if($account->getAccessLevel() < 2)
 				{
-					$tableOutput .= "<select name='Club' id='admin-change-club-members'>
-									<option disabled selected value> Select a Club </option>";
+					$tableOutput .= "<select name='Club' id='admin-change-club-members'>";
 					
 					$clubs = $contentManager->getAllClubs();
 
@@ -182,8 +180,7 @@
 
 				if($account->getAccessLevel() < 2)
 				{
-					$tableOutput .= "<select name='Club' id='admin-change-club-events'>
-									<option disabled selected value> Select a Club </option>";
+					$tableOutput .= "<select name='Club' id='admin-change-club-events'>";
 					
 					$clubs = $contentManager->getAllClubs();
 
