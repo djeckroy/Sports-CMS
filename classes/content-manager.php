@@ -1052,7 +1052,7 @@ class ContentManager
   
   public function initialRatingExists($playerID, $sportID)
   {
-    $query = "SELECT rating.player_id, rating.sport_id from rating where rating.player_id = ? and rating.sport_id = ?";
+    $query = "SELECT rating.player_id, rating.sport_id from rating where rating.player_id = ? and rating.sport_id = ? and rating.mean != 0";
       $result = $this->database->query($query,[$playerID, $sportID]);
     
     if($result->rowCount() > 0)
@@ -1066,7 +1066,16 @@ class ContentManager
   }
     public function insertInitialRating($mean, $sd, $playerID, $sportID)
   {
-    $query = "INSERT INTO rating(mean, standard_deviation, player_id, sport_id, last_calculated) VALUES(?, ?, ?, ?,NOW())";
+	if ( $this->getPlayerRating($playerID,$sportID)['mean'] == 0 )
+	{
+		//player has a rating of 0 for this sport and it need to be updated.
+		$query = "UPDATE `rating` SET `mean` = ?,  `standard_deviation` = ? WHERE `rating`.`player_id` = ? AND `rating`.`sport_id` = ?";
+	}
+	else
+	{
+		//player has no rating entry of this sport.
+		$query = "INSERT INTO rating(mean, standard_deviation, player_id, sport_id, last_calculated) VALUES(?, ?, ?, ?,NOW())";
+	}
     $result = $this->database->query($query, [$mean, $sd, $playerID, $sportID]);
   }
   
