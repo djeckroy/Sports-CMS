@@ -578,7 +578,7 @@ class ContentManager
 	public function getEventsAttendedByClub($clubID, $start, $amount, $searchTerm)
 	{
 		$query = "SELECT DISTINCT
-					event.name AS event_name, event.event_id, event.type, event.start_date, country.name AS country_name
+					event.name AS event_name, event.event_id, event.type, DATE_FORMAT(event.start_date, '%d %M %Y') as start_date, country.name AS country_name
 				  FROM 
 				  	event 
 				  INNER JOIN 
@@ -623,7 +623,7 @@ class ContentManager
 	public function getPlayersByClub($clubID, $start, $amount, $searchTerm)
 	{
 		$query = "SELECT
-					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.gender, player.date_of_birth, rating.mean, rating.standard_deviation
+					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.gender, date_format(player.date_of_birth,'%d %M %Y') as date_of_birth, rating.mean, rating.standard_deviation
 				  FROM 
 				  	player 
 				  INNER JOIN 
@@ -1121,7 +1121,7 @@ class ContentManager
   public function searchEvents($search)
   {
 	  $search = "%" . $search . "%";
-		$query = "SELECT event.event_id, event.name as eventName, club.name as clubName, event.start_date as date, event.type, CONCAT(state.name, ', ', country.name) as region FROM event
+		$query = "SELECT event.event_id, event.name as eventName, club.name as clubName, DATE_FORMAT(event.start_date, '%d %M %Y') as date, event.type, CONCAT(state.name, ', ', country.name) as region FROM event
 		JOIN plays_at ON plays_at.event_id = event.event_id
 		JOIN club ON plays_at.club_id =club.club_id
 		JOIN state ON event.state_id = state.state_id
@@ -1138,7 +1138,7 @@ class ContentManager
   
   public function getEventInformation($eventID)
   {
-	  $query = "SELECT event.event_id, event.name, club.name AS club, event.type, event.start_date AS date, CONCAT(state.name, ', ', country.name) as region, state.state_id, country.country_id, COUNT(game.game_id) AS number_matches FROM event
+	  $query = "SELECT event.event_id, event.name, club.name AS club, event.type, DATE_FORMAT(event.start_date, '%d %M %Y') as date, CONCAT(state.name, ', ', country.name) as region, state.state_id, country.country_id, COUNT(game.game_id) AS number_matches FROM event
 				JOIN plays_at ON plays_at.event_id = event.event_id
 				JOIN club ON plays_at.club_id =club.club_id
 				JOIN state ON event.state_id = state.state_id
