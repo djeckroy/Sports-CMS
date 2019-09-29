@@ -8,7 +8,7 @@
 <article class="privacy-and-terms-articles">
   
 <?php
-	echo nl2br( file_get_contents('./includes/terms-and-conditions.txt') );
+	echo nl2br( file_get_contents('./editable/terms-and-conditions.html') );
 ?>
 
 </article>

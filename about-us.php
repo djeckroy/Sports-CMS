@@ -6,9 +6,9 @@
 ?>
 
 <article>
-  
-<!-- CODE HERE -->
-
+<?php
+echo nl2br( file_get_contents('./editable/about-us.html') );
+?>
 </article>
 
 <?php
