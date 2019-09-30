@@ -390,6 +390,8 @@ function showUploadMatchRows() {
 
                     }
 
+                    var num = document.getElementById("match-field-input").value;
+                    sessionStorage.setItem("lastnumber", num);
                     setupMatchAutoComplete();
                     setupMatchErrorChecking();
                     setupAdvancedSearchLinks();
@@ -1118,6 +1120,57 @@ function hideTypeModal() {
          document.getElementById("event-type").selectedIndex = "1";
      }
     
+}
+
+
+
+/**
+ *----------------------------
+ * Harinder work of change Number of matches event
+ *------------------------------
+ */
+
+
+
+function changeMatchNumber() {
+    var matchRows = document.getElementById("match-field-input").value;
+
+    var table = document.getElementById("match-input-table");
+
+    if (table.rows.length !== 0) {
+
+            var val = document.getElementById("match-field-input").value;
+             if(val == ""){
+                 return;
+             }
+             else {
+          modalChangeNumber();
+             }
+
+    }
+    else {
+        return;
+    }
+
+}
+
+
+function modalChangeNumber(){
+    
+        document.getElementById("change-match-number-notification-modal-text").innerHTML = "Are you sure you wish to change match Number? You will lose any un-submitted events on this page.";
+        document.querySelector(".change-match-number-notification-modal-background").style.display = "flex";
+    
+}
+
+function changeNumber(){
+    
+    showUploadMatchRows();
+    document.querySelector(".change-match-number-notification-modal-background").style.display = "none";
+}
+
+function hideNumberModal() {
+    document.querySelector(".change-match-number-notification-modal-background").style.display = "none";
+        document.getElementById("match-field-input").value = sessionStorage.getItem("lastnumber");
 }
 
 /**
