@@ -4420,7 +4420,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     text-decoration: none;
     display: inline-block;
     font-size: var(--font-medium);
-    margin: 10px 60px;
+    margin: 10px 42px;
     cursor: pointer;
     transition-duration: 0.4s;
 }
