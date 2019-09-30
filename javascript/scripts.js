@@ -1120,6 +1120,14 @@ function hideTypeModal() {
     
 }
 
+
+/*for popover*/
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+
+
 /**
  * ---------------------------------------------- *
  *  Begin bookmark section                        *
