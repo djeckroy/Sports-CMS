@@ -128,9 +128,9 @@
 						</select>
 						<input class="match-input" id="match-field-input" type="number" id="match-number"
 						name="match-number" placeholder="Number of Matches" pattern="[0-9]{1,3}"
-						title="Number must be within 1-300">
+						title="Number must be within 1-300" onkeyup = "changeMatchNumber();" >
 						<button class="match-number-input" id="match-number-submit" name="match-number-submission"
-						value="Add Matches" type="button">Add Matches</button>
+						value="Add Matches" type="button" onclick="changeMatchNumber();">Add Matches</button>
 					</div>
 				</div>
 				</div>
@@ -163,5 +163,6 @@
 	include("./includes/add-player.php");
 	include("./includes/initialRating.php");
 	include("./includes/event-type-notification-modal.php");
+	include("./includes/change-match-number-modal.php");
 	include("./includes/footer.php");
 ?>
