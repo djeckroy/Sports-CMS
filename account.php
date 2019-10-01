@@ -23,6 +23,12 @@
     {
 		$account->updateAccDetails($_POST['given-name'], $_POST['family-name'], $_POST['email']);
 	}
+	
+	if(isset($_POST["change-password"]))
+    {
+		$_SESSION['reset-email'] = $account->getAccountDetails()['email'];
+		include("./includes/reset-password-modal.php");
+	}
 
 ?>
 
@@ -231,6 +237,9 @@
 
 				<button type="button" id="edit-account-details-button">Edit</button>';
 			?>
+			<form action='./account.php' method='post'>
+				<button type="submit" id="edit-account-details-button-change-password" name="change-password">Change Password</button>
+			</form>
 		</div>
 	</div>
 </div>

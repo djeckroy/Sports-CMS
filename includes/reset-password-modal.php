@@ -6,7 +6,7 @@
   	</div>
 
   	<div class="reset-modal-fields">
-  	  <h2>Reset Password</h2>
+  	  <h2>Reset / Change Password</h2>
   	  <hr/>
       <div class="reset-modal-field-wrapper">
           <form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>">
