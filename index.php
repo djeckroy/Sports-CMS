@@ -10,15 +10,15 @@
 
   <div class="slideshow-container">
     <div class="slideshow-image">
-      <img src="./resources/images/home-slideshow-1.png">
+      <img src="./editable/images/home-slideshow-1.png">
     </div>
 
     <div class="slideshow-image">
-      <img src="./resources/images/home-slideshow-2.png">
+      <img src="./editable/images/home-slideshow-2.png">
     </div>
 
     <div class="slideshow-image">
-      <img src="./resources/images/home-slideshow-3.png">
+      <img src="./editable/images/home-slideshow-3.png">
     </div>
   </div>
 
