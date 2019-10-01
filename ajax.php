@@ -48,7 +48,14 @@ switch($_POST['ajaxMethod'])
 		{
 			$teamPlayers = $contentManager->getTeamPlayersBySport($teams['team_id'], $_POST['sportID']);
 			$playerNames = $contentManager->getTeamPlayerNames($teamPlayers['player_one_id'], $teamPlayers['player_two_id']);
-			$response[] = array("teamID"=>$teams['team_id'], "player1"=>$playerNames['player_one'], "player2"=>$playerNames['player_two']);
+
+			if($playerNames != NULL)
+			{
+				$response[] = array("teamID"=>$teams['team_id'], "player1"=>$playerNames['player_one'], "player2"=>$playerNames['player_two']);
+			}
+			else {
+
+			}
 		}
 
  		echo json_encode($response);

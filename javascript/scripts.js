@@ -1229,6 +1229,8 @@ function isEmpty(obj) {
 
 function updatePlayerTeams()
 {
+  var playerTeamsRowCount = 0;
+
   var params = (new URL(document.location)).searchParams;
   var playerID = params.get(getVariableName);
   var sportID = $("#profile-select-sport").val();
@@ -1247,13 +1249,26 @@ function updatePlayerTeams()
       success: function(data)
       {
           var jsonData = JSON.parse(data);
-          var newHTML = ""
+
+          var newHTML = "";
+
           $.each(jsonData, function(key, value)
           {
-			console.log(key);
-			console.log(value);
-            newHTML = newHTML + "<a href='team-profile.php?team-id=" + value.teamID + "'>" + value.player1 + ", &nbsp" + value.player2 + "</a>";
+            if ((playerTeamsRowCount % 2) == 0)
+            {
+                // 'even' row
+                newHTML = newHTML + "<tr class='even-row'>";
+            }
+            else
+            {
+                newHTML = newHTML + "<tr class='odd-row'>";
+            }
+
+            newHTML = newHTML + "<td><a href='team-profile.php?team-id=" + value.teamID + "'>" + value.player1 + ", &nbsp" + value.player2 + "</a></td>";
+
+            playerTeamsRowCount++;
           });
+
           $("#team-table-link").html(newHTML);
       }
   });
@@ -1452,7 +1467,6 @@ function updatePlayerTeams()
 
                 if ((eventHistoryRowCount % 2) == 0)
                 {
-                    // 'even' row
                     currentHTML = currentHTML + "<tr class='even-row'>";
                 }
                 else
@@ -1507,7 +1521,7 @@ function updatePlayerTeams()
     });
  }
 
- $("#team-table-link").click(addTeamEventHistory());
+ //$("#team-table-link").click(addTeamEventHistory());
 
  $( function(){
     $(".profile-sport-name").html($("#profile-select-sport option:selected").text());

@@ -50,7 +50,7 @@ body
 	background-color: var(--body-color);
 }
 
-article 
+article
 {
   height: auto;
   min-height: 900px;
@@ -305,7 +305,7 @@ nav a:hover
 /* Home Page */
 
 
-.slideshow-container 
+.slideshow-container
 {
   width: 100%;
   height: 540px;
@@ -320,7 +320,7 @@ nav a:hover
   height: inherit;
   position: absolute;
   transition: opacity 1s ease-in-out;
-  opacity: 0; 
+  opacity: 0;
   height: inherit;
   overflow: hidden;
 }
@@ -331,7 +331,7 @@ nav a:hover
   width: inherit;
 }
 
-.search-container 
+.search-container
 {
   width: 80%;
   height: 300px;
@@ -361,12 +361,12 @@ nav a:hover
   border-radius: 5px 5px 0px 0px;
 }
 
-.tab-selection:hover 
+.tab-selection:hover
 {
   background-color: white;
 }
 
-.tab-content 
+.tab-content
 {
   height: 200px;
   display: none;
@@ -374,14 +374,14 @@ nav a:hover
   border-radius: 0px 0px 5px 5px;
 }
 
-.search-box 
+.search-box
 {
   width: 100%;
   padding: 20px 20px 20px 20px;
   align-items: center;
 }
 
-.search-field 
+.search-field
 {
   width: 100%;
   text-align: center;
@@ -389,42 +389,42 @@ nav a:hover
 
 #player-page-article
 {
-  min-height: 1008px; 
-  position: relative;  
+  min-height: 1008px;
+  position: relative;
 }
 
   #club-page-article
   {
-    min-height: 1008px; 
-    position: relative;  
+    min-height: 1008px;
+    position: relative;
   }
   #event-page-article
   {
-    min-height: 1008px; 
-    position: relative;  
+    min-height: 1008px;
+    position: relative;
   }
   #event-profile-page-article
   {
-    min-height: 1008px; 
-    position: relative;  
+    min-height: 1008px;
+    position: relative;
   }
   #club-page-article
   {
-    min-height: 1008px; 
-    position: relative;  
+    min-height: 1008px;
+    position: relative;
   }
   #club-profile-page-article
   {
-    min-height: 1008px; 
-    position: relative;  
+    min-height: 1008px;
+    position: relative;
   }
 
 #team-profile-page-article
 {
-  min-height: 954px; 
+  min-height: 954px;
 }
 
-.search-input 
+.search-input
 {
   height: 50px;
   width: 70%;
@@ -451,7 +451,7 @@ nav a:hover
   outline: none;
 }
 
-.search-button:hover 
+.search-button:hover
 {
   color:white;
   background: var(--secondary-color-dark);
@@ -477,7 +477,7 @@ nav a:hover
   background-color: var(--primary-color);
 }
 
-#event-content 
+#event-content
 {
   background-color: var(--secondary-color);
 }
@@ -494,7 +494,7 @@ nav a:hover
 .player-search-filter-container
 {
   width: 100%;
-  background-color: var(--primary-color-dark);    
+  background-color: var(--primary-color-dark);
 }
 
   #player-search-filter-title
@@ -506,7 +506,7 @@ nav a:hover
 
   #player-search-filter-line
   {
-    border-bottom: 1px solid #fff; 
+    border-bottom: 1px solid #fff;
     padding-bottom: 3px;
     width: 100%;
     display: inline-block;
@@ -550,8 +550,8 @@ nav a:hover
 }
 
 .top-row-filter-inputs
-{ 
-  position: relative;   
+{
+  position: relative;
   margin: 10px 0px 10px 10%;
   display: inline-block;
   width: 80%;
@@ -561,7 +561,7 @@ nav a:hover
 
 .middle-row-filter-inputs
 {
-  position: relative; 
+  position: relative;
   margin: 10px 0px 0px 10%;
   display: inline-block;
   width: 80%;
@@ -571,7 +571,7 @@ nav a:hover
 
 .bottom-row-filter-inputs
 {
-  position: relative; 
+  position: relative;
   margin: 10px 0px 0px 10%;
   display: inline-block;
   width: 80%;
@@ -628,7 +628,7 @@ nav a:hover
 
 }
 
-#submit-search-filter:hover 
+#submit-search-filter:hover
 {
   color:white;
   background: var(--secondary-color-dark);
@@ -656,7 +656,7 @@ nav a:hover
 
 .player-search-result-table td
 {
-  border-bottom: 1px solid #ccc;  
+  border-bottom: 1px solid #ccc;
   height: 43.4375px;
   padding-left: 20px;
 }
@@ -666,15 +666,15 @@ nav a:hover
     position: relative;
     border-collapse: collapse;
     width: 100%;
-      
+
   }
 
   .search-result-table th
   {
- 
+
     font-size: var(--font-table-headers);
     font-weight: bold;
-    background-color:var(--primary-color); 
+    background-color:var(--primary-color);
     color: white;
     height: 43.4375px;
     overflow: hidden;
@@ -684,7 +684,7 @@ nav a:hover
 
   .search-result-table td
   {
-    border-bottom: 1px solid #ccc;  
+    border-bottom: 1px solid #ccc;
     height: 43.4375px;
     padding-left: 20px;
     text-align: center;
@@ -723,7 +723,7 @@ nav a:hover
   width: 100%;
   border-top: 2px solid var(--text-medium);
   text-align: center;
-  padding: 15px 0px 0px 0px; 
+  padding: 15px 0px 0px 0px;
   margin: 0px;
 }
 
@@ -752,8 +752,8 @@ nav a:hover
   .club-search-filter-container
   {
     width: 100%;
-    height:200px; 
-    background-color: var(--tertiary-color);    
+    height:200px;
+    background-color: var(--tertiary-color);
   }
 
   #club-search-filter-title
@@ -765,7 +765,7 @@ nav a:hover
 
   #club-search-filter-line
   {
-    border-bottom: 1px solid #fff; 
+    border-bottom: 1px solid #fff;
     padding-bottom: 3px;
     width: 100%;
     display: inline-block;
@@ -930,19 +930,19 @@ nav a:hover
 }
 
 .sd-value-green
-{     
+{
   text-align: right;
   color: rgba(80, 220, 100, 1);
 }
 
 .sd-value-orange
-{    
+{
   text-align: right;
   color: rgba(249, 166, 2, 1);
 }
 
 .sd-value-red
-{   
+{
   text-align: right;
   color: rgba(184, 15, 10, 1);
 }
@@ -979,9 +979,15 @@ nav a:hover
   width: 100%;
 }
 
+#player-history-table-body a
+{
+  text-decoration: none;
+  color: var(--link-dark);
+}
+
 .player-history-table th
-{    
-  font-size: var(--font-table-headers);     
+{
+  font-size: var(--font-table-headers);
   text-align: left;
   padding-left: 20px;
   height: 29px;
@@ -1026,34 +1032,35 @@ nav a:hover
 .player-team-table
 {
   margin-top: 20px;
+  margin-bottom: 20px;
   border-collapse: collapse;
-  border-left: none;
-  border-right: none;
 }
 
-.player-team-table td
+#team-table-link td
 {
   padding: 2px 10px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
-#team-table-link
+#team-table-link a
 {
   text-decoration: none;
-  color: var(--primary-color-dark);
+  color: var(--link-dark);
 }
 
 #player-team-view-more
 {
   float: right;
-} 
+}
 
 
  /* Events Page */
   .event-search-filter-container
   {
     width: 100%;
-    height:200px; 
-    background-color: var(--secondary-color);    
+    height:200px;
+    background-color: var(--secondary-color);
   }
 
   #event-search-filter-title
@@ -1065,7 +1072,7 @@ nav a:hover
 
   #event-search-filter-line
   {
-    border-bottom: 1px solid #fff; 
+    border-bottom: 1px solid #fff;
     padding-bottom: 3px;
     width: 100%;
     display: inline-block;
@@ -1096,7 +1103,7 @@ nav a:hover
 	border-radius: 10px 10px 10px 10px;
 	overflow: hidden;
     margin-top: 40px;
-    
+
 }
 .matches-table-header-container {
     text-align: center;
@@ -1114,14 +1121,14 @@ nav a:hover
     position: relative;
     border-collapse: collapse;
     margin top: 40px;
-    width: 100%;   
+    width: 100%;
   }
 
 .matches-table th
   {
     font-size: var(--font-table-headers);
     font-weight: bold;
-    background-color:var(--primary-color); 
+    background-color:var(--primary-color);
     color: white;
     height: 43.4375px;
     overflow: hidden;
@@ -1131,17 +1138,17 @@ nav a:hover
 .matches-table th#doubleDefeat{
     padding-top:  25px;
 }
- 
+
 
 .matches-table td
   {
-    border-bottom: 1px solid #ccc;  
+    border-bottom: 1px solid #ccc;
     height: 43.4375px;
     text-align: center;
   }
 .strong{
     font-weight: bold;
-    color: var(--primary-color);  
+    color: var(--primary-color);
     width: 160px;
   }
 
@@ -1189,7 +1196,7 @@ nav a:hover
 	border-radius: 10px 10px 10px 10px;
 	overflow: hidden;
     margin-top: 40px;
-    
+
 }
 .club-members-container h2 {
 	padding: 10px 0px 10px 0px;
@@ -1202,15 +1209,15 @@ nav a:hover
     position: relative;
     border-collapse: collapse;
     width: 100%;
-      
+
   }
 
 .club-members-table th
   {
- 
+
     font-size: var(--font-table-headers);
     font-weight: bold;
-    background-color:#e8e5df; 
+    background-color:#e8e5df;
     color: var(--primary-color);
     height: 43.4375px;
     overflow: hidden;
@@ -1220,7 +1227,7 @@ nav a:hover
 
 .club-members-table td
   {
-    border-bottom: 1px solid #ccc;  
+    border-bottom: 1px solid #ccc;
     height: 43.4375px;
     padding-left: 20px;
     text-align: center;
@@ -1231,7 +1238,7 @@ nav a:hover
 	border-radius: 10px 10px 10px 10px;
 	overflow: hidden;
     margin-top: 40px;
-    
+
 }
 .events-list-container h2 {
 	padding: 10px 0px 10px 0px;
@@ -1244,15 +1251,15 @@ nav a:hover
     position: relative;
     border-collapse: collapse;
     width: 100%;
-      
+
   }
 
 .events-list-table th
   {
- 
+
     font-size: var(--font-table-headers);
     font-weight: bold;
-    background-color:#e8e5df; 
+    background-color:#e8e5df;
     color: var(--secondary-color);
     height: 43.4375px;
     overflow: hidden;
@@ -1262,7 +1269,7 @@ nav a:hover
 
 .events-list-table td
   {
-    border-bottom: 1px solid #ccc;  
+    border-bottom: 1px solid #ccc;
     height: 43.4375px;
     padding-left: 20px;
     text-align: center;
@@ -1339,9 +1346,15 @@ nav a:hover
   width: 100%
 }
 
+#team-history-table-body a
+{
+  text-decoration: none;
+  color: var(--link-dark);
+}
+
 .team-history-table th
-{   
-  font-size: var(--font-table-headers);     
+{
+  font-size: var(--font-table-headers);
   text-align: left;
   padding-left: 20px;
   height: 29px;
@@ -2086,7 +2099,7 @@ nav a:hover
   width: 100%;
   border-top: 2px solid var(--text-medium);
   text-align: center;
-  padding: 15px 0px 0px 0px; 
+  padding: 15px 0px 0px 0px;
   margin: 0px;
 }
 
@@ -2348,7 +2361,7 @@ nav a:hover
   font-size: var(--font-large);
   transform: rotate(45deg);
   cursor: pointer;
-  color: var(--text-light); 
+  color: var(--text-light);
 }
 
 #edit-account-given-name
@@ -2471,7 +2484,7 @@ nav a:hover
   font-size: var(--font-large);
   transform: rotate(45deg);
   cursor: pointer;
-  color: var(--text-light); 
+  color: var(--text-light);
 }
 
 #edit-given-name
@@ -2615,7 +2628,7 @@ nav a:hover
   font-size: var(--font-large);
   transform: rotate(45deg);
   cursor: pointer;
-  color: var(--text-light); 
+  color: var(--text-light);
 }
 
 #administrator-searchbar-container
@@ -2775,7 +2788,7 @@ nav a:hover
   width: 100%;
   border-top: 2px solid var(--text-medium);
   text-align: center;
-  padding: 20px 0px 0px 0px; 
+  padding: 20px 0px 0px 0px;
   margin: 0px;
 }
 
@@ -2839,7 +2852,7 @@ nav a:hover
   font-size: var(--font-large);
   transform: rotate(45deg);
   cursor: pointer;
-  color: var(--text-light); 
+  color: var(--text-light);
 }
 
 #director-searchbar-container
@@ -2975,7 +2988,7 @@ nav a:hover
   font-size: var(--font-large);
   transform: rotate(45deg);
   cursor: pointer;
-  color: var(--text-light); 
+  color: var(--text-light);
 }
 
 #create-club-select-sport
@@ -3122,7 +3135,7 @@ nav a:hover
   font-size: var(--font-large);
   transform: rotate(45deg);
   cursor: pointer;
-  color: var(--text-light); 
+  color: var(--text-light);
 }
 
 #input-create-player-given-name
@@ -3252,7 +3265,7 @@ right: 20px;
 font-size: var(--font-large);
 transform: rotate(45deg);
 cursor: pointer;
-color: var(--text-light); 
+color: var(--text-light);
 }
 .advanced-player-name
 {
@@ -3283,7 +3296,7 @@ color: var(--text-light);
 #create-player-button:hover
 {
   background-color: var(--tertiary-color-dark);
-}  
+}
 
 
 /* Register Modal */
@@ -3366,7 +3379,7 @@ color: var(--text-light);
   font-size: var(--font-large);
   transform: rotate(45deg);
   cursor: pointer;
-  color: var(--text-light); 
+  color: var(--text-light);
 }
 
 #create-account-button
@@ -3508,7 +3521,7 @@ color: var(--text-light);
   font-size: var(--font-large);
   transform: rotate(45deg);
   cursor: pointer;
-  color: var(--text-light); 
+  color: var(--text-light);
 }
 
 #reset-password-button
@@ -3610,7 +3623,7 @@ color: var(--text-light);
   font-size: var(--font-large);
   transform: rotate(45deg);
   cursor: pointer;
-  color: var(--text-light); 
+  color: var(--text-light);
 }
 
 #existing-player-searchbar-container
@@ -3803,7 +3816,7 @@ color: var(--text-light);
   width: 100%;
   border-top: 2px solid var(--text-medium);
   text-align: center;
-  padding: 20px 0px 0px 0px; 
+  padding: 20px 0px 0px 0px;
   margin: 0px;
 }
 
@@ -3898,7 +3911,7 @@ color: var(--text-light);
   font-size: var(--font-large);
   transform: rotate(45deg);
   cursor: pointer;
-  color: var(--text-light); 
+  color: var(--text-light);
 }
 
 #reset-password-button
@@ -4006,14 +4019,14 @@ color: var(--text-light);
   font-size: var(--font-large);
   transform: rotate(45deg);
   cursor: pointer;
-  color: var(--text-light); 
+  color: var(--text-light);
 }
 
 
 
                         /* event-type-change Notification Modal */
                          /* harinder's work */
-.change-match-button 
+.change-match-button
 {
     background: var(--primary-color);
     border-radius: 2px;
@@ -4026,11 +4039,11 @@ color: var(--text-light);
     cursor: pointer;
 }
 
-.change-match-button:hover 
+.change-match-button:hover
 {
     background: var(--primary-color-dark);
 }
-.event-type-notification-modal-background 
+.event-type-notification-modal-background
 {
     width: 100%;
     height: 100%;
@@ -4044,7 +4057,7 @@ color: var(--text-light);
     display: none;
 }
 
-.event-type-notification-modal-content 
+.event-type-notification-modal-content
 {
     width: 400px;
     height: 250px;
@@ -4052,7 +4065,7 @@ color: var(--text-light);
     border-radius: 5px;
 }
 
-.event-type-notification-modal-header 
+.event-type-notification-modal-header
 {
     height: 20%;
     width: 100%;
@@ -4062,7 +4075,7 @@ color: var(--text-light);
     position: relative;
 }
 
-.event-type-notification-modal-fields 
+.event-type-notification-modal-fields
 {
     height: 80%%;
     width: 100%;
@@ -4070,17 +4083,17 @@ color: var(--text-light);
     font-size: var(--font-small);
 }
 
-.event-type-notification-modal-fields h2 
+.event-type-notification-modal-fields h2
 
     color: var(--text-dark);
 }
 
-.event-type-notification-modal-fields-wrapper 
+.event-type-notification-modal-fields-wrapper
 {
     display: block;
 }
 
-.event-type-notification-modal-fields hr 
+.event-type-notification-modal-fields hr
 {
     border: 0;
     height: 0;
@@ -4089,7 +4102,7 @@ color: var(--text-light);
     margin: 10px 0px 0px 0px;
 }
 
-.event-type-notification-modal-exit-button 
+.event-type-notification-modal-exit-button
 {
     position: absolute;
     top: -8px;
@@ -4105,12 +4118,12 @@ color: var(--text-light);
   margin-bottom: -25px;
 }
 
-.event-details-border h1 
+.event-details-border h1
 {
     padding: 10px 0 0 25px;
 }
 
-.event-field-input 
+.event-field-input
 {
     background-color: var(--form-input-background);
     font-size: var(--font-small);
@@ -4125,25 +4138,25 @@ color: var(--text-light);
     margin-bottom: 16px;
 }
 
-.event-rows 
+.event-rows
 {
     width: 525px;
 }
 
-.event-details-row 
+.event-details-row
 {
     float: left;
     display: inline-grid;
     padding: 0 25px;
 }
 
-.event-details-row2 
+.event-details-row2
 {
     float: right;
     display: inline-grid;
 }
 
-.event-field-date 
+.event-field-date
 {
     background-color: var(--form-input-background);
     padding: 0px 10px 0px 10px;
@@ -4157,25 +4170,25 @@ color: var(--text-light);
     font-size: var(--font-small);
 }
 
-input[type="date"]::-webkit-inner-spin-button 
+input[type="date"]::-webkit-inner-spin-button
 {
     opacity: 0;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator 
+input[type="date"]::-webkit-calendar-picker-indicator
 {
     background: url(https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/calendar-16.png) center/80% no-repeat;
     color: rgba(0, 0, 0, 0);
     opacity: 0.5;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator:hover 
+input[type="date"]::-webkit-calendar-picker-indicator:hover
 {
     background: url(https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/calendar-16.png) center/80% no-repeat;
     opacity: 0.8;
 }
 
-.Host-country 
+.Host-country
 {
     background-color: var(--form-input-background);
     font-size: var(--font-small);
@@ -4188,7 +4201,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     margin-bottom: 16px;
 }
 
-.Host-state 
+.Host-state
 {
     background-color: var(--form-input-background);
     font-size: var(--font-small);
@@ -4201,7 +4214,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     margin-bottom: 16px;
 }
 
-.event-type 
+.event-type
 {
     background-color: var(--form-input-background);
     font-size: var(--font-small);
@@ -4214,7 +4227,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     margin-bottom: 16px;
 }
 
-.match-input 
+.match-input
 {
     background-color: var(--form-input-background);
     font-size: var(--font-small);
@@ -4229,7 +4242,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     margin-bottom: 16px;
 }
 
-.match-number-input 
+.match-number-input
 {
     background: var(--primary-color);
     border-radius: 5px;
@@ -4243,18 +4256,18 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
 
 }
 
-.match-number-input:hover 
+.match-number-input:hover
 {
     background: var(--primary-color-light);
 }
 
-.fill-help 
+.fill-help
 {
     transform: translate(-224px, 11px);
     display: inline-block;
 }
 
-.fill-help a 
+.fill-help a
 {
     text-decoration: none;
     color: var(--link-dark);
@@ -4268,7 +4281,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     background-color: #E8E8E8;
 }
 
-.win-player-input 
+.win-player-input
 {
     background-color: white;
     padding: 1px 0 0 7px;
@@ -4283,7 +4296,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     margin-bottom: 16px;
 }
 
-.lose-player-input 
+.lose-player-input
 {
     background-color: white;
     padding: 1px 0 0 7px;
@@ -4298,7 +4311,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     margin-bottom: 16px;
 }
 
-.delete-button 
+.delete-button
 {
     background: var(--primary-color);
     border-radius: 5px;
@@ -4313,12 +4326,12 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     cursor: pointer;
 }
 
-.delete-button:hover 
+.delete-button:hover
 {
     background: var(--primary-color-light);
 }
 
-.match-submit 
+.match-submit
 {
     background: var(--primary-color);
     border-radius: 5px;
@@ -4335,29 +4348,29 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     transition-duration: 0.4s;
 }
 
-.match-submit:hover 
+.match-submit:hover
 {
     background: var(--primary-color-light);
 }
 
-.more-matches 
+.more-matches
 {
     margin: 0px 34px;
     padding: 22px 0 0 0px;
 }
 
-.more-matches a 
+.more-matches a
 {
     text-decoration: none;
     color: var(--link-dark);
 }
 
-.more-matches a:hover 
+.more-matches a:hover
 {
     color: var(--link-light);
 }
 
-.match-input-table 
+.match-input-table
 {
     width: 100%;
     margin: 25px 0;
@@ -4365,7 +4378,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     border-collapse: collapse;
 }
 
-.match-input-table tr 
+.match-input-table tr
 {
     height: 125px;
     border-bottom: 2pt solid var(--text-light);
@@ -4376,17 +4389,17 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
   display: inline-grid;
 }
 
-.match-detail-heading 
+.match-detail-heading
 {
     font-size: var(--font-medium);
 }
 
-.match-detail-heading b 
+.match-detail-heading b
 {
     padding: 0px 30px;
 }
 
-.add-match 
+.add-match
 {
     padding: 0px 30px;
 }
@@ -4401,13 +4414,13 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
   padding: 0 30px;
 }
 
-.add-player-link a 
+.add-player-link a
 {
     color: var(--link-dark);
     text-decoration: none;
 }
 
-.winner-field 
+.winner-field
 {
     background-color: var(--form-input-background);
     font-size: var(--font-small);
@@ -4420,7 +4433,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     margin-left: 30px;
 }
 
-.loser-field 
+.loser-field
 {
     background-color: var(--form-input-background);
     font-size: var(--font-small);
@@ -4436,7 +4449,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
 }
 .loser-set-score
 {
-   
+
     height: 35px;
     width: 110px;
     font-size: var(--font-small);
@@ -4459,27 +4472,27 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
   margin-left:-50px;
   margin-top: -30px;
 }
-.ad-search a 
+.ad-search a
 {
     text-decoration: none;
     color: var(--link-dark);
     margin-left: 35px;
 }
 
-.ad-search1 a 
+.ad-search1 a
 {
     text-decoration: none;
    color: var(--link-dark);
     margin-left: 125px;
 }
 
-.match-heading 
+.match-heading
 {
     margin: 0px 18px;
     width: 100%;
 }
 
-.ui-widget 
+.ui-widget
 {
     display: none;
     height: 150px;
@@ -4487,7 +4500,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
 
 /* inserting line-break through css  */
 
-.break:before 
+.break:before
 {
     content: '\A';
     font-size: 0;
@@ -4496,7 +4509,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     margin-top: 10px;
 }
 
-.break:after 
+.break:after
 {
     content: '\A';
     font-size: 0;
@@ -4543,7 +4556,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
   font-size: 17px;
   border: none;
   cursor: pointer;
-  color: var(--text-light); 
+  color: var(--text-light);
 }
 
 
@@ -4587,7 +4600,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
   font-size: var(--font-large);
   transform: rotate(45deg);
   cursor: pointer;
-  color: var(--text-light); 
+  color: var(--text-light);
 }
 
 .add-player-fields
@@ -4775,7 +4788,7 @@ right: 20px;
 font-size: var(--font-large);
 transform: rotate(45deg);
 cursor: pointer;
-color: var(--text-light); 
+color: var(--text-light);
 }
 .advanced-player-search-wrapper
 {
@@ -4820,7 +4833,7 @@ top:0;
 background-color: rgba(0, 0, 0, 0.7);
 border-radius: 5px;
 justify-content:center;
-align-items: center; 
+align-items: center;
 display: none;
 }
 
@@ -4829,7 +4842,7 @@ display: none;
   position: relative;
   height: 100%;
   width: 100%;
-  background-color: var(--form-background); 
+  background-color: var(--form-background);
   color:var(--text-dark);
   border-radius: 5px 5px 5px 5px;
 
@@ -4998,7 +5011,7 @@ footer a
 /* Match Type Modal */
 
 
-.reset-modal-background1 
+.reset-modal-background1
 {
     width: 100%;
     height: 100%;
@@ -5012,7 +5025,7 @@ footer a
     display: flex;
 }
 
-.reset-modal-content1 
+.reset-modal-content1
 {
     width: 450px;
     height: 450px;
@@ -5020,7 +5033,7 @@ footer a
     border-radius: 5px;
 }
 
-.reset-modal-header1 
+.reset-modal-header1
 {
     height: 20%;
     width: 100%;
@@ -5030,7 +5043,7 @@ footer a
     position: relative;
 }
 
-.reset-modal-fields1 
+.reset-modal-fields1
 {
     height: 80%%;
     width: 100%;
@@ -5038,17 +5051,17 @@ footer a
     font-size: var(--font-small);
 }
 
-.reset-modal-fields1 h2 
+.reset-modal-fields1 h2
 {
     color: var(--text-dark);
 }
 
-.reset-modal-fields-wrapper1 
+.reset-modal-fields-wrapper1
 {
     display: block;
 }
 
-.reset-modal-fields1 hr 
+.reset-modal-fields1 hr
 {
     border: 0;
     height: 0;
@@ -5058,7 +5071,7 @@ footer a
 }
 
 
-.reset-modal-exit-button1 
+.reset-modal-exit-button1
 {
     position: absolute;
     top: 0;
@@ -5069,7 +5082,7 @@ footer a
     color: var(--text-light);
 }
 
-#reset-match-button1 
+#reset-match-button1
 {
     background: var(--primary-color);
     border-radius: 2px;
@@ -5082,16 +5095,16 @@ footer a
     cursor: pointer;
 }
 
-#reset-match-button1:hover 
+#reset-match-button1:hover
 {
     background: var(--primary-color-dark);
 }
 
 
 /* event-type-change Notification Modal */
-                  
 
-.change-match-button 
+
+.change-match-button
 {
     background: var(--primary-color);
     border-radius: 2px;
@@ -5104,11 +5117,11 @@ footer a
     cursor: pointer;
 }
 
-.change-match-button:hover 
+.change-match-button:hover
 {
     background: var(--primary-color-dark);
 }
-.event-type-notification-modal-background 
+.event-type-notification-modal-background
 {
     width: 100%;
     height: 100%;
@@ -5122,7 +5135,7 @@ footer a
     display: none;
 }
 
-.event-type-notification-modal-content 
+.event-type-notification-modal-content
 {
     width: 400px;
     height: 250px;
@@ -5130,7 +5143,7 @@ footer a
     border-radius: 5px;
 }
 
-.event-type-notification-modal-header 
+.event-type-notification-modal-header
 {
     height: 20%;
     width: 100%;
@@ -5140,7 +5153,7 @@ footer a
     position: relative;
 }
 
-.event-type-notification-modal-fields 
+.event-type-notification-modal-fields
 {
     height: 80%%;
     width: 100%;
@@ -5148,17 +5161,17 @@ footer a
     font-size: var(--font-small);
 }
 
-.event-type-notification-modal-fields h2 
+.event-type-notification-modal-fields h2
 
     color: var(--text-dark);
 }
 
-.event-type-notification-modal-fields-wrapper 
+.event-type-notification-modal-fields-wrapper
 {
     display: block;
 }
 
-.event-type-notification-modal-fields hr 
+.event-type-notification-modal-fields hr
 {
     border: 0;
     height: 0;
@@ -5167,7 +5180,7 @@ footer a
     margin: 10px 0px 0px 0px;
 }
 
-.event-type-notification-modal-exit-button 
+.event-type-notification-modal-exit-button
 {
     position: absolute;
     top: -8px;
@@ -5186,5 +5199,3 @@ footer a
     overflow-y: auto;
     overflow-x: hidden;
 }
-
-

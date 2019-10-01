@@ -199,35 +199,9 @@
 
     <h1>Player Teams</h1>
 
-    <table class="player-team-table" border="1">
-
-    <tbody id="team-table-link"></tbody>
-
-
-
-    <!--$playerId = $_GET['profile-id'];
-        $playerTeams = $contentManager->getTeamID($playerId);
-        $playerSports = $contentManager->getPlayerSports($playerId);
-
-        while($teams = $playerTeams->fetch(PDO::FETCH_ASSOC))
-        {
-          while($sports = $playerSports->fetch(PDO::FETCH_ASSOC))
-          {
-          	$teamPlayers = $contentManager->getTeamPlayersBySport($teams['team_id'], $sports['sport_id']);
-          	$playerNames = $contentManager->getTeamPlayerNames($teamPlayers['player_one_id'], $teamPlayers['player_two_id']);
-          	echo "<tr>
-                    <td>
-                      <a id='team-table-link' href='team-profile.php?team-id=".$teams['team_id']."'>".$playerNames['player_one'].', &nbsp'.$playerNames['player_two']."</a>
-                    </td>
-                  </tr>";
-          }
-    	   }-->
-
+    <table class="player-team-table">
+      <tbody id="team-table-link"></tbody>
     </table>
-
-    <p id="player-team-view-more">
-      View More
-    </p>
 
   </div>
 
