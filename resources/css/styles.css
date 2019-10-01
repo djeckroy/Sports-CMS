@@ -4281,6 +4281,31 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
 {
     text-decoration: none;
     color: var(--link-dark);
+    cursor: pointer;
+    left: -15px;
+}
+
+
+.step
+{
+  color: blue;
+}
+
+.note
+{
+  color: red;
+}
+
+.popover-content
+{
+  width: 250px;
+    position: relative;
+ 
+}
+
+.popover-body
+{
+  width: 250px;
 }
 
 .win-lose-field
