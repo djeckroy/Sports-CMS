@@ -1247,11 +1247,14 @@ function updatePlayerTeams()
       success: function(data)
       {
           var jsonData = JSON.parse(data);
-          //$.each(jsonData, function(key, value)
-          //{
-          alert(data);
-            $("#team-table-link").html("<a href='team-profile.php?team-id=" + jsonData.teamID + "'>" + jsonData.player1 + ", &nbsp" + jsonData.player2 + "</a>");
-          //});
+          var newHTML = ""
+          $.each(jsonData, function(key, value)
+          {
+			console.log(key);
+			console.log(value);
+            newHTML = newHTML + "<a href='team-profile.php?team-id=" + value.teamID + "'>" + value.player1 + ", &nbsp" + value.player2 + "</a>";
+          });
+          $("#team-table-link").html(newHTML);
       }
   });
 }
