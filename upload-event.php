@@ -46,8 +46,8 @@
 			<div class="event-form" action="">
 				<div class="event-field">
 					<input class="event-field-input" type="text" id="event-name" name="event-name"
-					placeholder="Event Name" pattern="[a-zA-Z0-9\s]{1,90}" required
-					title="Event name must be within 1-90 characters and can contain letters and numbers">
+					placeholder="Event Name" pattern="[a-zA-Z0-9\s]{1,30}" required
+					title="Event name must be within 1-30 characters and can contain letters and numbers">
 				</div>
 				<div class="event-rows">
 					<div class="event-details-row">

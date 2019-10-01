@@ -451,6 +451,7 @@ function addEventRow(dbl) {
                         insertCell2.setAttribute('type', 'number');
                         insertCell2.setAttribute('class', 'winner-set-score');
                         insertCell2.setAttribute('name', 'winner-set-score[]');
+                        insertCell2.setAttribute('required', 'true');
                         insertCell2.onkeyup = "checkForm()";
                         insertCell2.placeholder = "Set Score";
                         cell2.appendChild(insertCell2);
@@ -567,6 +568,7 @@ function addEventRow(dbl) {
                         insertCell4.setAttribute('type', 'number');
                         insertCell4.setAttribute('class', 'loser-set-score');
                         insertCell4.setAttribute('name', 'loser-set-score[]');
+                        insertCell4.setAttribute('required', 'true');
                         insertCell4.onkeyup = "checkForm()";
                         insertCell4.placeholder = "Set Score";
                         cell4.appendChild(insertCell4);
