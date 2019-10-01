@@ -592,7 +592,7 @@ class ContentManager
 				  LIKE
 				  	?
 				  ORDER BY
-				  	event.start_date
+				  	start_date
 				  DESC LIMIT " . $start . ", " . $amount;
 
 		$result = $this->database->query($query, [$clubID, "$searchTerm%"]);
