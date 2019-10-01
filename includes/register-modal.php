@@ -7,6 +7,7 @@
 
   	<div class="register-modal-fields">
   	  <h2>Account Information</h2>
+      <p>Only for club manager, if you are looking for your rating, event results and club, please visit <a href="./index.php">Home page</a></p>
   	  <hr/>
       <div class="register-modal-field-wrapper">
         <form method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>">

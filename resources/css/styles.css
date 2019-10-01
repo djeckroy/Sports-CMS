@@ -3318,7 +3318,7 @@ color: var(--text-light);
 .register-modal-content
 {
   width: 600px;
-  height: 600px;
+  height: 700px;
   background-color: var(--form-background);
   border-radius: 5px;
 }
@@ -3344,6 +3344,16 @@ color: var(--text-light);
 .register-modal-fields h2
 {
   color: var(--text-dark);
+}
+.register-modal-fields a
+{
+  text-decoration: none;
+  color: var(--link-dark);
+}
+
+.register-modal-fields a:hover
+{
+  color: var(--link-light);
 }
 
 .register-modal-fields-wrapper
