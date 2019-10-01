@@ -592,7 +592,7 @@ class ContentManager
 				  LIKE
 				  	?
 				  ORDER BY
-				  	event.start_date
+				  	start_date
 				  DESC LIMIT " . $start . ", " . $amount;
 
 		$result = $this->database->query($query, [$clubID, "$searchTerm%"]);
@@ -623,15 +623,17 @@ class ContentManager
 	public function getPlayersByClub($clubID, $start, $amount, $searchTerm)
 	{
 		$query = "SELECT
-					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.gender, date_format(player.date_of_birth,'%d %M %Y') as date_of_birth, rating.mean, rating.standard_deviation
+					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.gender, date_format(player.date_of_birth,'%Y') as date_of_birth, 
+					CAST(rating.mean AS SIGNED) AS mean, 
+					CAST(rating.standard_deviation AS SIGNED) AS standard_deviation
 				  FROM 
-				  	player 
-				  INNER JOIN 
-				  	membership on membership.player_id = player.player_id 
-				  INNER JOIN 
-				  	rating on rating.player_id = player.player_id
-				  INNER JOIN 
-				    club on club.sport_id = rating.sport_id
+				  	club
+				  JOIN 
+				  	membership on membership.club_id = club.club_id
+                  JOIN
+                    player ON player.player_id = membership.player_id
+				  JOIN 
+				  	rating on rating.player_id = player.player_id AND rating.sport_id = club.sport_id
 				  WHERE 
 				  	membership.club_id = ?
 				  AND
