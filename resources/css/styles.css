@@ -2279,6 +2279,24 @@ nav a:hover
   background-color: var(--primary-color-light);
 }
 
+#edit-account-details-button-change-password
+{
+  background: var(--primary-color-dark);
+  border-radius: 5px;
+  color: var(--text-light);
+  font-size: var(--font-medium);
+  margin: 0px 0px 0px 25px;
+  padding: 5px 5px 5px 5px;
+  text-decoration: none;
+  width: auto;
+  cursor: pointer;
+}
+
+#edit-account-details-button-change-password:hover
+{
+  background-color: var(--primary-color-light);
+}
+
 #account-add-existing-player-button
 {
   position: absolute;
