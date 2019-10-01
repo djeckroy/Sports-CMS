@@ -1,23 +1,23 @@
 <?php
   $title = "Peterman Ratings | Profile";
-  
+
   include("./includes/header.php");
   include("./includes/navigation.php");
 
   //Testing purposes, this will get dynamically sent eventually.
   //$_GET["profile-id"] = 1;
-	
-	
+
+
   $continue = true;
-  
-  if(isset($_GET["profile-id"])) 
+
+  if(isset($_GET["profile-id"]))
   {
 	  $playerId = $_GET["profile-id"];
 	  if ($contentManager->playerExists($playerId))
 	  {
 		  $playerInfo = $contentManager->getSpecificPlayerInformation($playerId);
 		  $playerClub = $contentManager->getPlayerClub($playerId);
-		  
+
 		  $sports = $contentManager->getPlayerSports($playerId);
 		  $firstSport = $sports->fetch();
 		  $playerRating = $contentManager->getPlayerRating($playerId, $firstSport["sport_id"]);
@@ -28,14 +28,14 @@
 	  }
 	  else
 	  {
-		$continue = false;  
+		$continue = false;
 	  }
   }
   else
   {
 	  $continue = false;
   }
-  
+
   if (!$continue)
   {
 	  //profile-id not set or not correct format
@@ -45,19 +45,19 @@
 	  include("./includes/footer.php");
 	  die();
   }
-  
+
 ?>
 
 <article>
 
-  
+
 
   <div class="player-details-border">
 
     <h1>
-  		<?php 
+  		<?php
   			echo $playerInfo["given_name"] . " " . $playerInfo["family_name"];
-  		?> 
+  		?>
     </h1>
 
     <div class="favourite-icon-border">
@@ -66,7 +66,7 @@
   	    <img id="favourite-icon" alt="favourite" src="resources/images/favourite-icon-24.png">
   	  </label>
   	</div>
-    
+
     <h2 class="profile-sport-name" id="profile-sport"></h2>
 
     <ul class="player-bio-list">
@@ -114,54 +114,54 @@
       	<span id="player-bio-row-heading"><b>Club</b></span>
       	<span id="player-bio-row-value"> <?php echo $playerClub["name"]; ?> </span>
       </li>
-      
+
     </ul>
 
     <div class="rating-border">
- 	  <div class="mean-border">	    	
+ 	  <div class="mean-border">
 	    <p class="mean-value">
 	      <?php
 		    echo (int)$playerRating['mean'];
 	      ?>
 	    </p>
-	  <p>Mean</p>  	
+	  <p>Mean</p>
       </div>
 
       <div class="sd-border">
 		<?php
 		  if($playerRating['standard_deviation'] >= 0 && $playerRating['standard_deviation'] <= 50)
 		  {
-		?>   	   
+		?>
 		  <p class="sd-value sd-value-green">
 			&plusmn
 			<?php
 			  echo (int)$playerRating['standard_deviation'];
-			?>  
-		  </p>   	
+			?>
+		  </p>
 		<?php
 		  }
 
 		  if($playerRating['standard_deviation'] > 50 && $playerRating['standard_deviation'] < 100)
 		  {
-		?> 
+		?>
 		  <p class="sd-value sd-value-orange">
 			&plusmn
 			<?php
 			  echo (int)$playerRating['standard_deviation'];
-			?>  
-		  </p>  	
+			?>
+		  </p>
 		<?php
 		  }
 
 		  if($playerRating['standard_deviation'] > 100)
 		  {
-		?> 
+		?>
 		  <p class="sd-value sd-value-red">
 			&plusmn
 			<?php
 			  echo (int)$playerRating['standard_deviation'];
-			?>  
-		  </p>			
+			?>
+		  </p>
 		<?php
 		  }
 		?>
@@ -169,7 +169,7 @@
 	</div>
   </div>
 
-  </div> 
+  </div>
 
   <div class="player-history-border">
 
@@ -184,7 +184,7 @@
   			<th>Point Change</th>
   			<th>Final Rating</th>
 		  </tr>
-		  
+
 		  <tbody id="player-history-table-body">
 		  </tbody>
     </table>
@@ -199,27 +199,9 @@
 
     <h1>Player Teams</h1>
 
-    <table class="player-team-table" border="1">
-      <?php 
-        $playerId = $_GET['profile-id']; 
-        $playerTeams = $contentManager->getTeamID($playerId);
-
-        while($row = $playerTeams->fetch(PDO::FETCH_ASSOC))
-        {
-        	$teamPlayers = $contentManager->getTeamPlayers($row['team_id']);
-        	$playerNames = $contentManager->getTeamPlayerNames($teamPlayers['player_one_id'], $teamPlayers['player_two_id']);
-        	echo "<tr>
-                  <td>
-                    <a id='team-table-link' href='team-profile.php?team-id=".$row['team_id']."'>".$playerNames['player_one'].', &nbsp'.$playerNames['player_two']."</a>
-                  </td>
-                </tr>";
-    	}
-      ?>
+    <table class="player-team-table">
+      <tbody id="team-table-link"></tbody>
     </table>
-
-    <p id="player-team-view-more">
-      View More
-    </p>
 
   </div>
 
@@ -229,5 +211,3 @@
 <?php
   include("./includes/footer.php");
 ?>
-
-
