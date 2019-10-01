@@ -1,7 +1,7 @@
 var slideIndex = 0;
 
 window.onload = function()
-{ 
+{
     retrieveRecentEventsForClub(1);
     document.getElementById("input-confirm-password").onchange = passwordMatches;
     document.getElementById("input-email").onchange = isEmailTaken;
@@ -20,7 +20,7 @@ function retrieveRecentEventsForClub(page)
         type: "POST",
         dataType: "text",
         data: {page: page, eventID: eventID},
-        success: function(data) 
+        success: function(data)
         {
             $("recent-events-table").html(data);
         }
@@ -40,7 +40,7 @@ function passwordMatches()
     	}
    		else
     	{
-    		document.getElementById("input-confirm-password").setCustomValidity(""); 
+    		document.getElementById("input-confirm-password").setCustomValidity("");
     	}
     }
 }
@@ -58,7 +58,7 @@ function resetPasswordMatches()
         }
         else
         {
-            document.getElementById("reset-input-confirm-password").setCustomValidity(""); 
+            document.getElementById("reset-input-confirm-password").setCustomValidity("");
         }
     }
 }
@@ -73,7 +73,7 @@ function isEmailTaken()
         type: "POST",
         dataType: "text",
         data: {email: email, ajaxMethod: "is-email-taken"},
-        success: function(data) 
+        success: function(data)
         {
             if(data == "true")
             {
@@ -129,7 +129,7 @@ function showEditAccountModal()
         url: "./ajax.php",
         type: "POST",
         data: {ajaxMethod: "editAccountModal", givenName: givenName, familyName: familyName, email: email},
-        success: function(data) 
+        success: function(data)
         {
             $(".edit-account-modal-field-wrapper").html(data);
         }
@@ -223,7 +223,7 @@ function showEditPlayersModal(playerID)
         url: "./ajax.php",
         type: "POST",
         data: {ajaxMethod: "editPlayerModal", playerID: playerID},
-        success: function(data) 
+        success: function(data)
         {
             $(".edit-player-modal-field-wrapper").html(data);
             uploadEventChangeStates($("#edit-player-country"),$("#edit-player-state"));
@@ -273,18 +273,18 @@ function toggleDropdownMenu()
     }
 }
 
-function rotateSlideshow() 
+function rotateSlideshow()
 {
     var slideshow = document.getElementsByClassName("slideshow-image");
 
-    for(var currentSlide = 0; currentSlide < slideshow.length; currentSlide++) 
+    for(var currentSlide = 0; currentSlide < slideshow.length; currentSlide++)
     {
         slideshow[currentSlide].style.opacity = "0.0";
     }
 
     slideIndex++;
 
-    if(slideIndex > slideshow.length) 
+    if(slideIndex > slideshow.length)
     {
         slideIndex = 1;
     }
@@ -294,17 +294,17 @@ function rotateSlideshow()
     setTimeout(rotateSlideshow, 6500);
 }
 
-function switchTab(tab, content) 
+function switchTab(tab, content)
 {
     var tabSelections = document.getElementsByClassName("tab-selection");
     var tabContent = document.getElementsByClassName("tab-content");
 
-    for (var currentTab = 0; currentTab < tabContent.length; currentTab++) 
+    for (var currentTab = 0; currentTab < tabContent.length; currentTab++)
     {
       tabContent[currentTab].style.display = "none";
     }
 
-    for (currentTab = 0; currentTab < tabSelections.length; currentTab++) 
+    for (currentTab = 0; currentTab < tabSelections.length; currentTab++)
     {
       tabSelections[currentTab].style.backgroundColor = "";
     }
@@ -328,7 +328,7 @@ function resetPassword()
             type: "POST",
             dataType: "text",
             data: { resetPassword: emailField },
-            success: function(data) 
+            success: function(data)
             { }
         });
     }
@@ -374,7 +374,7 @@ function showUploadMatchRows() {
                                 for (var deleteCycle = table.rows.length - 1; deleteCycle >= 0; deleteCycle--) {
                                     table.deleteRow(deleteCycle);
                                 }
-                           
+
                     }
 
                     var a = document.getElementById("event-type").value;
@@ -454,7 +454,7 @@ function addEventRow(dbl) {
                         insertCell2.onkeyup = "checkForm()";
                         insertCell2.placeholder = "Set Score";
                         cell2.appendChild(insertCell2);
-    
+
     var newlabel = document.createElement("label");
     newlabel.setAttribute('class', 'ad-search break');
     cell1.appendChild(newlabel);
@@ -562,7 +562,7 @@ function addEventRow(dbl) {
         advancedSearchLink.setAttribute('href','#');
         newlabel.appendChild(advancedSearchLink);
     }
-    
+
     var insertCell4 = document.createElement("input");
                         insertCell4.setAttribute('type', 'number');
                         insertCell4.setAttribute('class', 'loser-set-score');
@@ -574,12 +574,12 @@ function addEventRow(dbl) {
     insertCell5.innerHTML = "Delete";
     insertCell5.setAttribute('class', 'delete-button');
     insertCell5.setAttribute('type', 'button');
-    
+
     insertCell5.onclick = function() {
         deleteRow(this);
     };
     cell5.appendChild(insertCell5);
-    
+
 }
 
 function deleteRow(selectedRow) {
@@ -698,8 +698,8 @@ function setEditEvent(eventID)
             $('#country-id').val(jsonData.country_id);
             $('#home-state').val(jsonData.state_id);
             showUploadMatchRows();
-            uploadEventChangeStates($("#country-id"), $("#state-name"));	
-            
+            uploadEventChangeStates($("#country-id"), $("#state-name"));
+
             if (jsonData.type == "Single")
             {
 				var single = 1;
@@ -708,7 +708,7 @@ function setEditEvent(eventID)
 			{
 				var single = 0;
 			}
-			
+
 			$.ajax({
 				url: "./ajax.php",
 				type: "POST",
@@ -717,7 +717,7 @@ function setEditEvent(eventID)
 				success: function(data) {
 					//parse the returned data
 					var jsonData = JSON.parse(data);
-					
+
 					$.each(jsonData, function(index, value) {
 						if (single == 1)
 						{
@@ -725,7 +725,7 @@ function setEditEvent(eventID)
 							$('.winner-id-field').eq(index).val(value.winning_id);
 							$('.loser-field').eq(index).val(value.losing_name);
 							$('.loser-id-field').eq(index).val(value.losing_id);
-							
+
 							$('.winner-set-score').eq(index).val(value.winner_score);
 							$('.loser-set-score').eq(index).val(value.loser_score);
 						}
@@ -734,17 +734,17 @@ function setEditEvent(eventID)
 							//doubles
 							var field1 = index * 2;
 							var field2 = (index * 2) + 1;
-							
+
 							$('.winner-field').eq(field1).val(value.winning_name1);
 							$('.winner-id-field').eq(field1).val(value.winning_id1);
 							$('.loser-field').eq(field1).val(value.losing_name1);
 							$('.loser-id-field').eq(field1).val(value.losing_id1);
-							
+
 							$('.winner-field').eq(field2).val(value.winning_name2);
 							$('.winner-id-field').eq(field2).val(value.winning_id2);
 							$('.loser-field').eq(field2).val(value.losing_name2);
 							$('.loser-id-field').eq(field2).val(value.losing_id2);
-							
+
 							$('.winner-set-score').eq(index).val(value.winner_score);
 							$('.loser-set-score').eq(index).val(value.loser_score);
 						}
@@ -779,8 +779,8 @@ winning_name2: "Felix Taylor"*/
 
 /**
  * on page load funcion.
- * A number of items need to be setup on page load. 
- * They are described in line. 
+ * A number of items need to be setup on page load.
+ * They are described in line.
  */
 $(function() {
     $("#match-number-submit").click(function() { showUploadMatchRows(); });
@@ -794,7 +794,7 @@ $(function() {
     $("#event-date").attr({
         "max": nowString
     });
-    
+
     if ( $('#edit-event-id').val() > 0 )
     {
 		setEditEvent($('#edit-event-id').val());
@@ -805,9 +805,9 @@ $(function() {
 /**
  * ajax query for event upload page to fill in state box based upon user
  * selection from country box.
- * 
- * Relies on getStatesByCountry.php for data. 
- * 
+ *
+ * Relies on getStatesByCountry.php for data.
+ *
  * Triggers by change in country-id and on page load
  */
 
@@ -848,8 +848,8 @@ function uploadEventChangeStates(countryCombo, stateCombo) {
                         value: value["state_id"],
                         text: value["name"]}));
                 }
-                
-                
+
+
             });
         }
     });
@@ -885,11 +885,11 @@ function playerSearchChangeStates(countryName, stateName) {
 }
 
 /**
- * 
+ *
  * sets up auto complete for winner/loser boxes. Gets a list of players
  * based upon 'state' selected'.
- * 
- * Triggered by change in state-name, on page load and when number of 
+ *
+ * Triggered by change in state-name, on page load and when number of
  * matches changes.
  */
 $("#state-name").change(setupMatchAutoComplete);
@@ -916,8 +916,8 @@ function setupMatchAutoComplete() {
         },
         select: function(event, ui) {
             //the next elemtent in line will be the hidden cell to contain id
-            //fill this with the id. 
-            //name cell will be automatically filled in 
+            //fill this with the id.
+            //name cell will be automatically filled in
 
             $(this).next().val(ui.item.id);
 
@@ -957,7 +957,7 @@ function setInitialRating(playerID) {
 /**
  * Sets hidden id field for winners/losers to "" on a user key press,
  * removes any validitiy set when a change is made to winner/losers.
- * 
+ *
  * This function needs to be executed every time there is a change in the
  * number of matches.
  */
@@ -996,14 +996,14 @@ function favouriteButtonAnimation() {
 
 /**
  * Form validity checking.
- * 
+ *
  * Most validity checking is done with HTML5. However, we also need to
  * check validity of winners/losers. This is done by making use of the
  * above funciton setupMatchErrorChecking, then checks to ensure a player
  * has been selected rather than just typed in and that winner != loser.
- * 
+ *
  * If there is an error the submit of form is stopped and a HTML5 validity
- * error message is shown to the user. 
+ * error message is shown to the user.
  */
 $("#event-upload-form").submit(function() {
 
@@ -1084,14 +1084,14 @@ function changeValue() {
 
 function modalSelection(){
     var ab = document.getElementById("event-type").value;
-                    
+
                     if (ab == 'Double') {
                         x = 1;
-                        
+
                     } else {
                         x = 0;
                     }
-    
+
     if (x == 1) {
         document.getElementById("event-type-notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted singles events on this page.";
         document.querySelector(".event-type-notification-modal-background").style.display = "flex";
@@ -1099,12 +1099,12 @@ function modalSelection(){
     else {
         document.getElementById("event-type-notification-modal-text").innerHTML = "Are you sure you wish to change match type? You will lose any un-submitted doubles event on this page.";
         document.querySelector(".event-type-notification-modal-background").style.display = "flex";
-                           
+
 }
 }
 
 function changeType(){
-    
+
     showUploadMatchRows();
     document.querySelector(".event-type-notification-modal-background").style.display = "none";
 }
@@ -1117,7 +1117,7 @@ function hideTypeModal() {
      else if(ind == "2"){
          document.getElementById("event-type").selectedIndex = "1";
      }
-    
+
 }
 
 /**
@@ -1125,21 +1125,21 @@ function hideTypeModal() {
  *  Begin bookmark section                        *
  * ---------------------------------------------- *
  */
- 
+
  function createBookmark()
  {
     //initial values
 	 var getVariableName = 'profile-id';
 	 var cookieName = 'bookmarked_players';
-	 
+
      //get the player id from url
 	 var params = (new URL(document.location)).searchParams;
 	 var playerID = params.get(getVariableName);
-	 
+
 	 var bookmarked;
-     
+
      bookmarked = Cookies.getJSON(cookieName);
-	 
+
 	 if (! (bookmarked) )
 	 {
 		 //cookie does not already exist so the list will be empty
@@ -1155,19 +1155,19 @@ function hideTypeModal() {
        //player in the list remove them
        bookmarked.splice(bookmarked.indexOf(playerID));
     }
-    
+
     //now bookmarked has been updated lets save it to the cookie.
     Cookies.set(cookieName, bookmarked, {expires: 1825});
  }
 
 //listener for when bookmark button pressed
 $(".favourite-label").click(createBookmark);
- 
+
 
  $(document).ready(function(){
     favouriteButtonAnimation();
 });
- 
+
  /**
   *------------------------------------------------*
   *Begin profile section
@@ -1180,15 +1180,15 @@ var getVariableName = 'profile-id';
 var eventHistoryRowCount = 0;
 
 function updateProfileSport()
-{ 
+{
      //get the player id from url
 	 var params = (new URL(document.location)).searchParams;
 	 var playerID = params.get(getVariableName);
-     
+
      //get sport ID
      newSportID = $("#profile-select-sport").val();
      newSportName = $("#profile-select-sport option:selected").text();
-     
+
      $(".profile-sport-name").html(newSportName);
      $(".mean-value").html("Loading");
      $(".sd-value").html("Loading");
@@ -1205,39 +1205,84 @@ function updateProfileSport()
             sportID: newSportID,
             ajaxMethod: "get-player-rating"
         },
-        success: function(data) 
+        success: function(data)
         {
-            
+
             //parse the returned data
             var jsonData = JSON.parse(data);
-            
+
             $(".mean-value").html(parseInt(jsonData.mean));
             $(".sd-value").html("&plusmn; " + parseInt(jsonData.sd));
         }
     });
-    
+
     addEventHistory(true);
 }
- 
+
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
+function updatePlayerTeams()
+{
+  var params = (new URL(document.location)).searchParams;
+  var playerID = params.get(getVariableName);
+  var sportID = $("#profile-select-sport").val();
+
+  $.ajax
+  ({
+      url: "./ajax.php",
+      type: "POST",
+      dataType: "text",
+      data:
+      {
+          playerID: playerID,
+          sportID: sportID,
+          ajaxMethod: "update-player-teams"
+      },
+      success: function(data)
+      {
+          var jsonData = JSON.parse(data);
+          //$.each(jsonData, function(key, value)
+          //{
+          alert(data);
+            $("#team-table-link").html("<a href='team-profile.php?team-id=" + jsonData.teamID + "'>" + jsonData.player1 + ", &nbsp" + jsonData.player2 + "</a>");
+          //});
+      }
+  });
+}
+
  //listener for change of sport on profile page
  $("#profile-select-sport").change(updateProfileSport);
+
+ //display teams on page load for default selected sport
+ $(function(){
+    $("#profile-select-sport").ready(updatePlayerTeams);
+ });
+
+ //listener for change of teams on profile page
+ $("#profile-select-sport").change(updatePlayerTeams);
 
  function addEventHistory(changeSport)
  {
     //get the player id from url
 	 var params = (new URL(document.location)).searchParams;
 	 var playerID = params.get(getVariableName);
-     
+
      //get sport ID
      sportID = $("#profile-select-sport").val();
-    
+
     if (changeSport)
     {
         //set count to zero and reset the table
         eventHistoryRowCount = 0;
         $("#player-history-table-body").html(""); //possibly this should report loading
     }
-    
+
     //run ajax to recent event histories
     $.ajax
     ({
@@ -1251,17 +1296,17 @@ function updateProfileSport()
             limitOffset: eventHistoryRowCount,
             ajaxMethod: "player-event-history"
         },
-        success: function(data) 
+        success: function(data)
         {
             //parse the returned data
             var jsonData = JSON.parse(data);
-            
+
             var currentHTML = $("#player-history-table-body").html();
-            
+
             for (var i=0; i<jsonData.length; i++)
             {
                 var event = jsonData[i][0];
-                                
+
                 if ((eventHistoryRowCount % 2) == 0)
                 {
                     // 'even' row
@@ -1271,7 +1316,7 @@ function updateProfileSport()
                 {
                     currentHTML = currentHTML + "<tr class='odd-row'>";
                 }
-                
+
                 currentHTML = currentHTML + "<td><a href='./event-profile.php?id=" + event.event_id + "' >" + event.event_name + "</a></td>";
 
                 if(event.SDBefore >= 0 && event.SDBefore <= 50)
@@ -1288,9 +1333,9 @@ function updateProfileSport()
                 {
                     currentHTML = currentHTML + "<td>" + event.meanBefore + "<span class='sd-value-red'>&plusmn" + event.SDBefore + "</span></td>";
                 }
-                
+
                 var pointChange = event.meanAfter - event.meanBefore;
-                
+
                 currentHTML = currentHTML + "<td>" + (pointChange<0?"":"+") + pointChange + "</td>";
 
                 if(event.SDAfter >= 0 && event.SDAfter <= 50)
@@ -1307,28 +1352,28 @@ function updateProfileSport()
                 {
                     currentHTML = currentHTML + "<td>" + event.meanAfter + "<span class='sd-value-red'>&plusmn" + event.SDAfter + "</span></td>";
                 }
-                
+
                 currentHTML = currentHTML + "</td>";
-                
-                
+
+
                 eventHistoryRowCount++;
             }
-            
+
             $("#player-history-table-body").html(currentHTML);
         }
-    });   
+    });
  }
 
  function updateTeamSport()
-{ 
+{
      //get the team id from url
      var params = (new URL(document.location)).searchParams;
      var teamID = params.get('team-id');
-     
+
      //get sport ID
      newSportID = $("#team-select-sport").val();
      newSportName = $("#team-select-sport option:selected").text();
-     
+
      $(".team-profile-sport-name").html(newSportName);
      $(".mean-value").html("Loading");
      $(".sd-value").html("Loading");
@@ -1345,17 +1390,17 @@ function updateProfileSport()
             sportID: newSportID,
             ajaxMethod: "get-team-rating"
         },
-        success: function(data) 
+        success: function(data)
         {
-            
+
             //parse the returned data
             var jsonData = JSON.parse(data);
-            
+
             $(".mean-value").html(parseInt(jsonData.mean));
             $(".sd-value").html("&plusmn; " + parseInt(jsonData.sd));
         }
     });
-    
+
     addTeamEventHistory(true);
 }
 
@@ -1367,7 +1412,7 @@ function updateProfileSport()
     //get the team id from url
     var params = (new URL(document.location)).searchParams;
     var teamID = params.get('team-id');
- 
+
     //get sport ID
     sportID = $("#team-select-sport").val();
 
@@ -1377,7 +1422,7 @@ function updateProfileSport()
         eventHistoryRowCount = 0;
         $("#team-history-table-body").html(""); //possibly this should report loading
     }
-    
+
     //run ajax to recent event histories
     $.ajax
     ({
@@ -1391,17 +1436,17 @@ function updateProfileSport()
             limitOffset: eventHistoryRowCount,
             ajaxMethod: "team-event-history"
         },
-        success: function(data) 
+        success: function(data)
         {
             //parse the returned data
             var jsonData = JSON.parse(data);
-            
+
             var currentHTML = $("#team-history-table-body").html();
-            
+
             for (var i=0; i<jsonData.length; i++)
             {
                 var event = jsonData[i][0];
-                                
+
                 if ((eventHistoryRowCount % 2) == 0)
                 {
                     // 'even' row
@@ -1411,7 +1456,7 @@ function updateProfileSport()
                 {
                     currentHTML = currentHTML + "<tr class='odd-row'>";
                 }
-                
+
                 currentHTML = currentHTML + "<td><a href='./event-profile.php?id=" + event.event_id + "' >" + event.event_name + "</a></td>";
 
                 if(event.SDBefore >= 0 && event.SDBefore <= 50)
@@ -1428,9 +1473,9 @@ function updateProfileSport()
                 {
                     currentHTML = currentHTML + "<td>" + event.meanBefore + "<span class='sd-value-red'>&plusmn" + event.SDBefore + "</span></td>";
                 }
-                
+
                 var pointChange = event.meanAfter - event.meanBefore;
-                
+
                 currentHTML = currentHTML + "<td>" + (pointChange<0?"":"+") + pointChange + "</td>";
 
                 if(event.SDAfter >= 0 && event.SDAfter <= 50)
@@ -1447,25 +1492,25 @@ function updateProfileSport()
                 {
                     currentHTML = currentHTML + "<td>" + event.meanAfter + "<span class='sd-value-red'>&plusmn" + event.SDAfter + "</span></td>";
                 }
-                
+
                 currentHTML = currentHTML + "</td>";
-                
-                
+
+
                 eventHistoryRowCount++;
             }
-            
+
             $("#team-history-table-body").html(currentHTML);
         }
-    });   
+    });
  }
 
  $("#team-table-link").click(addTeamEventHistory());
- 
+
  $( function(){
     $(".profile-sport-name").html($("#profile-select-sport option:selected").text());
     addEventHistory(true);
  });
- 
+
  $("#player-history-view-more").click(function(){
     addEventHistory(false);
  });
@@ -1489,7 +1534,7 @@ function updateProfileSport()
 function showAddPlayerModal()
 {
 	document.querySelector(".add-player-border").style.display = "flex";
-  
+
 }
 function hideAddPlayerModal()
 {
@@ -1504,7 +1549,7 @@ function addPlayer()
     var playerBirthDate = $("#player-birth-date").val();
     var playerEmail = $("#player-email").val();
     var playerClubID = $("#player-club-ID").val();
-    
+
     $.ajax({
       url: "./ajax.php",
       type:'post',
@@ -1521,11 +1566,11 @@ function addPlayer()
       success: function(data)
       {
         hideAddPlayerModal();
-       
+
       }
-      
+
     });
-        
+
   //});
 }
 
@@ -1573,7 +1618,7 @@ function prefillTextbox()
   }
     });
 }
-                                       
+
 function showInitialRatingModal(playerID, sportID)
 {
   document.querySelector(".initial-rating-border").style.display = "flex";
@@ -1589,7 +1634,7 @@ function hideInitialRatingModal()
 }
 
 function addRating()
-{ 
+{
   var playerID = $("#hidden-player-ID").val();
   var sportID = $("#hidden-sport-ID").val();
   var meanID = $("#initial-mean-ID").val();
@@ -1600,37 +1645,37 @@ function addRating()
             type: 'POST',
             datatype: "text",
             data :{
-              meanID: meanID, 
+              meanID: meanID,
               sdID: sdID,
               playerID: playerID,
               sportID: sportID,
               ajaxMethod: "initial-rating-Manager"
               },
             success: function(data)
-            {           
-              hideInitialRatingModal();          
+            {
+              hideInitialRatingModal();
             }
-            
+
           });
 }
 
 function  setupMatchAutoCompleteAdvancedSearch()
 {
   $(".advanced-player-name").autocomplete({
-    source: 
-        function( request, response ) 
+    source:
+        function( request, response )
         {
             // Fetch data
             $.ajax({
                 url: "./ajax.php",
                 type: 'POST',
                 dataType: "json",
-                data: 
+                data:
                 {
                     name: request.term,
                     ajaxMethod: "get-all-player"
                 },
-                success: function( data ) 
+                success: function( data )
                 {
                     response( data );
                 }
@@ -1639,23 +1684,23 @@ function  setupMatchAutoCompleteAdvancedSearch()
         select: function(event,ui)
         {
             //player has been chosen from advanced search list. fill in the box on main page.
-            
+
             advancedSeachPlayerIDInput.val(ui.item.id);
             advancedSeachPlayerNameInput.val(ui.item.label);
-            
+
             hideAdvancedSearchModal();
-            
+
             //when an item is selected it is assumed that no error exists, remove the validity message
-            var playerID = ui.item.id; 
+            var playerID = ui.item.id;
             setInitialRating(playerID);
-        
+
              $( ".winner-loser-field").each(function ()
              {
                 this.setCustomValidity('');
              });
-             
+
         }
-    
+
   });
 }
 

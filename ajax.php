@@ -5,7 +5,7 @@ switch($_POST['ajaxMethod'])
 {
 	case "player-event-history":
 		$result = $contentManager->getPlayersRecentEvents($_POST['playerID'], $_POST['sportID'], $_POST['limitOffset']);
-		
+
 		$response = array();
 
 		while ($row = $result->fetch())
@@ -17,7 +17,7 @@ switch($_POST['ajaxMethod'])
 		break;
 	case "team-event-history":
 		$result = $contentManager->getTeamRecentEvents($_POST['teamID'], $_POST['sportID'], $_POST['limitOffset']);
-		
+
 		$response = array();
 
 		while ($row = $result->fetch())
@@ -39,6 +39,20 @@ switch($_POST['ajaxMethod'])
 		$response = array("mean"=>$result['mean'],"sd"=>$result['standard_deviation']);
 		echo json_encode($response);
 		break;
+	case "update-player-teams":
+		$playerTeams = $contentManager->getTeamID($_POST['playerID']);
+
+		$response = array();
+
+		while($teams = $playerTeams->fetch())
+		{
+			$teamPlayers = $contentManager->getTeamPlayersBySport($teams['team_id'], $_POST['sportID']);
+			$playerNames = $contentManager->getTeamPlayerNames($teamPlayers['player_one_id'], $teamPlayers['player_two_id']);
+			$response[] = array("teamID"=>$teams['team_id'], "player1"=>$playerNames['player_one'], "player2"=>$playerNames['player_two']);
+		}
+
+ 		echo json_encode($response);
+		break;
 	case "activate-account":
 		$account->activateAccount($_POST['accountID']);
 		break;
@@ -47,7 +61,7 @@ switch($_POST['ajaxMethod'])
 		break;
 	case "retrieveClubInformation":
 		$clubInformation = $account->getClubDetails($_POST['clubID']);
-		
+
 		echo '
 			<div id="club-name" class="club-field">
 				<p class="club-detail-headers">Name: </p>
@@ -89,12 +103,12 @@ switch($_POST['ajaxMethod'])
           				$editPlayerModal .= '<option value="M">Male</option>
                 							 <option value="F" selected>Female</option>';
           			}
-          			
+
           		$editPlayerModal .= '</select>
-          		<input class="edit-player-date" class="event-field-date" name="event-date" id="event-date" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')" value="' . $playerDetails["date_of_birth"] . '"> 
+          		<input class="edit-player-date" class="event-field-date" name="event-date" id="event-date" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')" value="' . $playerDetails["date_of_birth"] . '">
         	</div>
 
-        	<input type="email" value="' . $playerDetails["email"] . '" id="edit-player-email" name="email" placeholder="Email" pattern="{7,75}" required title="Email must not exceed 75 characters"> 
+        	<input type="email" value="' . $playerDetails["email"] . '" id="edit-player-email" name="email" placeholder="Email" pattern="{7,75}" required title="Email must not exceed 75 characters">
 
         	<div class="register-input-group-double">
         	<select id="edit-player-country" name="select-country">';
@@ -111,7 +125,7 @@ switch($_POST['ajaxMethod'])
                 		$editPlayerModal .= '<option value="' . $country["country_id"] . '">' . $country["name"] . '</option>';
                 	}
                 }
-        	
+
         	$editPlayerModal .= '
         		</select><select id="edit-player-state" name="state-name"></select></div>
         		<button type="button" name="edit-player" id="edit-player-button">Confirm</button>';
@@ -161,15 +175,15 @@ switch($_POST['ajaxMethod'])
 		  $sportID = $_POST["sportID"];
 		  $mean = $_POST["meanID"];
 		  $sd = $_POST["sdID"];
-		  
+
 		  $result = $contentManager->insertInitialRating($mean, $sd, $playerID, $sportID);
 		}
 		break;
 	case "add-player-manager":
 		if((isset($_POST["playerGivenName"])) && (isset($_POST["playerFamilyName"])) && (isset($_POST["playerGenderID"])) && (isset($_POST["playerBirthDate"])) && (isset($_POST["playerEmail"])) && (isset($_POST["playerClubID"])))
 		{
-		  
-		  
+
+
 		  $contentManager->addPlayer($_POST["playerGivenName"], $_POST["playerFamilyName"], $_POST["playerGenderID"], $_POST["playerBirthDate"], $_POST["playerEmail"], $_POST["playerClubID"]);
 		}
 		break;
@@ -231,6 +245,6 @@ switch($_POST['ajaxMethod'])
 	default:
 		echo "Post Error";
 		var_dump($_POST);
-	
+
 }
 ?>
