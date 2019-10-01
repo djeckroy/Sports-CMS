@@ -429,33 +429,41 @@ class ContentManager
 					) AS teamEvents,
 					( SELECT
 					 game_result.game_result_id AS gameResult,
-					CASE
-							WHEN game_result.won = 'Y' THEN
-								game.mean_before_winning
-							WHEN game_result.won = 'N' THEN
-								game.mean_before_losing
-							END
-						AS meanBefore,
-						CASE
-							WHEN game_result.won = 'Y' THEN
-								game.mean_after_winning
-							WHEN game_result.won = 'N' THEN
-								game.mean_before_losing
-							END
+						CAST(
+							CASE
+									WHEN game_result.won = 'Y' THEN
+										game.mean_before_winning
+									WHEN game_result.won = 'N' THEN
+										game.mean_before_losing
+									END
+								AS SIGNED)
+							AS meanBefore,
+						CAST(
+							CASE
+								WHEN game_result.won = 'Y' THEN
+									game.mean_after_winning
+								WHEN game_result.won = 'N' THEN
+									game.mean_before_losing
+								END
+							AS SIGNED)
 						AS meanAfter,
-						CASE
-							WHEN game_result.won = 'Y' THEN
-								game.standard_deviation_before_winning
-							WHEN game_result.won = 'N' THEN
-								game.standard_deviation_before_losing
-							END
+						CAST(
+							CASE
+								WHEN game_result.won = 'Y' THEN
+									game.standard_deviation_before_winning
+								WHEN game_result.won = 'N' THEN
+									game.standard_deviation_before_losing
+								END
+							AS SIGNED)
 						AS SDBefore,
-						CASE
-							WHEN game_result.won = 'Y' THEN
-								game.standard_deviation_after_winning
-							WHEN game_result.won = 'N' THEN
-								game.standard_deviation_after_losing
-							END
+						CAST(
+							CASE
+								WHEN game_result.won = 'Y' THEN
+									game.standard_deviation_after_winning
+								WHEN game_result.won = 'N' THEN
+									game.standard_deviation_after_losing
+								END
+							AS SIGNED)
 						AS SDAfter
 					 FROM game_result
 					 JOIN game ON game_result.game_id = game.game_id
