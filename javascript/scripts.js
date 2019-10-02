@@ -1212,7 +1212,7 @@ $(document).ready(function(){
     else
     {
        //player in the list remove them
-       bookmarked.splice(bookmarked.indexOf(playerID));
+       bookmarked.splice(bookmarked.indexOf(playerID),1);
     }
 
     //now bookmarked has been updated lets save it to the cookie.
