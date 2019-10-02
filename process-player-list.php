@@ -2,14 +2,6 @@
 
 require("./includes/initialize.php");
 
-$playerName = $_POST['playerName'];
-$playerAgeMin = $_POST['playerAgeMin'];
-$playerAgeMax = $_POST['playerAgeMax'];
-$lastPlayed = $_POST['lastPlayed'];
-$clubName = $_POST['clubName'];
-$countryName = $_POST['countryName'];
-$stateName = $_POST['stateName'];
-
 $resultsPerPage = 15;
 $currentPage = "";
 $tableOutput = "";
@@ -23,12 +15,26 @@ else
 	$currentPage = 1;
 }
 
+if(isset($_POST["favouritePost"]))
+{
+	$getFavouritedPlayers = $contentManager->getBookmarkedPlayers();
+
+	echo json_encode($getFavouritedPlayers);
+}
+
 if(isset($_POST["submitSearchFilter"]))
 {
-	$resultsPageToStartFrom = ($currentPage - 1) * $resultsPerPage;
-	
-	$searchFilter = $contentManager->playerSearchFilter($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName, $resultsPageToStartFrom, $resultsPerPage);
+	$playerName = $_POST['playerName'];
+	$playerAgeMin = $_POST['playerAgeMin'];
+	$playerAgeMax = $_POST['playerAgeMax'];
+	$lastPlayed = $_POST['lastPlayed'];
+	$clubName = $_POST['clubName'];
+	$countryName = $_POST['countryName'];
+	$stateName = $_POST['stateName'];
 
+	$resultsPageToStartFrom = ($currentPage - 1) * $resultsPerPage;
+
+	$searchFilter = $contentManager->playerSearchFilter($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName, $resultsPageToStartFrom, $resultsPerPage);
 	$totalPlayersResult = $contentManager->playerSearchFilterRowCount($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName);
 
 	$tableOutput .= "
@@ -41,28 +47,28 @@ if(isset($_POST["submitSearchFilter"]))
 	      <th>Region</th>
 	    </tr>";
 
-    if($totalPlayersResult != 0)
-    { 
-    	while($row = $searchFilter->fetch())
-    	{
-    		$tableOutput .= "
-    			<tr>
-                 <td><a id='player-name-link' href='profile.php?profile-id=".$row["player_id"]."'>".$row["player_name"]."</a></td>
-                 <td>".$row["player_age"]."</td>
-                 <td>".$row["last_played"]."</td>
-                 <td>".$row["club_name"]."</td>
-                 <td>".$row["country_name"].", ".$row["state_name"]."</td>
-               </tr>";	
-    	}
-    }
-    else
-    {
-        echo "<div class='no-search-result-message'>No player by the given search exists.</div>";
-    }
+	if($totalPlayersResult != 0)
+  {
+  	while($row = $searchFilter->fetch())
+  	{
+  		$tableOutput .= "
+  			<tr>
+               <td><a id='player-name-link' href='profile.php?profile-id=".$row["player_id"]."'>".$row["player_name"]."</a></td>
+               <td>".$row["player_age"]."</td>
+               <td>".$row["last_played"]."</td>
+               <td>".$row["club_name"]."</td>
+               <td>".$row["country_name"].", ".$row["state_name"]."</td>
+             </tr>";
+  	}
+  }
+  else
+  {
+      echo "<div class='no-search-result-message'>No player by the given search exists.</div>";
+  }
 
 	$tableOutput .= "
         </table>
-    <div class='search-pagination-buttons-container'> 
+    <div class='search-pagination-buttons-container'>
     <div class='search-pagination-buttons'>";
 
     $totalPages = ceil($totalPlayersResult / $resultsPerPage);
@@ -132,10 +138,10 @@ if(isset($_POST["submitSearchFilter"]))
     $tableOutput .= "
         <span class='player-search-link player-search-link-active' id='" . $totalPages . "'>>></span>
     </div>
-    </div>";                
+    </div>";
 }
 
 
 echo $tableOutput;
 
-?>               
+?>

@@ -759,27 +759,6 @@ function setEditEvent(eventID)
     });
 
 }
-/*
-loser_score: "2"
-losing_id: "4"
-losing_id1: "63"
-losing_id2: "14"
-losing_name1: "Edward Fern"
-losing_name2: "Ashton Wheelwright"
-mean_after_losing: null
-mean_after_winning: null
-mean_before_losing: "456.066556"
-mean_before_winning: "547.4677565"
-standard_deviation_after_losing: null
-standard_deviation_after_winning: null
-standard_deviation_before_losing: "506.066556"
-standard_deviation_before_winning: "597.4677565"
-winner_score: "1"
-winning_id: "3"
-winning_id1: "1"
-winning_id2: "8"
-winning_name1: "John Smith"
-winning_name2: "Felix Taylor"*/
 
 /**
  * on page load funcion.
@@ -1063,10 +1042,6 @@ $("#event-upload-form").submit(function() {
 });
 
 
-//harinder's work  to changing match type and updating table accordingly
-
-
-
 var x = 0;
 
 function changeValue() {
@@ -1083,8 +1058,6 @@ function changeValue() {
     }
 
 }
-
-//harinder's work to show notification modal
 
 function modalSelection(){
     var ab = document.getElementById("event-type").value;
@@ -1156,14 +1129,14 @@ function changeMatchNumber() {
 
 
 function modalChangeNumber(){
-    
+
         document.getElementById("change-match-number-notification-modal-text").innerHTML = "Are you sure you wish to change match Number? You will lose any un-submitted events on this page.";
         document.querySelector(".change-match-number-notification-modal-background").style.display = "flex";
-    
+
 }
 
 function changeNumber(){
-    
+
     showUploadMatchRows();
     document.querySelector(".change-match-number-notification-modal-background").style.display = "none";
 }
@@ -1176,7 +1149,7 @@ function hideNumberModal() {
 /*for popover*/
 
 $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();   
+    $('[data-toggle="popover"]').popover();
 });
 
 /**
@@ -1222,9 +1195,8 @@ $(document).ready(function(){
 //listener for when bookmark button pressed
 $(".favourite-label").click(createBookmark);
 
-
- $(document).ready(function(){
-    favouriteButtonAnimation();
+$(document).ready(function(){
+   favouriteButtonAnimation();
 });
 
  /**
@@ -1579,8 +1551,6 @@ function updatePlayerTeams()
         }
     });
  }
-
- //$("#team-table-link").click(addTeamEventHistory());
 
  $( function(){
     $(".profile-sport-name").html($("#profile-select-sport option:selected").text());
