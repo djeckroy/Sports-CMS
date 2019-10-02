@@ -1156,14 +1156,14 @@ function changeMatchNumber() {
 
 
 function modalChangeNumber(){
-    
+
         document.getElementById("change-match-number-notification-modal-text").innerHTML = "Are you sure you wish to change match Number? You will lose any un-submitted events on this page.";
         document.querySelector(".change-match-number-notification-modal-background").style.display = "flex";
-    
+
 }
 
 function changeNumber(){
-    
+
     showUploadMatchRows();
     document.querySelector(".change-match-number-notification-modal-background").style.display = "none";
 }
@@ -1176,7 +1176,7 @@ function hideNumberModal() {
 /*for popover*/
 
 $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();   
+    $('[data-toggle="popover"]').popover();
 });
 
 /**
@@ -1222,9 +1222,63 @@ $(document).ready(function(){
 //listener for when bookmark button pressed
 $(".favourite-label").click(createBookmark);
 
+/*function showFavouritedPlayers()
+{
+  var favouritePost = 1;
 
- $(document).ready(function(){
-    favouriteButtonAnimation();
+  $.ajax
+  ({
+      url: "./process-player-list.php",
+      type: "POST",
+      data: {favouritePost: favouritePost},
+      success: function(data)
+      {
+        var favouriteCheckbox = $("#toggle-favourite-checkbox");
+        favouriteCheckbox.click(function(){
+          if(this.checked)
+          {
+            var jsonData = JSON.parse(data);
+
+            var newHTML = "";
+
+            newHTML += "<table class='search-result-table'>";
+          	newHTML += "<tr>";
+          	newHTML += "<th>Player</th>";
+          	newHTML += "<th>Age</th>";
+          	newHTML += "<th>Last Played</th>";
+          	newHTML += "<th>Club</th>";
+            newHTML += "<th>Region</th>";
+          	newHTML += "</tr>";
+
+            $.each(jsonData, function(key, value)
+            {
+              var dateFormat = { day: 'numeric', month: 'long', year: 'numeric' };
+              var lastPlayedDate = new Date(value.last_played);
+              var lastPlayed = lastPlayedDate.toLocaleDateString("en-AU", dateFormat);
+
+              newHTML += "<tr>";
+              newHTML += "<td><a id='player-name-link' href='profile.php?profile-id=" + value.player_id + "'>" + value.family_name + " " + value.given_name + "</a></td>";
+              newHTML += "<td>" + value.date_of_birth + "</td>";
+              newHTML += "<td>" + lastPlayed + "</td>";
+              newHTML += "<td></td>";
+              newHTML += "<td>" + value.country_name + ", " + value.state_name + "</td>";
+              newHTML += "</tr>";
+            });
+
+            $(".player-search-result-container").html(newHTML);
+          }
+          else
+          {
+
+          }
+        });
+      }
+  });
+}*/
+
+$(document).ready(function(){
+   favouriteButtonAnimation();
+   //showFavouritedPlayers();
 });
 
  /**

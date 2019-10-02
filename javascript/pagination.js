@@ -4,6 +4,7 @@ window.onload = retrieveTournamentDirectors(1, "", "");
 window.onload = retrieveAdministrators(1, "");
 window.onload = retrieveInactiveAccounts(1, "");
 window.onload = retrieveSearchedPlayers(1, "", "", "", "", "", "", "", "");
+window.onload = showFavouritedPlayers();
 window.onload = retrievePotentialAdministrators(1, "");
 window.onload = retrievePotentialDirectors(1, "");
 window.onload = uploadEventChangeStates($("#create-club-select-country"),$("#create-club-select-state"));
@@ -34,7 +35,7 @@ function retrievePotentialDirectors(page, searchTerm)
         url: "./account-pagination.php",
         type: "POST",
         data: {page: page, directorModal: directorModal, searchTerm: searchTerm},
-        success: function(data) 
+        success: function(data)
         {
             $("#director-table-modal-information").html(data);
         }
@@ -58,9 +59,9 @@ $(document).on('click', '#account-search-promote-director-button', function()
     retrievePotentialDirectors(1, searchValue);
 });
 
-$("#add-director-searchbar").keyup(function(event) 
+$("#add-director-searchbar").keyup(function(event)
 {
-    if (event.keyCode === 13) 
+    if (event.keyCode === 13)
     {
         $("#account-search-promote-director-button").click();
     }
@@ -78,14 +79,14 @@ $(document).on('click', '.account-promote-director-button', function()
     else
     {
     	clubID = $("#account-hidden-club-id").text();
-    } 
-    
+    }
+
     $.ajax
     ({
         url: "./ajax.php",
         type: "POST",
         data: {ajaxMethod: "promoteDirector", accountID: accountID, clubID: clubID},
-        success: function(data) 
+        success: function(data)
         {
             $("#account-search-promote-director-button").click();
             $("#account-search-directors-button").click();
@@ -112,7 +113,7 @@ function retrievePotentialAdministrators(page, searchTerm)
         url: "./account-pagination.php",
         type: "POST",
         data: {page: page, administratorModal: administratorModal, searchTerm: searchTerm},
-        success: function(data) 
+        success: function(data)
         {
             $("#administrator-table-modal-information").html(data);
         }
@@ -136,9 +137,9 @@ $(document).on('click', '#account-search-promote-administrator-button', function
     retrievePotentialAdministrators(1, searchValue);
 });
 
-$("#add-administrator-searchbar").keyup(function(event) 
+$("#add-administrator-searchbar").keyup(function(event)
 {
-    if (event.keyCode === 13) 
+    if (event.keyCode === 13)
     {
         $("#account-search-promote-administrator-button").click();
     }
@@ -147,13 +148,13 @@ $("#add-administrator-searchbar").keyup(function(event)
 $(document).on('click', '.account-promote-administrator-button', function()
 {
 	var accountID = $(this).closest('tr').find('.account-table-id').text();
-    
+
     $.ajax
     ({
         url: "./ajax.php",
         type: "POST",
         data: {ajaxMethod: "promoteAccount", accountID: accountID},
-        success: function(data) 
+        success: function(data)
         {
             retrieveAdministrators(1, "");
             retrievePotentialAdministrators(1, "");
@@ -174,7 +175,7 @@ function retrieveInactiveAccounts(page, searchTerm)
         url: "./account-pagination.php",
         type: "POST",
         data: {page: page, inactiveID: inactiveID, searchTerm: searchTerm},
-        success: function(data) 
+        success: function(data)
         {
             $("#account-requests-information").html(data);
         }
@@ -199,9 +200,9 @@ $(document).on('click', '#account-search-requests-button', function()
     retrieveInactiveAccounts(1, searchValue);
 });
 
-$("#requests-searchbar").keyup(function(event) 
+$("#requests-searchbar").keyup(function(event)
 {
-    if (event.keyCode === 13) 
+    if (event.keyCode === 13)
     {
         $("#account-search-requests-button").click();
     }
@@ -228,7 +229,7 @@ function approveRequest(accountID)
         url: "./ajax.php",
         type: "POST",
         data: {ajaxMethod: "activate-account", accountID: accountID},
-        success: function(data) 
+        success: function(data)
         {
             retrieveInactiveAccounts(1, "");
             showNotificationModal("Account Activation", "The account has been activated successfully.");
@@ -243,7 +244,7 @@ function denyRequest(accountID)
         url: "./ajax.php",
         type: "POST",
         data: {ajaxMethod: "remove-account", accountID: accountID},
-        success: function(data) 
+        success: function(data)
         {
             retrieveInactiveAccounts(1, "");
             showNotificationModal("Account Removal", "The account has been removed successfully.");
@@ -264,7 +265,7 @@ function retrieveRecentEventsForClub(page, searchTerm, clubID)
 		url: "./account-pagination.php",
         type: "POST",
         data: {page: page, eventID: eventID, searchTerm: searchTerm, clubID: clubID},
-        success: function(data) 
+        success: function(data)
         {
             $("#account-event-information").html(data);
         }
@@ -301,9 +302,9 @@ $(document).on('click', '#account-search-event-button', function()
     retrieveRecentEventsForClub(1, searchValue, clubID);
 });
 
-$("#event-searchbar").keyup(function(event) 
+$("#event-searchbar").keyup(function(event)
 {
-    if (event.keyCode === 13) 
+    if (event.keyCode === 13)
     {
         $("#account-search-event-button").click();
     }
@@ -356,7 +357,7 @@ function retrieveClubPlayers(page, searchTerm, clubID)
         url: "./account-pagination.php",
         type: "POST",
         data: {page: page, playersID: playersID, searchTerm: searchTerm, clubID: clubID},
-        success: function(data) 
+        success: function(data)
         {
             $("#account-players-information").html(data);
         }
@@ -397,9 +398,9 @@ $(document).on('click', '#account-search-players-button', function()
     retrieveClubPlayers(1, searchValue, clubID);
 });
 
-$("#club-players-searchbar").keyup(function(event) 
+$("#club-players-searchbar").keyup(function(event)
 {
-    if (event.keyCode === 13) 
+    if (event.keyCode === 13)
     {
         $("#account-search-players-button").click();
     }
@@ -449,7 +450,7 @@ function editPlayer(playerID, givenName, familyName, gender, dob, email, country
         url: "./ajax.php",
         type: "POST",
         data: {ajaxMethod: "editPlayer", playerID: playerID, givenName: givenName, familyName: familyName, gender: gender, dob: dob, email: email, country: country, state: state},
-        success: function(data) 
+        success: function(data)
         {
             hideEditPlayersModal();
             $("#account-search-players-button").click();
@@ -489,7 +490,7 @@ function retrieveExistingPlayers(page, searchTerm)
         url: "./account-pagination.php",
         type: "POST",
         data: {page: page, existingPlayerID: existingPlayerID, searchTerm: searchTerm, clubID: clubID},
-        success: function(data) 
+        success: function(data)
         {
             $("#existing-player-table-modal-information").empty();
             $("#existing-player-table-modal-information").html(data);
@@ -514,9 +515,9 @@ $(document).on('click', '#account-search-add-existing-player-button', function()
     retrieveExistingPlayers(1, searchValue);
 });
 
-$("#add-existing-player-searchbar").keyup(function(event) 
+$("#add-existing-player-searchbar").keyup(function(event)
 {
-    if (event.keyCode === 13) 
+    if (event.keyCode === 13)
     {
         $("#account-search-add-existing-player-button").click();
     }
@@ -541,7 +542,7 @@ $(document).on('click', '.account-remove-players-button', function()
         url: "./remove-player-from-club.php",
         type: "POST",
         data: {playerID: playerID, clubID: clubID},
-        success: function(data) 
+        success: function(data)
         {
             $("#account-search-players-button").click();
         }
@@ -562,13 +563,13 @@ $(document).on('click', '.add-existing-player-table-button', function()
     {
         clubID = $("#account-hidden-club-id").text();
     }
-    
+
     $.ajax
     ({
         url: "./ajax.php",
         type: "POST",
         data: {ajaxMethod: "add-existing-player", playerID: playerID, clubID: clubID},
-        success: function(data) 
+        success: function(data)
         {
             retrieveClubPlayers(1, "", clubID);
             retrieveExistingPlayers(1, "");
@@ -589,7 +590,7 @@ function retrieveTournamentDirectors(page, searchTerm, clubID)
         url: "./account-pagination.php",
         type: "POST",
         data: {page: page, directorID: directorID, searchTerm: searchTerm, clubID: clubID},
-        success: function(data) 
+        success: function(data)
         {
             $("#account-directors-information").html(data);
         }
@@ -626,9 +627,9 @@ $(document).on('click', '#account-search-directors-button', function()
     retrieveTournamentDirectors(1, searchValue, clubID);
 });
 
-$("#directors-searchbar").keyup(function(event) 
+$("#directors-searchbar").keyup(function(event)
 {
-    if (event.keyCode === 13) 
+    if (event.keyCode === 13)
     {
         $("#account-search-directors-button").click();
     }
@@ -647,7 +648,7 @@ function removeDirectorFromClub(accountID)
         url: "./remove-director.php",
         type: "POST",
         data: {accountID: accountID},
-        success: function(data) 
+        success: function(data)
         {
             $("#account-search-directors-button").click();
             document.location.reload();
@@ -671,7 +672,7 @@ function retrieveClubInformation(clubID)
         url: "./ajax.php",
         type: "POST",
         data: {ajaxMethod: "retrieveClubInformation", clubID: clubID},
-        success: function(data) 
+        success: function(data)
         {
             $("#account-club-details").empty().html(data);
         }
@@ -695,7 +696,7 @@ function retrieveAdministrators(page, searchTerm)
         url: "./account-pagination.php",
         type: "POST",
         data: {page: page, administrationID: administrationID, searchTerm: searchTerm},
-        success: function(data) 
+        success: function(data)
         {
             $("#account-administrator-information").html(data);
         }
@@ -719,9 +720,9 @@ $(document).on('click', '#account-search-administrators-button', function()
     retrieveAdministrators(1, searchValue);
 });
 
-$("#administrators-searchbar").keyup(function(event) 
+$("#administrators-searchbar").keyup(function(event)
 {
-    if (event.keyCode === 13) 
+    if (event.keyCode === 13)
     {
         $("#account-search-administrators-button").click();
     }
@@ -740,7 +741,7 @@ function demoteAdministrator(accountID)
         url: "./demote-administrator.php",
         type: "POST",
         data: {accountID: accountID},
-        success: function(data) 
+        success: function(data)
         {
             document.location.reload();
         }
@@ -774,11 +775,69 @@ function retrieveSearchedPlayers(page, playerName, playerAgeMin, playerAgeMax, l
         url: "./process-player-list.php",
         type: "POST",
         data: {page: page, playerName: playerName, playerAgeMin: playerAgeMin, playerAgeMax: playerAgeMax, lastPlayed: lastPlayed, clubName: clubName, countryName: countryName, stateName: stateName, submitSearchFilter: submitSearchFilter},
-        success: function(data) 
+        success: function(data)
         {
             $(".player-search-result-container").html(data);
         }
     });
+}
+
+function showFavouritedPlayers()
+{
+  var favouritePost = 1;
+
+  $.ajax
+  ({
+      url: "./process-player-list.php",
+      type: "POST",
+      data: {favouritePost: favouritePost},
+      success: function(data)
+      {
+        var favouriteCheckbox = $("#toggle-favourite-checkbox");
+        favouriteCheckbox.click(function(){
+          if(this.checked)
+          {
+            var jsonData = JSON.parse(data);
+
+            var newHTML = "";
+
+            newHTML += "<table class='search-result-table'>";
+          	newHTML += "<tr>";
+          	newHTML += "<th>Player</th>";
+          	newHTML += "<th>Age</th>";
+          	newHTML += "<th>Last Played</th>";
+          	newHTML += "<th>Club</th>";
+            newHTML += "<th>Region</th>";
+          	newHTML += "</tr>";
+
+            $.each(jsonData, function(key, value)
+            {
+              var dateFormat = { day: 'numeric', month: 'long', year: 'numeric' };
+              var lastPlayedDate = new Date(value.last_played);
+              var lastPlayed = lastPlayedDate.toLocaleDateString("en-AU", dateFormat);
+
+              var dateOfBirth = new Date(value.date_of_birth);
+              var currentDate = new Date();
+              var playerAge = Math.floor((currentDate - dateOfBirth) / (365.25 * 24 * 60 * 60 * 1000));
+
+              newHTML += "<tr>";
+              newHTML += "<td><a id='player-name-link' href='profile.php?profile-id=" + value.player_id + "'>" + value.family_name + " " + value.given_name + "</a></td>";
+              newHTML += "<td>" + playerAge + "</td>";
+              newHTML += "<td>" + lastPlayed + "</td>";
+              newHTML += "<td>" + value.club_name + "</td>";
+              newHTML += "<td>" + value.country_name + ", " + value.state_name + "</td>";
+              newHTML += "</tr>";
+            });
+
+            $(".player-search-result-container").html(newHTML);
+          }
+          else
+          {
+            $("#submit-search-filter").click();
+          }
+        });
+      }
+  });
 }
 
 $(document).on('click', '.player-search-link', function()
@@ -842,9 +901,9 @@ $( function() {
     }
 });
 
-$(".player-search-filter-container").keyup(function(event) 
+$(".player-search-filter-container").keyup(function(event)
 {
-    if (event.keyCode === 13) 
+    if (event.keyCode === 13)
     {
         $("#submit-search-filter").click();
     }
@@ -879,6 +938,3 @@ function setupInitialClubInfo()
     }
 
 }
-
-
-

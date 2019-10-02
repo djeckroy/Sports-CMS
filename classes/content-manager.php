@@ -39,10 +39,29 @@ class ContentManager
 
 	}
 
-	public function getSpecificPlayerInformation($player_id)
+	public function getSpecificPlayerInformation($playerID)
 	{
-		$query = "SELECT player.given_name, player.family_name, player.gender, player.email, player.date_of_birth, country.name as country_name, state.name as state_name FROM((player INNER JOIN country ON player.country_id = country.country_id) INNER JOIN state ON player.state_id = state.state_id) WHERE player_id = ?;";
-		$result = $this->database->query($query, [$player_id])->fetch();
+		$query = "SELECT
+										player.player_id,
+										player.given_name,
+										player.family_name,
+										player.gender,
+										player.email,
+										player.last_played,
+										player.date_of_birth,
+										country.name AS country_name,
+										state.name AS state_name,
+										club.name AS club_name
+							 FROM
+							 			player INNER JOIN
+										country ON player.country_id = country.country_id INNER JOIN
+										state ON player.state_id = state.state_id INNER JOIN
+										membership ON player.player_id = membership.player_id INNER JOIN
+										club ON membership.club_id = club.club_id
+							 WHERE
+							 			player.player_id = ?";
+
+		$result = $this->database->query($query, [$playerID])->fetch();
 
 		return $result;
 	}
@@ -345,7 +364,7 @@ class ContentManager
 
 	public function getTeamSports($teamID)
 	{
-		$query = "SELECT DISTINCT rating.sport_id, sport.name FROM rating INNER JOIN sport ON rating.sport_id = sport.sport_id WHERE rating.team_id = ? ";
+		$query = "SELECT DISTINCT rating.sport_id, sport.name FROM rating INNER JOIN sport ON rating.sport_id = sport.sport_id WHERE rating.team_id = ?";
 
 		$result = $this->database->query($query, [$teamID]);
 
@@ -631,18 +650,18 @@ class ContentManager
 	public function getPlayersByClub($clubID, $start, $amount, $searchTerm)
 	{
 		$query = "SELECT
-					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.gender, date_format(player.date_of_birth,'%Y') as date_of_birth, 
-					CAST(rating.mean AS SIGNED) AS mean, 
+					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.gender, date_format(player.date_of_birth,'%Y') as date_of_birth,
+					CAST(rating.mean AS SIGNED) AS mean,
 					CAST(rating.standard_deviation AS SIGNED) AS standard_deviation
-				  FROM 
+				  FROM
 				  	club
-				  JOIN 
+				  JOIN
 				  	membership on membership.club_id = club.club_id
                   JOIN
                     player ON player.player_id = membership.player_id
-				  JOIN 
+				  JOIN
 				  	rating on rating.player_id = player.player_id AND rating.sport_id = club.sport_id
-				  WHERE 
+				  WHERE
 				  	membership.club_id = ?
 				  AND
 				  	(player.given_name
@@ -1024,7 +1043,7 @@ class ContentManager
 	}
 
 
-    public function addPlayer($givenName, $familyName,$gender,$dateOfBirth, $email, $clubID)
+    public function addPlayer($givenName, $familyName, $gender, $dateOfBirth, $email, $clubID)
     {
 
     	$filteredGivenName = ucfirst(trim($givenName));

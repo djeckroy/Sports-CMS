@@ -1,4 +1,4 @@
-<?php 
+<?php
     $title = "Peterman Ratings | Players";
 
     include("./includes/header.php");
@@ -13,12 +13,12 @@
 
     <div class="player-search-filter-container">
 
-        
+
         <div id="player-search-filter-line">
             <h1 id="player-search-filter-title">Search for a Player</h1>
         </div>
- 
-            <div class="top-row-filter-inputs">
+
+          <div class="top-row-filter-inputs">
 
                 <input type="text" id="player-name-filter" placeholder="Enter Player Name">
 
@@ -26,11 +26,11 @@
 
                 <span id="player-age-filter-dash">-</span>
 
-                <input type="text" id="player-age-max-filter" placeholder="Max Age" pattern="[0-9]{1,3}">  
+                <input type="text" id="player-age-max-filter" placeholder="Max Age" pattern="[0-9]{1,3}">
 
                 <select id="player-country-filter">
                     <option selected>Select Country</option>
-                      <?php 
+                      <?php
 
                         $countries = $contentManager->getAllCountries()->fetchAll();
 
@@ -38,8 +38,8 @@
                         {
                             echo "<option value='".$country['country_id']."'>".$country['name']."</option>";
                         }
-                        
-                      ?>                       
+
+                      ?>
                 </select>
 
             </div>
@@ -48,14 +48,19 @@
 
                 <input type="text" id="player-club-filter" placeholder="Enter Club Name">
 
-                <input type="text" id="player-recent-match-filter" placeholder="Last Played" onfocus="(this.type='date')" onblur="(this.type='text')">  
+                <input type="text" id="player-recent-match-filter" placeholder="Last Played" onfocus="(this.type='date')" onblur="(this.type='text')">
 
                 <select id="player-state-filter">
                 </select>
 
-            </div> 
+            </div>
 
-            <div class="bottom-row-filter-inputs">       
+            <div class="bottom-row-filter-inputs">
+
+                <div class="favourite-checkbox-border">
+                  <input id="toggle-favourite-checkbox" type="checkbox" value="Favourited Players">
+                  <label id="favourite-checkbox-label" data-text="Show Favourited Players" for="toggle-favourite-checkbox"></label>
+                </div>
 
                 <button id="submit-search-filter">Search</button>
 
