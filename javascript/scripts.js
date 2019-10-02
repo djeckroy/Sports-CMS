@@ -759,27 +759,6 @@ function setEditEvent(eventID)
     });
 
 }
-/*
-loser_score: "2"
-losing_id: "4"
-losing_id1: "63"
-losing_id2: "14"
-losing_name1: "Edward Fern"
-losing_name2: "Ashton Wheelwright"
-mean_after_losing: null
-mean_after_winning: null
-mean_before_losing: "456.066556"
-mean_before_winning: "547.4677565"
-standard_deviation_after_losing: null
-standard_deviation_after_winning: null
-standard_deviation_before_losing: "506.066556"
-standard_deviation_before_winning: "597.4677565"
-winner_score: "1"
-winning_id: "3"
-winning_id1: "1"
-winning_id2: "8"
-winning_name1: "John Smith"
-winning_name2: "Felix Taylor"*/
 
 /**
  * on page load funcion.
@@ -1063,10 +1042,6 @@ $("#event-upload-form").submit(function() {
 });
 
 
-//harinder's work  to changing match type and updating table accordingly
-
-
-
 var x = 0;
 
 function changeValue() {
@@ -1083,8 +1058,6 @@ function changeValue() {
     }
 
 }
-
-//harinder's work to show notification modal
 
 function modalSelection(){
     var ab = document.getElementById("event-type").value;
@@ -1222,63 +1195,8 @@ $(document).ready(function(){
 //listener for when bookmark button pressed
 $(".favourite-label").click(createBookmark);
 
-/*function showFavouritedPlayers()
-{
-  var favouritePost = 1;
-
-  $.ajax
-  ({
-      url: "./process-player-list.php",
-      type: "POST",
-      data: {favouritePost: favouritePost},
-      success: function(data)
-      {
-        var favouriteCheckbox = $("#toggle-favourite-checkbox");
-        favouriteCheckbox.click(function(){
-          if(this.checked)
-          {
-            var jsonData = JSON.parse(data);
-
-            var newHTML = "";
-
-            newHTML += "<table class='search-result-table'>";
-          	newHTML += "<tr>";
-          	newHTML += "<th>Player</th>";
-          	newHTML += "<th>Age</th>";
-          	newHTML += "<th>Last Played</th>";
-          	newHTML += "<th>Club</th>";
-            newHTML += "<th>Region</th>";
-          	newHTML += "</tr>";
-
-            $.each(jsonData, function(key, value)
-            {
-              var dateFormat = { day: 'numeric', month: 'long', year: 'numeric' };
-              var lastPlayedDate = new Date(value.last_played);
-              var lastPlayed = lastPlayedDate.toLocaleDateString("en-AU", dateFormat);
-
-              newHTML += "<tr>";
-              newHTML += "<td><a id='player-name-link' href='profile.php?profile-id=" + value.player_id + "'>" + value.family_name + " " + value.given_name + "</a></td>";
-              newHTML += "<td>" + value.date_of_birth + "</td>";
-              newHTML += "<td>" + lastPlayed + "</td>";
-              newHTML += "<td></td>";
-              newHTML += "<td>" + value.country_name + ", " + value.state_name + "</td>";
-              newHTML += "</tr>";
-            });
-
-            $(".player-search-result-container").html(newHTML);
-          }
-          else
-          {
-
-          }
-        });
-      }
-  });
-}*/
-
 $(document).ready(function(){
    favouriteButtonAnimation();
-   //showFavouritedPlayers();
 });
 
  /**
@@ -1633,8 +1551,6 @@ function updatePlayerTeams()
         }
     });
  }
-
- //$("#team-table-link").click(addTeamEventHistory());
 
  $( function(){
     $(".profile-sport-name").html($("#profile-select-sport option:selected").text());
