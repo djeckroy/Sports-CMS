@@ -4593,8 +4593,6 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover
     border-radius: 4px;
     margin-top: 12px;
     margin-left: 30px;
-    transform: translate(0%, 2.7%);
-
 }
 .loser-set-score
 {
