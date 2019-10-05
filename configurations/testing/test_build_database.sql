@@ -166,7 +166,7 @@ insert into `state`(name, country_id) VALUES ('Otago', '2');
 
 insert into `sport` (name) VALUES ('Badminton');
 insert into `sport` (name) VALUES ('Squash');
-insert into `sport` (name) VALUES ('Table Tennis');
+insert into `sport` (name) VALUES ('Tennis');
 
 insert into `club` (name, country_id, state_id,sport_id) VALUES ('Launceston Badminton Club', 1, 1,1);
 insert into `club` (name, country_id, state_id, sport_id) VALUES ('Otago Squash Club', 2, 4, 2);

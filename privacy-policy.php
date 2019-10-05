@@ -5,7 +5,7 @@
     include("./includes/navigation.php");
 ?>
 
-<article class="privacy-and-terms-articles">
+<article class="aboutUs-privacy-and-terms-articles">
   
 <?php
 	echo nl2br( file_get_contents('./editable/privacy-policy.html') );
