@@ -2,14 +2,6 @@
 
 require("./includes/initialize.php");
 
-$playerName = $_POST['playerName'];
-$playerAgeMin = $_POST['playerAgeMin'];
-$playerAgeMax = $_POST['playerAgeMax'];
-$lastPlayed = $_POST['lastPlayed'];
-$clubName = $_POST['clubName'];
-$countryName = $_POST['countryName'];
-$stateName = $_POST['stateName'];
-
 $resultsPerPage = 15;
 $currentPage = "";
 $tableOutput = "";
@@ -23,10 +15,25 @@ else
 	$currentPage = 1;
 }
 
+if(isset($_POST['favouritePost']))
+{
+	$getFavouritedPlayers = $contentManager->getBookmarkedPlayers();
+
+	echo json_encode($getFavouritedPlayers);
+}
+
 if(isset($_POST["submitSearchFilter"]))
 {
+	$playerName = $_POST['playerName'];
+	$playerAgeMin = $_POST['playerAgeMin'];
+	$playerAgeMax = $_POST['playerAgeMax'];
+	$lastPlayed = $_POST['lastPlayed'];
+	$clubName = $_POST['clubName'];
+	$countryName = $_POST['countryName'];
+	$stateName = $_POST['stateName'];
+
 	$resultsPageToStartFrom = ($currentPage - 1) * $resultsPerPage;
-	
+
 	$searchFilter = $contentManager->playerSearchFilter($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName, $resultsPageToStartFrom, $resultsPerPage);
 
 	$totalPlayersResult = $contentManager->playerSearchFilterRowCount($playerName, $playerAgeMin, $playerAgeMax, $lastPlayed, $clubName, $countryName, $stateName);
@@ -42,7 +49,7 @@ if(isset($_POST["submitSearchFilter"]))
 	    </tr>";
 
     if($totalPlayersResult != 0)
-    { 
+    {
     	while($row = $searchFilter->fetch())
     	{
     		$tableOutput .= "
@@ -52,7 +59,7 @@ if(isset($_POST["submitSearchFilter"]))
                  <td>".$row["last_played"]."</td>
                  <td>".$row["club_name"]."</td>
                  <td>".$row["country_name"].", ".$row["state_name"]."</td>
-               </tr>";	
+               </tr>";
     	}
     }
     else
@@ -62,7 +69,7 @@ if(isset($_POST["submitSearchFilter"]))
 
 	$tableOutput .= "
         </table>
-    <div class='search-pagination-buttons-container'> 
+    <div class='search-pagination-buttons-container'>
     <div class='search-pagination-buttons'>";
 
     $totalPages = ceil($totalPlayersResult / $resultsPerPage);
@@ -146,10 +153,10 @@ if(isset($_POST["submitSearchFilter"]))
     $tableOutput .= "
         <span class='player-search-link player-search-link-active' id='" . $totalPages . "'>>></span>
     </div>
-    </div>";                
+    </div>";
 }
 
 
 echo $tableOutput;
 
-?>               
+?>
