@@ -30,7 +30,7 @@
 
     <div class="footer-bottom-content">
       <hr/>
-      <small>&copy; <?php echo date('Y'); ?> Peter Hadrill. All Rights Reserved.</small>
+      <small>&copy; <?php echo date('Y'); ?> Peter Hadrill BAppSc. All Rights Reserved.</small>
     </div>
 
   </div>
