@@ -30,7 +30,7 @@
 
     <div class="footer-bottom-content">
       <hr/>
-      <small>&copy; <?php echo date('Y'); ?> Peterman Ratings. All Rights Reserved.</small>
+      <small>&copy; <?php echo date('Y'); ?> Peter Hadrill 2019. All Rights Reserved.</small>
     </div>
 
   </div>
