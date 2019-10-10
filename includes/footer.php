@@ -30,7 +30,9 @@
 
     <div class="footer-bottom-content">
       <hr/>
+
       <small>&copy; Peter Hadrill BAppSc <?php echo date('Y'); ?>. All Rights Reserved.</small>
+
     </div>
 
   </div>

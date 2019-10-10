@@ -650,7 +650,7 @@ class ContentManager
 	public function getPlayersByClub($clubID, $start, $amount, $searchTerm)
 	{
 		$query = "SELECT
-					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.gender, date_format(player.date_of_birth,'%Y') as date_of_birth,
+					DISTINCT CONCAT(player.given_name, ' ', player.family_name) AS player_name, player.player_id, player.gender, DATE_FORMAT(player.date_of_birth, '%d %M %Y') as date_of_birth,
 					CAST(rating.mean AS SIGNED) AS mean,
 					CAST(rating.standard_deviation AS SIGNED) AS standard_deviation
 				  FROM
