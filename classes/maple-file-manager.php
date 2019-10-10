@@ -108,13 +108,13 @@ class MapleFileManager
 		if (!strcmp($this->tournamentType, "Single"))
 		{
 			//singles
-			exec("echo \"/bin/php tournamentProcess.php " . $this->tournamentID . "\"" . " | at now");
+			exec("echo \"/usr/bin/php tournamentProcess.php " . $this->tournamentID . "\"" . " | at now");
 			#exec("php tournamentProcess.php " . $this->tournamentID);
 		}
 		else
 		{
 			//doubles
-			exec("echo \"/bin/php tournamentProcessDouble.php " . $this->tournamentID . "\"" . " | at now");
+			exec("echo \"/usr/bin/php tournamentProcessDouble.php " . $this->tournamentID . "\"" . " | at now");
 			#exec("php tournamentProcessDouble.php " . $this->tournamentID);
 		}
 

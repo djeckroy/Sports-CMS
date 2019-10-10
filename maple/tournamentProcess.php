@@ -22,6 +22,24 @@ chdir(WEB_ROOT);
 require("./includes/initialize.php");
 chdir($working_dir);
 
+//queue management
+$queueFileName = 'mapleQ';
+
+//add event id to end of file
+file_put_contents($queueFileName, $argv[1] . "\n", FILE_APPEND);
+
+//continually check if this event is at front of queue 
+$f = fopen($queueFileName, 'r');
+$line = fgets($f);
+fclose($f);
+while ((int)$line != (int)$argv[1])
+{
+	sleep(20);
+	$f = fopen($queueFileName, 'r');
+	$line = fgets($f);
+	fclose($f);
+}
+//must have got to the top of the queue
 
 //Using the command line arguments rename the file so maple can open, run maple.
 //uncoment when working
@@ -49,5 +67,11 @@ for ($i=0;$i<$numMatches;$i++)
 //tidy up and delete files no longer needed. 
 fclose($processedFile);
 unlink('output_file');
+
+
+//delete first line of queue file so next in queue can go
+$array = file($queueFileName);
+array_shift($array);
+file_put_contents($queueFileName,$array);
 
 ?>
