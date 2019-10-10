@@ -405,7 +405,7 @@ class ContentManager
 						JOIN player player2 ON player2.player_id = team.player_two_id
 						WHERE rating.team_id = ? AND rating.sport_id = ?";
 		$result = $this->database->query($selectQuery, [$teamID, $sportID]);
-
+		
 		if ($result->rowCount() == 0)
 		{
 			//never played the sport need to create a rating.
@@ -413,15 +413,14 @@ class ContentManager
 			//rating = (player_a + player_b) / 2
 			//SD = ((player_a + player_b) / 2) + 50
 
-			$players = $this->getTeamPlayersBySport($teamID, $sportID);
-
+			$players = $this->getTeamPlayers($teamID);
+			
 			$player1Rating = $this->getPlayerRating($players['player_one_id'],$sportID);
 			$player2Rating = $this->getPlayerRating($players['player_two_id'],$sportID);
-
+			
 			$teamMean = ($player1Rating['mean'] + $player2Rating['mean']) / 2;
 			$teamSD = (($player1Rating['mean'] + $player2Rating['mean']) / 2) + 50;
-
-
+			
 			$query = "INSERT INTO `rating` (`rating_id`, `mean`, `standard_deviation`, `last_calculated`, `sport_id`, `player_id`, `team_id`) VALUES (NULL, ?, ?, NOW(), ?, NULL, ?)";
 			$insertResult = $this->database->query($query, [$teamMean, $teamSD, $sportID, $teamID]);
 
@@ -429,6 +428,16 @@ class ContentManager
 		}
 
 		return $result->fetch();
+	}
+	
+	public function getTeamPlayers($teamID)
+	{
+		$query = "SELECT * FROM team
+					WHERE
+					team.team_id = ?";
+		$result = $this->database->query($query, [$teamID])->fetch();
+
+		return $result;
 	}
 
 	public function getTeamRecentEvents($teamID, $sportID, $limitOffset = 0, $limitCount = 5)
