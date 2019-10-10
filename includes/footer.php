@@ -22,7 +22,7 @@
 
       <div class="footer-social-media">
         <h2 class="footer-heading">Follow Us</h2>
-        <a href="www.facebook.com">Facebook</a>
+        <a href="https://www.facebook.com/Peterman-Ratings-115171143224764/?modal=composer">Facebook</a>
         <a href="www.twitter.com">Twitter</a>
         <a href="www.instagram.com">Instagram</a>
       </div>
@@ -30,7 +30,9 @@
 
     <div class="footer-bottom-content">
       <hr/>
-      <small>&copy; <?php echo date('Y'); ?> Peter Hadrill BAppSc. All Rights Reserved.</small>
+
+      <small>&copy; Peter Hadrill BAppSc <?php echo date('Y'); ?>. All Rights Reserved.</small>
+
     </div>
 
   </div>
