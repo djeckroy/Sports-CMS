@@ -11,7 +11,7 @@
         <div class="initial-rating-content">
 
           <select class = "player-initial-rating" name ="player-initial-rating" id="player-initial-rating" onclick="prefillTextbox()">
-          <option value = "250"> Beginner</option>
+          <option value = "250"> Novice</option>
           <option value = "500"> Intermediate</option>
           <option value = "1000"> Advanced</option>
           </select> 
