@@ -173,9 +173,9 @@
 
   <div class="player-history-border">
 
-    <h1>Player History</h1>
+    <h1>Player History - <span class="profile-sport-name"></span></h1>
 
-    <h2 class="profile-sport-name"></h2>
+    <!--<h2 class="profile-sport-name"></h2>-->
 
     <table class="player-history-table">
 		  <tr class="odd-row">
