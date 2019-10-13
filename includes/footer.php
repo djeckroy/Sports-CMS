@@ -23,8 +23,8 @@
       <div class="footer-social-media">
         <h2 class="footer-heading">Follow Us</h2>
         <a href="https://www.facebook.com/Peterman-Ratings-115171143224764/?modal=composer">Facebook</a>
-        <a href="www.twitter.com">Twitter</a>
-        <a href="www.instagram.com">Instagram</a>
+        <a href="https://twitter.com/petermanRatings">Twitter</a>
+        <a href="https://www.instagram.com/peterman_ratings/">Instagram</a>
       </div>
     </div>
 
